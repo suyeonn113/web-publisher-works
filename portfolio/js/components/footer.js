@@ -7,6 +7,8 @@ export function renderFooter() {
   const main = document.querySelector("#main");
   if (!main) return;
 
+  document.querySelector('.site-footer')?.remove();
+
   if (page === 'contact') {
     const contactFooterHTML = `
       <footer class="site-footer site-footer--contact l-fullspan">

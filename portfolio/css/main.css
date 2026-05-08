@@ -110,14 +110,6 @@
     0 8px 20px rgba(24, 32, 44, 0.08);
   /* Card */
   --contact-card-bg: #fffcf8ea;
-  --contact-cardcase-filter:
-    invert(0.03)
-    brightness(1.34)
-    contrast(0.9);
-  --contact-cardcase-shadow: drop-shadow(0 18px 15px rgba(0, 0, 0, 0.1));
-  --contact-hint-card-shadow:
-    0 8px 18px rgba(0, 0, 0, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.62);
   --contact-card-shadow:
     0 10px 22px rgba(15, 23, 42, 0.1),
     0 1px 0 rgba(15, 23, 42, 0.05);
@@ -224,14 +216,6 @@
     0 8px 20px rgba(0, 0, 0, 0.18);
   /* Card */
   --contact-card-bg: #3b3b44;
-  --contact-cardcase-filter:
-    invert(0.10)
-    brightness(0.79)
-    contrast(0.96);
-  --contact-cardcase-shadow: drop-shadow(0 18px 15px rgba(0, 0, 0, 0.16));
-  --contact-hint-card-shadow:
-    0 8px 18px rgba(0, 0, 0, 0.16),
-    inset 0 1px 0 rgba(255, 255, 255, 0.26);
   --contact-card-shadow:
     0 12px 26px rgba(0, 0, 0, 0.18),
     0 1px 0 rgba(245, 242, 232, 0.05);
@@ -841,7 +825,14 @@ input[type=search]::-webkit-search-decoration {
 .site-footer {
   position: relative;
   display: block;
-  font-size: 13px;
+  font-size: 15px;
+}
+@media (max-width: 480px) {
+  .site-footer {
+    font-size: 14px;
+  }
+}
+.site-footer {
   font-weight: 400;
   letter-spacing: 0;
   line-height: 1.1;
@@ -860,6 +851,11 @@ input[type=search]::-webkit-search-decoration {
 }
 .site-footer__inner .site-footer__copy {
   order: 1;
+}
+
+.site-footer__copy,
+.site-footer__location {
+  min-width: 0;
 }
 
 .site-footer__contact {
@@ -881,6 +877,15 @@ input[type=search]::-webkit-search-decoration {
   .site-footer__contact {
     gap: 12px;
   }
+}
+
+.site-footer--contact .site-footer__location {
+  order: 1;
+}
+.site-footer--contact .site-footer__copy {
+  order: 2;
+  margin-left: auto;
+  text-align: right;
 }
 
 /* ============================================================
@@ -1334,16 +1339,13 @@ body[data-page=work] .site-footer {
 }
 @media (max-width: 480px) {
   .work-page {
-    padding-top: 56px;
+    padding-top: 76px;
   }
 }
 
 .work-page__inner {
   position: relative;
   z-index: 1;
-}
-
-.work-page__inner {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -1558,10 +1560,7 @@ body[data-page=work] .site-footer {
 .work-page__filter-btn {
   flex: 0 0 auto;
   position: relative;
-  overflow: visible;
   padding: 0 0 0.125rem;
-  border: 0;
-  transform: none;
   font-size: 15px;
 }
 @media (max-width: 480px) {
@@ -1575,10 +1574,8 @@ body[data-page=work] .site-footer {
   line-height: 1.6;
   font-family: "SUIT", "Pretendard", "Apple SD Gothic Neo", sans-serif;
   color: var(--color-text-tertiary);
-  background: none;
-  box-shadow: none;
   cursor: pointer;
-  transition: color 0.2s ease;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 .work-page__filter-btn[aria-pressed=true] {
   color: var(--color-point-primary);
@@ -1632,7 +1629,6 @@ body[data-page=work] .site-footer {
 .work-page__select {
   width: auto;
   min-width: 0;
-  min-height: auto;
   padding: 0 1.25rem 0.1875rem 0;
   font-size: 15px;
 }
@@ -1647,11 +1643,6 @@ body[data-page=work] .site-footer {
   line-height: 1.6;
   font-family: "SUIT", "Pretendard", "Apple SD Gothic Neo", sans-serif;
   color: var(--color-text-tertiary);
-  background: none;
-  border: 0;
-  border: 0;
-  border-radius: 0;
-  box-shadow: none;
   -moz-appearance: none;
        appearance: none;
   -webkit-appearance: none;
@@ -2193,7 +2184,7 @@ body[data-page=project-detail] .project-detail {
 }
 @media (max-width: 480px) {
   body[data-page=project-detail] .project-detail {
-    padding-top: 56px;
+    padding-top: 76px;
   }
 }
 body[data-page=project-detail] .project-detail {
@@ -3378,39 +3369,39 @@ body[data-page=project-detail] .project-key-flows-mobile-nav {
   bottom: 1.25rem;
   z-index: 300;
   width: min(85vw, 45rem);
-  padding-left: 48px;
+  padding-left: 28px;
 }
 @media (max-width: 1024px) {
   body[data-page=project-detail] .project-key-flows-mobile-nav {
-    padding-left: 40px;
+    padding-left: 24px;
   }
 }
 @media (max-width: 768px) {
   body[data-page=project-detail] .project-key-flows-mobile-nav {
-    padding-left: 32px;
+    padding-left: 20px;
   }
 }
 @media (max-width: 480px) {
   body[data-page=project-detail] .project-key-flows-mobile-nav {
-    padding-left: 28px;
+    padding-left: 16px;
   }
 }
 body[data-page=project-detail] .project-key-flows-mobile-nav {
-  padding-right: 48px;
+  padding-right: 28px;
 }
 @media (max-width: 1024px) {
   body[data-page=project-detail] .project-key-flows-mobile-nav {
-    padding-right: 40px;
+    padding-right: 24px;
   }
 }
 @media (max-width: 768px) {
   body[data-page=project-detail] .project-key-flows-mobile-nav {
-    padding-right: 32px;
+    padding-right: 20px;
   }
 }
 @media (max-width: 480px) {
   body[data-page=project-detail] .project-key-flows-mobile-nav {
-    padding-right: 28px;
+    padding-right: 16px;
   }
 }
 body[data-page=project-detail] .project-key-flows-mobile-nav {
@@ -3518,24 +3509,6 @@ body[data-page=project-detail] .flow-panel {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  padding: 48px;
-}
-@media (max-width: 1024px) {
-  body[data-page=project-detail] .flow-panel {
-    padding: 40px;
-  }
-}
-@media (max-width: 768px) {
-  body[data-page=project-detail] .flow-panel {
-    padding: 32px;
-  }
-}
-@media (max-width: 480px) {
-  body[data-page=project-detail] .flow-panel {
-    padding: 28px;
-  }
-}
-body[data-page=project-detail] .flow-panel {
   gap: 32px;
 }
 @media (max-width: 1024px) {
@@ -3551,6 +3524,24 @@ body[data-page=project-detail] .flow-panel {
 @media (max-width: 480px) {
   body[data-page=project-detail] .flow-panel {
     gap: 16px;
+  }
+}
+body[data-page=project-detail] .flow-panel {
+  padding: 28px;
+}
+@media (max-width: 1024px) {
+  body[data-page=project-detail] .flow-panel {
+    padding: 24px;
+  }
+}
+@media (max-width: 768px) {
+  body[data-page=project-detail] .flow-panel {
+    padding: 20px;
+  }
+}
+@media (max-width: 480px) {
+  body[data-page=project-detail] .flow-panel {
+    padding: 16px;
   }
 }
 body[data-page=project-detail] .flow-panel {
@@ -4683,7 +4674,7 @@ body[data-page=project-detail] .highlight-display {
   align-items: center;
   min-width: 0;
   max-width: 60rem;
-  min-height: auto;
+  min-height: clamp(10rem, 16vw, 14rem);
   gap: 32px;
 }
 @media (max-width: 1024px) {
@@ -4782,6 +4773,11 @@ body[data-page=project-detail] .highlight-display__text .split-line {
 @media (min-width: 768px) {
   body[data-page=project-detail] .highlight-display {
     max-width: 65rem;
+  }
+}
+@media (max-width: 768px) {
+  body[data-page=project-detail] .highlight-display {
+    min-height: clamp(11.5rem, 42vw, 16rem);
   }
 }
 body[data-page=project-detail] {
@@ -5112,7 +5108,7 @@ body[data-page=contact] .contact {
 }
 @media (max-width: 480px) {
   body[data-page=contact] .contact {
-    padding-top: 56px;
+    padding-top: 76px;
   }
 }
 body[data-page=contact] .contact {
@@ -5123,93 +5119,41 @@ body[data-page=contact] .contact__inner {
   display: flex;
   justify-content: center;
   align-items: center;
-  align-items: start;
-  min-height: inherit;
-}
-body[data-page=contact] {
-  /* ========================================
-    Cardcase
-  ======================================== */
-}
-body[data-page=contact] .contact-cardcase {
-  position: relative;
-  flex: 0 0 auto;
-  width: clamp(10rem, 10vw, 18.75rem);
-  aspect-ratio: 906/1223;
-  transform: rotate(-10deg);
-  filter: var(--contact-cardcase-shadow);
-  pointer-events: none;
-  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-}
-body[data-page=contact] .contact-cardcase__base, body[data-page=contact] .contact-cardcase__front {
-  position: absolute;
-  inset: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  -o-object-fit: contain;
-     object-fit: contain;
-  filter: var(--contact-cardcase-filter);
-}
-body[data-page=contact] .contact-cardcase__base {
-  z-index: 1;
-}
-body[data-page=contact] .contact-cardcase__hint-card {
-  position: absolute;
-  top: 8%;
-  left: 0%;
-  z-index: 2;
-  width: 90%;
-  height: 85%;
-  border-radius: 0.25rem;
-  background: var(--contact-card-bg);
-  box-shadow: var(--contact-hint-card-shadow);
-  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-  will-change: transform;
-}
-body[data-page=contact] .contact-cardcase__front {
-  z-index: 3;
-}
-body[data-page=contact] .contact-cardcase.is-open {
-  width: clamp(5rem, 6vw, 11.25rem);
-  transform: rotate(-14deg);
-}
-body[data-page=contact] .contact-cardcase.is-open .contact-cardcase__hint-card {
-  opacity: 0;
-  visibility: hidden;
-}
-body[data-page=contact] .contact-cardcase-item {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  min-width: 0;
-  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-}
-body[data-page=contact] .contact-cardcase-item::after {
-  content: "";
-  display: block;
-  flex: 0 0 auto;
-  width: 120px;
+  min-height: inherit;
+  gap: 48px;
 }
 @media (max-width: 1024px) {
-  body[data-page=contact] .contact-cardcase-item::after {
-    width: 100px;
+  body[data-page=contact] .contact__inner {
+    gap: 40px;
   }
 }
 @media (max-width: 768px) {
-  body[data-page=contact] .contact-cardcase-item::after {
-    width: 80px;
+  body[data-page=contact] .contact__inner {
+    gap: 32px;
   }
 }
 @media (max-width: 480px) {
-  body[data-page=contact] .contact-cardcase-item::after {
-    width: 64px;
+  body[data-page=contact] .contact__inner {
+    gap: 20px;
   }
 }
-body[data-page=contact] .contact-cardcase-item:hover .contact-cardcase__hint-card, body[data-page=contact] .contact-cardcase-item:focus-within .contact-cardcase__hint-card {
-  filter: brightness(1.3);
+body[data-page=contact] .contact__lead {
+  color: var(--color-text-tertiary);
+  text-align: center;
+  font-size: 15px;
+}
+@media (max-width: 480px) {
+  body[data-page=contact] .contact__lead {
+    font-size: 14px;
+  }
+}
+body[data-page=contact] .contact__lead {
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.3;
+  font-family: "SUIT", "Pretendard", "Apple SD Gothic Neo", sans-serif;
 }
 body[data-page=contact] {
   /* ========================================
@@ -5217,23 +5161,12 @@ body[data-page=contact] {
   ======================================== */
 }
 body[data-page=contact] .contact-list {
-  --contact-list-max: 70rem;
-  --contact-list-safe-space: 7.5rem;
-  --contact-list-shift: clamp(
-    0px,
-    calc((100vw - var(--contact-list-safe-space) - var(--contact-list-max)) * 0.14),
-    6.25rem
-  );
-  position: absolute;
+  position: relative;
   z-index: 400;
-  top: 50%;
-  left: 30%;
   display: grid;
-  grid-template-columns: max-content;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: center;
-  width: -moz-max-content;
-  width: max-content;
-  transform: translate(calc(-50% - var(--contact-list-shift)), calc(-50% - 1.5rem));
+  width: min(100% - 5rem, 60rem);
   transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   gap: 32px;
 }
@@ -5252,31 +5185,18 @@ body[data-page=contact] .contact-list {
     gap: 16px;
   }
 }
-body[data-page=contact] .contact-list.is-open {
-  top: 18%;
-  left: auto;
-  grid-template-columns: minmax(13.75rem, max-content) repeat(3, minmax(0, 1fr));
-  width: min(100% - 5rem, 81.25rem);
-  transform: none;
-}
 body[data-page=contact] {
   /* ========================================
     Cards
   ======================================== */
 }
 body[data-page=contact] .contact-card {
-  display: none;
-  min-width: 0;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-}
-body[data-page=contact] .contact-list.is-open .contact-card {
   display: block;
+  min-width: 0;
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 body[data-page=contact] .contact-card__link {
   position: relative;
@@ -5377,50 +5297,24 @@ body[data-page=contact] {
   ======================================== */
 }
 @media (max-width: 1024px) {
-  body[data-page=contact] .contact-cardcase {
-    width: clamp(9.375rem, 16vw, 13.125rem);
-  }
-  body[data-page=contact] .contact-cardcase.is-open {
-    width: clamp(3.75rem, 8vw, 9.375rem);
-  }
-  body[data-page=contact] .contact-cardcase-item::after {
-    width: 28px;
-  }
-}
-@media (max-width: 1024px) and (max-width: 1024px) {
-  body[data-page=contact] .contact-cardcase-item::after {
-    width: 24px;
-  }
-}
-@media (max-width: 1024px) and (max-width: 768px) {
-  body[data-page=contact] .contact-cardcase-item::after {
-    width: 20px;
-  }
-}
-@media (max-width: 1024px) and (max-width: 480px) {
-  body[data-page=contact] .contact-cardcase-item::after {
-    width: 16px;
-  }
-}
-@media (max-width: 1024px) {
-  body[data-page=contact] .contact-list.is-open {
-    grid-template-columns: minmax(11.875rem, max-content) repeat(3, minmax(0, 1fr));
-    width: min(100% - 3rem, 55rem);
+  body[data-page=contact] .contact-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: min(100% - 3rem, 47.5rem);
     gap: 16px;
   }
 }
 @media (max-width: 1024px) and (max-width: 1024px) {
-  body[data-page=contact] .contact-list.is-open {
+  body[data-page=contact] .contact-list {
     gap: 16px;
   }
 }
 @media (max-width: 1024px) and (max-width: 768px) {
-  body[data-page=contact] .contact-list.is-open {
+  body[data-page=contact] .contact-list {
     gap: 16px;
   }
 }
 @media (max-width: 1024px) and (max-width: 480px) {
-  body[data-page=contact] .contact-list.is-open {
+  body[data-page=contact] .contact-list {
     gap: 12px;
   }
 }
@@ -5450,20 +5344,11 @@ body[data-page=contact] {
   }
 }
 @media (max-width: 768px) {
-  body[data-page=contact] .contact-cardcase {
-    width: clamp(6.25rem, 18vw, 9.375rem);
-  }
-  body[data-page=contact] .contact-cardcase.is-open {
-    width: clamp(2.5rem, 10vw, 5.625rem);
-  }
   body[data-page=contact] .contact-list {
-    position: absolute;
-    top: 35%;
-    left: 35%;
+    position: relative;
     grid-template-columns: minmax(0, 28.75rem);
     justify-content: center;
     width: min(100% - 4rem, 31.25rem);
-    transform: translate(calc(-50% - var(--contact-list-shift)), -50%);
     row-gap: 16px;
     -moz-column-gap: 16px;
          column-gap: 16px;
@@ -5503,58 +5388,6 @@ body[data-page=contact] {
   }
 }
 @media (max-width: 768px) {
-  body[data-page=contact] .contact-list.is-open {
-    position: relative;
-    top: auto;
-    left: auto;
-    grid-template-columns: minmax(0, 28.75rem);
-    width: min(100% - 4rem, 31.25rem);
-    transform: none;
-  }
-  body[data-page=contact] .contact-cardcase-item {
-    flex-direction: column;
-  }
-  body[data-page=contact] .contact-cardcase-item::after {
-    width: 0;
-    height: 64px;
-  }
-}
-@media (max-width: 768px) and (max-width: 1024px) {
-  body[data-page=contact] .contact-cardcase-item::after {
-    height: 56px;
-  }
-}
-@media (max-width: 768px) and (max-width: 768px) {
-  body[data-page=contact] .contact-cardcase-item::after {
-    height: 48px;
-  }
-}
-@media (max-width: 768px) and (max-width: 480px) {
-  body[data-page=contact] .contact-cardcase-item::after {
-    height: 40px;
-  }
-}
-@media (max-width: 768px) {
-  body[data-page=contact] .contact-list.is-open .contact-cardcase-item {
-    padding-top: 64px;
-  }
-}
-@media (max-width: 768px) and (max-width: 1024px) {
-  body[data-page=contact] .contact-list.is-open .contact-cardcase-item {
-    padding-top: 56px;
-  }
-}
-@media (max-width: 768px) and (max-width: 768px) {
-  body[data-page=contact] .contact-list.is-open .contact-cardcase-item {
-    padding-top: 48px;
-  }
-}
-@media (max-width: 768px) and (max-width: 480px) {
-  body[data-page=contact] .contact-list.is-open .contact-cardcase-item {
-    padding-top: 40px;
-  }
-}
-@media (max-width: 768px) {
   body[data-page=contact] .contact-card__link {
     aspect-ratio: auto;
     min-height: clamp(10.5rem, 46vw, 13rem);
@@ -5572,27 +5405,14 @@ body[data-page=contact] {
   ======================================== */
 }
 @media (prefers-reduced-motion: reduce) {
-  body[data-page=contact] .contact-cardcase,
   body[data-page=contact] .contact-list,
   body[data-page=contact] .contact-card,
-  body[data-page=contact] .contact-card__link,
-  body[data-page=contact] .contact-cardcase__hint-card {
+  body[data-page=contact] .contact-card__link {
     transition: none;
   }
-  body[data-page=contact] .contact-cardcase {
-    width: clamp(5rem, 8vw, 11.25rem);
-    transform: rotate(-14deg);
-  }
-  body[data-page=contact] .contact-cardcase .contact-cardcase__hint-card {
-    opacity: 0;
-    visibility: hidden;
-  }
   body[data-page=contact] .contact-list {
-    top: 25%;
-    left: auto;
-    grid-template-columns: minmax(13.75rem, max-content) repeat(3, minmax(0, 1fr));
-    width: min(100% - 5rem, 81.25rem);
-    transform: none;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: min(100% - 5rem, 60rem);
   }
   body[data-page=contact] .contact-card {
     display: block;
@@ -5603,8 +5423,8 @@ body[data-page=contact] {
 }
 @media (prefers-reduced-motion: reduce) and (max-width: 1024px) {
   body[data-page=contact] .contact-list {
-    grid-template-columns: minmax(11.875rem, max-content) repeat(3, minmax(0, 1fr));
-    width: min(100% - 3rem, 55rem);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: min(100% - 3rem, 47.5rem);
     gap: 16px;
   }
 }
@@ -5644,59 +5464,11 @@ body[data-page=contact] {
   }
 }
 @media (prefers-reduced-motion: reduce) and (max-width: 768px) {
-  body[data-page=contact] .contact-cardcase {
-    width: clamp(6rem, 18vw, 8.125rem);
-  }
   body[data-page=contact] .contact-list {
     position: relative;
-    top: auto;
-    left: auto;
     grid-template-columns: minmax(0, 28.75rem);
     width: min(100% - 4rem, 31.25rem);
-    transform: none;
   }
-  body[data-page=contact] .contact-cardcase-item {
-    flex-direction: column;
-    padding-top: 64px;
-  }
-}
-@media (prefers-reduced-motion: reduce) and (max-width: 768px) and (max-width: 1024px) {
-  body[data-page=contact] .contact-cardcase-item {
-    padding-top: 56px;
-  }
-}
-@media (prefers-reduced-motion: reduce) and (max-width: 768px) and (max-width: 768px) {
-  body[data-page=contact] .contact-cardcase-item {
-    padding-top: 48px;
-  }
-}
-@media (prefers-reduced-motion: reduce) and (max-width: 768px) and (max-width: 480px) {
-  body[data-page=contact] .contact-cardcase-item {
-    padding-top: 40px;
-  }
-}
-@media (prefers-reduced-motion: reduce) and (max-width: 768px) {
-  body[data-page=contact] .contact-cardcase-item::after {
-    width: 0;
-    height: 64px;
-  }
-}
-@media (prefers-reduced-motion: reduce) and (max-width: 768px) and (max-width: 1024px) {
-  body[data-page=contact] .contact-cardcase-item::after {
-    height: 56px;
-  }
-}
-@media (prefers-reduced-motion: reduce) and (max-width: 768px) and (max-width: 768px) {
-  body[data-page=contact] .contact-cardcase-item::after {
-    height: 48px;
-  }
-}
-@media (prefers-reduced-motion: reduce) and (max-width: 768px) and (max-width: 480px) {
-  body[data-page=contact] .contact-cardcase-item::after {
-    height: 40px;
-  }
-}
-@media (prefers-reduced-motion: reduce) and (max-width: 768px) {
   body[data-page=contact] .contact-card__link {
     aspect-ratio: 16/9;
   }

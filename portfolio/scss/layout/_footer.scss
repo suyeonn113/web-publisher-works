@@ -3,7 +3,7 @@
 .site-footer {
   position: relative;
   display: block;
-  @include text-style('xs', 'regular', 'base', 'tight');
+  @include text-style('sm', 'regular', 'base', 'tight');
   z-index: get-z('toast');
 }
 
@@ -16,8 +16,25 @@
   .site-footer__copy { order: 1; }
 }
 
+.site-footer__copy,
+.site-footer__location {
+  min-width: 0;
+}
+
 .site-footer__contact {
   display: flex;
   justify-content: end;
   @include space-gap('cluster', 'sm');
+}
+
+.site-footer--contact {
+  .site-footer__location {
+    order: 1;
+  }
+
+  .site-footer__copy {
+    order: 2;
+    margin-left: auto;
+    text-align: right;
+  }
 }

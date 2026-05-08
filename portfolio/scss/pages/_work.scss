@@ -22,11 +22,9 @@ body[data-page="work"] .site-footer {
 .work-page__inner {
   position: relative;
   z-index: 1;
-}
-
-.work-page__inner {
   display: flex;
   flex-direction: column;
+
   width: 100%;
   min-width: 0;
   margin: 0 auto;
@@ -57,7 +55,6 @@ body[data-page="work"] .site-footer {
   @include text-style('title', 'bold', 'tight', 'tight');
   font-family: $font-point;
   color: $text-primary;
-  
 }
 
 .work-page__status {
@@ -111,17 +108,13 @@ body[data-page="work"] .site-footer {
 .work-page__filter-btn {
   flex: 0 0 auto;
   position: relative;
-  overflow: visible;
   padding: 0 0 rem(2px);
-  border: 0;
-  transform: none;
 
   @include text-style('sm', 'medium', 'base');
   color: $text-tertiary;
-  background: none;
-  box-shadow: none;
+
   cursor: pointer;
-  transition: color 0.2s ease;
+  transition: $tr-base;
 
   &[aria-pressed='true'] {
     color: var(--color-point-primary);
@@ -169,17 +162,10 @@ body[data-page="work"] .site-footer {
 .work-page__select {
   width: auto;
   min-width: 0;
-  min-height: auto;
   padding: 0 rem(20px) rem(3px) 0;
   @include text-style('sm', 'medium', 'base');
 
   color: $text-tertiary;
-  background: none;
-  border: 0;
-  border: 0;
-  border-radius: 0;
-  box-shadow: none;
-
   appearance: none;
   -webkit-appearance: none;
   cursor: pointer;

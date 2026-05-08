@@ -598,7 +598,7 @@ body[data-page='project-detail'] {
     z-index: get-z('header');
     
     width: min(85vw, rem(720px));
-    @include pad('pad', 'lg', 'x');
+    @include pad('pad', 'md', 'x');
 
     opacity: 0;
     visibility: hidden;
@@ -642,8 +642,8 @@ body[data-page='project-detail'] {
     display: flex;
     flex-direction: column;
     min-width: 0;
-    @include pad('pad', 'lg');
     @include f-gap('gutter', 'md');
+    @include pad('pad', 'md');
     scroll-margin-top: rem(120px);
   }
 
@@ -1124,7 +1124,7 @@ body[data-page='project-detail'] {
     align-items: center;
     min-width: 0;
     max-width: rem(960px);
-    min-height: auto;
+    min-height: clamp(rem(160px), 16vw, rem(224px));
     @include f-gap('gutter', 'md');
     text-align: center;
   }
@@ -1165,6 +1165,12 @@ body[data-page='project-detail'] {
   @include respond-up('tablet') {
     .highlight-display {
       max-width: rem(1040px);
+    }
+  }
+
+  @include respond-down('tablet') {
+    .highlight-display {
+      min-height: clamp(rem(184px), 42vw, rem(256px));
     }
   }
 

@@ -137,7 +137,7 @@ $spaces: (
       'default': map.get(map.get(map.get($spacings, 'pad'), 'lg'), 'default') + map.get(map.get(map.get($spacings, 'pad'), 'lg'), 'default'),
       'laptop': map.get(map.get(map.get($spacings, 'pad'), 'lg'), 'laptop') + map.get(map.get(map.get($spacings, 'pad'), 'lg'), 'laptop'),
       'tablet': map.get(map.get(map.get($spacings, 'pad'), 'lg'), 'tablet') + map.get(map.get(map.get($spacings, 'pad'), 'lg'), 'tablet'),
-      'mobile': map.get(map.get(map.get($spacings, 'pad'), 'lg'), 'mobile') + map.get(map.get(map.get($spacings, 'pad'), 'lg'), 'mobile')
+      'mobile': map.get(map.get(map.get($spacings, 'pad'), 'xl'), 'mobile') + map.get(map.get(map.get($spacings, 'pad'), 'lg'), 'mobile')
     )
   )
 );

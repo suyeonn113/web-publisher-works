@@ -19,88 +19,16 @@ body[data-page='contact'] {
   .contact__inner {
     position: relative;
     @include flex-center;
-    align-items: start;
+    flex-direction: column;
+    align-items: center;
     min-height: inherit;
+    @include f-gap('gutter', 'lg');
   }
 
-  /* ========================================
-    Cardcase
-  ======================================== */
-
-  .contact-cardcase {
-    position: relative;
-    flex: 0 0 auto;
-    width: clamp(rem(160px), 10vw, rem(300px));
-    aspect-ratio: 906 / 1223;
-    transform: rotate(-10deg);
-    filter: var(--contact-cardcase-shadow);
-    pointer-events: none;
-    transition: $tr-base;
-
-    &__base,
-    &__front {
-      position: absolute;
-      inset: 0;
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      filter: var(--contact-cardcase-filter);
-    }
-
-    &__base {
-      z-index: 1;
-    }
-
-    &__hint-card {
-      position: absolute;
-      top: 8%;
-      left: 0%;
-      z-index: 2;
-      width: 90%;
-      height: 85%;
-      border-radius: rem(4px);
-      background: var(--contact-card-bg);
-      box-shadow: var(--contact-hint-card-shadow);
-      transition: $tr-base;
-      will-change: transform;
-    }
-
-    &__front {
-      z-index: 3;
-    }
-
-    &.is-open {
-      width: clamp(rem(80px), 6vw, rem(180px));
-      transform: rotate(-14deg);
-
-      .contact-cardcase__hint-card {
-        opacity: 0;
-        visibility: hidden;
-      }
-    }
-  }
-
-  .contact-cardcase-item {
-    position: relative;
-    z-index: get-z('base');
-    @include flex-center;
-    min-width: 0;
-    transition: $tr-base;
-
-    &::after {
-      content: '';
-      display: block;
-      flex: 0 0 auto;
-      @include responsive-spacing('width', 'gap', 'md');
-    }
-
-    &:hover,
-    &:focus-within {
-      .contact-cardcase__hint-card {
-        filter: brightness(1.3);
-      }
-    }
+  .contact__lead {
+    color: $text-tertiary;
+    text-align: center;
+    @include text-style('sm', 'medium', 'base', 'wide');
   }
 
   /* ========================================
@@ -108,36 +36,14 @@ body[data-page='contact'] {
   ======================================== */
 
   .contact-list {
-    --contact-list-max: #{rem(1120px)};
-    --contact-list-safe-space: #{rem(120px)};
-    --contact-list-shift: clamp(
-      0px,
-      calc((100vw - var(--contact-list-safe-space) - var(--contact-list-max)) * 0.14),
-      #{rem(100px)}
-    );
-
-    position: absolute;
+    position: relative;
     z-index: get-z('overlay');
-    top: 50%;
-    left: 30%;
     display: grid;
-    grid-template-columns: max-content;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     align-items: center;
-    width: max-content;
-    transform: translate(
-      calc(-50% - var(--contact-list-shift)),
-      calc(-50% - #{rem(24px)})
-    );
+    width: min(calc(100% - #{rem(80px)}), rem(960px));
     transition: $tr-base;
     @include g-gap('gutter', 'md');
-
-    &.is-open {
-      top: 18%;
-      left: auto;
-      grid-template-columns: minmax(rem(220px), max-content) repeat(3, minmax(0, 1fr));
-      width: min(calc(100% - #{rem(80px)}), rem(1300px));
-      transform: none;
-    }
   }
 
   /* ========================================
@@ -145,21 +51,12 @@ body[data-page='contact'] {
   ======================================== */
 
   .contact-card {
-    display: none;
+    display: block;
     min-width: 0;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
     transition: $tr-base;
-  }
-
-  .contact-list.is-open {
-    .contact-card {
-      display: block;
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-    }
   }
 
   .contact-card__link {
@@ -224,21 +121,9 @@ body[data-page='contact'] {
   ======================================== */
 
   @include respond-down('laptop') {
-    .contact-cardcase {
-      width: clamp(rem(150px), 16vw, rem(210px));
-
-      &.is-open {
-        width: clamp(rem(60px), 8vw, rem(150px));
-      }
-    }
-
-    .contact-cardcase-item::after {
-      @include responsive-spacing('width', 'pad', 'md');
-    }
-
-    .contact-list.is-open {
-      grid-template-columns: minmax(rem(190px), max-content) repeat(3, minmax(0, 1fr));
-      width: min(calc(100% - #{rem(48px)}), rem(880px));
+    .contact-list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      width: min(calc(100% - #{rem(48px)}), rem(760px));
       @include g-gap('gutter', 'sm');
     }
   }
@@ -252,50 +137,12 @@ body[data-page='contact'] {
       @include responsive-spacing('padding-bottom', 'pad', 'md');
     }
 
-    .contact-cardcase {
-      width: clamp(rem(100px), 18vw, rem(150px));
-
-      &.is-open {
-        width: clamp(rem(40px), 10vw, rem(90px));
-      }
-    }
-
     .contact-list {
-      position: absolute;
-      top: 35%;
-      left: 35%;
+      position: relative;
       grid-template-columns: minmax(0, rem(460px));
       justify-content: center;
       width: min(calc(100% - #{rem(64px)}), rem(500px));
-      transform: translate(
-        calc(-50% - var(--contact-list-shift)),
-        -50%
-      );
       @include g-gap('gutter', 'sm', 'gutter', 'sm');
-
-      &.is-open {
-        position: relative;
-        top: auto;
-        left: auto;
-        grid-template-columns: minmax(0, rem(460px));
-        width: min(calc(100% - #{rem(64px)}), rem(500px));
-        transform: none;
-      }
-    }
-
-    .contact-cardcase-item {
-      flex-direction: column;
-
-      &::after {
-        width: 0;
-        @include responsive-spacing('height', 'gap', 'sm');
-      }
-    }
-
-    .contact-list.is-open {
-      .contact-cardcase-item {
-        @include responsive-spacing('padding-top', 'gap', 'sm');
-      }
     }
 
     .contact-card__link {
@@ -317,30 +164,15 @@ body[data-page='contact'] {
   ======================================== */
 
   @media (prefers-reduced-motion: reduce) {
-    .contact-cardcase,
     .contact-list,
     .contact-card,
-    .contact-card__link,
-    .contact-cardcase__hint-card {
+    .contact-card__link {
       transition: none;
     }
 
-    .contact-cardcase {
-      width: clamp(rem(80px), 8vw, rem(180px));
-      transform: rotate(-14deg);
-
-      .contact-cardcase__hint-card {
-        opacity: 0;
-        visibility: hidden;
-      }
-    }
-
     .contact-list {
-      top: 25%;
-      left: auto;
-      grid-template-columns: minmax(rem(220px), max-content) repeat(3, minmax(0, 1fr));
-      width: min(calc(100% - #{rem(80px)}), rem(1300px));
-      transform: none;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      width: min(calc(100% - #{rem(80px)}), rem(960px));
     }
 
     .contact-card {
@@ -352,8 +184,8 @@ body[data-page='contact'] {
 
     @include respond-down('laptop') {
       .contact-list {
-        grid-template-columns: minmax(rem(190px), max-content) repeat(3, minmax(0, 1fr));
-        width: min(calc(100% - #{rem(48px)}), rem(880px));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        width: min(calc(100% - #{rem(48px)}), rem(760px));
         @include g-gap('gutter', 'sm');
       }
     }
@@ -363,27 +195,10 @@ body[data-page='contact'] {
         @include responsive-spacing('padding-bottom', 'pad', 'lg');
       }
 
-      .contact-cardcase {
-        width: clamp(rem(96px), 18vw, rem(130px));
-      }
-
       .contact-list {
         position: relative;
-        top: auto;
-        left: auto;
         grid-template-columns: minmax(0, rem(460px));
         width: min(calc(100% - #{rem(64px)}), rem(500px));
-        transform: none;
-      }
-
-      .contact-cardcase-item {
-        flex-direction: column;
-        @include responsive-spacing('padding-top', 'gap', 'sm');
-
-        &::after {
-          width: 0;
-          @include responsive-spacing('height', 'gap', 'sm');
-        }
       }
 
       .contact-card__link {

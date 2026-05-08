@@ -25,7 +25,6 @@ import { renderFooter } from "./components/footer.js";
 import { loadWorkCardList } from './components/WorkCardList.js';
 import { initWorkSlider } from './components/workSlider.js';
 import { loadProjectDetail } from './components/ProjectDetail.js';
-import { initContactCardcase } from './components/cardcase.js';
 
 // Animations
 import { initHeroText } from './animations/heroText.js';
@@ -36,6 +35,8 @@ gsap.registerPlugin(ScrollTrigger);
 async function initPage() {
   const page = document.querySelector('#main')?.dataset.page || document.body?.dataset.page || '';
   document.body.dataset.page = page;
+
+  renderFooter();
 
   if (window.lucide) {
     window.lucide.createIcons();
@@ -86,10 +87,6 @@ async function initPage() {
     }
   }
 
-  if (page === 'contact') {
-    initContactCardcase();
-  }
-
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -101,7 +98,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   initScrollStability(lenis);
 
   renderHeader();
-  renderFooter();
 
   await initPage();
 

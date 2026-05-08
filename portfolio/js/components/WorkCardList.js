@@ -188,13 +188,6 @@ function applyWorkPinPositions(listEl) {
     image.addEventListener('load', () => syncWorkPinPosition(card), { once: true });
   });
 }
-
-function refreshWorkPinPositions() {
-  const listEl = document.querySelector(SELECTOR.list);
-  if (!listEl) return;
-
-  queueWorkMasonryLayout(listEl);
-}
 /* END work pin position */
 
 function resetWorkHoverThumbnails(cards = []) {
@@ -448,8 +441,8 @@ async function updateList(list = []) {
   const previousLayout = new Map(cards.map((card) => [
     card,
     {
-      x: Number(gsap.getProperty(card, 'x')) || 0,
-      y: Number(gsap.getProperty(card, 'y')) || 0,
+      x: Number(gsap.getProperty(card, 'x') ?? card.dataset.masonryX ?? 0),
+      y: Number(gsap.getProperty(card, 'y') ?? card.dataset.masonryY ?? 0),
       isVisible: card.getAttribute('aria-hidden') !== 'true'
     }
   ]));
@@ -460,8 +453,12 @@ async function updateList(list = []) {
   listEl.style.pointerEvents = 'none';
   cards.forEach((card) => card.classList.remove('is-masonry-ready'));
   gsap.killTweensOf(cards);
-  gsap.set(cards, { visibility: 'visible' });
   resetWorkHoverThumbnails(cards);
+
+  cards.forEach((card) => {
+    const pos = previousLayout.get(card);
+    if (pos) gsap.set(card, { x: pos.x, y: pos.y });
+  });
 
   list.forEach((project) => {
     const card = state.elements.get(project.id);
@@ -474,15 +471,11 @@ async function updateList(list = []) {
     const isVisible = nextIds.has(card.dataset.projectId);
     const wasVisible = previousLayout.get(card)?.isVisible;
 
-    if (isVisible && wasVisible) {
-      stayingCards.push(card);
-    } else if (isVisible) {
-      enteringCards.push(card);
-    } else if (wasVisible) {
-      leavingCards.push(card);
-    }
+    card.setAttribute('aria-hidden', isVisible ? 'false' : 'true');
 
-    card.style.display = '';
+    if (isVisible && wasVisible) stayingCards.push(card);
+    else if (isVisible) enteringCards.push(card);
+    else if (wasVisible) leavingCards.push(card);
   });
 
   if (enteringCards.length) {
@@ -499,22 +492,6 @@ async function updateList(list = []) {
     .filter(Boolean);
   const nextLayout = calculateWorkMasonry(listEl, nextItems);
 
-  enteringCards.forEach((card) => {
-    const next = nextLayout.positions.get(card) || { x: 0, y: 0 };
-
-    gsap.set(card, {
-      x: next.x,
-      y: next.y,
-      opacity: 0,
-      scale: 1,
-      force3D: true
-    });
-  });
-
-  cards.forEach((card) => {
-    card.setAttribute('aria-hidden', nextIds.has(card.dataset.projectId) ? 'false' : 'true');
-  });
-
   listEl.style.transition = 'none';
   gsap.set(listEl, { height: previousListHeight });
   observeWorkMasonry(listEl);
@@ -523,9 +500,7 @@ async function updateList(list = []) {
 
   workListTimeline = gsap.timeline({
     defaults: { ease: 'power2.inOut' },
-    onUpdate: () => resetWorkHoverThumbnails(cards),
     onComplete: () => {
-      resetWorkHoverThumbnails(cards);
       listEl.style.transition = previousListTransition;
       listEl.style.pointerEvents = previousListPointerEvents;
       workListTimeline = null;
@@ -547,7 +522,6 @@ async function updateList(list = []) {
         card.dataset.masonryX = String(next.x);
         card.dataset.masonryY = String(next.y);
       },
-      clearProps: 'scale'
     }, index * 0.025);
   });
 
@@ -578,7 +552,6 @@ async function updateList(list = []) {
         card.dataset.masonryX = String(next.x);
         card.dataset.masonryY = String(next.y);
       },
-      clearProps: 'opacity,scale'
     }, 0.08 + index * 0.04);
   });
 
@@ -591,7 +564,6 @@ async function updateList(list = []) {
       scale: 0.96,
       duration: 0.24,
       ease: 'power2.in',
-      clearProps: 'scale'
     }, index * 0.025);
   });
 }
@@ -727,11 +699,10 @@ export async function loadWorkCardList() {
     }));
 
   bindEvents();
-  applyState({ animate: false });
+  applyState();
   initMobileWorkPinObserver();
 
-  window.removeEventListener('resize', refreshWorkPinPositions);
-  window.addEventListener('resize', refreshWorkPinPositions);
+  window.addEventListener('resize', () => queueWorkMasonryLayout());
 
 
   return true;
