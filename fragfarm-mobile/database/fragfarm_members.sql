@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS fragfarm_members (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    user_id VARCHAR(16) NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    user_name VARCHAR(50) NOT NULL,
+    postcode VARCHAR(10) NOT NULL,
+    address_line1 VARCHAR(255) NOT NULL,
+    address_line2 VARCHAR(255) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    birth_date DATE NULL,
+    calendar_type ENUM('solar', 'lunar') NOT NULL DEFAULT 'solar',
+    agree_terms TINYINT(1) NOT NULL DEFAULT 0,
+    agree_privacy TINYINT(1) NOT NULL DEFAULT 0,
+    agree_age TINYINT(1) NOT NULL DEFAULT 0,
+    agree_marketing TINYINT(1) NOT NULL DEFAULT 0,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    UNIQUE KEY uq_members_user_id (user_id),
+    UNIQUE KEY uq_members_email (email),
+    KEY idx_members_phone (phone)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
