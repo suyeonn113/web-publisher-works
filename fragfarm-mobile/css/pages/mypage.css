@@ -1,0 +1,129 @@
+@charset "utf-8";
+
+.mypage {
+    min-height: 34rem;
+}
+
+.mypage__inner {
+    padding: 2rem 1rem 0;
+}
+
+.mypage__title {
+    margin-bottom: 1.5rem;
+
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.order-status__title {
+    margin-bottom: .5rem;
+
+    font-size: .75rem;
+    font-weight: 400;
+}
+
+.order-status__title span {
+    font-size: .6875rem;
+}
+
+.order-status__list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    border-top: 1px solid #bfbfbf;
+    border-bottom: 1px solid #bfbfbf;
+}
+
+.order-status__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .25rem;
+
+    min-height: 3.5rem;
+}
+
+.order-status__item:nth-child(n + 5) {
+    border-top: 1px solid #bfbfbf;
+}
+
+.order-status__item dt,
+.order-status__item dd {
+    font-size: .75rem;
+    font-weight: 400;
+}
+
+.order-status__item:last-child {
+    grid-column: auto;
+}
+
+.order-status__item:nth-child(5) {
+    grid-column: 1 / 2;
+}
+
+.order-status__item:nth-child(6) {
+    grid-column: 2 / 4;
+}
+
+.order-status__item:nth-child(7) {
+    grid-column: 4 / 5;
+}
+
+.mypage-menu {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .5rem;
+
+    margin-top: 3.25rem;
+}
+
+.mypage-menu__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .375rem;
+
+    min-height: 3.75rem;
+    padding: .75rem .5rem;
+
+    border: 1px solid #bfbfbf;
+    border-radius: 3px;
+}
+
+.mypage-menu__link svg {
+    display: block;
+    width: 1rem;
+    height: 1rem;
+
+    fill: none;
+    stroke: currentColor;
+}
+
+.mypage-menu__link svg * {
+    stroke: currentColor;
+    stroke-width: .8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.mypage-menu__link span {
+    font-size: .75rem;
+}
+
+.mypage__logout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-height: 2.5rem;
+    margin-top: .5rem;
+
+    border: 1px solid #bfbfbf;
+    border-radius: 3px;
+
+    font-size: .75rem;
+    font-weight: 400;
+}

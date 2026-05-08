@@ -5,14 +5,18 @@ body {
     min-height: 100%;
 }
 
+:root {
+    --shell-width: 480px;
+}
+
 body {
     margin: 0;
-    background: #000;
+    background: #fff;
 }
 
 .mobile-shell {
     width: 100%;
-    max-width: 430px;   /* 모바일 시안 기준값 */
+    max-width: var(--shell-width);
     min-height: 100vh;
     margin-inline: auto;
     background: #fff;   /* 실제 페이지 배경 */

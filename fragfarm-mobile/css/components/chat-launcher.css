@@ -11,9 +11,9 @@
 
     padding: 1rem;
 }
-@media (min-width: 431px) {
+@media (min-width: 481px) {
     .chat-launcher {
-        right: calc((100vw - 430px) / 2);
+        right: calc((100vw - var(--shell-width, 480px)) / 2);
     }
 }
 

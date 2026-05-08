@@ -10,7 +10,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width:  min(100%, 430px);
+    width: min(100%, var(--shell-width, 480px));
     height: 3.5rem;
 
     padding: 1rem 1rem;

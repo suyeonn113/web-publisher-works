@@ -20,6 +20,7 @@ const phoneInput = form.querySelector('#phone');
 const REG_PHONE = /^01[0-9]{8,9}$/;
 
 const emailInput = form.querySelector('#email');
+const REG_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const yearSelect = form.querySelector('#birth-year');
 const monthSelect = form.querySelector('#birth-month');
@@ -115,7 +116,9 @@ function handleAgreeAllChange() {
     requiredCheckboxes.forEach((checkbox) => {
         checkbox.checked = isChecked;
     });
-    optionalCheckbox.checked = isChecked;
+    optionalCheckbox.forEach((checkbox) => {
+        checkbox.checked = isChecked;
+    });
 }
 
 agreeAllCheckbox.addEventListener('change', handleAgreeAllChange);
@@ -183,6 +186,10 @@ form.addEventListener('submit', (e) => {
         e.preventDefault();
         return;
     }
+    if (!checkEmpty(address1Input, '기본 주소를 입력하세요.')) {
+        e.preventDefault();
+        return;
+    }
     if (!checkEmpty(address2Input, "상세주소를 입력하세요.\n없으면 '없음' 입력하세요.")) {
         e.preventDefault();
         return;
@@ -205,6 +212,12 @@ form.addEventListener('submit', (e) => {
         e.preventDefault();
         return;
     }
+    if (!REG_EMAIL.test(emailInput.value)) {
+        alert('이메일 형식이 올바르지 않습니다.');
+        emailInput.focus();
+        e.preventDefault();
+        return;
+    }
 
     // Agreement
     for (const checkbox of requiredCheckboxes) {
@@ -216,11 +229,6 @@ form.addEventListener('submit', (e) => {
         }
     }
 
-    e.preventDefault();
-    
-    alert('폼 제출 성공!(테스트용, PHP 없이 동작)');
-    form.reset();
-    
 });
 
 // Reset

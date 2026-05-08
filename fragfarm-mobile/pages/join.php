@@ -21,7 +21,7 @@ $pageCss = 'join.css';
             <p class="join__intro">프래그팜에 오신 걸 환영합니다.</p>
             <h2 class="page-title">SIGN UP</h2>
             <p class="join__note text-accent">* 필수 입력 항목입니다.</p>
-            <form action="data.php" method="post" id="join-form" novalidate>
+            <form action="<?= BASE_URL ?>/actions/join_process.php" method="post" id="join-form" novalidate>
                 <!-- Account -->
                 <fieldset class="account">
                     <legend class="visually-hidden">계정 정보</legend>

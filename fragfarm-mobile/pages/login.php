@@ -20,7 +20,7 @@ $pageCss = 'login.css';
     <main id="main">
         <h1 class="page-title">LOGIN</h1>
 
-        <form class="login-form" method="post">
+        <form class="login-form" method="post" action="<?= BASE_URL ?>/actions/login_process.php">
             <label class="login__label" 
                    for="login-id">ID</label>
             <input id="login-id" 
@@ -43,7 +43,8 @@ $pageCss = 'login.css';
         </a>
 
         <div class="login-help" aria-label="로그인 보조 메뉴">
-            <a class="login-help__link" href="#">비밀번호 찾기</a>
+            <a class="login-help__link" href="<?= BASE_URL ?>/pages/find_id.php">아이디 찾기</a>
+            <a class="login-help__link" href="<?= BASE_URL ?>/pages/find_password.php">비밀번호 찾기</a>
             <a class="login-help__link" href="#">비회원 주문 조회하기</a>
         </div>
         

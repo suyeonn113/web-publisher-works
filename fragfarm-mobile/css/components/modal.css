@@ -3,8 +3,13 @@
 /* Popup */
 .popup {
     position: fixed;
-    inset: 0;
-    z-index: 1000;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20000;
+
+    width: min(100%, var(--shell-width, 480px));
 }
 
 .popup__dim {
@@ -19,19 +24,21 @@
     top: 50%;
     transform: translate(-50%, -50%);
 
-    width: min(calc(100vw - 2rem), 28rem);
+    width: min(calc(100% - 2rem), 24rem);
+    max-height: calc(100dvh - 2rem);
     aspect-ratio: 1300 / 1021;
     padding: 1.5rem;
 
     background-image: url(../../assets/images/popup.png);
     background-repeat: no-repeat;
-    background-size: cover;
+    background-position: center;
+    background-size: contain;
 }
 
 .popup__dismiss {
     position: absolute;
-    right: 0;
-    bottom: 0;
+    right: .75rem;
+    bottom: .75rem;
 
     font-size: .625rem;
     text-decoration: underline;

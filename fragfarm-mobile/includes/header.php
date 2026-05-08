@@ -1,4 +1,11 @@
 
+<?php
+$isLoggedIn = isset($_SESSION['member_id']);
+$loginState = $isLoggedIn ? 'logged-in' : 'logged-out';
+$loginHref = $isLoggedIn ? BASE_URL . '/pages/mypage.php' : BASE_URL . '/pages/login.php';
+$loginLabel = $isLoggedIn ? '마이페이지' : '로그인';
+?>
+
 <!-- Skip Link -->
 <div class="skip-links" aria-label="바로가기 링크">
     <a href="#gnb" class="skip-links__link">메뉴 바로가기</a>
@@ -70,7 +77,7 @@
                         </a>
                     </li>
                     <li class="gnb__subitem">
-                        <a class="gnb__link gnb__sublink" href="#">
+                        <a class="gnb__link gnb__sublink" href="<?= BASE_URL ?>/pages/mypage.php">
                             my page
                         </a>
                     </li>
@@ -102,9 +109,9 @@
     <!-- Avtion Menu -->
     <div class="header__actions">
         <a class="login" 
-           data-state="logged-out" 
-           aria-label="로그인" 
-           href="<?= BASE_URL ?>/pages/login.php">
+           data-state="<?= $loginState ?>" 
+           aria-label="<?= $loginLabel ?>" 
+           href="<?= $loginHref ?>">
             <svg viewBox="0 0 24 24" fill="none"
                 xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                 <g transform="translate(0 -17)" data-icon="logged-out">
