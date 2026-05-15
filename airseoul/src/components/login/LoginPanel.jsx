@@ -6,6 +6,7 @@ import { iconSize } from '../../tokens/size';
 import SearchIcon from '../icons/SearchIcon';
 import SquarePenIcon from '../icons/SquarePenIcon';
 import SmartPhoneIcon from '../icons/SmartPhoneIcon';
+import XIcon from '../icons/XIcon';
 
 
 const loginTabs = [
@@ -71,7 +72,9 @@ export default function LoginPanel({ isOpen, onClose }) {
             type="button"
             aria-label="로그인 창 닫기"
             onClick={onClose}
-          />
+          >
+            <XIcon size={iconSize.md} />
+          </button>
         </div>
 
         <div className="login-panel__tabs" role="tablist" aria-label="로그인 유형">

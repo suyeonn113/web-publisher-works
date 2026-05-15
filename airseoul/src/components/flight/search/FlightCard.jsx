@@ -1,4 +1,5 @@
 import FlightFareOption from './FlightFareOption';
+import { formatAirportDisplayName } from '../../../utils/airports';
 
 function FlightCard({ flight }) {
   return (
@@ -12,14 +13,14 @@ function FlightCard({ flight }) {
         <div>
           <strong>{flight.schedule.departureTime}</strong>
           <span>
-            {flight.route.from.city} {flight.route.from.airport}
+            {formatAirportDisplayName(flight.route.from, { separator: ' ' })}
           </span>
         </div>
         <span>{flight.schedule.durationMinutes}분</span>
         <div>
           <strong>{flight.schedule.arrivalTime}</strong>
           <span>
-            {flight.route.to.city} {flight.route.to.airport}
+            {formatAirportDisplayName(flight.route.to, { separator: ' ' })}
           </span>
         </div>
       </div>

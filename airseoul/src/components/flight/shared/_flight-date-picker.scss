@@ -14,12 +14,13 @@
 
 .flight-date-picker__trip {
   display: flex;
+  flex-wrap: wrap;
   gap: get-space(xs);
 }
 
 .flight-date-picker__calendar {
   display: grid;
-  grid-template-columns: auto 1fr 1fr auto;
+  grid-template-columns: auto minmax(0, 1fr) minmax(0, 1fr) auto;
   align-items: start;
   gap: get-space(lg);
 }
@@ -27,6 +28,7 @@
 .flight-date-picker__month {
   display: grid;
   gap: get-space(md);
+  min-width: 0;
 }
 
 .flight-date-picker__weekdays,
@@ -39,6 +41,7 @@
 .flight-date-picker__day {
   @include flex-center;
 
+  min-width: 0;
   aspect-ratio: 1;
   border-radius: 50%;
 
@@ -59,4 +62,26 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
+}
+
+@include respond-down(tablet) {
+  .flight-date-picker__calendar {
+    grid-template-columns: 1fr;
+    padding-inline: get-space(xl);
+  }
+
+  .flight-date-picker__nav {
+    top: 52%;
+  }
+}
+
+@include respond-down(mobile-sm) {
+  .flight-date-picker {
+    padding: get-space(md);
+  }
+
+  .flight-date-picker__calendar {
+    gap: get-space(md);
+    padding-inline: 0;
+  }
 }

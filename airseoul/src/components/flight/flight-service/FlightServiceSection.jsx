@@ -3,7 +3,8 @@ import FlightBookingPanel from '../booking/FlightBookingPanel';
 import FlightCheckInPanel from '../check-in/FlightCheckInPanel';
 import FlightMyTripPanel from '../my-trip/FlightMyTripPanel';
 import FlightSchedulePanel from '../schedule/FlightSchedulePanel';
-import FlightServiceTabs, { FLIGHT_SERVICE_TAB_IDS } from './FlightServiceTabs';
+import FlightServiceTabs from './FlightServiceTabs';
+import { FLIGHT_SERVICE_TAB_IDS } from './flightServiceTabsData';
 
 function FlightServiceSection({ defaultValues, onSearch, variant = 'home' }) {
   const [activeTab, setActiveTab] = useState(FLIGHT_SERVICE_TAB_IDS.BOOKING);

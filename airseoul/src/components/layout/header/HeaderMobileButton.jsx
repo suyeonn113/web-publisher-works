@@ -1,5 +1,6 @@
 import { iconSize } from '../../../tokens/size';
 import MenuIcon from '../../icons/MenuIcon';
+import XIcon from '../../icons/XIcon';
 
 export default function HeaderMobileButton({ isOpen, onClick }) {
   return (
@@ -10,10 +11,17 @@ export default function HeaderMobileButton({ isOpen, onClick }) {
       aria-expanded={isOpen}
       onClick={onClick}
     >
-      <MenuIcon
-        className="site-header__mobile-icon"
-        size={iconSize.md}
-      />
+      {isOpen ? (
+        <XIcon
+          className="site-header__mobile-icon"
+          size={iconSize.md}
+        />
+      ) : (
+        <MenuIcon
+          className="site-header__mobile-icon"
+          size={iconSize.md}
+        />
+      )}
     </button>
   );
 }

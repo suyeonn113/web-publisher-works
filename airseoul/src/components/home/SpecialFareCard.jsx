@@ -1,3 +1,4 @@
+import { formatAirportDisplayName } from '../../utils/airports';
 import { formatKoreanMonthDay } from '../../utils/date';
 import { formatKRW } from '../../utils/price';
 
@@ -12,7 +13,7 @@ function SpecialFareCard({ fare, onSelect }) {
 
       <span className="special-fare-card__content">
         <span className="special-fare-card__from">
-          {fare.from.city}/{fare.from.airport}
+          {formatAirportDisplayName(fare.from)}
         </span>
 
         <strong className="special-fare-card__to">

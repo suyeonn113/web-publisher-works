@@ -12,9 +12,9 @@
 
 @use '../components/home/special-fare';
 @use '../components/flight/flight-service/flight-service';
+@use '../components/flight/shared/flight-shared';
+@use '../components/flight/shared/flight-date-picker';
 @use '../components/flight/booking/flight-booking';
-@use '../components/flight/booking/flight-date-picker';
-@use '../components/flight/my-trip/flight-lookup';
 @use '../components/flight/schedule/flight-schedule';
 
 @use './pages/home';

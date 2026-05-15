@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import ArrowRightLeftIcon from '../../icons/ArrowRightLeftIcon';
-import CalendarIcon from '../../icons/CalendarIcon';
+import FlightDateField from '../shared/FlightDateField';
+import FlightRouteSelector from '../shared/FlightRouteSelector';
 
 const REALTIME_FLIGHTS = {
   departures: [
@@ -22,7 +22,7 @@ function FlightSchedulePanel() {
   return (
     <div className="flight-booking-service flight-booking-service--schedule">
       <div className="flight-booking-service__schedule-options">
-        <div className="flight-booking-panel__chips" role="group" aria-label="조회 유형">
+        <div className="flight-service-chips" role="group" aria-label="조회 유형">
           <button
             className={searchType === 'status' ? 'is-active' : ''}
             type="button"
@@ -38,7 +38,7 @@ function FlightSchedulePanel() {
             주간 스케줄
           </button>
         </div>
-        <div className="flight-booking-panel__chips" role="group" aria-label="조회 기준">
+        <div className="flight-service-chips" role="group" aria-label="조회 기준">
           <button
             className={routeType === 'route' ? 'is-active' : ''}
             type="button"
@@ -57,27 +57,17 @@ function FlightSchedulePanel() {
       </div>
 
       <div className="flight-booking-service__schedule-search">
-        <div className="flight-booking-service__route-summary">
-          <button type="button">
-            <strong>From</strong>
-            <span>출발지</span>
-          </button>
-          <button className="flight-booking-panel__swap" type="button" aria-label="출발지와 도착지 바꾸기">
-            <ArrowRightLeftIcon size={22} />
-          </button>
-          <button type="button">
-            <strong>To</strong>
-            <span>도착지</span>
-          </button>
-        </div>
-        <button className="flight-booking-panel__field flight-booking-panel__date" type="button">
-          <span>출발일</span>
-          <strong className="flight-booking-panel__date-value">
-            <CalendarIcon size={18} />
-            05월 15일 (금)
-          </strong>
-        </button>
-        <button className="flight-booking-service__submit" type="button">
+        <FlightRouteSelector
+          className="flight-route-selector flight-route-selector--summary"
+          displayMode="summary"
+          fromCode="From"
+          fromName="출발지"
+          swapIconSize={22}
+          toCode="To"
+          toName="도착지"
+        />
+        <FlightDateField departureDateLabel="05월 15일 (금)" />
+        <button className="flight-service-submit" type="button">
           조회
         </button>
       </div>

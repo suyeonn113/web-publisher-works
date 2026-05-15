@@ -1,7 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import AdultIcon from '../../icons/AdultIcon';
-import ArrowRightLeftIcon from '../../icons/ArrowRightLeftIcon';
-import CalendarIcon from '../../icons/CalendarIcon';
 import ChildIcon from '../../icons/ChildIcon';
 import ChevronDownIcon from '../../icons/ChevronDownIcon';
 import ChevronUpIcon from '../../icons/ChevronUpIcon';
@@ -9,14 +7,18 @@ import CircleQuestionMarkIcon from '../../icons/CircleQuestionMarkIcon';
 import InfantIcon from '../../icons/InfantIcon';
 import MinusIcon from '../../icons/MinusIcon';
 import PlusIcon from '../../icons/PlusIcon';
+import XIcon from '../../icons/XIcon';
 import { TRIP_TYPES } from '../../../constants/tripType';
-import { airportGroups, airports } from '../../../data/airports';
 import { formatKoreanMonthDay } from '../../../utils/date';
 import {
   createSearchParamsFromCalendar,
   sortSelectedDates,
 } from '../../../utils/searchParams';
-import FlightDatePicker from './FlightDatePicker';
+import AirportSelectionPanel from '../shared/AirportSelectionPanel';
+import FlightDateField from '../shared/FlightDateField';
+import FlightDatePicker from '../shared/FlightDatePicker';
+import FlightRouteSelector from '../shared/FlightRouteSelector';
+import { getAirport } from '../../../utils/airports';
 
 const PANEL_TYPES = {
   FROM: 'from',
@@ -69,20 +71,6 @@ const PASSENGER_NOTICE_GROUPS = [
     ],
   },
 ];
-
-const getAirport = (code) => airports.find((airport) => airport.code === code);
-
-const formatAirportDisplayName = (airport) => {
-  if (!airport) {
-    return '';
-  }
-
-  if (airport.city === airport.airport || airport.city.includes(airport.airport)) {
-    return airport.city;
-  }
-
-  return `${airport.city}/${airport.airport}`;
-};
 
 function FlightBookingPanel({ defaultValues, onSearch }) {
   const [tripType, setTripType] = useState(defaultValues?.tripType ?? TRIP_TYPES.ROUND_TRIP);
@@ -220,37 +208,6 @@ function FlightBookingPanel({ defaultValues, onSearch }) {
     setTo(from);
   };
 
-  const renderAirportPanel = (panelType) => (
-    <div className="flight-booking-popup__airports">
-      {airportGroups.map((group) => (
-        <section key={group.region}>
-          <h3>{group.region}</h3>
-          <div>
-            {group.airports.map((airport) => {
-              const isSelected = (panelType === PANEL_TYPES.FROM ? from : to) === airport.code;
-              const isDisabled =
-                (panelType === PANEL_TYPES.FROM && airport.code === to) ||
-                (panelType === PANEL_TYPES.TO && airport.code === from);
-
-              return (
-                <button
-                  className={isSelected ? 'is-active' : ''}
-                  disabled={isDisabled}
-                  key={airport.code}
-                  type="button"
-                  onClick={() => handleAirportSelect(panelType, airport.code)}
-                >
-                  <strong>{airport.code}</strong>
-                  <span>{formatAirportDisplayName(airport)}</span>
-                </button>
-              );
-            })}
-          </div>
-        </section>
-      ))}
-    </div>
-  );
-
   const renderPassengerTooltip = (key) => {
     if (key === 'child') {
       return (
@@ -270,11 +227,11 @@ function FlightBookingPanel({ defaultValues, onSearch }) {
   };
 
   const renderPassengersPanel = () => (
-    <div className="flight-booking-popup__passenger-panel">
-      <div className="flight-booking-popup__passenger-counters">
+    <div className="flight-passenger-picker">
+      <div className="flight-passenger-picker__counters">
         {PASSENGER_TYPES.map((type) => (
-          <div className="flight-booking-popup__counter" key={type.key}>
-            <span className="flight-booking-popup__counter-label">
+          <div className="flight-passenger-picker__counter" key={type.key}>
+            <span className="flight-passenger-picker__counter-label">
               {type.label}
               <button className="flight-booking-panel__help" type="button">
                 <span className="flight-booking-panel__help-hit">
@@ -283,7 +240,7 @@ function FlightBookingPanel({ defaultValues, onSearch }) {
                 {renderPassengerTooltip(type.key)}
               </button>
             </span>
-            <div className="flight-booking-popup__counter-controls">
+            <div className="flight-passenger-picker__counter-controls">
               <button
                 type="button"
                 disabled={passengers[type.key] <= type.min}
@@ -301,7 +258,7 @@ function FlightBookingPanel({ defaultValues, onSearch }) {
       </div>
 
       <button
-        className="flight-booking-popup__age-toggle"
+        className="flight-passenger-picker__age-toggle"
         type="button"
         onClick={() => setIsAgeCalculatorOpen((isOpen) => !isOpen)}
       >
@@ -310,7 +267,7 @@ function FlightBookingPanel({ defaultValues, onSearch }) {
       </button>
 
       {isAgeCalculatorOpen && (
-        <div className="flight-booking-popup__age-calculator">
+        <div className="flight-passenger-picker__age-calculator">
           <strong>생년월일</strong>
           <div>
             <select aria-label="연도">
@@ -327,7 +284,7 @@ function FlightBookingPanel({ defaultValues, onSearch }) {
         </div>
       )}
 
-      <div className="flight-booking-popup__passenger-notice">
+      <div className="flight-passenger-picker__notice">
         {PASSENGER_NOTICE_GROUPS.map((group) => (
           <section key={group.title}>
             <h3>{group.title}</h3>
@@ -354,7 +311,13 @@ function FlightBookingPanel({ defaultValues, onSearch }) {
 
   const renderActivePanel = () => {
     if (activePanel === PANEL_TYPES.FROM || activePanel === PANEL_TYPES.TO) {
-      return renderAirportPanel(activePanel);
+      return (
+        <AirportSelectionPanel
+          disabledCode={activePanel === PANEL_TYPES.FROM ? to : from}
+          selectedCode={activePanel === PANEL_TYPES.FROM ? from : to}
+          onSelect={(code) => handleAirportSelect(activePanel, code)}
+        />
+      );
     }
 
     if (activePanel === PANEL_TYPES.DATE) {
@@ -380,7 +343,7 @@ function FlightBookingPanel({ defaultValues, onSearch }) {
   return (
     <form className="flight-booking-panel__content" onSubmit={handleSubmit}>
       <div className="flight-booking-panel__options">
-        <div className="flight-booking-panel__chips" role="group" aria-label="여정 유형">
+        <div className="flight-service-chips" role="group" aria-label="여정 유형">
           <button
             className={tripType === TRIP_TYPES.ROUND_TRIP ? 'is-active' : ''}
             type="button"
@@ -421,50 +384,22 @@ function FlightBookingPanel({ defaultValues, onSearch }) {
       </div>
 
       <div className="flight-booking-panel__search" ref={searchRef}>
-        <div className="flight-booking-panel__route">
-          <button type="button" onClick={(event) => openPanel(PANEL_TYPES.FROM, event)}>
-            <span>출발지</span>
-            <strong>{fromAirport?.code}</strong>
-            <em>{formatAirportDisplayName(fromAirport)}</em>
-          </button>
+        <FlightRouteSelector
+          fromAirport={fromAirport}
+          toAirport={toAirport}
+          onFromClick={(event) => openPanel(PANEL_TYPES.FROM, event)}
+          onSwap={handleSwapRoute}
+          onToClick={(event) => openPanel(PANEL_TYPES.TO, event)}
+        />
 
-          <button
-            className="flight-booking-panel__swap"
-            type="button"
-            aria-label="출발지와 도착지 바꾸기"
-            onClick={handleSwapRoute}
-          >
-            <ArrowRightLeftIcon size={24} />
-          </button>
-
-          <button type="button" onClick={(event) => openPanel(PANEL_TYPES.TO, event)}>
-            <span>도착지</span>
-            <strong>{toAirport?.code}</strong>
-            <em>{formatAirportDisplayName(toAirport)}</em>
-          </button>
-        </div>
-
-        <button
-          className="flight-booking-panel__field flight-booking-panel__date"
-          type="button"
+        <FlightDateField
+          departureDateLabel={departureDateLabel}
+          returnDateLabel={returnDateLabel}
           onClick={(event) => openPanel(PANEL_TYPES.DATE, event)}
-        >
-          <span>출발일</span>
-          <strong className="flight-booking-panel__date-value">
-            <CalendarIcon size={18} />
-            {returnDateLabel ? (
-              <>
-                <span className="flight-booking-panel__date-start">{departureDateLabel} ~</span>
-                <span className="flight-booking-panel__date-end">{returnDateLabel}</span>
-              </>
-            ) : (
-              departureDateLabel
-            )}
-          </strong>
-        </button>
+        />
 
         <button
-          className="flight-booking-panel__field"
+          className="flight-service-field-button flight-passenger-field"
           type="button"
           onClick={(event) => openPanel(PANEL_TYPES.PASSENGERS, event)}
         >
@@ -492,17 +427,17 @@ function FlightBookingPanel({ defaultValues, onSearch }) {
 
       {activePanel && (
         <div
-          className={`flight-booking-popup flight-booking-popup--${activePanel}`}
+          className={`flight-service-popup flight-service-popup--${activePanel}`}
           style={{ '--popup-left': `${popupPosition.left}px` }}
           ref={popupRef}
           role="dialog"
           aria-modal="false"
           tabIndex="-1"
         >
-          <header className="flight-booking-popup__header">
+          <header className="flight-service-popup__header">
             <strong>{getPanelTitle()}</strong>
             <button type="button" aria-label="선택 창 닫기" onClick={closePanel}>
-              ×
+              <XIcon size={20} />
             </button>
           </header>
           {renderActivePanel()}
