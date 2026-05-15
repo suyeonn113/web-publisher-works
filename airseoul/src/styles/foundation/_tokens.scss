@@ -10,7 +10,16 @@
   ========================= */
 
   --color-white: #ffffff;
+  --color-white-rgb: 255 255 255;
   --color-black: #111111;
+  --color-black-rgb: 17 17 17;
+
+  --color-white-soft: rgb(var(--color-white-rgb) / 0.08);
+  --color-white-medium: rgb(var(--color-white-rgb) / 0.16);
+  --color-white-hard: rgb(var(--color-white-rgb) / 0.86);
+  --color-black-soft: rgb(var(--color-black-rgb) / 0.08);
+  --color-black-medium: rgb(var(--color-black-rgb) / 0.16);
+  --color-black-hard: rgb(var(--color-black-rgb) / 0.86);
 
   /* Brand */
   --color-mint: #1ab899;
@@ -37,9 +46,10 @@
   /* Background */
   --color-bg-main: #ffffff;
   --color-bg-sub: #f7f7f7;
-  --color-bg-backdrop: rgba(0, 0, 0, 0.42);
+  --color-bg-backdrop: rgb(var(--color-black-rgb) / 0.42);
 
   --color-bg-mint: var(--color-mint-light-2);
+  --color-bg-mint-soft: rgba(196, 228, 201, 0.45);
   --color-bg-green: var(--color-green-2);
 
   /* Border */
@@ -51,11 +61,17 @@
 
   /* Point */
   --color-point-primary: var(--color-mint-dark);
+  --color-point-secondary: #1f2937;
   --color-point-pink: var(--color-pink);
   --color-point-yellow: var(--color-yellow);
 
   /* State */
-  --color-focus-ring: var(--color-mint-dark);
+  --color-focus-ring: #4f46e5;
+  --radius-focus: 8px;
+  --focus-ring-width: 2px;
+
+  --color-bg-hover: #2a2a2a;
+  --color-text-hover: #f7f7f7;
 
   /* =========================
      TYPOGRAPHY
@@ -117,6 +133,14 @@
 
   --shadow-md:
     0 8px 24px rgba(0, 0, 0, 0.08);
+
+  /* =========================
+     LINE
+  ========================= */
+
+  --line-thin: 1px;
+  --line-bold: 3px;
+  --line-heavy: 4px;
 
   /* =========================
      TRANSITION

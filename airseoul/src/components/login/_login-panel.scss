@@ -14,7 +14,7 @@
   width: 100%;
   height: 100%;
 
-  background: rgba(0, 0, 0, 0.42);
+  background: var(--color-bg-backdrop);
 }
 
 .login-panel__dialog {
@@ -49,28 +49,11 @@
   @include text-size(title);
 
   position: relative;
-
   padding-bottom: get-space(sm);
-
   font-weight: 700;
-
-  &::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-
-    width: 32px;
-    height: 3px;
-
-    background: var(--color-border-mint);
-    border-radius: var(--radius-full);
-  }
 }
 
 .login-panel__close {
-  @include transition(background, fast, standard);
-
   position: relative;
 
   width: var(--header-mobile-button-size);
@@ -86,7 +69,7 @@
     left: 50%;
 
     width: 24px;
-    height: 1px;
+    height: var(--line-thin);
 
     background: var(--color-text-secondary);
   }
@@ -117,22 +100,22 @@
 }
 
 .login-panel__tab {
-  @include transition(all, fast, standard);
   @include text-size(body);
   @include flex-center;
+  @include button-hover-gray;
 
   min-height: 58px;
   padding: get-space(md) get-space(sm);
 
   color: var(--color-text-primary);
-  border: 1px solid var(--color-border-primary);
-  border-top: 3px solid var(--color-border-primary);
+  border-top: var(--line-bold) solid transparent;
 
   &--active {
+    @include button-hover-none;
+
     color: var(--color-point-primary);
     font-weight: 700;
     border-top-color: var(--color-border-mint);
-    border-bottom-color: var(--color-bg-main);
     background: var(--color-bg-main);
   }
 }
@@ -151,7 +134,7 @@
   min-height: 48px;
   padding: get-space(sm) get-space(md);
 
-  border: 1px solid var(--color-border-secondary);
+  border: var(--line-thin) solid var(--color-border-secondary);
 
   &::placeholder {
     color: var(--color-text-tertiary);
@@ -186,7 +169,7 @@
 .login-panel__submit {
   @include flex-center;
   @include text-size(body);
-  @include transition(all, fast, standard);
+  @include button-hover-primary;
 
   min-height: 48px;
   padding: get-space(sm) get-space(md);
@@ -196,14 +179,6 @@
   font-weight: 700;
   background: var(--color-point-primary);
 
-  &:hover,
-  &:focus-visible {
-    background: color-mix(
-      in srgb,
-      var(--color-point-primary) 68%,
-      var(--color-mint)
-    );
-  }
 }
 
 .login-panel__simple {
@@ -213,7 +188,7 @@
 .login-panel__simple-button {
   @include flex-center;
   @include text-size(caption);
-  @include transition(all, fast, standard);
+  @include button-hover-gray;
 
   position: relative;
   gap: get-space(xs);
@@ -224,13 +199,8 @@
 
   color: var(--color-text-primary);
   font-weight: 400;
-  border: 1px solid var(--color-border-secondary);
+  border: var(--line-thin) solid var(--color-border-secondary);
 
-  &:hover,
-  &:focus-visible {
-    background: var(--color-bg-sub);
-    border-color: var(--color-border-mint);
-  }
 }
 
 .login-panel__ad-text {
@@ -238,7 +208,7 @@
   right: get-space(sm);
   bottom: get-space(xs);
 
-  font-size: 11px;
+  font-size: rem(11px);
   color: var(--color-text-tertiary);
   font-weight: 500;
 }
@@ -262,7 +232,7 @@
 
   &:not(:last-child)::after {
     content: '';
-    width: 1px;
+    width: var(--line-thin);
     height: 14px;
     margin-left: get-space(md);
     background: var(--color-border-primary);

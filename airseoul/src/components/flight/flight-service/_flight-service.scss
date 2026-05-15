@@ -1,0 +1,48 @@
+@use '../../../styles/foundation/functions' as *;
+@use '../../../styles/foundation/mixins' as *;
+
+.flight-booking-section {
+  padding-bottom: get-space(xxl);
+}
+
+.flight-booking-section__inner {
+  @include container;
+}
+
+.flight-booking-panel {
+  overflow: hidden;
+  background: var(--color-bg-main);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.flight-booking-panel__tabs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  min-height: 56px;
+  background: var(--color-bg-sub);
+  border-bottom: 1px solid var(--color-border-primary);
+
+  button {
+    @include flex-center;
+    @include text-size(body);
+    @include transition(all, fast, standard);
+
+    gap: get-space(xs);
+    color: var(--color-text-primary);
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.02);
+    }
+
+    &.is-active {
+      color: var(--color-point-primary);
+      background: var(--color-bg-main);
+      box-shadow: inset 0 -2px 0 var(--color-point-primary);
+    }
+  }
+}
+
+.flight-booking-panel__body {
+  position: relative;
+}

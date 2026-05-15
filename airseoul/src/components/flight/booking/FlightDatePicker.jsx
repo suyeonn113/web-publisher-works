@@ -1,7 +1,9 @@
 import { useMemo, useState } from 'react';
 import { TRIP_TYPES } from '../../../constants/tripType';
-import { formatDate, formatKoreanMonthDay, toDate } from '../../../utils/date';
+import { formatDate, toDate } from '../../../utils/date';
 import { sortSelectedDates } from '../../../utils/searchParams';
+import ChevronLeftIcon from '../../icons/ChevronLeftIcon';
+import ChevronRightIcon from '../../icons/ChevronRightIcon';
 
 const WEEKDAYS = ['일', '월', '화', '수', '목', '금', '토'];
 
@@ -127,11 +129,6 @@ function FlightDatePicker({
         </div>
       </div>
 
-      <div className="flight-date-picker__summary">
-        {departureDate && <span>{formatKoreanMonthDay(departureDate)}</span>}
-        {returnDate && <span>~ {formatKoreanMonthDay(returnDate)}</span>}
-      </div>
-
       <div className="flight-date-picker__calendar">
         <button
           className="flight-date-picker__nav flight-date-picker__nav--prev"
@@ -139,7 +136,7 @@ function FlightDatePicker({
           aria-label="이전 달"
           onClick={() => setVisibleMonth(addMonths(visibleMonth, -1))}
         >
-          ‹
+          <ChevronLeftIcon size={24} />
         </button>
         {renderMonth(visibleMonth)}
         {renderMonth(nextMonth)}
@@ -149,7 +146,7 @@ function FlightDatePicker({
           aria-label="다음 달"
           onClick={() => setVisibleMonth(addMonths(visibleMonth, 1))}
         >
-          ›
+          <ChevronRightIcon size={24} />
         </button>
       </div>
     </div>

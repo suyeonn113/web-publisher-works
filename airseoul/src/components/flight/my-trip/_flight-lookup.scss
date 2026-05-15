@@ -1,0 +1,61 @@
+@use '../../../styles/foundation/functions' as *;
+@use '../../../styles/foundation/mixins' as *;
+
+.flight-booking-service {
+  display: grid;
+  gap: get-space(lg);
+}
+
+.flight-booking-service__lookup {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) auto;
+  align-items: end;
+  gap: get-space(md);
+  min-height: 112px;
+}
+
+.flight-booking-service-field {
+  display: grid;
+  gap: get-space(sm);
+  color: var(--color-text-primary);
+  font-weight: 700;
+}
+
+.flight-booking-service-field__control {
+  display: flex;
+  align-items: center;
+  gap: get-space(sm);
+  min-height: 48px;
+  padding: 0 get-space(md);
+  color: var(--color-point-primary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-sm);
+
+  input {
+    min-width: 0;
+    width: 100%;
+    color: var(--color-text-primary);
+    background: transparent;
+    border: 0;
+
+    &::placeholder {
+      color: var(--color-text-secondary);
+    }
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+.flight-booking-service__submit {
+  @include button-hover-primary;
+
+  min-width: 112px;
+  min-height: 48px;
+  padding: 0 get-space(lg);
+  color: var(--color-text-inverse);
+  font-weight: 800;
+  background: var(--color-point-primary);
+  border-radius: var(--radius-full);
+}

@@ -120,3 +120,58 @@
     var(--duration-#{$duration})
     var(--ease-#{$easing});
 }
+
+/* =========================
+   BUTTON STATE
+========================= */
+
+@mixin button-hover-primary {
+  @include transition(all, fast, standard);
+
+  &:hover:not(:disabled),
+  &:focus-visible:not(:disabled) {
+    color: var(--color-text-inverse);
+    background: color-mix(in srgb, var(--color-point-primary) 78%, var(--color-white));
+  }
+}
+
+@mixin button-hover-white {
+  @include transition(all, fast, standard);
+
+  &:hover:not(:disabled),
+  &:focus-visible:not(:disabled) {
+    color: var(--color-text-inverse);
+    background: var(--color-point-primary);
+  }
+}
+
+@mixin button-hover-gray {
+  @include transition(all, fast, standard);
+
+  &:hover:not(:disabled),
+  &:focus-visible:not(:disabled) {
+    color: var(--color-point-primary);
+    background: color-mix(in srgb, var(--color-bg-mint-soft) 42%, var(--color-white));
+  }
+}
+
+@mixin button-hover-subtle {
+  @include transition(all, fast, standard);
+
+  &:hover:not(:disabled),
+  &:focus-visible:not(:disabled) {
+    color: var(--color-text-primary);
+    background: var(--color-bg-sub);
+  }
+}
+
+@mixin button-hover-none {
+  @include transition(all, fast, standard);
+
+  &:hover:not(:disabled),
+  &:focus-visible:not(:disabled) {
+    color: var(--color-point-primary);
+    background: transparent;
+  }
+}
+

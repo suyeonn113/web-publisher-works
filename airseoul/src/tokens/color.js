@@ -25,6 +25,7 @@ export const color = {
   bgSub: 'var(--color-bg-sub)',
   bgBackdrop: 'var(--color-bg-backdrop)',
   bgMint: 'var(--color-bg-mint)',
+  bgMintSoft: 'var(--color-bg-mint-soft)',
   bgGreen: 'var(--color-bg-green)',
 
   borderPrimary: 'var(--color-border-primary)',
@@ -33,9 +34,12 @@ export const color = {
   borderGray: 'var(--color-border-gray)',
 
   pointPrimary: 'var(--color-point-primary)',
+  pointSecondary: 'var(--color-point-secondary)',
   pointPink: 'var(--color-point-pink)',
   pointYellow: 'var(--color-point-yellow)',
 
   focusRing: 'var(--color-focus-ring)',
+  bgHover: 'var(--color-bg-hover)',
+  textHover: 'var(--color-text-hover)',
   current: 'currentColor',
 };

@@ -37,31 +37,30 @@
   position: relative;
 
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  display: block;
   width: 100%;
   min-height: 320px;
-  padding: get-space(md);
+  padding: 0;
 
   text-align: left;
 
-  background: #111111;
+  background: var(--color-bg-hover);
   border-radius: var(--radius-sm);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.14);
+  box-shadow: var(--shadow-md);
 
   &::after {
     content: '';
 
     position: absolute;
     inset: auto 0 0;
+    z-index: get-z(base);
 
-    height: 68%;
+    height: 74%;
 
     background: linear-gradient(
       to top,
-      rgba(0, 0, 0, 0.78) 0%,
-      rgba(0, 0, 0, 0.42) 48%,
+      rgba(0, 0, 0, 0.82) 0%,
+      rgba(0, 0, 0, 0.52) 48%,
       rgba(0, 0, 0, 0) 100%
     );
   }
@@ -71,11 +70,6 @@
     .special-fare-card__image {
       transform: scale(1.06);
     }
-  }
-
-  &:focus-visible {
-    outline: 3px solid #00c7b1;
-    outline-offset: 4px;
   }
 }
 
@@ -94,23 +88,48 @@
   @include transition(transform, fast, standard);
 }
 
-.special-fare-card__route,
-.special-fare-card__price {
-  position: relative;
-  z-index: 1;
+.special-fare-card__content {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: get-z(dropdown);
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: get-space(lg);
 }
 
-.special-fare-card__route {
+.special-fare-card__from {
   margin-bottom: get-space(xs);
 
-  color: #ffffff;
-  font-weight: 800;
+  color: var(--color-white-hard);
+  @include text-size(caption);
+  font-weight: 400;
   line-height: 1.3;
 }
 
+.special-fare-card__to {
+  margin-bottom: get-space(md);
+
+  color: var(--color-white);
+  @include text-size(title);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
 .special-fare-card__price {
-  color: var(--color-point-primary);
-  font-size: clamp(1.5rem, 2.4vw, 2rem);
-  font-weight: 900;
-  line-height: 1.1;
+  margin-bottom: get-space(xs);
+
+  color: var(--color-white);
+  @include text-size(title);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.special-fare-card__date {
+  color: var(--color-white-hard);
+  font-size: rem(13px);
+  font-weight: 400;
+  line-height: 1.4;
 }

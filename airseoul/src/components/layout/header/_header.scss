@@ -10,7 +10,7 @@
 
   color: var(--color-text-primary);
   background: var(--color-bg-main);
-  border-bottom: 1px solid var(--color-border-primary);
+  border-bottom: var(--line-thin) solid var(--color-border-primary);
 }
 
 .site-header__main {
@@ -123,7 +123,7 @@
 
   &:focus-visible {
     outline: 0;
-    box-shadow: 0 0 0 2px var(--color-focus-ring);
+    box-shadow: 0 0 0 var(--focus-ring-width) var(--color-focus-ring);
   }
 }
 
@@ -149,7 +149,7 @@
   padding: get-space(sm);
 
   background: var(--color-bg-main);
-  border: 1px solid var(--color-border-primary);
+  border: var(--line-thin) solid var(--color-border-primary);
   border-radius: var(--radius-sm);
 }
 
@@ -176,7 +176,7 @@
     top: 50%;
     left: 0;
 
-    width: 3px;
+    width: var(--line-bold);
     height: 0;
 
     background: var(--color-border-mint);

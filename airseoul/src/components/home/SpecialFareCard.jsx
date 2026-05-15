@@ -1,3 +1,4 @@
+import { formatKoreanMonthDay } from '../../utils/date';
 import { formatKRW } from '../../utils/price';
 
 function SpecialFareCard({ fare, onSelect }) {
@@ -8,10 +9,24 @@ function SpecialFareCard({ fare, onSelect }) {
         style={{ backgroundImage: `url(${fare.image})` }}
         aria-hidden="true"
       />
-      <span className="special-fare-card__route">
-        {fare.from.city} - {fare.to.city}
+
+      <span className="special-fare-card__content">
+        <span className="special-fare-card__from">
+          {fare.from.city}/{fare.from.airport}
+        </span>
+
+        <strong className="special-fare-card__to">
+          {fare.to.city}
+        </strong>
+
+        <span className="special-fare-card__price">
+          {formatKRW(fare.price)} ~
+        </span>
+
+        <span className="special-fare-card__date">
+          {formatKoreanMonthDay(fare.searchParams.departureDate)} 출발
+        </span>
       </span>
-      <span className="special-fare-card__price">{formatKRW(fare.price)}~</span>
     </button>
   );
 }

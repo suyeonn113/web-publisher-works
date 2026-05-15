@@ -1,4 +1,4 @@
-import { formatKRW } from '../../utils/price';
+import { formatKRW } from '../../../utils/price';
 
 function DateFareBar({ items }) {
   return (

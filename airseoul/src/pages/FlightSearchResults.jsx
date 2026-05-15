@@ -1,7 +1,7 @@
 import { TRIP_TYPES } from '../constants/tripType';
-import DateFareBar from '../components/flight/DateFareBar';
-import FlightSearchResultList from '../components/flight/FlightSearchResultList';
-import FlightSearchSummary from '../components/flight/FlightSearchSummary';
+import DateFareBar from '../components/flight/search/DateFareBar';
+import FlightSearchResultList from '../components/flight/search/FlightSearchResultList';
+import FlightSearchSummary from '../components/flight/search/FlightSearchSummary';
 import { getDateFareBarItems } from '../services/dateFareBar';
 import { searchFlights, searchRoundTripFlights } from '../services/flightSearch';
 

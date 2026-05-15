@@ -1,0 +1,62 @@
+@use '../../../styles/foundation/functions' as *;
+@use '../../../styles/foundation/mixins' as *;
+
+.flight-date-picker {
+  display: grid;
+  gap: get-space(lg);
+  padding: get-space(lg);
+}
+
+.flight-date-picker__options {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flight-date-picker__trip {
+  display: flex;
+  gap: get-space(xs);
+}
+
+.flight-date-picker__calendar {
+  display: grid;
+  grid-template-columns: auto 1fr 1fr auto;
+  align-items: start;
+  gap: get-space(lg);
+}
+
+.flight-date-picker__month {
+  display: grid;
+  gap: get-space(md);
+}
+
+.flight-date-picker__weekdays,
+.flight-date-picker__days {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: get-space(xs);
+}
+
+.flight-date-picker__day {
+  @include flex-center;
+
+  aspect-ratio: 1;
+  border-radius: 50%;
+
+  &.is-start,
+  &.is-end {
+    color: var(--color-white);
+    background: var(--color-point-primary);
+  }
+
+  &.is-range {
+    background: var(--color-bg-sub);
+  }
+}
+
+.flight-date-picker__nav {
+  @include flex-center;
+
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}

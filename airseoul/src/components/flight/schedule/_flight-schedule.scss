@@ -1,0 +1,103 @@
+@use '../../../styles/foundation/functions' as *;
+@use '../../../styles/foundation/mixins' as *;
+
+.flight-booking-service__schedule-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: get-space(sm) get-space(xl);
+}
+
+.flight-booking-service__schedule-search {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.75fr) minmax(220px, 0.6fr) auto;
+  align-items: center;
+  gap: get-space(lg);
+}
+
+.flight-booking-service__route-summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 44px minmax(0, 1fr);
+  align-items: center;
+  gap: get-space(sm);
+  padding-right: get-space(lg);
+
+  > button:not(.flight-booking-panel__swap) {
+    display: grid;
+    gap: get-space(xs);
+    color: var(--color-text-secondary);
+    text-align: center;
+
+    strong {
+      font-size: rem(36px);
+      font-weight: 500;
+      line-height: 1;
+    }
+  }
+}
+
+.flight-booking-realtime {
+  display: grid;
+  gap: get-space(md);
+  margin-top: get-space(md);
+
+  header {
+    display: flex;
+    align-items: baseline;
+    gap: get-space(sm);
+  }
+
+  h3 {
+    color: var(--color-text-primary);
+    font-size: rem(18px);
+    font-weight: 800;
+  }
+
+  header span {
+    color: var(--color-text-secondary);
+    font-size: rem(12px);
+  }
+}
+
+.flight-booking-realtime__board {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  padding: get-space(sm);
+  background: var(--color-border-primary);
+
+  section {
+    display: grid;
+    gap: get-space(xs);
+    padding: get-space(sm) get-space(md);
+    background: var(--color-bg-main);
+  }
+
+  h4 {
+    padding-bottom: get-space(xs);
+    text-align: center;
+    background: var(--color-bg-sub);
+  }
+}
+
+.flight-booking-realtime__row {
+  display: grid;
+  grid-template-columns: 56px 48px minmax(0, 1fr);
+  gap: get-space(sm);
+  align-items: center;
+  min-height: 32px;
+  border-bottom: 1px solid var(--color-border-primary);
+
+  strong,
+  span {
+    color: var(--color-point-secondary);
+    font-size: rem(13px);
+  }
+
+  em {
+    @include ellipsis;
+
+    color: var(--color-text-primary);
+    font-style: normal;
+    font-weight: 700;
+  }
+}
