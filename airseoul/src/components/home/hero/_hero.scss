@@ -268,9 +268,15 @@
   }
 
   .hero-promotion-list {
-    width: 25%;
+    width: 100%;
     max-width: none;
   }
+
+  .hero-promotion-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+
 }
 
 @include respond-down(mobile) {
