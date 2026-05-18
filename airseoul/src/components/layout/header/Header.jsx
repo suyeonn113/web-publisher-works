@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import Logo from '../../common/Logo';
 import LoginPanel from '../../login/LoginPanel';
@@ -6,8 +6,9 @@ import HeaderActions from './HeaderActions';
 import HeaderMobileMenu from './HeaderMobileMenu';
 import HeaderNav from './HeaderNav';
 
-export default function Header() {
-  const [isHeroVisible, setIsHeroVisible] = useState(true);
+export default function Header({ hasHero = true }) {
+  const headerRef = useRef(null);
+  const [isPastHeroIntro, setIsPastHeroIntro] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoginPanelOpen, setIsLoginPanelOpen] = useState(false);
 
@@ -23,23 +24,45 @@ export default function Header() {
   useEffect(() => {
     const heroSection = document.querySelector('.hero-section');
 
-    if (!heroSection) return undefined;
+    if (!hasHero || !heroSection) {
+      setIsPastHeroIntro(true);
+      return undefined;
+    }
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsHeroVisible(entry.isIntersecting);
-      },
-      {
-        threshold: 0.12,
-      }
-    );
+    let ticking = false;
 
-    observer.observe(heroSection);
+    const updateHeaderTone = () => {
+      const heroHeight = heroSection.offsetHeight;
+      const headerHeight = headerRef.current?.offsetHeight ?? 0;
+      const threshold = Math.max(
+        heroHeight * 0.68,
+        heroHeight - headerHeight - 48
+      );
+
+      setIsPastHeroIntro(window.scrollY >= threshold);
+      ticking = false;
+    };
+
+    const requestUpdate = () => {
+      if (ticking) return;
+
+      ticking = true;
+      window.requestAnimationFrame(updateHeaderTone);
+    };
+
+    updateHeaderTone();
+
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate);
 
     return () => {
-      observer.disconnect();
+      window.removeEventListener('scroll', requestUpdate);
+      window.removeEventListener('resize', requestUpdate);
     };
-  }, []);
+  }, [hasHero]);
+
+  const isHeaderSolid =
+    !hasHero || isPastHeroIntro || isMobileMenuOpen || isLoginPanelOpen;
 
   useEffect(() => {
     if (!isMobileMenuOpen) return undefined;
@@ -59,10 +82,8 @@ export default function Header() {
 
   return (
     <header
-      className={`
-        site-header
-        ${!isHeroVisible ? 'is-scrolled' : ''}
-      `}
+      ref={headerRef}
+      className={`site-header${isHeaderSolid ? ' is-solid' : ''}`}
     >
       <div className="site-header__main">
         <Logo className="site-header__logo" />

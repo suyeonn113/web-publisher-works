@@ -15,7 +15,7 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header hasHero={!searchParams} />
       {searchParams ? (
         <FlightSearchResults searchParams={searchParams} />
       ) : (

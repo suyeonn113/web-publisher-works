@@ -80,6 +80,11 @@
   }
 }
 
+.site-header:not(.is-solid):not(:has(.site-header__nav-item--open)):not(:has(.site-header__dropdown-button[aria-expanded='true']))
+  .site-header__nav-link {
+  font-weight: 700;
+}
+
 .site-header__nav-sublist {
   position: fixed;
   top: var(--header-main-height);

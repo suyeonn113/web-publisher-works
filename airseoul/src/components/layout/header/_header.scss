@@ -4,7 +4,6 @@
 /* Header shell */
 
 .site-header {
-  @include transition(background-color, fast, standard);
   position: fixed;
   top: 0;
   z-index: get-z(header);
@@ -13,6 +12,20 @@
 
   color: var(--color-text-inverse);
   background: var(--color-white-medium);
+  box-shadow: none;
+  transition:
+    color var(--duration-panel) var(--ease-panel),
+    background-color var(--duration-panel) var(--ease-panel),
+    box-shadow var(--duration-panel) var(--ease-panel);
+}
+
+.site-header.is-solid,
+.site-header:has(.site-header__nav-item--open),
+.site-header:has(.site-header__dropdown-button[aria-expanded='true']),
+.site-header:has(.site-header__mobile-button[aria-expanded='true']) {
+  color: var(--color-text-primary);
+  background: var(--color-bg-main);
+  box-shadow: var(--shadow-sm);
 }
 
 .site-header__main {
@@ -84,6 +97,8 @@
 .site-header__dropdown-button,
 .site-header__dropdown-link {
   @include transition(color, fast, standard);
+  color: inherit;
+  font-weight: 700;
 
   &:hover,
   &:focus-visible {
