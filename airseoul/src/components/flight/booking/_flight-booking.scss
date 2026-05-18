@@ -1,6 +1,12 @@
 @use '../../../styles/foundation/functions' as *;
 @use '../../../styles/foundation/mixins' as *;
 
+.flight-booking-panel__content {
+  display: grid;
+  gap: get-space(lg);
+  padding: 0 get-space(xl) get-space(xl);
+}
+
 .flight-booking-panel__options {
   display: flex;
   align-items: flex-end;
@@ -16,6 +22,14 @@
   grid-template-columns: minmax(210px, 1fr) minmax(230px, 1.06fr) minmax(180px, 0.8fr) auto;
   align-items: center;
   gap: get-space(lg);
+}
+
+.flight-booking-panel__search > .flight-service-popup {
+  position: absolute;
+  top: calc(var(--popup-top, 0) + #{get-space(sm)});
+  left: 0;
+  z-index: get-z(modal);
+  margin: 0;
 }
 
 .flight-booking-panel__passenger-value {
@@ -281,6 +295,10 @@
 }
 
 @include respond-down(tablet) {
+  .flight-booking-panel__content {
+    padding: get-space(xl);
+  }
+
   .flight-booking-panel__search {
     grid-template-columns: 1fr;
   }
@@ -300,12 +318,22 @@
 }
 
 @include respond-down(mobile) {
-    .flight-passenger-picker__counters {
+  .flight-passenger-picker__counters {
     grid-template-columns: 1fr;
+  }
+
+  .flight-booking-panel__search > .flight-service-popup {
+    position: fixed;
+    inset: 0;
+    z-index: get-z(modal);
   }
 }
 
 @include respond-down(mobile-sm) {
+  .flight-booking-panel__content {
+    padding: get-space(lg);
+  }
+
   .flight-booking-panel__options {
     display: grid;
     gap: get-space(md);

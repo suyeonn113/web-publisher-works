@@ -207,8 +207,8 @@ function FlightSchedulePanel() {
   };
 
   return (
-    <div className="flight-booking-service flight-booking-service--schedule">
-      <div className="flight-booking-service__schedule-options">
+    <div className="flight-service-panel flight-service-panel--schedule">
+      <div className="flight-schedule-options">
         <div className="flight-service-chips" role="group" aria-label="조회 유형">
           <button
             className={searchType === SEARCH_TYPES.STATUS ? 'is-active' : ''}
@@ -271,16 +271,16 @@ function FlightSchedulePanel() {
       </div>
 
       {searchType === SEARCH_TYPES.REALTIME ? (
-        <section className="flight-booking-realtime" aria-label="실시간 출도착 정보">
+        <section className="flight-schedule-realtime" aria-label="실시간 출도착 정보">
           <header>
             <h3>실시간 출도착 정보</h3>
             <span>{formatRealtimeDateTime()} 기준</span>
           </header>
-          <div className="flight-booking-realtime__board">
+          <div className="flight-schedule-realtime__board">
             <section>
               <h4>출발</h4>
               {REALTIME_FLIGHTS.departures.map((flight) => (
-                <div className="flight-booking-realtime__row" key={`${flight.flightNo}-${flight.time}`}>
+                <div className="flight-schedule-realtime__row" key={`${flight.flightNo}-${flight.time}`}>
                   <strong>{flight.flightNo}</strong>
                   <span>{flight.time}</span>
                   <em>{flight.route}</em>
@@ -290,7 +290,7 @@ function FlightSchedulePanel() {
             <section>
               <h4>도착</h4>
               {REALTIME_FLIGHTS.arrivals.map((flight) => (
-                <div className="flight-booking-realtime__row" key={`${flight.flightNo}-${flight.time}`}>
+                <div className="flight-schedule-realtime__row" key={`${flight.flightNo}-${flight.time}`}>
                   <strong>{flight.flightNo}</strong>
                   <span>{flight.time}</span>
                   <em>{flight.route}</em>
@@ -300,7 +300,7 @@ function FlightSchedulePanel() {
           </div>
         </section>
       ) : (
-        <div className="flight-booking-service__schedule-search" ref={searchRef}>
+        <div className="flight-schedule-search" ref={searchRef}>
           {routeType === 'flightNo' && searchType === SEARCH_TYPES.STATUS ? (
             <label className="flight-schedule-flight-number">
               <span>편명</span>

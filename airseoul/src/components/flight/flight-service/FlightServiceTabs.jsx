@@ -2,7 +2,7 @@ import { FLIGHT_SERVICE_TABS } from './flightServiceTabsData';
 
 function FlightServiceTabs({ activeTab, onTabChange }) {
   return (
-    <nav className="flight-booking-panel__tabs" aria-label="항공 서비스">
+    <nav className="flight-service-shell__tabs" aria-label="항공 서비스">
       {FLIGHT_SERVICE_TABS.map((tab) => {
         const TabIcon = tab.icon;
 

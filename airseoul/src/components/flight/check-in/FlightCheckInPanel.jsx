@@ -24,7 +24,7 @@ function FlightCheckInPanel() {
     dateOptions.find((option) => option.value === departureDate)?.label ?? '';
 
   return (
-    <div className="flight-booking-service flight-booking-service--check-in">
+    <div className="flight-service-panel flight-service-panel--check-in">
       <div className="flight-lookup-form">
         {passengerLookupFields.map((field) => {
           if (field.type !== 'date') {

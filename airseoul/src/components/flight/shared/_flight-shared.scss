@@ -210,8 +210,7 @@
   }
 }
 
-.flight-booking-panel__content,
-.flight-booking-service {
+.flight-service-panel {
   display: grid;
   gap: get-space(lg);
   padding: 0 get-space(xl) get-space(xl);
@@ -226,13 +225,12 @@
   min-height: 112px;
 }
 
-.flight-booking-service__schedule-search {
+.flight-schedule-search {
   position: relative;
 }
 
-.flight-booking-panel__search > .flight-service-popup,
 .flight-lookup-form > .flight-service-popup,
-.flight-booking-service__schedule-search > .flight-service-popup {
+.flight-schedule-search > .flight-service-popup {
   position: absolute;
   top: calc(var(--popup-top, 0) + #{get-space(sm)});
   left: 0;
@@ -362,13 +360,12 @@
 }
 
 @include respond-down(tablet) {
-  .flight-booking-panel__content,
-  .flight-booking-service {
+  .flight-service-panel {
     padding: get-space(xl);
   }
 
   .flight-lookup-form,
-  .flight-booking-service__schedule-search {
+  .flight-schedule-search {
     grid-template-columns: 1fr;
   }
 
@@ -392,9 +389,8 @@
 }
 
 @include respond-down(mobile) {
-  .flight-booking-panel__search > .flight-service-popup,
   .flight-lookup-form > .flight-service-popup,
-  .flight-booking-service__schedule-search > .flight-service-popup {
+  .flight-schedule-search > .flight-service-popup {
     position: fixed;
     inset: 0;
     z-index: get-z(modal);
@@ -417,8 +413,7 @@
 }
 
 @include respond-down(mobile-sm) {
-  .flight-booking-panel__content,
-  .flight-booking-service {
+  .flight-service-panel {
     padding: get-space(lg);
   }
 }

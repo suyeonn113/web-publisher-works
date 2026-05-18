@@ -79,7 +79,7 @@ function FlightMyTripPanel() {
   };
 
   return (
-    <div className="flight-booking-service flight-booking-service--my-trip">
+    <div className="flight-service-panel flight-service-panel--my-trip">
       <div className="flight-lookup-form" ref={lookupFormRef}>
         {passengerLookupFields.map((field) => (
           <FlightLookupField

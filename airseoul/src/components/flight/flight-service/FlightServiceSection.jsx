@@ -55,13 +55,13 @@ function FlightServiceSection({ defaultValues, onSearch, variant = 'home' }) {
 
   return (
     <section
-      className={`flight-booking-section flight-booking-section--${variant}`}
+      className={`flight-service-section flight-service-section--${variant}`}
       aria-labelledby="flight-service-title"
     >
-      <div className="flight-booking-section__inner">
-        <div className="flight-booking-panel">
+      <div className="flight-service-section__inner">
+        <div className="flight-service-shell">
           <FlightServiceTabs activeTab={activeTab} onTabChange={handleTabChange} />
-          <div className="flight-booking-panel__body">{renderActivePanel()}</div>
+          <div className="flight-service-shell__body">{renderActivePanel()}</div>
         </div>
       </div>
     </section>
