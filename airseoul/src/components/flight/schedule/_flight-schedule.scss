@@ -11,9 +11,13 @@
 
 .flight-schedule-search {
   display: grid;
-  grid-template-columns: minmax(280px, 0.75fr) minmax(220px, 0.6fr) auto;
+  grid-template-columns: var(--flight-service-search-columns);
   align-items: center;
   gap: get-space(lg);
+}
+
+.flight-schedule-search > .flight-date-field {
+  grid-column: span 2;
 }
 
 .flight-schedule-flight-number {
@@ -149,13 +153,7 @@
 
 @include respond-down(laptop) {
   .flight-schedule-search {
-    grid-template-columns: 1fr;
     gap: get-space(md);
-  }
-
-  .flight-route-selector--summary {
-    padding-right: 0;
-    border-right: 0;
   }
 
   .flight-schedule-realtime__board {
@@ -165,6 +163,17 @@
     section:first-child {
       padding-bottom: get-space(md);
     }
+  }
+}
+
+@include respond-down(tablet) {
+  .flight-schedule-search > .flight-date-field {
+    grid-column: auto;
+  }
+
+  .flight-route-selector--summary {
+    padding-right: 0;
+    border-right: 0;
   }
 }
 

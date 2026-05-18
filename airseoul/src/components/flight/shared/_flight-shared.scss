@@ -216,6 +216,14 @@
   padding: 0 get-space(xl) get-space(xl);
 }
 
+.flight-service-shell__body {
+  --flight-service-search-columns:
+    minmax(210px, 1fr)
+    minmax(230px, 1.06fr)
+    minmax(180px, 0.8fr)
+    auto;
+}
+
 .flight-lookup-form {
   position: relative;
   display: grid;
@@ -341,6 +349,14 @@
 }
 
 @include respond-down(laptop) {
+  .flight-service-shell__body {
+    --flight-service-search-columns:
+      minmax(196px, 0.92fr)
+      minmax(210px, 1fr)
+      minmax(166px, 0.76fr)
+      auto;
+  }
+
   .flight-route-selector {
     grid-template-columns: minmax(0, 1fr) 36px minmax(0, 1fr);
 
@@ -360,6 +376,10 @@
 }
 
 @include respond-down(tablet) {
+  .flight-service-shell__body {
+    --flight-service-search-columns: 1fr;
+  }
+
   .flight-service-panel {
     padding: get-space(xl);
   }

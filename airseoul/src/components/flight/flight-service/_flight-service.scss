@@ -5,6 +5,18 @@
   padding-bottom: get-space(xxl);
 }
 
+.flight-service-section--home {
+  position: relative;
+  z-index: get-z(dropdown);
+  margin-top: -24px;
+  padding-top: get-space(xl);
+
+  background: var(--color-bg-main);
+  border-top: var(--line-thin) solid color-mix(in srgb, var(--color-white) 76%, transparent);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  box-shadow: 0 -18px 44px var(--color-black-soft);
+}
+
 .flight-service-section__inner {
   @include container;
 }
@@ -54,6 +66,12 @@
 }
 
 @include respond-down(tablet) {
+  .flight-service-section--home {
+    margin-top: -18px;
+    padding-top: get-space(lg);
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+  }
+
   .flight-service-shell {
     overflow: visible;
     display: grid;
@@ -103,6 +121,11 @@
 }
 
 @include respond-down(mobile-sm) {
+  .flight-service-section--home {
+    margin-top: -10px;
+    padding-top: get-space(md);
+  }
+
   .flight-service-shell {
     display: block;
   }

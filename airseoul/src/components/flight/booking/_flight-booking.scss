@@ -19,7 +19,7 @@
 .flight-booking-panel__search {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(210px, 1fr) minmax(230px, 1.06fr) minmax(180px, 0.8fr) auto;
+  grid-template-columns: var(--flight-service-search-columns);
   align-items: center;
   gap: get-space(lg);
 }
@@ -285,7 +285,6 @@
 
 @include respond-down(laptop) {
   .flight-booking-panel__search {
-    grid-template-columns: minmax(196px, 0.92fr) minmax(210px, 1fr) minmax(166px, 0.76fr) auto;
     gap: get-space(md);
   }
 
@@ -300,7 +299,7 @@
   }
 
   .flight-booking-panel__search {
-    grid-template-columns: 1fr;
+    grid-template-columns: var(--flight-service-search-columns);
   }
 
   .flight-booking-panel__options {
