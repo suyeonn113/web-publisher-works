@@ -392,18 +392,26 @@
 }
 
 @include respond-down(mobile) {
-  .flight-service-popup {
+  .flight-booking-panel__search > .flight-service-popup,
+  .flight-lookup-form > .flight-service-popup,
+  .flight-booking-service__schedule-search > .flight-service-popup {
     position: fixed;
     inset: 0;
     z-index: get-z(modal);
-    width: auto;
-    height: 100svh;
+  }
+
+  .flight-service-popup {
+    width: 100%;
+    height: auto;
+    min-height: 100%;
+
     overflow-y: auto;
     margin: 0;
     padding: get-space(lg);
-    background: var(--color-bg-main);
+
     border: 0;
     border-radius: 0;
+    box-shadow: none;
     transform: none;
   }
 }

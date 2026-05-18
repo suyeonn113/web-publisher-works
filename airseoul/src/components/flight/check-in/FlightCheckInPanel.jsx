@@ -3,7 +3,7 @@ import { addDays, formatDate, formatKoreanMonthDay, getAppNow } from '../../../u
 import CalendarIcon from '../../icons/CalendarIcon';
 import ChevronDownIcon from '../../icons/ChevronDownIcon';
 import FlightLookupField from '../shared/FlightLookupField';
-import { passengerLookupFields } from '../shared/lookupFields';
+import { passengerLookupFields } from '../../../data/lookupFields';
 
 const CHECK_IN_DATE_OFFSETS = [-1, 0, 1, 2];
 

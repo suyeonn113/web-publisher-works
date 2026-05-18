@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const mainNavSelector = '.site-header__nav-link';
 const subNavSelector = '.site-header__nav-sublink';
@@ -77,15 +78,15 @@ export default function HeaderNavItem({ item }) {
       onBlur={closeSubMenu}
       onKeyDown={handleKeyDown}
     >
-      <a
+      <Link
         className="site-header__nav-link"
-        href={item.href}
+        to={item.href}
         aria-haspopup={hasSubMenu ? 'true' : undefined}
         aria-expanded={hasSubMenu ? isOpen : undefined}
         aria-controls={hasSubMenu ? submenuId : undefined}
       >
         <span>{item.label}</span>
-      </a>
+      </Link>
 
       {hasSubMenu && isOpen && (
         <ul
@@ -94,9 +95,9 @@ export default function HeaderNavItem({ item }) {
         >
           {item.children.map((child) => (
             <li className="site-header__nav-subitem" key={child.id}>
-              <a className="site-header__nav-sublink" href={child.href}>
+              <Link className="site-header__nav-sublink" to={child.href}>
                 {child.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>

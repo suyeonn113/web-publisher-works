@@ -51,6 +51,7 @@ function FlightSchedulePanel() {
   const [from, setFrom] = useState('');
   const [to, setTo] = useState('');
   const [flightNo, setFlightNo] = useState('');
+  const [isFullScreenDatePicker, setIsFullScreenDatePicker] = useState(false);
   const [firstDate, setFirstDate] = useState(getAppDateText());
   const [secondDate, setSecondDate] = useState(getAppDateText());
   const [activePanel, setActivePanel] = useState(null);
@@ -67,6 +68,22 @@ function FlightSchedulePanel() {
     triggerRef.current?.focus();
   }, [triggerRef]);
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
+
+    const handleChange = (event) => {
+      setIsFullScreenDatePicker(event.matches);
+    };
+
+    handleChange(mediaQuery);
+
+    mediaQuery.addEventListener('change', handleChange);
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleChange);
+    };
+  }, []);
+  
   useEffect(() => {
     if (activePanel) {
       popupRef.current?.focus();
@@ -173,6 +190,7 @@ function FlightSchedulePanel() {
             secondDate={secondDate}
             showTripTypeOptions={searchType === SEARCH_TYPES.WEEKLY}
             tripType={searchType === SEARCH_TYPES.WEEKLY ? tripType : TRIP_TYPES.ONE_WAY}
+            isFullScreen={isFullScreenDatePicker}
             onClose={closePanel}
             onDateChange={handleDateChange}
             onTripTypeChange={handleTripTypeChange}

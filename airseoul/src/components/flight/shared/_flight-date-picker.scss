@@ -88,6 +88,17 @@
   }
 }
 
+@include respond-down(tablet) {
+  .flight-date-picker {
+    padding: 0;
+  }
+
+  .flight-date-picker__calendar {
+    gap: get-space(xs);
+  }
+}
+
+
 @include respond-down(mobile) {
   .flight-date-picker {
     padding: 0;
@@ -95,10 +106,6 @@
 
   .flight-date-picker__calendar {
     grid-template-columns: 1fr;
-  }
-
-  .flight-date-picker__nav {
-    display: none;
   }
 }
 

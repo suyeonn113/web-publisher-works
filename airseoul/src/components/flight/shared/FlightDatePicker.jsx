@@ -35,6 +35,7 @@ function FlightDatePicker({
   minDate,
   secondDate,
   showTripTypeOptions = true,
+  isFullScreen = false,
   onClose,
   onDateChange,
   onTripTypeChange,
@@ -46,13 +47,17 @@ function FlightDatePicker({
   );
   const departureDate = selectedDates[0];
   const returnDate = tripType === TRIP_TYPES.ROUND_TRIP ? selectedDates[1] : '';
-  const nextMonth = addMonths(visibleMonth, 1);
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
   const currentMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+  const nextMonth = addMonths(visibleMonth, 1);
   const cannotGoPrevMonth = visibleMonth <= currentMonth;
+
+  const visibleMonths = isFullScreen
+    ? Array.from({ length: 12 }, (_, index) => addMonths(currentMonth, index))
+    : [visibleMonth, nextMonth];
 
   const handleSelectDate = (date) => {
     const dateText = formatDate(date);
@@ -150,28 +155,31 @@ function FlightDatePicker({
       )}
 
       <div className="flight-date-picker__calendar">
-        <button
-          className="flight-date-picker__nav flight-date-picker__nav--prev"
-          type="button"
-          aria-label="이전 달"
-          disabled={cannotGoPrevMonth}
-          onClick={() => {
-            if (cannotGoPrevMonth) return;
-            setVisibleMonth(addMonths(visibleMonth, -1));
-          }}
-        >
-          <ChevronLeftIcon size={24} />
-        </button>
-        {renderMonth(visibleMonth)}
-        {renderMonth(nextMonth)}
-        <button
-          className="flight-date-picker__nav flight-date-picker__nav--next"
-          type="button"
-          aria-label="다음 달"
-          onClick={() => setVisibleMonth(addMonths(visibleMonth, 1))}
-        >
-          <ChevronRightIcon size={24} />
-        </button>
+        {!isFullScreen && (
+          <button
+            className="flight-date-picker__nav flight-date-picker__nav--prev"
+            type="button"
+            aria-label="이전 달"
+            disabled={cannotGoPrevMonth}
+            onClick={() => {
+              if (cannotGoPrevMonth) return;
+              setVisibleMonth(addMonths(visibleMonth, -1));
+            }}
+          >
+            <ChevronLeftIcon size={24} />
+          </button>
+        )}
+        {visibleMonths.map((monthDate) => renderMonth(monthDate))}
+        {!isFullScreen && (
+          <button
+            className="flight-date-picker__nav flight-date-picker__nav--next"
+            type="button"
+            aria-label="다음 달"
+            onClick={() => setVisibleMonth(addMonths(visibleMonth, 1))}
+          >
+            <ChevronRightIcon size={24} />
+          </button>
+        )}
       </div>
     </div>
   );

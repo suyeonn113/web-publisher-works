@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { utilityNav } from '../../../data/utilityNav';
 import { iconSize } from '../../../tokens/size';
@@ -76,13 +77,13 @@ export default function HeaderContactMenu({
           <ul className="site-header__dropdown-list" id={submenuId}>
             {contactMenu.children.map((item) => (
               <li className="site-header__dropdown-item" key={item.id}>
-                <a
+                <Link
                   className="site-header__dropdown-link"
-                  href={item.href}
+                  to={item.href}
                   onClick={() => setIsOpen(false)}
                 >
                   {item.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

@@ -80,6 +80,10 @@ function FlightBookingPanel({ defaultValues, onSearch }) {
   const [firstDate, setFirstDate] = useState(defaultValues?.departureDate ?? '');
   const [secondDate, setSecondDate] = useState(defaultValues?.returnDate ?? '');
   const [passengers, setPassengers] = useState({ adult: 1, child: 0, infant: 0 });
+
+  const [isFullScreenDatePicker, setIsFullScreenDatePicker] = useState(false);
+
+
   const [promotionCode, setPromotionCode] = useState('');
   const [activePanel, setActivePanel] = useState(null);
   const [isAgeCalculatorOpen, setIsAgeCalculatorOpen] = useState(false);
@@ -118,6 +122,22 @@ function FlightBookingPanel({ defaultValues, onSearch }) {
     setActivePanel(null);
     triggerRef.current?.focus();
   }, [activePanel, hasPendingRoundTripDate, triggerRef, tripType]);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
+
+    const handleChange = (event) => {
+      setIsFullScreenDatePicker(event.matches);
+    };
+
+    handleChange(mediaQuery);
+
+    mediaQuery.addEventListener('change', handleChange);
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleChange);
+    };
+  }, []);
 
   useEffect(() => {
     if (activePanel) {
@@ -335,6 +355,7 @@ function FlightBookingPanel({ defaultValues, onSearch }) {
           firstDate={firstDate}
           secondDate={secondDate}
           tripType={tripType}
+          isFullScreen={isFullScreenDatePicker}
           onClose={closePanel}
           onDateChange={handleDateChange}
           onTripTypeChange={setTripType}

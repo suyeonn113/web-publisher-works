@@ -20,6 +20,10 @@ export const ROUTES = {
     baggage: '/travel/baggage',
     meal: '/travel/meal',
     insurance: '/travel/insurance',
+
+    dutyFree: '/travel/duty-free',
+    cafeMint: '/travel/cafe-mint',
+
     airportService: '/travel/airport-service',
     travelSupport: '/travel/support',
   },

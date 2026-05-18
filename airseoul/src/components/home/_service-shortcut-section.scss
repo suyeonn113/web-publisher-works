@@ -1,0 +1,155 @@
+@use '../../styles/foundation/functions' as *;
+@use '../../styles/foundation/mixins' as *;
+
+.service-shortcut-section {
+  @include section-spacing;
+}
+
+.service-shortcut-section__inner {
+  @include container;
+
+  display: grid;
+  gap: get-space(xl);
+}
+
+.service-shortcut-section__header {
+  display: grid;
+  gap: get-space(xs);
+
+  h2 {
+    @include text-size(title);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
+
+  p {
+    color: var(--color-text-secondary);
+  }
+}
+
+.service-shortcut-section__list {
+  position: relative;
+
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0;
+
+  padding: get-space(lg);
+  border-radius: var(--radius-xl);
+  background: var(--color-bg-main);
+}
+
+.service-shortcut-section__item {
+  position: relative;
+  min-width: 0;
+
+  &:not(:last-child)::after {
+    content: '';
+
+    position: absolute;
+    top: 48px;
+    right: 0;
+
+    width: var(--line-thin);
+    height: 72px;
+
+    background: var(--color-border-primary);
+  }
+}
+
+.service-shortcut-section__link {
+  @include transition(transform, fast, standard);
+
+  position: relative;
+
+  display: grid;
+  justify-items: center;
+  gap: get-space(sm);
+
+  min-height: 144px;
+  padding: get-space(md);
+
+  color: inherit;
+  text-align: center;
+  border-radius: var(--radius-lg);
+
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-4px);
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--color-focus-ring);
+    outline-offset: 4px;
+  }
+}
+
+.service-shortcut-section__visual {
+  @include flex-center;
+  @include transition(transform, fast, standard);
+
+  position: relative;
+
+  width: 88px;
+  aspect-ratio: 1 / 1;
+
+  img {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+  }
+}
+
+.service-shortcut-section__link:hover .service-shortcut-section__visual,
+.service-shortcut-section__link:focus-visible .service-shortcut-section__visual {
+  transform: scale(1.08) rotate(-4deg);
+}
+
+.service-shortcut-section__label {
+  @include text-size(body);
+
+  color: var(--color-text-primary);
+  font-weight: 700;
+  word-break: keep-all;
+}
+
+@include respond-down(tablet) {
+  .service-shortcut-section__list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: get-space(lg);
+  }
+
+  .service-shortcut-section__item:nth-child(3n)::after {
+    display: none;
+  }
+}
+
+@include respond-down(mobile) {
+  .service-shortcut-section__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: get-space(md);
+  }
+
+  .service-shortcut-section__item:nth-child(2n)::after {
+    display: none;
+  }
+
+  .service-shortcut-section__item:nth-child(3n)::after {
+    display: block;
+  }
+
+  .service-shortcut-section__link {
+    min-height: 124px;
+    padding: get-space(sm);
+  }
+
+  .service-shortcut-section__visual {
+    width: 72px;
+
+    img {
+      width: 46px;
+      height: 46px;
+    }
+  }
+}

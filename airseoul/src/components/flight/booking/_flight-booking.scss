@@ -294,11 +294,13 @@
     max-width: none;
   }
 
-  .flight-passenger-picker__counters {
+  .flight-passenger-picker__age-calculator > div {
     grid-template-columns: 1fr;
   }
+}
 
-  .flight-passenger-picker__age-calculator > div {
+@include respond-down(mobile) {
+    .flight-passenger-picker__counters {
     grid-template-columns: 1fr;
   }
 }

@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export default function HeaderMobileNavPanel({ menus, sectionRefs }) {
   return (
     <div className="site-header__mobile-nav-panel">
@@ -19,12 +21,12 @@ export default function HeaderMobileNavPanel({ menus, sectionRefs }) {
                 className="site-header__mobile-panel-item"
                 key={item.id}
               >
-                <a
+                <Link
                   className="site-header__mobile-panel-link"
-                  href={item.href}
+                  to={item.href}
                 >
                   {item.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

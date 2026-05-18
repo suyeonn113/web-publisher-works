@@ -4,7 +4,7 @@ import { formatKoreanMonthDay, getAppDateText } from '../../../utils/date';
 import XIcon from '../../icons/XIcon';
 import FlightDatePicker from '../shared/FlightDatePicker';
 import FlightLookupField from '../shared/FlightLookupField';
-import { passengerLookupFields } from '../shared/lookupFields';
+import { passengerLookupFields } from '../../../data/lookupFields';
 import useFlightServicePopupPosition from '../shared/useFlightServicePopupPosition';
 
 const POPUP_WIDTHS = {
@@ -15,6 +15,7 @@ const POPUP_WIDTHS = {
 function FlightMyTripPanel() {
   const [departureDate, setDepartureDate] = useState(getAppDateText());
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+  const [isFullScreenDatePicker, setIsFullScreenDatePicker] = useState(false);
   const popupRef = useRef(null);
   const {
     containerRef: lookupFormRef,
@@ -32,6 +33,22 @@ function FlightMyTripPanel() {
     updatePopupPosition('date', event);
     setIsDatePickerOpen(true);
   };
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
+
+    const handleChange = (event) => {
+      setIsFullScreenDatePicker(event.matches);
+    };
+
+    handleChange(mediaQuery);
+
+    mediaQuery.addEventListener('change', handleChange);
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleChange);
+    };
+  }, []);
 
   useEffect(() => {
     if (isDatePickerOpen) {
@@ -98,6 +115,7 @@ function FlightMyTripPanel() {
               firstDate={departureDate}
               showTripTypeOptions={false}
               tripType={TRIP_TYPES.ONE_WAY}
+              isFullScreen={isFullScreenDatePicker}
               onClose={closeDatePicker}
               onDateChange={handleDateChange}
             />
