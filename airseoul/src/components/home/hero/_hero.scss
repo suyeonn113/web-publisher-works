@@ -164,7 +164,7 @@
   font-weight: 400;
 
   strong {
-    color: var(--color-mint);
+    color: var(--color-text-inverse);
     font-size: clamp(32px, 4vw, 56px);
     font-weight: 700;
     letter-spacing: -0.04em;
@@ -398,7 +398,7 @@
 @include respond-down(mobile) {
   .hero-section {
     --hero-extra-height: 92px;
-    --hero-foreground-lift: 112px;
+    --hero-foreground-lift: 80px;
   }
 
   .hero-promotion-list {

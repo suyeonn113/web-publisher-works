@@ -55,7 +55,7 @@
   margin-bottom: get-space(lg);
 
   h3 {
-    @include text-size(body-lg);
+    @include text-size(body);
 
     color: var(--color-text-primary);
     font-weight: 800;
@@ -90,6 +90,10 @@
   display: grid;
 }
 
+.home-info-notice__item {
+  min-width: 0;
+}
+
 .home-info-notice__item + .home-info-notice__item {
   border-top: 0;
 }
@@ -97,6 +101,9 @@
 .home-info-notice__link {
   @include transition(color, fast, standard);
 
+  display: flex;
+  align-items: center;
+  width: 100%;
   min-width: 0;
   gap: get-space(md);
   padding-block: get-space(xs);
@@ -113,6 +120,9 @@
 
   flex: 1;
   min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   em {
     margin-left: get-space(sm);
@@ -127,6 +137,7 @@
   color: var(--color-text-secondary);
   white-space: nowrap;
   font-size: rem(13px);
+  flex-shrink: 0;
 }
 
 .home-info-status {
