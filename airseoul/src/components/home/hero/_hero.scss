@@ -398,7 +398,7 @@
 @include respond-down(mobile) {
   .hero-section {
     --hero-extra-height: 92px;
-    --hero-foreground-lift: 80px;
+    --hero-foreground-lift: 112px;
   }
 
   .hero-promotion-list {
@@ -449,5 +449,11 @@
     align-items: flex-end;
 
     padding-bottom: calc(#{get-space(xl)} + var(--hero-foreground-lift));
+  }
+}
+
+@include respond-down(mobile-sm) {
+    .hero-section {
+    --hero-foreground-lift: 80px;
   }
 }

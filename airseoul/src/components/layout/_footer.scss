@@ -207,3 +207,9 @@
     }
   }
 }
+
+@include respond-down(mobile-sm) {
+  .site-footer__company {
+    margin-bottom: calc(get-space(xl) * 2);
+  }
+}
