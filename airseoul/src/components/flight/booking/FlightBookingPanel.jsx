@@ -14,6 +14,7 @@ import {
   createSearchParamsFromCalendar,
   sortSelectedDates,
 } from '../../../utils/searchParams';
+import useBodyScrollLock from '../../../hooks/useBodyScrollLock';
 import AirportSelectionPanel from '../shared/AirportSelectionPanel';
 import FlightDateField from '../shared/FlightDateField';
 import FlightDatePicker from '../shared/FlightDatePicker';
@@ -107,6 +108,8 @@ function FlightBookingPanel({ defaultValues, onSearch }) {
   const toAirport = getAirport(to);
   const departureDateLabel = formatKoreanMonthDay(departureDate);
   const returnDateLabel = returnDate ? formatKoreanMonthDay(returnDate) : '';
+
+  useBodyScrollLock(Boolean(activePanel));
 
   const closePanel = useCallback(({ shouldValidateDate = false } = {}) => {
     if (

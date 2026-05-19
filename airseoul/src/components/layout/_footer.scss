@@ -3,12 +3,14 @@
 
 .site-footer {
   border-top: var(--line-thin) solid var(--color-border-primary);
+  background: var(--color-bg-main);
+  font-size: rem(13px);
 }
 
 .site-footer__inner {
   @include container;
 
-  padding-block: get-space(xl) get-space(md);
+  padding-block: get-space(xxl) get-space(md);
 }
 
 .site-footer__main {
@@ -22,12 +24,12 @@
   display: grid;
   gap: get-space(md);
   padding-right: get-space(lg);
-  
+
   .logo {
     order: 1;
     display: block;
-    width: var(--logo-width);
-    color: var(--color-point-primary);
+    width: calc(var(--logo-width) * 0.78);
+    color: var(--color-text-tertiary);
   }
 }
 
@@ -41,18 +43,36 @@
     @include flex-center;
     @include transition(all, fast, standard);
 
-    width: 36px;
+    width: 38px;
     aspect-ratio: 1;
-    color: var(--color-text-secondary);
+    color: var(--social-color, var(--color-text-secondary));
+    background: var(--color-bg-main);
     border: var(--line-thin) solid var(--color-border-primary);
     border-radius: var(--radius-full);
 
     &:hover,
     &:focus-visible {
-      color: var(--color-mint);
-      border-color: var(--color-border-mint);
+      color: var(--color-text-inverse);
+      background: var(--social-color, var(--color-point-primary));
+      border-color: var(--social-color, var(--color-border-mint));
     }
   }
+}
+
+.site-footer__social-item--facebook {
+  --social-color: var(--color-social-facebook);
+}
+
+.site-footer__social-item--instagram {
+  --social-color: var(--color-social-instagram);
+}
+
+.site-footer__social-item--youtube {
+  --social-color: var(--color-social-youtube);
+}
+
+.site-footer__social-item--twitter {
+  --social-color: var(--color-social-twitter);
 }
 
 .site-footer__nav {
@@ -63,11 +83,11 @@
 
 .site-footer__group {
   display: grid;
-  gap: get-space(lg);
+  gap: get-space(md);
 
   h2 {
     color: var(--color-text-primary);
-    font-size: 1rem;
+    font-size: rem(14px);
     font-weight: 800;
   }
 }
@@ -79,28 +99,49 @@
 
   a {
     color: var(--color-text-secondary);
+    line-height: 1.7;
   }
 }
 
 .site-footer__company {
   margin-top: get-space(xl);
-  padding-top: get-space(md);
+  padding-top: get-space(lg);
   border-top: var(--line-thin) solid var(--color-border-primary);
 
   h2 {
     margin-bottom: get-space(sm);
     color: var(--color-text-primary);
-    font-size: 1rem;
+    font-size: rem(13px);
     font-weight: 800;
   }
 
   address {
-    display: flex;
-    flex-wrap: wrap;
-    gap: get-space(xs) get-space(md);
+    display: grid;
+    gap: get-space(xs);
     color: var(--color-text-secondary);
+    font-size: rem(12px);
     font-style: normal;
-    line-height: 1.7;
+    line-height: 1.65;
+  }
+}
+
+.site-footer__company-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: get-space(xs) get-space(sm);
+
+  > span {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  > span + span::before {
+    content: '';
+    width: var(--line-thin);
+    height: 0.82em;
+    margin-right: get-space(sm);
+    background: var(--color-border-secondary);
   }
 }
 
@@ -108,20 +149,61 @@
   display: block;
   margin-top: get-space(md);
   color: var(--color-text-secondary);
+  font-size: rem(12px);
 }
 
 @include respond-down(tablet) {
   .site-footer__main {
     grid-template-columns: 1fr;
   }
-
-  .site-footer__nav {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }
 
 @include respond-down(mobile) {
+  .site-footer__inner {
+    padding-block: get-space(xl) get-space(md);
+    text-align: center;
+  }
+
+  .site-footer__brand {
+    justify-items: center;
+    padding-right: 0;
+  }
+
+  .site-footer__social {
+    justify-content: center;
+  }
+
   .site-footer__nav {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(4, auto);
+    justify-content: center;
+    gap: get-space(md);
+  }
+
+  .site-footer__group {
+    h2 {
+      display: none;
+    }
+  }
+
+  .site-footer__links {
+    display: contents;
+
+    li:not(:first-child) {
+      display: none;
+    }
+  }
+
+  .site-footer__company {
+    address {
+      gap: get-space(sm);
+    }
+
+    .site-footer__company-row {
+      justify-content: center;
+    }
+
+    .site-footer__company-row:first-child {
+      font-weight: 800;
+    }
   }
 }

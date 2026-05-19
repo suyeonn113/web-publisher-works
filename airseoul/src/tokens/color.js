@@ -38,6 +38,11 @@ export const color = {
   pointPink: 'var(--color-point-pink)',
   pointYellow: 'var(--color-point-yellow)',
 
+  socialFacebook: 'var(--color-social-facebook)',
+  socialInstagram: 'var(--color-social-instagram)',
+  socialYoutube: 'var(--color-social-youtube)',
+  socialTwitter: 'var(--color-social-twitter)',
+
   serviceIconLine: 'var(--service-icon-line)',
   serviceIconPoint: 'var(--service-icon-point)',
   serviceIconPointSub: 'var(--service-icon-point-sub)',

@@ -102,8 +102,8 @@ i {
 }
 
 ::selection {
-  color: var(--color-text-inverse);
-  background: var(--color-point-primary);
+  color: var(--color-text-primary);
+  background: color-mix(in srgb, var(--color-bg-mint-soft) 72%, var(--color-white));
 }
 
 * {

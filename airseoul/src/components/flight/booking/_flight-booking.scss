@@ -324,7 +324,7 @@
   .flight-booking-panel__search > .flight-service-popup {
     position: fixed;
     inset: 0;
-    z-index: get-z(modal);
+    z-index: get-z(toast);
   }
 }
 

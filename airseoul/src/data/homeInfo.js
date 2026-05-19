@@ -1,9 +1,9 @@
 import { ROUTES } from '../constants/routes';
 import CircleQuestionMarkIcon from '../components/icons/CircleQuestionMarkIcon';
-import HeartRouteIcon from '../components/icons/HeartRouteIcon';
 import MailIcon from '../components/icons/MailIcon';
 import PhoneIcon from '../components/icons/PhoneIcon';
 import BuildingIcon from '../components/icons/BuildingIcon';
+import SquarePenIcon from '../components/icons/SquarePenIcon';
 import UsersGroupIcon from '../components/icons/UsersGroupIcon';
 
 export const homeNotices = [
@@ -73,20 +73,20 @@ export const partnershipInquiries = [
 export const airSeoulStats = [
   {
     id: 'founded',
-    value: '2016',
+    value: '2015',
     label: '설립연도',
     icon: BuildingIcon,
   },
   {
-    id: 'routes',
-    value: '20+',
-    label: '취항 노선',
-    icon: HeartRouteIcon,
+    id: 'travel-diy',
+    value: '여행 D.I.Y',
+    label: '합리적 운임',
+    icon: SquarePenIcon,
   },
   {
-    id: 'passengers',
-    value: '2,500만+',
-    label: '누적 탑승객',
+    id: 'service-care',
+    value: '서비스 A/S',
+    label: '고객 맞춤 케어',
     icon: UsersGroupIcon,
   },
 ];

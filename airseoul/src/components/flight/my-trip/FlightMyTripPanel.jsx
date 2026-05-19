@@ -5,6 +5,7 @@ import XIcon from '../../icons/XIcon';
 import FlightDatePicker from '../shared/FlightDatePicker';
 import FlightLookupField from '../shared/FlightLookupField';
 import { passengerLookupFields } from '../../../data/lookupFields';
+import useBodyScrollLock from '../../../hooks/useBodyScrollLock';
 import useFlightServicePopupPosition from '../shared/useFlightServicePopupPosition';
 
 const POPUP_WIDTHS = {
@@ -23,6 +24,8 @@ function FlightMyTripPanel() {
     triggerRef,
     updatePopupPosition,
   } = useFlightServicePopupPosition(POPUP_WIDTHS);
+
+  useBodyScrollLock(isDatePickerOpen);
 
   const closeDatePicker = useCallback(() => {
     setIsDatePickerOpen(false);

@@ -8,7 +8,9 @@ function ServiceShortcutItem({ item }) {
     <li className="service-shortcut__item">
       <Link className="service-shortcut__link" to={item.to}>
         <span className="service-shortcut__icon" aria-hidden="true">
-          {item.icon && <item.icon />}
+          {item.iconSrc && (
+            <img src={item.iconSrc} alt="" loading="lazy" onError={handleIconError} />
+          )}
         </span>
 
         <strong className="service-shortcut__label">{item.label}</strong>

@@ -170,10 +170,6 @@ export default function LoginPanel({ isOpen, onClose }) {
             </a>
           </div>
         )}
-
-        <div className="login-panel__ad">
-          <img className="login-panel__ad-image" src="" alt="" />
-        </div>
       </aside>
     </div>
   );

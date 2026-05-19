@@ -4,7 +4,7 @@
 .service-shortcut {
   display: flex;
   align-items: center;
-  min-height: clamp(520px, 64svh, 700px);
+  min-height: auto;
   background: var(--color-bg-main);
 }
 
@@ -13,10 +13,10 @@
 
   width: 100%;
   display: grid;
-  grid-template-columns: minmax(240px, 308px) minmax(0, 1fr);
-  gap: get-space(xxl);
-  align-items: stretch;
-  padding-block: get-space(xxl);
+  grid-template-columns: minmax(180px, 232px) minmax(0, 1fr);
+  gap: get-space(xl);
+  align-items: start;
+  padding-block: get-space(xxl) get-space(xl);
 }
 
 .service-shortcut__content {
@@ -24,7 +24,6 @@
   flex-direction: column;
   align-items: flex-start;
   padding-right: get-space(xl);
-  border-right: var(--line-thin) solid var(--color-border-primary);
 }
 
 .service-shortcut__eyebrow {
@@ -37,10 +36,10 @@
 }
 
 .service-shortcut__title {
-  @include text-size(heading-md);
+  @include text-size(title);
 
   color: var(--color-text-primary);
-  font-weight: 500;
+  font-weight: 800;
   line-height: 1.26;
   word-break: keep-all;
 }
@@ -48,10 +47,10 @@
 .service-shortcut__text {
   @include text-size(body);
 
-  max-width: 256px;
-  margin-top: get-space(lg);
+  max-width: 180px;
+  margin-top: get-space(md);
   color: var(--color-text-secondary);
-  line-height: 1.7;
+  line-height: 1.65;
   word-break: keep-all;
 
   span {
@@ -66,8 +65,8 @@
 
   display: inline-flex;
   align-items: center;
-  gap: get-space(sm);
-  margin-top: auto;
+  gap: get-space(xs);
+  margin-top: get-space(lg);
   color: var(--color-point-primary);
   font-weight: 700;
 }
@@ -75,20 +74,24 @@
 .service-shortcut__list {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: get-space(lg);
+  gap: get-space(md);
 }
 
 .service-shortcut__link {
   @include transition(transform, fast, standard);
 
   display: flex;
-  gap: get-space(md);
+  gap: get-space(sm);
   min-width: 0;
   height: 100%;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
+  padding: get-space(md) get-space(sm);
   color: var(--color-text-primary);
   text-align: center;
+  background: color-mix(in srgb, var(--color-bg-sub) 72%, var(--color-white));
+  border-radius: var(--radius-sm);
 
   &:hover,
   &:focus-visible {
@@ -101,27 +104,23 @@
   @include transition(border-color, fast, standard);
 
   position: relative;
-  width: 104px;
+  width: min(100%, 112px);
   aspect-ratio: 1;
-  margin-bottom: get-space(md);
-  border: var(--line-thin) solid var(--color-border-primary);
-  border-radius: var(--radius-full);
-  background: var(--color-bg-main);
+  margin-bottom: get-space(xs);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
 
   &::before {
-    @include text-size(caption);
-
-    content: attr(data-placeholder);
-    color: var(--color-point-primary);
-    font-weight: 800;
+    content: none;
   }
 
   img {
-    position: absolute;
-    width: 56px;
-    height: 56px;
+    position: static;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
-    background: var(--color-bg-main);
+    background: transparent;
   }
 
   .icon-line {
@@ -146,7 +145,7 @@
 }
 
 .service-shortcut__label {
-  @include text-size(body-lg);
+  @include text-size(caption);
 
   color: var(--color-text-primary);
   font-weight: 800;
@@ -157,28 +156,26 @@
 .service-shortcut__description {
   @include text-size(caption);
 
-  max-width: 152px;
-  margin-top: get-space(sm);
+  max-width: 124px;
+  margin-top: 0;
   color: var(--color-text-secondary);
-  line-height: 1.6;
+  line-height: 1.5;
   word-break: keep-all;
 }
 
 @include respond-down(laptop) {
   .service-shortcut__inner {
     grid-template-columns: 1fr;
-    gap: get-space(xl);
+    gap: get-space(lg);
   }
 
   .service-shortcut__content {
     display: grid;
-    grid-template-columns: minmax(220px, 300px) minmax(0, 1fr) auto;
-    gap: get-space(lg);
+    grid-template-columns: auto minmax(240px, 420px) auto;
+    gap: get-space(md);
     align-items: end;
     padding-right: 0;
     padding-bottom: get-space(lg);
-    border-right: 0;
-    border-bottom: var(--line-thin) solid var(--color-border-primary);
   }
 
   .service-shortcut__eyebrow {
@@ -205,6 +202,7 @@
   }
 
   .service-shortcut__guide {
+    justify-self: end;
     margin-top: 0;
   }
 }
@@ -212,7 +210,7 @@
 @include respond-down(tablet) {
   .service-shortcut__list {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    row-gap: get-space(xl);
+    gap: get-space(md);
   }
 }
 
@@ -236,7 +234,7 @@
 
   .service-shortcut__text {
     max-width: 256px;
-    margin-top: get-space(lg);
+    margin-top: get-space(md);
 
     span {
       display: block;
@@ -250,11 +248,11 @@
 
   .service-shortcut__list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: get-space(lg) get-space(md);
+    gap: get-space(md);
   }
 
   .service-shortcut__icon {
-    width: 88px;
+    width: min(100%, 104px);
   }
 }
 

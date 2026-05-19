@@ -7,6 +7,7 @@ import {
 } from '../../../utils/date';
 import { getAirport } from '../../../utils/airports';
 import { sortSelectedDates } from '../../../utils/searchParams';
+import useBodyScrollLock from '../../../hooks/useBodyScrollLock';
 import XIcon from '../../icons/XIcon';
 import AirportSelectionPanel from '../shared/AirportSelectionPanel';
 import FlightDateField from '../shared/FlightDateField';
@@ -62,6 +63,8 @@ function FlightSchedulePanel() {
     triggerRef,
     updatePopupPosition,
   } = useFlightServicePopupPosition(POPUP_WIDTHS);
+
+  useBodyScrollLock(Boolean(activePanel));
 
   const closePanel = useCallback(() => {
     setActivePanel(null);

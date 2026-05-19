@@ -13,9 +13,7 @@ function ServiceShortcutSection() {
           <span className="service-shortcut__eyebrow">ADDITIONAL SERVICE</span>
 
           <h2 className="service-shortcut__title" id="service-shortcut-title">
-            부가서비스&nbsp;
-            <br />
-            구매
+            부가서비스
           </h2>
 
           <p className="service-shortcut__text">
@@ -24,7 +22,7 @@ function ServiceShortcutSection() {
           </p>
 
           <Link className="service-shortcut__guide" to={ROUTES.travel.root}>
-            <span>부가서비스 안내</span>
+            <span>전체 보기</span>
             <ChevronRightIcon size={iconSize.md} />
           </Link>
         </div>

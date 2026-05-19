@@ -50,7 +50,7 @@
 
   position: relative;
   padding-bottom: get-space(sm);
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .login-panel__close {
@@ -72,7 +72,9 @@
 .login-panel__tabs {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  min-height: 56px;
   margin-bottom: get-space(md);
+  border-bottom: var(--line-thin) solid var(--color-border-primary);
 }
 
 .login-panel__tab {
@@ -84,15 +86,14 @@
   padding: get-space(md) get-space(sm);
 
   color: var(--color-text-primary);
-  border-top: var(--line-bold) solid transparent;
 
   &--active {
     @include button-hover-none;
 
     color: var(--color-point-primary);
     font-weight: 700;
-    border-top-color: var(--color-border-mint);
     background: var(--color-bg-main);
+    box-shadow: inset 0 -3px 0 var(--color-point-primary);
   }
 }
 
@@ -111,6 +112,7 @@
   padding: get-space(sm) get-space(md);
 
   border: var(--line-thin) solid var(--color-border-secondary);
+  border-radius: var(--radius-sm);
 
   &::placeholder {
     color: var(--color-text-tertiary);
@@ -119,6 +121,7 @@
   &:focus {
     border-color: var(--color-border-mint);
     outline: 0;
+    box-shadow: 0 0 0 var(--focus-ring-width) color-mix(in srgb, var(--color-border-mint) 18%, transparent);
   }
 }
 
@@ -133,6 +136,7 @@
   @include text-size(caption);
 
   color: var(--color-text-primary);
+  line-height: 1.5;
 }
 
 .login-panel__notice {
@@ -154,6 +158,7 @@
   color: var(--color-text-inverse);
   font-weight: 700;
   background: var(--color-point-primary);
+  border-radius: var(--radius-sm);
 
 }
 
@@ -176,6 +181,7 @@
   color: var(--color-text-primary);
   font-weight: 400;
   border: var(--line-thin) solid var(--color-border-secondary);
+  border-radius: var(--radius-sm);
 
 }
 
@@ -222,19 +228,4 @@
 
 .login-panel__link-icon {
   flex-shrink: 0;
-}
-
-.login-panel__ad {
-  margin-top: auto;
-  padding-top: get-space(xxl);
-}
-
-.login-panel__ad-image {
-  display: block;
-  width: 100%;
-  aspect-ratio: 16 / 5;
-  min-height: 132px;
-
-  background: var(--color-bg-mint);
-  border: 0;
 }

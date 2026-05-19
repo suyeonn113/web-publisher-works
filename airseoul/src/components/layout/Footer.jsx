@@ -7,10 +7,10 @@ import TwitterIcon from '../icons/TwitterIcon';
 import YoutubeIcon from '../icons/YoutubeIcon';
 
 const footerSocialLinks = [
-  { label: 'Facebook', href: '#facebook', icon: FacebookIcon },
-  { label: 'Instagram', href: '#instagram', icon: InstagramIcon },
-  { label: 'YouTube', href: '#youtube', icon: YoutubeIcon },
-  { label: 'Twitter', href: '#twitter', icon: TwitterIcon },
+  { id: 'facebook', label: 'Facebook', href: '#facebook', icon: FacebookIcon },
+  { id: 'instagram', label: 'Instagram', href: '#instagram', icon: InstagramIcon },
+  { id: 'youtube', label: 'YouTube', href: '#youtube', icon: YoutubeIcon },
+  { id: 'twitter', label: 'Twitter', href: '#twitter', icon: TwitterIcon },
 ];
 
 function Footer() {
@@ -24,7 +24,7 @@ function Footer() {
                 const SocialIcon = social.icon;
 
                 return (
-                  <li key={social.label}>
+                  <li className={`site-footer__social-item site-footer__social-item--${social.id}`} key={social.label}>
                     <a href={social.href} aria-label={social.label}>
                       <SocialIcon size={18} />
                     </a>
@@ -54,8 +54,12 @@ function Footer() {
         <section className="site-footer__company" aria-label="회사 정보">
           <h2>회사 정보</h2>
           <address>
-            {footerCompanyInfo.map((info) => (
-              <span key={info}>{info}</span>
+            {footerCompanyInfo.map((group) => (
+              <span className="site-footer__company-row" key={group.id}>
+                {group.items.map((info) => (
+                  <span key={info}>{info}</span>
+                ))}
+              </span>
             ))}
           </address>
         </section>

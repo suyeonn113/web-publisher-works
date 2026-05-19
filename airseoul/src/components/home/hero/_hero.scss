@@ -2,8 +2,9 @@
 @use '../../../styles/foundation/functions' as *;
 
 .hero-section {
-  --hero-extra-height: 32px;
-  --hero-foreground-lift: 56px;
+  --hero-extra-height: 152px;
+  --hero-foreground-lift: 172px;
+  --hero-bottom-arc: clamp(48px, 6vw, 96px);
 
   position: relative;
   top: 0;
@@ -16,6 +17,9 @@
 
   color: var(--color-text-inverse);
   background: var(--color-black);
+  border-radius:
+    0 0 50% 50% /
+    0 0 var(--hero-bottom-arc) var(--hero-bottom-arc);
 }
 
 .hero-section,
@@ -354,8 +358,8 @@
 
 @include respond-down(tablet) {
   .hero-section {
-    --hero-extra-height: 28px;
-    --hero-foreground-lift: 44px;
+    --hero-extra-height: 124px;
+    --hero-foreground-lift: 148px;
   }
 
   .hero-section__inner {
@@ -392,8 +396,8 @@
 
 @include respond-down(mobile) {
   .hero-section {
-    --hero-extra-height: 20px;
-    --hero-foreground-lift: 28px;
+    --hero-extra-height: 92px;
+    --hero-foreground-lift: 112px;
   }
 
   .hero-promotion-list {
