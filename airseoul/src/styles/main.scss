@@ -18,7 +18,11 @@
 @use '../components/flight/shared/flight-shared';
 @use '../components/flight/shared/flight-date-picker';
 @use '../components/flight/booking/flight-booking';
+@use '../components/flight/search/booking-content-layout';
+@use '../components/flight/search/booking-step-nav';
+@use '../components/flight/search/flight-select-section';
 @use '../components/flight/schedule/flight-schedule';
 
-@use './pages/home';
-@use './pages/flight-search-results';
+@use '../pages/home';
+@use '../pages/booking';
+@use '../pages/flight-search-results';

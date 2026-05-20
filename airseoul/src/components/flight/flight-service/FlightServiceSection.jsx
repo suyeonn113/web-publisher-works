@@ -40,7 +40,13 @@ function FlightServiceSection({ defaultValues, onSearch, variant = 'home' }) {
 
   const renderActivePanel = () => {
     if (isBookingPage) {
-      return <FlightBookingPanel defaultValues={defaultValues} onSearch={onSearch} />;
+      return (
+        <FlightBookingPanel
+          defaultValues={defaultValues}
+          onSearch={onSearch}
+          variant={variant}
+        />
+      );
     }
 
     if (activeTab === FLIGHT_SERVICE_TAB_IDS.MY_TRIP) {
@@ -55,7 +61,13 @@ function FlightServiceSection({ defaultValues, onSearch, variant = 'home' }) {
       return <FlightSchedulePanel />;
     }
 
-    return <FlightBookingPanel defaultValues={defaultValues} onSearch={onSearch} />;
+    return (
+      <FlightBookingPanel
+        defaultValues={defaultValues}
+        onSearch={onSearch}
+        variant={variant}
+      />
+    );
   };
 
   return (

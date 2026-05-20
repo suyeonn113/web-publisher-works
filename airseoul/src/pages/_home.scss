@@ -1,5 +1,5 @@
-@use '../foundation/functions' as *;
-@use '../foundation/mixins' as *;
+@use '../styles/foundation/functions' as *;
+@use '../styles/foundation/mixins' as *;
 
 .home {
   min-height: 100svh;
@@ -58,7 +58,6 @@
     line-height: 1.2;
     text-align: center;
     word-break: keep-all;
-
   }
 
   .home-mobile-quick__icon {

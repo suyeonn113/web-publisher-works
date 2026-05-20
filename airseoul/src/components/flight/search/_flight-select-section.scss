@@ -1,0 +1,306 @@
+@use '../../../styles/foundation/functions' as *;
+@use '../../../styles/foundation/mixins' as *;
+
+.flight-select-section {
+  padding: get-space(lg);
+  background: var(--color-white);
+  border: var(--line-thin) solid var(--color-border-primary);
+  border-radius: var(--radius-md);
+}
+
+.flight-select-section__header {
+  @include flex-between;
+
+  gap: get-space(lg);
+  margin-bottom: get-space(lg);
+}
+
+.flight-select-section__heading {
+  display: flex;
+  align-items: center;
+  gap: get-space(sm);
+
+  h2 {
+    @include text-size(title);
+
+    color: var(--color-text-primary);
+    font-weight: 800;
+  }
+
+  p {
+    @include text-size(body);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
+
+  svg {
+    flex-shrink: 0;
+    color: var(--color-point-primary);
+  }
+}
+
+.flight-select-section__header {
+  > span {
+    @include text-size(caption);
+
+    flex-shrink: 0;
+    color: var(--color-text-secondary);
+  }
+}
+
+.date-fare-bar {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(rem(92px), 1fr));
+  overflow-x: auto;
+  border: var(--line-thin) solid var(--color-border-primary);
+  border-radius: var(--radius-sm);
+}
+
+.date-fare-bar__item {
+  display: grid;
+  gap: get-space(xs);
+  min-height: rem(64px);
+  min-width: rem(92px);
+  padding: get-space(sm) get-space(md);
+  color: var(--color-text-primary);
+  border-left: var(--line-thin) solid var(--color-border-primary);
+
+  &:first-child {
+    border-left: 0;
+  }
+
+  &.is-selected {
+    color: var(--color-text-inverse);
+    background: var(--color-point-primary);
+    box-shadow: var(--shadow-sm);
+  }
+
+  span {
+    @include text-size(caption);
+  }
+
+  strong {
+    @include text-size(caption);
+
+    font-weight: 800;
+  }
+}
+
+.flight-select-section__table {
+  display: grid;
+  margin-top: get-space(lg);
+  overflow: hidden;
+  border: var(--line-thin) solid var(--color-border-primary);
+  border-radius: var(--radius-sm);
+}
+
+.flight-select-section__table-head,
+.flight-option-row {
+  display: grid;
+  grid-template-columns:
+    minmax(rem(92px), 0.7fr)
+    minmax(rem(88px), 0.7fr)
+    minmax(rem(112px), 0.8fr)
+    minmax(rem(88px), 0.7fr)
+    minmax(rem(360px), 2.4fr);
+  align-items: center;
+}
+
+.flight-select-section__table-head {
+  @include text-size(caption);
+
+  min-height: rem(48px);
+  color: var(--color-text-secondary);
+  background: var(--color-bg-sub);
+
+  span {
+    padding: 0 get-space(md);
+  }
+}
+
+.flight-option-row {
+  min-height: rem(104px);
+  border-top: var(--line-thin) solid var(--color-border-primary);
+}
+
+.flight-option-row__info,
+.flight-option-row__time,
+.flight-option-row__duration {
+  display: grid;
+  gap: get-space(xs);
+  padding: 0 get-space(md);
+}
+
+.flight-option-row__info {
+  strong {
+    color: var(--color-text-primary);
+    font-weight: 800;
+  }
+
+  span {
+    @include text-size(caption);
+
+    color: var(--color-point-primary);
+    font-weight: 700;
+  }
+}
+
+.flight-option-row__time {
+  strong {
+    @include text-size(title);
+
+    color: var(--color-text-primary);
+    line-height: 1;
+  }
+
+  span {
+    @include text-size(caption);
+
+    color: var(--color-text-secondary);
+  }
+}
+
+.flight-option-row__duration {
+  justify-items: center;
+  color: var(--color-text-secondary);
+  text-align: center;
+
+  span {
+    width: 100%;
+    height: var(--line-thin);
+    background: var(--color-border-secondary);
+  }
+
+  em {
+    @include text-size(caption);
+
+    font-style: normal;
+  }
+}
+
+.flight-option-row__fares {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-self: stretch;
+  border-left: var(--line-thin) solid var(--color-border-primary);
+}
+
+.flight-option-row__fare {
+  display: flex;
+  align-items: center;
+  gap: get-space(sm);
+  min-width: 0;
+  padding: get-space(md);
+  border-left: var(--line-thin) solid var(--color-border-primary);
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard);
+
+  &:first-child {
+    border-left: 0;
+  }
+
+  &:has(input:checked) {
+    background: color-mix(in srgb, var(--color-bg-mint-soft) 68%, var(--color-white));
+
+    strong,
+    em {
+      color: var(--color-point-primary);
+    }
+  }
+
+  input {
+    flex-shrink: 0;
+    accent-color: var(--color-point-primary);
+  }
+
+  span {
+    display: grid;
+    gap: get-space(xs);
+    min-width: 0;
+  }
+
+  strong {
+    @include text-size(caption);
+
+    color: var(--color-text-secondary);
+  }
+
+  em {
+    @include text-size(body);
+
+    color: var(--color-text-primary);
+    font-style: normal;
+    font-weight: 800;
+  }
+
+  small {
+    @include text-size(caption);
+
+    color: var(--color-text-secondary);
+  }
+}
+
+.flight-select-section__empty {
+  padding: get-space(xl);
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+@include respond-down(tablet) {
+  .flight-select-section__table {
+    border: 0;
+    border-radius: 0;
+  }
+
+  .flight-select-section__table-head {
+    display: none;
+  }
+
+  .flight-option-row {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: get-space(md);
+    padding: get-space(md);
+    border: var(--line-thin) solid var(--color-border-primary);
+    border-radius: var(--radius-sm);
+
+    & + .flight-option-row {
+      margin-top: get-space(md);
+    }
+  }
+
+  .flight-option-row__fares {
+    grid-column: 1 / -1;
+    border-top: var(--line-thin) solid var(--color-border-primary);
+    border-left: 0;
+  }
+}
+
+@include respond-down(mobile) {
+  .flight-select-section__header {
+    display: grid;
+  }
+
+  .flight-select-section__heading {
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+  }
+
+  .flight-option-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .flight-option-row__fares {
+    grid-template-columns: 1fr;
+  }
+
+  .flight-option-row__fare {
+    border-top: var(--line-thin) solid var(--color-border-primary);
+    border-left: 0;
+
+    &:first-child {
+      border-top: 0;
+    }
+  }
+}

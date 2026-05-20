@@ -74,7 +74,8 @@ const PASSENGER_NOTICE_GROUPS = [
   },
 ];
 
-function FlightBookingPanel({ defaultValues, onSearch }) {
+function FlightBookingPanel({ defaultValues, onSearch, variant = 'home' }) {
+  const isResultsVariant = variant === 'results';
   const [tripType, setTripType] = useState(defaultValues?.tripType ?? TRIP_TYPES.ROUND_TRIP);
   const [from, setFrom] = useState(defaultValues?.from ?? 'ICN');
   const [to, setTo] = useState(defaultValues?.to ?? '');
@@ -110,6 +111,20 @@ function FlightBookingPanel({ defaultValues, onSearch }) {
   const returnDateLabel = returnDate ? formatKoreanMonthDay(returnDate) : '';
 
   useBodyScrollLock(Boolean(activePanel));
+
+  useEffect(() => {
+    setTripType(defaultValues?.tripType ?? TRIP_TYPES.ROUND_TRIP);
+    setFrom(defaultValues?.from ?? 'ICN');
+    setTo(defaultValues?.to ?? '');
+    setFirstDate(defaultValues?.departureDate ?? '');
+    setSecondDate(defaultValues?.returnDate ?? '');
+  }, [
+    defaultValues?.departureDate,
+    defaultValues?.from,
+    defaultValues?.returnDate,
+    defaultValues?.to,
+    defaultValues?.tripType,
+  ]);
 
   const closePanel = useCallback(({ shouldValidateDate = false } = {}) => {
     if (
@@ -406,7 +421,10 @@ function FlightBookingPanel({ defaultValues, onSearch }) {
   };
 
   return (
-    <form className="flight-booking-panel__content" onSubmit={handleSubmit}>
+    <form
+      className={`flight-booking-panel__content flight-booking-panel--${variant}`}
+      onSubmit={handleSubmit}
+    >
       <div className="flight-booking-panel__options">
         <div className="flight-service-chips" role="group" aria-label="여정 유형">
           <button
@@ -425,27 +443,29 @@ function FlightBookingPanel({ defaultValues, onSearch }) {
           </button>
         </div>
 
-        <label className="flight-booking-panel__promo">
-          <span>
-            프로모션 코드
-            <button
-              className="flight-booking-panel__help"
-              type="button"
-              aria-label="프로모션 코드 안내"
-            >
-              <span className="flight-booking-panel__help-hit">
-                <CircleQuestionMarkIcon size={16} />
-              </span>
-              <span role="tooltip">프로모션 코드를 입력하시면 할인 금액을 조회합니다.</span>
-            </button>
-          </span>
-          <input
-            type="text"
-            value={promotionCode}
-            placeholder="코드 입력"
-            onChange={(event) => setPromotionCode(event.target.value)}
-          />
-        </label>
+        {!isResultsVariant && (
+          <label className="flight-booking-panel__promo">
+            <span>
+              프로모션 코드
+              <button
+                className="flight-booking-panel__help"
+                type="button"
+                aria-label="프로모션 코드 안내"
+              >
+                <span className="flight-booking-panel__help-hit">
+                  <CircleQuestionMarkIcon size={16} />
+                </span>
+                <span role="tooltip">프로모션 코드를 입력하시면 할인 금액을 조회합니다.</span>
+              </button>
+            </span>
+            <input
+              type="text"
+              value={promotionCode}
+              placeholder="코드 입력"
+              onChange={(event) => setPromotionCode(event.target.value)}
+            />
+          </label>
+        )}
       </div>
 
       <div className="flight-booking-panel__search" ref={searchRef}>
@@ -484,7 +504,7 @@ function FlightBookingPanel({ defaultValues, onSearch }) {
         </button>
         {renderServicePopup()}
         <button className="flight-booking-panel__submit" type="submit">
-          항공권 검색
+          {isResultsVariant ? '조회 변경' : '항공권 검색'}
         </button>
       </div>
     </form>

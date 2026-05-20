@@ -347,4 +347,816 @@ export const flights = [
       seatsLeft: 16,
     },
   },
+  {
+    id: 'rs703-icn-nrt-20260518',
+    airline: {
+      name: '에어서울',
+      code: 'RS',
+    },
+    flightNo: 'RS703',
+
+    route: {
+      from: {
+        code: 'ICN',
+        city: '서울',
+        airport: '인천',
+        terminal: 'T1',
+      },
+      to: {
+        code: 'NRT',
+        city: '도쿄',
+        airport: '나리타',
+        terminal: 'T1',
+      },
+    },
+
+    schedule: {
+      departureDate: '2026-05-18',
+      departureTime: '16:45',
+      arrivalDate: '2026-05-18',
+      arrivalTime: '19:10',
+      durationMinutes: 145,
+    },
+
+    fares: {
+      currency: 'KRW',
+      special: {
+        label: '특가운임',
+        price: 223500,
+        seatsLeft: 2,
+        baggageIncluded: false,
+      },
+      discount: {
+        label: '할인운임',
+        price: 313500,
+        seatsLeft: 5,
+        baggageIncluded: true,
+      },
+      normal: {
+        label: '정상운임',
+        price: 453500,
+        seatsLeft: 7,
+        baggageIncluded: true,
+      },
+    },
+
+    availability: {
+      status: 'available',
+      seatsLeft: 14,
+    },
+  },
+  {
+    id: 'rs703-icn-nrt-20260519',
+    airline: {
+      name: '에어서울',
+      code: 'RS',
+    },
+    flightNo: 'RS703',
+
+    route: {
+      from: {
+        code: 'ICN',
+        city: '서울',
+        airport: '인천',
+        terminal: 'T1',
+      },
+      to: {
+        code: 'NRT',
+        city: '도쿄',
+        airport: '나리타',
+        terminal: 'T1',
+      },
+    },
+
+    schedule: {
+      departureDate: '2026-05-19',
+      departureTime: '16:45',
+      arrivalDate: '2026-05-19',
+      arrivalTime: '19:10',
+      durationMinutes: 145,
+    },
+
+    fares: {
+      currency: 'KRW',
+      special: {
+        label: '특가운임',
+        price: 223500,
+        seatsLeft: 2,
+        baggageIncluded: false,
+      },
+      discount: {
+        label: '할인운임',
+        price: 313500,
+        seatsLeft: 5,
+        baggageIncluded: true,
+      },
+      normal: {
+        label: '정상운임',
+        price: 453500,
+        seatsLeft: 7,
+        baggageIncluded: true,
+      },
+    },
+
+    availability: {
+      status: 'available',
+      seatsLeft: 14,
+    },
+  },
+  {
+    id: 'rs703-icn-nrt-20260520',
+    airline: {
+      name: '에어서울',
+      code: 'RS',
+    },
+    flightNo: 'RS703',
+
+    route: {
+      from: {
+        code: 'ICN',
+        city: '서울',
+        airport: '인천',
+        terminal: 'T1',
+      },
+      to: {
+        code: 'NRT',
+        city: '도쿄',
+        airport: '나리타',
+        terminal: 'T1',
+      },
+    },
+
+    schedule: {
+      departureDate: '2026-05-20',
+      departureTime: '16:45',
+      arrivalDate: '2026-05-20',
+      arrivalTime: '19:10',
+      durationMinutes: 145,
+    },
+
+    fares: {
+      currency: 'KRW',
+      special: {
+        label: '특가운임',
+        price: 223500,
+        seatsLeft: 2,
+        baggageIncluded: false,
+      },
+      discount: {
+        label: '할인운임',
+        price: 313500,
+        seatsLeft: 5,
+        baggageIncluded: true,
+      },
+      normal: {
+        label: '정상운임',
+        price: 453500,
+        seatsLeft: 7,
+        baggageIncluded: true,
+      },
+    },
+
+    availability: {
+      status: 'available',
+      seatsLeft: 14,
+    },
+  },
+  {
+    id: 'rs703-icn-nrt-20260521',
+    airline: {
+      name: '에어서울',
+      code: 'RS',
+    },
+    flightNo: 'RS703',
+
+    route: {
+      from: {
+        code: 'ICN',
+        city: '서울',
+        airport: '인천',
+        terminal: 'T1',
+      },
+      to: {
+        code: 'NRT',
+        city: '도쿄',
+        airport: '나리타',
+        terminal: 'T1',
+      },
+    },
+
+    schedule: {
+      departureDate: '2026-05-21',
+      departureTime: '16:45',
+      arrivalDate: '2026-05-21',
+      arrivalTime: '19:10',
+      durationMinutes: 145,
+    },
+
+    fares: {
+      currency: 'KRW',
+      special: {
+        label: '특가운임',
+        price: 238500,
+        seatsLeft: 2,
+        baggageIncluded: false,
+      },
+      discount: {
+        label: '할인운임',
+        price: 328500,
+        seatsLeft: 5,
+        baggageIncluded: true,
+      },
+      normal: {
+        label: '정상운임',
+        price: 453500,
+        seatsLeft: 7,
+        baggageIncluded: true,
+      },
+    },
+
+    availability: {
+      status: 'available',
+      seatsLeft: 14,
+    },
+  },
+  {
+    id: 'rs703-icn-nrt-20260522',
+    airline: {
+      name: '에어서울',
+      code: 'RS',
+    },
+    flightNo: 'RS703',
+
+    route: {
+      from: {
+        code: 'ICN',
+        city: '서울',
+        airport: '인천',
+        terminal: 'T1',
+      },
+      to: {
+        code: 'NRT',
+        city: '도쿄',
+        airport: '나리타',
+        terminal: 'T1',
+      },
+    },
+
+    schedule: {
+      departureDate: '2026-05-22',
+      departureTime: '16:45',
+      arrivalDate: '2026-05-22',
+      arrivalTime: '19:10',
+      durationMinutes: 145,
+    },
+
+    fares: {
+      currency: 'KRW',
+      special: {
+        label: '특가운임',
+        price: 273500,
+        seatsLeft: 2,
+        baggageIncluded: false,
+      },
+      discount: {
+        label: '할인운임',
+        price: 363500,
+        seatsLeft: 5,
+        baggageIncluded: true,
+      },
+      normal: {
+        label: '정상운임',
+        price: 453500,
+        seatsLeft: 7,
+        baggageIncluded: true,
+      },
+    },
+
+    availability: {
+      status: 'available',
+      seatsLeft: 14,
+    },
+  },
+  {
+    id: 'rs703-icn-nrt-20260523',
+    airline: {
+      name: '에어서울',
+      code: 'RS',
+    },
+    flightNo: 'RS703',
+
+    route: {
+      from: {
+        code: 'ICN',
+        city: '서울',
+        airport: '인천',
+        terminal: 'T1',
+      },
+      to: {
+        code: 'NRT',
+        city: '도쿄',
+        airport: '나리타',
+        terminal: 'T1',
+      },
+    },
+
+    schedule: {
+      departureDate: '2026-05-23',
+      departureTime: '16:45',
+      arrivalDate: '2026-05-23',
+      arrivalTime: '19:10',
+      durationMinutes: 145,
+    },
+
+    fares: {
+      currency: 'KRW',
+      special: {
+        label: '특가운임',
+        price: 248500,
+        seatsLeft: 2,
+        baggageIncluded: false,
+      },
+      discount: {
+        label: '할인운임',
+        price: 338500,
+        seatsLeft: 5,
+        baggageIncluded: true,
+      },
+      normal: {
+        label: '정상운임',
+        price: 453500,
+        seatsLeft: 7,
+        baggageIncluded: true,
+      },
+    },
+
+    availability: {
+      status: 'available',
+      seatsLeft: 14,
+    },
+  },
+  {
+    id: 'rs706-nrt-icn-20260521',
+    airline: {
+      name: '에어서울',
+      code: 'RS',
+    },
+    flightNo: 'RS706',
+
+    route: {
+      from: {
+        code: 'NRT',
+        city: '도쿄',
+        airport: '나리타',
+        terminal: 'T1',
+      },
+      to: {
+        code: 'ICN',
+        city: '서울',
+        airport: '인천',
+        terminal: 'T1',
+      },
+    },
+
+    schedule: {
+      departureDate: '2026-05-21',
+      departureTime: '11:40',
+      arrivalDate: '2026-05-21',
+      arrivalTime: '14:20',
+      durationMinutes: 160,
+    },
+
+    fares: {
+      currency: 'KRW',
+      special: {
+        label: '특가운임',
+        price: 158100,
+        seatsLeft: 3,
+        baggageIncluded: false,
+      },
+      discount: {
+        label: '할인운임',
+        price: 258100,
+        seatsLeft: 6,
+        baggageIncluded: true,
+      },
+      normal: {
+        label: '정상운임',
+        price: 468100,
+        seatsLeft: 9,
+        baggageIncluded: true,
+      },
+    },
+
+    availability: {
+      status: 'available',
+      seatsLeft: 18,
+    },
+  },
+  {
+    id: 'rs706-nrt-icn-20260522',
+    airline: {
+      name: '에어서울',
+      code: 'RS',
+    },
+    flightNo: 'RS706',
+
+    route: {
+      from: {
+        code: 'NRT',
+        city: '도쿄',
+        airport: '나리타',
+        terminal: 'T1',
+      },
+      to: {
+        code: 'ICN',
+        city: '서울',
+        airport: '인천',
+        terminal: 'T1',
+      },
+    },
+
+    schedule: {
+      departureDate: '2026-05-22',
+      departureTime: '11:40',
+      arrivalDate: '2026-05-22',
+      arrivalTime: '14:20',
+      durationMinutes: 160,
+    },
+
+    fares: {
+      currency: 'KRW',
+      special: {
+        label: '특가운임',
+        price: 158100,
+        seatsLeft: 3,
+        baggageIncluded: false,
+      },
+      discount: {
+        label: '할인운임',
+        price: 258100,
+        seatsLeft: 6,
+        baggageIncluded: true,
+      },
+      normal: {
+        label: '정상운임',
+        price: 468100,
+        seatsLeft: 9,
+        baggageIncluded: true,
+      },
+    },
+
+    availability: {
+      status: 'available',
+      seatsLeft: 18,
+    },
+  },
+  {
+    id: 'rs706-nrt-icn-20260523',
+    airline: {
+      name: '에어서울',
+      code: 'RS',
+    },
+    flightNo: 'RS706',
+
+    route: {
+      from: {
+        code: 'NRT',
+        city: '도쿄',
+        airport: '나리타',
+        terminal: 'T1',
+      },
+      to: {
+        code: 'ICN',
+        city: '서울',
+        airport: '인천',
+        terminal: 'T1',
+      },
+    },
+
+    schedule: {
+      departureDate: '2026-05-23',
+      departureTime: '11:40',
+      arrivalDate: '2026-05-23',
+      arrivalTime: '14:20',
+      durationMinutes: 160,
+    },
+
+    fares: {
+      currency: 'KRW',
+      special: {
+        label: '특가운임',
+        price: 168100,
+        seatsLeft: 3,
+        baggageIncluded: false,
+      },
+      discount: {
+        label: '할인운임',
+        price: 268100,
+        seatsLeft: 6,
+        baggageIncluded: true,
+      },
+      normal: {
+        label: '정상운임',
+        price: 468100,
+        seatsLeft: 9,
+        baggageIncluded: true,
+      },
+    },
+
+    availability: {
+      status: 'available',
+      seatsLeft: 18,
+    },
+  },
+  {
+    id: 'rs702-nrt-icn-20260523',
+    airline: {
+      name: '에어서울',
+      code: 'RS',
+    },
+    flightNo: 'RS702',
+
+    route: {
+      from: {
+        code: 'NRT',
+        city: '도쿄',
+        airport: '나리타',
+        terminal: 'T1',
+      },
+      to: {
+        code: 'ICN',
+        city: '서울',
+        airport: '인천',
+        terminal: 'T1',
+      },
+    },
+
+    schedule: {
+      departureDate: '2026-05-23',
+      departureTime: '12:50',
+      arrivalDate: '2026-05-23',
+      arrivalTime: '15:30',
+      durationMinutes: 160,
+    },
+
+    fares: {
+      currency: 'KRW',
+      special: {
+        label: '특가운임',
+        price: 168100,
+        seatsLeft: 9,
+        baggageIncluded: false,
+      },
+      discount: {
+        label: '할인운임',
+        price: 268100,
+        seatsLeft: 6,
+        baggageIncluded: true,
+      },
+      normal: {
+        label: '정상운임',
+        price: 468100,
+        seatsLeft: 9,
+        baggageIncluded: true,
+      },
+    },
+
+    availability: {
+      status: 'available',
+      seatsLeft: 24,
+    },
+  },
+  {
+    id: 'rs704-nrt-icn-20260523',
+    airline: {
+      name: '에어서울',
+      code: 'RS',
+    },
+    flightNo: 'RS704',
+
+    route: {
+      from: {
+        code: 'NRT',
+        city: '도쿄',
+        airport: '나리타',
+        terminal: 'T1',
+      },
+      to: {
+        code: 'ICN',
+        city: '서울',
+        airport: '인천',
+        terminal: 'T1',
+      },
+    },
+
+    schedule: {
+      departureDate: '2026-05-23',
+      departureTime: '20:10',
+      arrivalDate: '2026-05-23',
+      arrivalTime: '22:50',
+      durationMinutes: 160,
+    },
+
+    fares: {
+      currency: 'KRW',
+      special: {
+        label: '특가운임',
+        price: 158100,
+        seatsLeft: 2,
+        baggageIncluded: false,
+      },
+      discount: {
+        label: '할인운임',
+        price: 258100,
+        seatsLeft: 6,
+        baggageIncluded: true,
+      },
+      normal: {
+        label: '정상운임',
+        price: 468100,
+        seatsLeft: 9,
+        baggageIncluded: true,
+      },
+    },
+
+    availability: {
+      status: 'available',
+      seatsLeft: 17,
+    },
+  },
+  {
+    id: 'rs706-nrt-icn-20260524',
+    airline: {
+      name: '에어서울',
+      code: 'RS',
+    },
+    flightNo: 'RS706',
+
+    route: {
+      from: {
+        code: 'NRT',
+        city: '도쿄',
+        airport: '나리타',
+        terminal: 'T1',
+      },
+      to: {
+        code: 'ICN',
+        city: '서울',
+        airport: '인천',
+        terminal: 'T1',
+      },
+    },
+
+    schedule: {
+      departureDate: '2026-05-24',
+      departureTime: '11:40',
+      arrivalDate: '2026-05-24',
+      arrivalTime: '14:20',
+      durationMinutes: 160,
+    },
+
+    fares: {
+      currency: 'KRW',
+      special: {
+        label: '특가운임',
+        price: 168100,
+        seatsLeft: 3,
+        baggageIncluded: false,
+      },
+      discount: {
+        label: '할인운임',
+        price: 268100,
+        seatsLeft: 6,
+        baggageIncluded: true,
+      },
+      normal: {
+        label: '정상운임',
+        price: 468100,
+        seatsLeft: 9,
+        baggageIncluded: true,
+      },
+    },
+
+    availability: {
+      status: 'available',
+      seatsLeft: 18,
+    },
+  },
+  {
+    id: 'rs706-nrt-icn-20260525',
+    airline: {
+      name: '에어서울',
+      code: 'RS',
+    },
+    flightNo: 'RS706',
+
+    route: {
+      from: {
+        code: 'NRT',
+        city: '도쿄',
+        airport: '나리타',
+        terminal: 'T1',
+      },
+      to: {
+        code: 'ICN',
+        city: '서울',
+        airport: '인천',
+        terminal: 'T1',
+      },
+    },
+
+    schedule: {
+      departureDate: '2026-05-25',
+      departureTime: '11:40',
+      arrivalDate: '2026-05-25',
+      arrivalTime: '14:20',
+      durationMinutes: 160,
+    },
+
+    fares: {
+      currency: 'KRW',
+      special: {
+        label: '특가운임',
+        price: 378100,
+        seatsLeft: 3,
+        baggageIncluded: false,
+      },
+      discount: {
+        label: '할인운임',
+        price: 418100,
+        seatsLeft: 6,
+        baggageIncluded: true,
+      },
+      normal: {
+        label: '정상운임',
+        price: 468100,
+        seatsLeft: 9,
+        baggageIncluded: true,
+      },
+    },
+
+    availability: {
+      status: 'available',
+      seatsLeft: 18,
+    },
+  },
+  {
+    id: 'rs706-nrt-icn-20260526',
+    airline: {
+      name: '에어서울',
+      code: 'RS',
+    },
+    flightNo: 'RS706',
+
+    route: {
+      from: {
+        code: 'NRT',
+        city: '도쿄',
+        airport: '나리타',
+        terminal: 'T1',
+      },
+      to: {
+        code: 'ICN',
+        city: '서울',
+        airport: '인천',
+        terminal: 'T1',
+      },
+    },
+
+    schedule: {
+      departureDate: '2026-05-26',
+      departureTime: '11:40',
+      arrivalDate: '2026-05-26',
+      arrivalTime: '14:20',
+      durationMinutes: 160,
+    },
+
+    fares: {
+      currency: 'KRW',
+      special: {
+        label: '특가운임',
+        price: 223100,
+        seatsLeft: 3,
+        baggageIncluded: false,
+      },
+      discount: {
+        label: '할인운임',
+        price: 323100,
+        seatsLeft: 6,
+        baggageIncluded: true,
+      },
+      normal: {
+        label: '정상운임',
+        price: 468100,
+        seatsLeft: 9,
+        baggageIncluded: true,
+      },
+    },
+
+    availability: {
+      status: 'available',
+      seatsLeft: 18,
+    },
+  },
 ];

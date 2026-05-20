@@ -1,0 +1,49 @@
+@use '../../../styles/foundation/functions' as *;
+@use '../../../styles/foundation/mixins' as *;
+
+.booking-content-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) rem(360px);
+  align-items: start;
+  gap: get-space(lg);
+}
+
+.booking-content-layout__main {
+  display: grid;
+  gap: get-space(lg);
+}
+
+.booking-content-layout__aside {
+  position: sticky;
+  top: calc(var(--header-main-height) + get-space(lg));
+  display: grid;
+  gap: get-space(sm) + get-space(xs);
+  min-height: rem(320px);
+  padding: get-space(lg);
+  background: var(--color-white);
+  border: var(--line-thin) solid var(--color-border-primary);
+  border-radius: var(--radius-md);
+
+  h2 {
+    @include text-size(title);
+
+    color: var(--color-text-primary);
+    font-weight: 800;
+  }
+
+  p {
+    @include text-size(caption);
+
+    color: var(--color-text-secondary);
+  }
+}
+
+@include respond-down(tablet) {
+  .booking-content-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-content-layout__aside {
+    position: static;
+  }
+}

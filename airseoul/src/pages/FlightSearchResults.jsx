@@ -1,8 +1,11 @@
-import { Navigate, useSearchParams } from 'react-router-dom';
-import { TRIP_TYPES } from '../constants/tripType';
-import { ROUTES } from '../constants/routes';
+import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
+import FlightBookingPanel from '../components/flight/booking/FlightBookingPanel';
+import BookingContentLayout from '../components/flight/search/BookingContentLayout';
 import BookingStepNav from '../components/flight/search/BookingStepNav';
-import FlightSearchResultList from '../components/flight/search/FlightSearchResultList';
+import FlightSelectSection from '../components/flight/search/FlightSelectSection';
+import { ROUTES } from '../constants/routes';
+import { TRIP_TYPES } from '../constants/tripType';
+import { getDateFareBarItems } from '../services/dateFareBar';
 import { searchFlights, searchRoundTripFlights } from '../services/flightSearch';
 
 function getFlightSearchParams(searchParams) {
@@ -16,6 +19,7 @@ function getFlightSearchParams(searchParams) {
 }
 
 function FlightSearchResults() {
+  const navigate = useNavigate();
   const [urlSearchParams] = useSearchParams();
   const searchParams = getFlightSearchParams(urlSearchParams);
 
@@ -28,6 +32,23 @@ function FlightSearchResults() {
     ? searchRoundTripFlights(searchParams)
     : { outboundFlights: searchFlights(searchParams), inboundFlights: [] };
   const resultCount = outboundFlights.length + inboundFlights.length;
+  const outboundDateFareItems = getDateFareBarItems({
+    from: searchParams.from,
+    to: searchParams.to,
+    baseDate: searchParams.departureDate,
+  });
+  const inboundDateFareItems = isRoundTrip
+    ? getDateFareBarItems({
+        from: searchParams.to,
+        to: searchParams.from,
+        baseDate: searchParams.returnDate,
+      })
+    : [];
+
+  const handleSearch = (params) => {
+    const query = new URLSearchParams(params).toString();
+    navigate(`${ROUTES.booking.flight}?${query}`);
+  };
 
   return (
     <main className="flight-search-results" aria-labelledby="flight-search-results-title">
@@ -39,50 +60,41 @@ function FlightSearchResults() {
         <BookingStepNav activeStep={2} />
 
         <section className="flight-search-results__search-area" aria-label="검색 조건">
-          <dl className="flight-search-results__search-summary">
-            <div>
-              <dt>출발지</dt>
-              <dd>{searchParams.from}</dd>
-            </div>
-            <div>
-              <dt>도착지</dt>
-              <dd>{searchParams.to}</dd>
-            </div>
-            <div>
-              <dt>가는 날</dt>
-              <dd>{searchParams.departureDate}</dd>
-            </div>
-            {searchParams.returnDate && (
-              <div>
-                <dt>오는 날</dt>
-                <dd>{searchParams.returnDate}</dd>
-              </div>
-            )}
-          </dl>
+          <FlightBookingPanel
+            defaultValues={searchParams}
+            onSearch={handleSearch}
+            variant="results"
+          />
         </section>
 
-        <div className="flight-search-results__layout">
-          <div className="flight-search-results__main">
-            <section className="flight-search-results__section">
-              <h2>가는편</h2>
-              <FlightSearchResultList flights={outboundFlights} />
-            </section>
+        <BookingContentLayout
+          aside={
+            <>
+              <h2>여정 및 운임</h2>
+              <p>조회된 항공편 {resultCount}개</p>
+            </>
+          }
+        >
+            <FlightSelectSection
+              dateFareItems={outboundDateFareItems}
+              flights={outboundFlights}
+              from={searchParams.from}
+              title="가는편"
+              to={searchParams.to}
+            />
 
             {isRoundTrip && (
-              <section className="flight-search-results__section">
-                <h2>오는편</h2>
-                <FlightSearchResultList flights={inboundFlights} />
-              </section>
+              <FlightSelectSection
+                dateFareItems={inboundDateFareItems}
+                flights={inboundFlights}
+                from={searchParams.to}
+                title="오는편"
+                to={searchParams.from}
+              />
             )}
 
             <section className="flight-search-results__notice" aria-label="예매 안내" />
-          </div>
-
-          <aside className="flight-search-results__aside" aria-label="여정 및 운임 요약">
-            <h2>여정 및 운임</h2>
-            <p>조회된 항공편 {resultCount}개</p>
-          </aside>
-        </div>
+        </BookingContentLayout>
       </div>
     </main>
   );
