@@ -9,6 +9,7 @@ import { FLIGHT_SERVICE_TAB_IDS } from './flightServiceTabsData';
 const ACTIVE_TAB_STORAGE_KEY = 'flightServiceActiveTab';
 
 function FlightServiceSection({ defaultValues, onSearch, variant = 'home' }) {
+  const isBookingPage = variant === 'booking';
   const [activeTab, setActiveTab] = useState(() => {
     return sessionStorage.getItem(ACTIVE_TAB_STORAGE_KEY) ?? FLIGHT_SERVICE_TAB_IDS.BOOKING;
   });
@@ -38,6 +39,10 @@ function FlightServiceSection({ defaultValues, onSearch, variant = 'home' }) {
   }, []);
 
   const renderActivePanel = () => {
+    if (isBookingPage) {
+      return <FlightBookingPanel defaultValues={defaultValues} onSearch={onSearch} />;
+    }
+
     if (activeTab === FLIGHT_SERVICE_TAB_IDS.MY_TRIP) {
       return <FlightMyTripPanel />;
     }
@@ -60,7 +65,9 @@ function FlightServiceSection({ defaultValues, onSearch, variant = 'home' }) {
     >
       <div className="flight-service-section__inner">
         <div className="flight-service-shell">
-          <FlightServiceTabs activeTab={activeTab} onTabChange={handleTabChange} />
+          {!isBookingPage && (
+            <FlightServiceTabs activeTab={activeTab} onTabChange={handleTabChange} />
+          )}
           <div className="flight-service-shell__body">{renderActivePanel()}</div>
         </div>
       </div>

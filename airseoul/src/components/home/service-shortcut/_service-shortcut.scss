@@ -79,6 +79,7 @@
 
 .service-shortcut__link {
   @include transition(transform, fast, standard);
+  @include button-hover-subtle;
 
   display: flex;
   gap: get-space(sm);
