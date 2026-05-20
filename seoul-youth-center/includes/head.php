@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/base/typography.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/base/color.css">
 
+    <!-- Favicons -->
+    <link rel="icon" href="<?= BASE_URL ?>/assets/icons/favicon.ico">
+    <link rel="apple-touch-icon" href="<?= BASE_URL ?>/assets/icons/favicon.png">
+
     <!-- Layout -->
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/layout/layout.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/layout/global-nav.css">
