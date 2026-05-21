@@ -1,11 +1,15 @@
 import DateFareBar from './DateFareBar';
 import FlightOptionRow from './FlightOptionRow';
-import SmallPlaneIcon from '../../icons/SmallPlaneIcon';
 
 function FlightSelectSection({
   dateFareItems,
   flights,
   from,
+  Icon,
+  onSelectDate,
+  onSelectFlight,
+  selectedFlight,
+  selectionName,
   title,
   to,
 }) {
@@ -13,7 +17,7 @@ function FlightSelectSection({
     <section className="flight-select-section">
       <header className="flight-select-section__header">
         <div className="flight-select-section__heading">
-          <SmallPlaneIcon size={24} />
+          <Icon size={24} />
           <h2>{title}</h2>
           <p>
             {from} <span aria-hidden="true">→</span> {to}
@@ -22,7 +26,7 @@ function FlightSelectSection({
         <span>통화 : KRW</span>
       </header>
 
-      <DateFareBar items={dateFareItems} />
+      <DateFareBar items={dateFareItems} onSelectDate={onSelectDate} />
 
       <div className="flight-select-section__table">
         <div className="flight-select-section__table-head" aria-hidden="true">
@@ -35,7 +39,13 @@ function FlightSelectSection({
 
         {flights.length > 0 ? (
           flights.map((flight) => (
-            <FlightOptionRow flight={flight} key={flight.id} />
+            <FlightOptionRow
+              flight={flight}
+              fareGroupName={`fare-${selectionName}`}
+              key={flight.id}
+              onSelectFare={(fareKey) => onSelectFlight?.({ fareKey, flight })}
+              selectedFareKey={selectedFlight?.flight.id === flight.id ? selectedFlight.fareKey : ''}
+            />
           ))
         ) : (
           <p className="flight-select-section__empty">

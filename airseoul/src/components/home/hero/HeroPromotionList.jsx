@@ -4,22 +4,17 @@ import { Link } from 'react-router-dom';
 import { heroPromotions } from '../../../data/heroPromotions';
 
 const PROMOTION_AUTOPLAY_DELAY = 5200;
-const PROMOTION_LOOP_RESET_DELAY = 560;
+const PROMOTION_SWIPE_ADVANCE_DELAY = 560;
 const PROMOTION_SWIPE_MEDIA_QUERY = '(max-width: 768px)';
 
 function HeroPromotionList() {
   const listRef = useRef(null);
-  const previousIndexRef = useRef(0);
+  const shouldResetSwipeRef = useRef(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isSwipeLayout, setIsSwipeLayout] = useState(false);
-  const swipePromotions =
-    heroPromotions.length > 1
-      ? [
-          heroPromotions[heroPromotions.length - 1],
-          ...heroPromotions,
-          heroPromotions[0],
-        ]
-      : heroPromotions;
+  const swipePromotions = heroPromotions.map((_, index) => {
+    return heroPromotions[(activeIndex + index) % heroPromotions.length];
+  });
   const visiblePromotions = isSwipeLayout
     ? swipePromotions
     : heroPromotions
@@ -45,7 +40,29 @@ function HeroPromotionList() {
   useEffect(() => {
     if (heroPromotions.length <= 1) return undefined;
 
+    let swipeAdvanceTimer;
     const timer = window.setInterval(() => {
+      if (isSwipeLayout) {
+        const list = listRef.current;
+        const nextCard = list?.querySelectorAll('.hero-promotion-card')[1];
+
+        if (list && nextCard) {
+          list.scrollTo({
+            left: nextCard.offsetLeft - list.offsetLeft,
+            behavior: 'smooth',
+          });
+
+          swipeAdvanceTimer = window.setTimeout(() => {
+            shouldResetSwipeRef.current = true;
+            setActiveIndex((currentIndex) => {
+              return (currentIndex + 1) % heroPromotions.length;
+            });
+          }, PROMOTION_SWIPE_ADVANCE_DELAY);
+
+          return;
+        }
+      }
+
       setActiveIndex((currentIndex) => {
         return (currentIndex + 1) % heroPromotions.length;
       });
@@ -53,48 +70,22 @@ function HeroPromotionList() {
 
     return () => {
       window.clearInterval(timer);
+      window.clearTimeout(swipeAdvanceTimer);
     };
-  }, []);
+  }, [isSwipeLayout]);
 
   useEffect(() => {
     const list = listRef.current;
 
     if (!isSwipeLayout) return;
+    if (!shouldResetSwipeRef.current) return;
     if (!list) return;
 
-    const isLoopReset =
-      activeIndex === 0 &&
-      previousIndexRef.current === heroPromotions.length - 1;
-    const activeCardIndex = isLoopReset
-      ? heroPromotions.length + 1
-      : activeIndex + 1;
-    const activeCard = list.querySelectorAll('.hero-promotion-card')[activeCardIndex];
-
-    if (!activeCard) return;
-
+    shouldResetSwipeRef.current = false;
     list.scrollTo({
-      left: activeCard.offsetLeft - list.offsetLeft,
-      behavior: 'smooth',
+      left: 0,
+      behavior: 'auto',
     });
-
-    previousIndexRef.current = activeIndex;
-
-    if (!isLoopReset) return;
-
-    const resetTimer = window.setTimeout(() => {
-      const firstCard = list.querySelectorAll('.hero-promotion-card')[1];
-
-      if (!firstCard) return;
-
-      list.scrollTo({
-        left: firstCard.offsetLeft - list.offsetLeft,
-        behavior: 'auto',
-      });
-    }, PROMOTION_LOOP_RESET_DELAY);
-
-    return () => {
-      window.clearTimeout(resetTimer);
-    };
   }, [activeIndex, isSwipeLayout]);
 
   return (
@@ -106,7 +97,7 @@ function HeroPromotionList() {
       {visiblePromotions.map((promotion, index) => (
         <Link
           className={`hero-promotion-card hero-promotion-card--${index + 1}`}
-          key={isSwipeLayout ? `${promotion.id}-${index}` : `${activeIndex}-${promotion.id}`}
+          key={isSwipeLayout ? promotion.id : `${activeIndex}-${promotion.id}`}
           to={promotion.path}
         >
           <div className="hero-promotion-card__image">

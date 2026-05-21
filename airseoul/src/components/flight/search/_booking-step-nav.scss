@@ -42,6 +42,21 @@
   }
 }
 
+.booking-step-nav__link {
+  @include transition(color, fast, standard);
+
+  display: flex;
+  align-items: center;
+  gap: inherit;
+  width: 100%;
+  min-height: 100%;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-point-primary);
+  }
+}
+
 .booking-step-nav__item.is-active {
   color: var(--color-text-inverse);
   background: var(--color-point-primary);

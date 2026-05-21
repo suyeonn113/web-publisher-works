@@ -74,7 +74,6 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   min-height: 56px;
   margin-bottom: get-space(md);
-  border-bottom: var(--line-thin) solid var(--color-border-primary);
 }
 
 .login-panel__tab {
@@ -90,10 +89,22 @@
   &--active {
     @include button-hover-none;
 
+    position: relative;
     color: var(--color-point-primary);
     font-weight: 700;
     background: var(--color-bg-main);
-    box-shadow: inset 0 -3px 0 var(--color-point-primary);
+
+    &::after {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+
+      height: 3px;
+
+      background: var(--color-point-primary);
+      content: '';
+    }
   }
 }
 

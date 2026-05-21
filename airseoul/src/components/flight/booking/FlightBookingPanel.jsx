@@ -74,14 +74,21 @@ const PASSENGER_NOTICE_GROUPS = [
   },
 ];
 
-function FlightBookingPanel({ defaultValues, onSearch, variant = 'home' }) {
+const getDefaultPassengers = (defaultValues) => ({
+  adult: Number(defaultValues?.adult) || 1,
+  child: Number(defaultValues?.child) || 0,
+  infant: Number(defaultValues?.infant) || 0,
+});
+
+function FlightBookingPanel({ defaultValues, onSearch, variant = 'home', isCollapsible = false }) {
   const isResultsVariant = variant === 'results';
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [tripType, setTripType] = useState(defaultValues?.tripType ?? TRIP_TYPES.ROUND_TRIP);
   const [from, setFrom] = useState(defaultValues?.from ?? 'ICN');
   const [to, setTo] = useState(defaultValues?.to ?? '');
   const [firstDate, setFirstDate] = useState(defaultValues?.departureDate ?? '');
   const [secondDate, setSecondDate] = useState(defaultValues?.returnDate ?? '');
-  const [passengers, setPassengers] = useState({ adult: 1, child: 0, infant: 0 });
+  const [passengers, setPassengers] = useState(() => getDefaultPassengers(defaultValues));
 
   const [isFullScreenDatePicker, setIsFullScreenDatePicker] = useState(false);
 
@@ -118,9 +125,13 @@ function FlightBookingPanel({ defaultValues, onSearch, variant = 'home' }) {
     setTo(defaultValues?.to ?? '');
     setFirstDate(defaultValues?.departureDate ?? '');
     setSecondDate(defaultValues?.returnDate ?? '');
+    setPassengers(getDefaultPassengers(defaultValues));
   }, [
+    defaultValues?.adult,
+    defaultValues?.child,
     defaultValues?.departureDate,
     defaultValues?.from,
+    defaultValues?.infant,
     defaultValues?.returnDate,
     defaultValues?.to,
     defaultValues?.tripType,
@@ -193,13 +204,26 @@ function FlightBookingPanel({ defaultValues, onSearch, variant = 'home' }) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    if (tripType === TRIP_TYPES.ROUND_TRIP && !from) {
+      window.alert('출발지를 선택해 주세요.');
+      return;
+    }
+
+    if (tripType === TRIP_TYPES.ROUND_TRIP && !to) {
+      window.alert('도착지를 선택해 주세요.');
+      return;
+    }
+
     onSearch?.(
-      createSearchParamsFromCalendar({
+      {
+        ...createSearchParamsFromCalendar({
         tripType,
         from,
         to,
         selectedDates,
-      })
+        }),
+        ...passengers,
+      }
     );
   };
 
@@ -469,43 +493,111 @@ function FlightBookingPanel({ defaultValues, onSearch, variant = 'home' }) {
       </div>
 
       <div className="flight-booking-panel__search" ref={searchRef}>
-        <FlightRouteSelector
-          fromAirport={fromAirport}
-          toAirport={toAirport}
-          onFromClick={(event) => openPanel(PANEL_TYPES.FROM, event)}
-          onSwap={handleSwapRoute}
-          onToClick={(event) => openPanel(PANEL_TYPES.TO, event)}
-        />
-        <FlightDateField
-          departureDateLabel={departureDateLabel}
-          returnDateLabel={returnDateLabel}
-          onClick={(event) => openPanel(PANEL_TYPES.DATE, event)}
-        />
-        <button
-          className="flight-service-field-button flight-passenger-field"
-          type="button"
-          onClick={(event) => openPanel(PANEL_TYPES.PASSENGERS, event)}
-        >
-          <span>탑승객</span>
-          <strong className="flight-booking-panel__passenger-value">
-            <span>
-              <AdultIcon size={15} />
-              성인 {passengers.adult}
-            </span>
-            <span>
-              <ChildIcon size={15} />
-              소아 {passengers.child}
-            </span>
-            <span>
-              <InfantIcon size={15} />
-              유아 {passengers.infant}
-            </span>
-          </strong>
-        </button>
-        {renderServicePopup()}
-        <button className="flight-booking-panel__submit" type="submit">
-          {isResultsVariant ? '조회 변경' : '항공권 검색'}
-        </button>
+        {isCollapsible ? (
+          <>
+            <div className="flight-booking-panel__summary">
+              <FlightRouteSelector
+                fromAirport={fromAirport}
+                toAirport={toAirport}
+                onFromClick={(event) => openPanel(PANEL_TYPES.FROM, event)}
+                onSwap={handleSwapRoute}
+                onToClick={(event) => openPanel(PANEL_TYPES.TO, event)}
+              />
+
+              <button
+                className="flight-booking-panel__toggle"
+                type="button"
+                aria-expanded={isSearchOpen}
+                onClick={() => setIsSearchOpen((prev) => !prev)}
+              >
+                {isSearchOpen ? (
+                  <ChevronUpIcon size={20} />
+                ) : (
+                  <ChevronDownIcon size={20} />
+                )}
+              </button>
+            </div>
+
+            <div className={`flight-booking-panel__details${isSearchOpen ? ' is-open' : ''}`}>
+              <FlightDateField
+                departureDateLabel={departureDateLabel}
+                returnDateLabel={returnDateLabel}
+                onClick={(event) => openPanel(PANEL_TYPES.DATE, event)}
+              />
+
+              <button
+                className="flight-service-field-button flight-passenger-field"
+                type="button"
+                onClick={(event) => openPanel(PANEL_TYPES.PASSENGERS, event)}
+              >
+                <span>탑승객</span>
+
+                <strong className="flight-booking-panel__passenger-value">
+                  <span>
+                    <AdultIcon size={15} />
+                    성인 {passengers.adult}
+                  </span>
+
+                  <span>
+                    <ChildIcon size={15} />
+                    소아 {passengers.child}
+                  </span>
+
+                  <span>
+                    <InfantIcon size={15} />
+                    유아 {passengers.infant}
+                  </span>
+                </strong>
+              </button>
+
+              <button className="flight-booking-panel__submit" type="submit">
+                {isResultsVariant ? '조회 변경' : '항공권 검색'}
+              </button>
+            </div>
+
+            {renderServicePopup()}
+          </>
+        ) : (
+          <>
+            <FlightRouteSelector
+              fromAirport={fromAirport}
+              toAirport={toAirport}
+              onFromClick={(event) => openPanel(PANEL_TYPES.FROM, event)}
+              onSwap={handleSwapRoute}
+              onToClick={(event) => openPanel(PANEL_TYPES.TO, event)}
+            />
+            <FlightDateField
+              departureDateLabel={departureDateLabel}
+              returnDateLabel={returnDateLabel}
+              onClick={(event) => openPanel(PANEL_TYPES.DATE, event)}
+            />
+            <button
+              className="flight-service-field-button flight-passenger-field"
+              type="button"
+              onClick={(event) => openPanel(PANEL_TYPES.PASSENGERS, event)}
+            >
+              <span>탑승객</span>
+              <strong className="flight-booking-panel__passenger-value">
+                <span>
+                  <AdultIcon size={15} />
+                  성인 {passengers.adult}
+                </span>
+                <span>
+                  <ChildIcon size={15} />
+                  소아 {passengers.child}
+                </span>
+                <span>
+                  <InfantIcon size={15} />
+                  유아 {passengers.infant}
+                </span>
+              </strong>
+            </button>
+            {renderServicePopup()}
+            <button className="flight-booking-panel__submit" type="submit">
+              {isResultsVariant ? '조회 변경' : '항공권 검색'}
+            </button>
+          </>
+        )}
       </div>
     </form>
   );

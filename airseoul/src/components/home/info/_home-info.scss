@@ -36,6 +36,11 @@
   background: var(--color-bg-main);
 }
 
+.home-info-customer {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
 .home-info-card-header,
 .home-info-card-header__title,
 .home-info-more,
@@ -179,11 +184,10 @@
 }
 
 .home-info-customer__main {
-  gap: get-space(sm);
+  gap: get-space(lg);
+  align-self: center;
   padding: get-space(md);
   color: var(--color-text-primary);
-  border: var(--line-thin) solid var(--color-border-primary);
-  border-radius: var(--radius-sm);
 
   svg {
     width: 32px;
@@ -217,7 +221,7 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: get-space(sm);
-  margin-top: get-space(md);
+  margin-top: get-space(sm);
 }
 
 .home-info-customer__button {
@@ -300,6 +304,13 @@
         transparent 100%
       );
   }
+
+  &:hover,
+  &:focus-within {
+    .home-info-about__visual {
+      transform: translate3d(-10px, -4px, 0) scale(1.06);
+    }
+  }
 }
 
 .home-info-about__content {
@@ -360,6 +371,24 @@
   height: 100%;
   object-fit: cover;
   object-position: right center;
+  transform: translate3d(0, 0, 0) scale(1);
+  transform-origin: 72% 50%;
+  transition: transform 2.4s var(--ease-standard);
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-info-about__visual {
+    transition: none;
+    will-change: auto;
+  }
+
+  .home-info-about:hover,
+  .home-info-about:focus-within {
+    .home-info-about__visual {
+      transform: none;
+    }
+  }
 }
 
 .home-info-about__stats {

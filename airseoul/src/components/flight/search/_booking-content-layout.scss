@@ -3,47 +3,292 @@
 
 .booking-content-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) rem(360px);
+  grid-template-columns:
+    minmax(rem(680px), 1fr)
+    minmax(rem(272px), clamp(rem(272px), 24vw, rem(360px)));
   align-items: start;
   gap: get-space(lg);
 }
 
 .booking-content-layout__main {
-  display: grid;
-  gap: get-space(lg);
+  display: contents;
+}
+
+.booking-content-layout__main > .flight-select-section {
+  grid-column: 1;
+}
+
+.booking-content-layout__main > .flight-search-results__notice {
+  grid-column: 1 / -1;
 }
 
 .booking-content-layout__aside {
-  position: sticky;
-  top: calc(var(--header-main-height) + get-space(lg));
-  display: grid;
-  gap: get-space(sm) + get-space(xs);
+  grid-column: 2;
+  grid-row: 1;
   min-height: rem(320px);
-  padding: get-space(lg);
   background: var(--color-white);
   border: var(--line-thin) solid var(--color-border-primary);
   border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.booking-content-layout:has(.flight-select-section + .flight-select-section) {
+  .booking-content-layout__aside {
+    grid-row: 1 / span 2;
+  }
+}
+
+.booking-summary-aside {
+  display: grid;
+  color: var(--color-text-primary);
 
   h2 {
-    @include text-size(title);
+    @include text-size(body-lg);
 
-    color: var(--color-text-primary);
+    padding: get-space(lg);
+    border-bottom: var(--line-thin) solid var(--color-border-primary);
     font-weight: 800;
+  }
+}
+
+.booking-summary-aside__flight {
+  display: grid;
+  gap: get-space(xs);
+  padding: get-space(lg);
+  border-bottom: var(--line-thin) solid var(--color-border-primary);
+
+  h3 {
+    @include text-size(body);
+
+    display: flex;
+    align-items: center;
+    gap: get-space(sm);
+    margin-bottom: get-space(xs);
+    font-weight: 700;
+
+    svg {
+      color: var(--color-point-primary);
+    }
+  }
+
+  strong {
+    @include text-size(caption);
+
+    font-weight: 600;
   }
 
   p {
     @include text-size(caption);
 
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: get-space(xs);
+    color: var(--color-text-primary);
+  }
+
+  b {
+    font-weight: 700;
+  }
+
+  i,
+  em {
     color: var(--color-text-secondary);
+    font-style: normal;
+  }
+
+  em,
+  small {
+    @include text-size(caption);
+  }
+
+  small {
+    color: var(--color-point-primary);
   }
 }
 
-@include respond-down(tablet) {
+.booking-summary-aside__flight .booking-summary-aside__empty {
+  color: var(--color-text-secondary);
+}
+
+.booking-summary-aside__passengers,
+.booking-summary-aside__fare {
+  display: grid;
+  padding: get-space(md) get-space(lg);
+  border-bottom: var(--line-thin) solid var(--color-border-primary);
+}
+
+.booking-summary-aside__passengers {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  div {
+    display: grid;
+    gap: get-space(xs);
+    text-align: center;
+  }
+
+  div + div {
+    border-left: var(--line-thin) solid var(--color-border-primary);
+  }
+}
+
+.booking-summary-aside__fare {
+  gap: get-space(sm);
+
+  div {
+    @include flex-between;
+  }
+}
+
+.booking-summary-aside__passengers,
+.booking-summary-aside__fare {
+  dt,
+  dd {
+    @include text-size(caption);
+  }
+
+  dt {
+    color: var(--color-text-secondary);
+  }
+
+  dd {
+    margin: 0;
+    color: var(--color-text-primary);
+    font-weight: 600;
+  }
+}
+
+.booking-summary-aside__fare .is-placeholder {
+  color: var(--color-point-pink);
+}
+
+.booking-summary-aside__total {
+  @include flex-between;
+
+  gap: get-space(sm);
+  padding: get-space(lg);
+
+  span {
+    @include text-size(body);
+
+    font-weight: 700;
+  }
+
+  strong {
+    @include text-size(title);
+
+    color: var(--color-point-primary);
+    font-weight: 800;
+  }
+}
+
+.booking-summary-aside__next {
+  @include flex-center;
+  @include text-size(body);
+  @include button-hover-primary;
+
+  gap: get-space(sm);
+  min-height: rem(56px);
+  margin: 0 get-space(lg) get-space(lg);
+  color: var(--color-text-inverse);
+  background: var(--color-point-primary);
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+
+  &:disabled {
+    color: var(--color-text-secondary);
+    background: var(--color-bg-sub);
+    cursor: default;
+  }
+}
+
+@include respond-down(laptop) {
   .booking-content-layout {
     grid-template-columns: 1fr;
   }
 
+  .booking-content-layout__main > .flight-search-results__notice {
+    order: 2;
+  }
+
   .booking-content-layout__aside {
-    position: static;
+    order: 1;
+    grid-column: 1 / -1;
+    grid-row: auto;
+    min-height: 0;
+  }
+
+  .booking-content-layout:has(.flight-select-section + .flight-select-section) {
+    .booking-content-layout__aside {
+      grid-row: auto;
+    }
+  }
+
+  .booking-summary-aside {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr))
+      minmax(rem(180px), 0.72fr);
+
+    h2 {
+      grid-column: 1 / -1;
+      padding: get-space(md) get-space(lg);
+    }
+  }
+
+  .booking-summary-aside__flight,
+  .booking-summary-aside__passengers,
+  .booking-summary-aside__fare,
+  .booking-summary-aside__total {
+    min-width: 0;
+    padding: get-space(md);
+  }
+
+  .booking-summary-aside__flight {
+    border-right: var(--line-thin) solid var(--color-border-primary);
+  }
+
+  .booking-summary-aside__passengers {
+    align-content: center;
+  }
+
+  .booking-summary-aside__fare {
+    border-right: var(--line-thin) solid var(--color-border-primary);
+  }
+
+  .booking-summary-aside__total {
+    padding-inline: get-space(lg);
+    border-bottom: var(--line-thin) solid var(--color-border-primary);
+  }
+
+  .booking-summary-aside__next {
+    min-height: rem(52px);
+    margin: get-space(md);
+  }
+}
+
+@include respond-down(tablet) {
+  .booking-summary-aside {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .booking-summary-aside__passengers,
+  .booking-summary-aside__fare {
+    border-right: 0;
+  }
+
+  .booking-summary-aside__total {
+    border-right: var(--line-thin) solid var(--color-border-primary);
+  }
+}
+
+@include respond-down(mobile) {
+  .booking-summary-aside {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-summary-aside__flight,
+  .booking-summary-aside__fare,
+  .booking-summary-aside__total {
+    border-right: 0;
   }
 }

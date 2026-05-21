@@ -1,9 +1,9 @@
 import { formatKRW } from '../../../utils/price';
 
 const FARE_OPTIONS = [
-  { key: 'special', label: '특가운임' },
+  { key: 'special', label: '이코노미 특가운임' },
   { key: 'discount', label: '할인운임' },
-  { key: 'normal', label: '정상운임' },
+  { key: 'normal', label: '스마트운임' },
 ];
 
 const formatDuration = (minutes) => {
@@ -13,39 +13,42 @@ const formatDuration = (minutes) => {
   return `${String(hours).padStart(2, '0')}시간 ${String(restMinutes).padStart(2, '0')}분`;
 };
 
-function FlightOptionRow({ flight }) {
+function FlightOptionRow({ fareGroupName, flight, onSelectFare, selectedFareKey }) {
   return (
     <article className="flight-option-row">
-      <div className="flight-option-row__info">
-        <strong>{flight.flightNo}</strong>
-        <span>{flight.airline.name}</span>
-      </div>
+      <div className="flight-option-row__summary">
+        <div className="flight-option-row__time">
+          <strong>{flight.schedule.departureTime}</strong>
+          <span>{flight.route.from.code}</span>
+        </div>
 
-      <div className="flight-option-row__time">
-        <strong>{flight.schedule.departureTime}</strong>
-        <span>{flight.route.from.code}</span>
-      </div>
+        <div className="flight-option-row__duration">
+          <em>{formatDuration(flight.schedule.durationMinutes)}</em>
+          <span aria-hidden="true" />
+        </div>
 
-      <div className="flight-option-row__duration">
-        <span aria-hidden="true" />
-        <em>{formatDuration(flight.schedule.durationMinutes)}</em>
-      </div>
+        <div className="flight-option-row__time">
+          <strong>{flight.schedule.arrivalTime}</strong>
+          <span>{flight.route.to.code}</span>
+        </div>
 
-      <div className="flight-option-row__time">
-        <strong>{flight.schedule.arrivalTime}</strong>
-        <span>{flight.route.to.code}</span>
+        <div className="flight-option-row__info">
+          <strong>{flight.flightNo}</strong>
+          <span>{flight.airline.name}</span>
+        </div>
       </div>
 
       <div className="flight-option-row__fares">
-        {FARE_OPTIONS.map((option, index) => {
+        {FARE_OPTIONS.map((option) => {
           const fare = flight.fares[option.key];
 
           return (
             <label className="flight-option-row__fare" key={option.key}>
               <input
                 type="radio"
-                name={`fare-${flight.id}`}
-                defaultChecked={index === 0}
+                name={fareGroupName}
+                checked={selectedFareKey === option.key}
+                onChange={() => onSelectFare?.(option.key)}
               />
               <span>
                 <strong>{option.label}</strong>

@@ -6,12 +6,6 @@
   min-height: 100vh;
   padding: calc(var(--header-main-height) + #{get-space(xxl)}) var(--container-padding)
     get-space(xxl);
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--color-bg-sub) 64%, var(--color-white)) 0,
-      var(--color-bg-main) rem(260px)
-    );
 }
 
 .booking-page__inner {

@@ -2,10 +2,14 @@
 @use '../../../styles/foundation/mixins' as *;
 
 .flight-select-section {
-  padding: get-space(lg);
+  padding: get-space(sm) 0;
   background: var(--color-white);
-  border: var(--line-thin) solid var(--color-border-primary);
-  border-radius: var(--radius-md);
+
+  & + .flight-select-section {
+    margin-top: get-space(lg);
+    padding-top: get-space(lg);
+    border-top: var(--line-thin) solid var(--color-border-primary);
+  }
 }
 
 .flight-select-section__header {
@@ -18,20 +22,20 @@
 .flight-select-section__heading {
   display: flex;
   align-items: center;
-  gap: get-space(sm);
+  gap: get-space(md);
 
   h2 {
     @include text-size(title);
 
     color: var(--color-text-primary);
-    font-weight: 800;
+    font-weight: 700;
   }
 
   p {
     @include text-size(body);
 
     color: var(--color-text-primary);
-    font-weight: 700;
+    font-weight: 600;
   }
 
   svg {
@@ -51,77 +55,89 @@
 
 .date-fare-bar {
   display: grid;
-  grid-template-columns: repeat(7, minmax(rem(92px), 1fr));
-  overflow-x: auto;
-  border: var(--line-thin) solid var(--color-border-primary);
-  border-radius: var(--radius-sm);
-}
-
-.date-fare-bar__item {
-  display: grid;
-  gap: get-space(xs);
-  min-height: rem(64px);
-  min-width: rem(92px);
-  padding: get-space(sm) get-space(md);
-  color: var(--color-text-primary);
-  border-left: var(--line-thin) solid var(--color-border-primary);
-
-  &:first-child {
-    border-left: 0;
-  }
-
-  &.is-selected {
-    color: var(--color-text-inverse);
-    background: var(--color-point-primary);
-    box-shadow: var(--shadow-sm);
-  }
-
-  span {
-    @include text-size(caption);
-  }
-
-  strong {
-    @include text-size(caption);
-
-    font-weight: 800;
-  }
-}
-
-.flight-select-section__table {
-  display: grid;
-  margin-top: get-space(lg);
+  grid-template-columns: rem(40px) minmax(0, 1fr) rem(40px);
+  align-items: stretch;
   overflow: hidden;
   border: var(--line-thin) solid var(--color-border-primary);
   border-radius: var(--radius-sm);
 }
 
+.date-fare-bar__arrow {
+  display: grid;
+  place-items: center;
+  color: var(--color-text-primary);
+  background: var(--color-white);
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard);
+
+  &:hover:not(:disabled),
+  &:focus-visible:not(:disabled) {
+    color: var(--color-point-primary);
+    background: var(--color-bg-mint-soft);
+  }
+
+  &:disabled {
+    color: var(--color-text-muted);
+    cursor: default;
+  }
+
+}
+
+.date-fare-bar__items {
+  display: grid;
+  grid-template-columns: repeat(var(--date-fare-count), minmax(0, 1fr));
+  min-width: 0;
+}
+
+.date-fare-bar__item {
+  display: grid;
+  gap: get-space(xs);
+  min-height: rem(66px);
+  min-width: rem(100px);
+  padding: get-space(sm);
+  color: var(--color-text-primary);
+  @include transition(all, fast, standard);
+  @include button-hover-none;
+
+  &.is-selected {
+    color: var(--color-point-primary);
+    background: var(--color-bg-mint-soft);
+    box-shadow: var(--shadow-sm);
+  }
+
+  span {
+    @include text-size(caption);
+    color: var(--color-text-secondary);
+  }
+
+  strong {
+    @include text-size(caption);
+
+    font-weight: 700;
+    white-space: nowrap;
+  }
+}
+
+.flight-select-section__table {
+  display: grid;
+  margin-top: get-space(sm);
+}
+
 .flight-select-section__table-head,
 .flight-option-row {
   display: grid;
-  grid-template-columns:
-    minmax(rem(92px), 0.7fr)
-    minmax(rem(88px), 0.7fr)
-    minmax(rem(112px), 0.8fr)
-    minmax(rem(88px), 0.7fr)
-    minmax(rem(360px), 2.4fr);
+  grid-template-columns: minmax(rem(280px), 1.1fr) minmax(rem(360px), 2fr);
   align-items: center;
 }
 
 .flight-select-section__table-head {
-  @include text-size(caption);
-
-  min-height: rem(48px);
-  color: var(--color-text-secondary);
-  background: var(--color-bg-sub);
-
-  span {
-    padding: 0 get-space(md);
-  }
+  display: none;
 }
 
 .flight-option-row {
-  min-height: rem(104px);
-  border-top: var(--line-thin) solid var(--color-border-primary);
+  gap: get-space(md);
+  padding: get-space(sm) 0;
 }
 
 .flight-option-row__info,
@@ -129,29 +145,48 @@
 .flight-option-row__duration {
   display: grid;
   gap: get-space(xs);
-  padding: 0 get-space(md);
+}
+
+.flight-option-row__summary {
+  display: grid;
+  grid-template-columns: minmax(rem(64px), 0.75fr) minmax(rem(96px), 1fr) minmax(rem(64px), 0.75fr);
+  align-items: center;
+  gap: get-space(sm);
+  padding: get-space(md);
+  background: var(--color-bg-sub);
+  border-radius: var(--radius-sm);
 }
 
 .flight-option-row__info {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: get-space(xs);
+
   strong {
+    @include text-size(caption);
+
     color: var(--color-text-primary);
-    font-weight: 800;
+    font-weight: 600;
   }
 
   span {
     @include text-size(caption);
 
-    color: var(--color-point-primary);
-    font-weight: 700;
+    color: var(--color-text-tertiary);
+    font-weight: 500;
   }
 }
 
 .flight-option-row__time {
+  text-align: center;
+
   strong {
     @include text-size(title);
 
     color: var(--color-text-primary);
     line-height: 1;
+    font-weight: 600;
   }
 
   span {
@@ -167,15 +202,29 @@
   text-align: center;
 
   span {
+    position: relative;
     width: 100%;
     height: var(--line-thin);
     background: var(--color-border-secondary);
+
+    &::after {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      width: rem(7px);
+      height: rem(7px);
+      border-top: var(--line-thin) solid var(--color-border-secondary);
+      border-right: var(--line-thin) solid var(--color-border-secondary);
+      content: '';
+      transform: translateY(-50%) rotate(45deg);
+    }
   }
 
   em {
     @include text-size(caption);
 
     font-style: normal;
+    white-space: nowrap;
   }
 }
 
@@ -183,26 +232,26 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   align-self: stretch;
-  border-left: var(--line-thin) solid var(--color-border-primary);
+  gap: get-space(xs);
 }
 
 .flight-option-row__fare {
-  display: flex;
+  display: grid;
   align-items: center;
-  gap: get-space(sm);
   min-width: 0;
-  padding: get-space(md);
-  border-left: var(--line-thin) solid var(--color-border-primary);
+  min-height: rem(94px);
+  padding: get-space(md) get-space(sm);
+  text-align: center;
+  border: var(--line-thin) solid var(--color-border-primary);
+  border-radius: var(--radius-sm);
   transition:
+    border-color var(--duration-fast) var(--ease-standard),
     background-color var(--duration-fast) var(--ease-standard),
     color var(--duration-fast) var(--ease-standard);
 
-  &:first-child {
-    border-left: 0;
-  }
-
   &:has(input:checked) {
-    background: color-mix(in srgb, var(--color-bg-mint-soft) 68%, var(--color-white));
+    border-color: var(--color-point-primary);
+    box-shadow: inset 0 0 0 var(--line-thin) var(--color-point-primary);
 
     strong,
     em {
@@ -211,13 +260,15 @@
   }
 
   input {
-    flex-shrink: 0;
-    accent-color: var(--color-point-primary);
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
   }
 
-  span {
+  > span {
     display: grid;
     gap: get-space(xs);
+    justify-items: center;
     min-width: 0;
   }
 
@@ -232,7 +283,8 @@
 
     color: var(--color-text-primary);
     font-style: normal;
-    font-weight: 800;
+    font-weight: 600;
+    white-space: nowrap;
   }
 
   small {
@@ -243,9 +295,13 @@
 }
 
 .flight-select-section__empty {
+  margin-top: get-space(md);
   padding: get-space(xl);
   color: var(--color-text-secondary);
   text-align: center;
+  background: var(--color-bg-sub);
+  border: var(--line-thin) dashed var(--color-border-primary);
+  border-radius: var(--radius-sm);
 }
 
 @include respond-down(tablet) {
@@ -259,11 +315,7 @@
   }
 
   .flight-option-row {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: get-space(md);
-    padding: get-space(md);
-    border: var(--line-thin) solid var(--color-border-primary);
-    border-radius: var(--radius-sm);
 
     & + .flight-option-row {
       margin-top: get-space(md);
@@ -271,9 +323,8 @@
   }
 
   .flight-option-row__fares {
-    grid-column: 1 / -1;
-    border-top: var(--line-thin) solid var(--color-border-primary);
-    border-left: 0;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin: 0;
   }
 }
 
@@ -288,7 +339,26 @@
   }
 
   .flight-option-row {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
+  }
+
+  .flight-option-row__summary {
+    grid-template-columns: minmax(rem(58px), 0.8fr) minmax(rem(88px), 1fr) minmax(rem(58px), 0.8fr);
+    padding: get-space(md);
+  }
+
+  .flight-option-row__fare {
+    min-height: rem(86px);
+  }
+}
+
+@media (max-width: 559px) {
+  .flight-select-section {
+    padding: get-space(sm) 0;
+  }
+
+  .date-fare-bar {
+    grid-template-columns: rem(36px) minmax(0, 1fr) rem(36px);
   }
 
   .flight-option-row__fares {
@@ -296,11 +366,18 @@
   }
 
   .flight-option-row__fare {
-    border-top: var(--line-thin) solid var(--color-border-primary);
-    border-left: 0;
+    min-height: 0;
+    padding: get-space(sm) get-space(md);
 
-    &:first-child {
-      border-top: 0;
+    > span {
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      align-items: center;
+      justify-items: start;
+      column-gap: get-space(sm);
+    }
+
+    small {
+      justify-self: end;
     }
   }
 }
