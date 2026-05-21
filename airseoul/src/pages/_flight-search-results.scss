@@ -41,8 +41,8 @@
   min-height: rem(160px);
 }
 
-@include respond-down(mobile) {
+@include respond-down(tablet) {
   .flight-search-results {
-    padding-top: calc(var(--header-main-height-mobile) + #{get-space(lg)});
+    padding-top: calc(var(--header-main-height-mobile) + #{get-space(md)});
   }
 }

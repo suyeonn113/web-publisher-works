@@ -101,6 +101,7 @@
   @include button-hover-none;
 
   &.is-selected {
+    @include button-hover-subtle;
     color: var(--color-point-primary);
     background: var(--color-bg-mint-soft);
     box-shadow: var(--shadow-sm);

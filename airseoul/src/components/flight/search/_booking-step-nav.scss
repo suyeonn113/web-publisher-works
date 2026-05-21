@@ -2,42 +2,30 @@
 @use '../../../styles/foundation/mixins' as *;
 
 .booking-step-nav {
-  overflow: hidden;
-  margin-bottom: get-space(xl);
-  background: var(--color-white);
-  border: var(--line-thin) solid var(--color-border-primary);
-  border-radius: var(--radius-md);
+  margin-bottom: get-space(md);
+  background: transparent;
+  border: 0;
+  border-radius: 0;
 }
 
 .booking-step-nav__list {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  min-height: rem(68px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: get-space(xl);
+  min-height: rem(56px);
 }
 
 .booking-step-nav__item {
   position: relative;
   display: flex;
   align-items: center;
-  gap: get-space(sm) + get-space(xs);
-  padding: 0 get-space(xl) + get-space(xs);
-  color: var(--color-text-primary);
+  gap: get-space(sm);
+  padding: 0;
+  color: var(--color-text-secondary);
   font-weight: 700;
 
   &::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    right: 0;
-    width: var(--line-thin);
-    height: get-space(xl);
-    background: var(--color-border-primary);
-    transform: translateY(-50%);
-  }
-
-  &:last-child::after,
-  &.is-active::after,
-  &:has(+ .is-active)::after {
     display: none;
   }
 }
@@ -45,11 +33,11 @@
 .booking-step-nav__link {
   @include transition(color, fast, standard);
 
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: inherit;
-  width: 100%;
-  min-height: 100%;
+  gap: get-space(sm);
+  width: auto;
+  min-height: auto;
 
   &:hover,
   &:focus-visible {
@@ -58,40 +46,42 @@
 }
 
 .booking-step-nav__item.is-active {
-  color: var(--color-text-inverse);
-  background: var(--color-point-primary);
+  color: var(--color-point-primary);
+  background: transparent;
 }
 
 .booking-step-nav__number {
-  @include text-size(title);
+  @include flex-center;
+  @include text-size(caption);
 
+  width: rem(28px);
+  height: rem(28px);
+  color: var(--color-text-secondary);
+  background: var(--color-bg-sub);
+  border-radius: 50%;
   font-weight: 800;
+}
+
+.booking-step-nav__item.is-complete .booking-step-nav__number,
+.booking-step-nav__item.is-active .booking-step-nav__number {
+  color: var(--color-text-inverse);
+  background: var(--color-point-primary);
 }
 
 .booking-step-nav__label {
   @include text-size(body);
 
   min-width: 0;
+  color: currentColor;
   white-space: nowrap;
 }
 
 @include respond-down(mobile) {
   .booking-step-nav__list {
-    grid-template-columns: 1fr 1fr;
+    gap: get-space(lg);
   }
 
-  .booking-step-nav__item {
-    min-height: rem(60px);
-    padding: 0 get-space(md) + get-space(xs);
-
-    &::after {
-      display: none;
-    }
-  }
-}
-
-@include respond-down(mobile-sm) {
-  .booking-step-nav__list {
-    grid-template-columns: 1fr;
+  .booking-step-nav__label {
+    @include text-size(caption);
   }
 }

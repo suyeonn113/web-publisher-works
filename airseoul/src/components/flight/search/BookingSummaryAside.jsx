@@ -1,4 +1,5 @@
 import ChevronRightIcon from '../../icons/ChevronRightIcon';
+import UsersGroupIcon from '../../icons/UsersGroupIcon';
 import PlaneLandingIcon from '../../icons/PlaneLandingIcon';
 import PlaneTakeoffIcon from '../../icons/PlaneTakeoffIcon';
 import { formatKoreanMonthDay } from '../../../utils/date';
@@ -25,11 +26,15 @@ function SelectedFlightSummary({ Icon, selection, title }) {
         <>
           <strong>{formatKoreanMonthDay(flight.schedule.departureDate)}</strong>
           <p>
-            <b>{flight.route.from.code}</b>
-            <span>{flight.schedule.departureTime}</span>
+            <span className="flight-route__item">
+              <b>{flight.route.from.code}</b>
+              <span>{flight.schedule.departureTime}</span>
+            </span>
             <i aria-hidden="true">→</i>
-            <b>{flight.route.to.code}</b>
-            <span>{flight.schedule.arrivalTime}</span>
+            <span className="flight-route__item">
+              <b>{flight.route.to.code}</b>
+              <span>{flight.schedule.arrivalTime}</span>
+            </span>
           </p>
           <em>
             {flight.airline.name} {flight.flightNo}
@@ -70,6 +75,10 @@ function BookingSummaryAside({
       )}
 
       <dl className="booking-summary-aside__passengers">
+        <h3>
+          <UsersGroupIcon size={18} />
+          탑승객
+        </h3>
         {PASSENGER_LABELS.map((passenger) => (
           <div key={passenger.key}>
             <dt>{passenger.label}</dt>
