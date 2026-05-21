@@ -38,11 +38,118 @@
 }
 
 .flight-search-results__notice {
-  min-height: rem(160px);
+  overflow: hidden;
+  border: 0;
+}
+
+.fare-notice {
+  display: grid;
+  color: var(--color-text-primary);
+}
+
+.fare-notice__header {
+  padding: get-space(lg) get-space(xl) get-space(md);
+
+  h2 {
+    @include text-size(body-lg);
+
+    font-weight: 800;
+  }
+}
+
+.fare-notice__detail ul {
+  display: grid;
+  gap: get-space(sm);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fare-notice__detail li {
+  @include text-size(caption);
+
+  position: relative;
+  padding-left: get-space(md);
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  word-break: keep-all;
+
+  &::before {
+    content: '';
+
+    position: absolute;
+    top: 0.82em;
+    left: 0;
+
+    width: 6px;
+    height: 1px;
+    background: color-mix(in srgb, currentColor 72%, transparent);
+  }
+}
+
+.fare-notice__details {
+  padding: 0 get-space(xl) get-space(lg);
+}
+
+.fare-notice__detail {
+  & + & {
+    border-top: var(--line-thin) solid color-mix(in srgb, var(--color-border-primary) 72%, transparent);
+  }
+
+  summary {
+    @include text-size(body);
+
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: rem(56px);
+    padding: get-space(sm) rem(32px) get-space(sm) 0;
+    color: var(--color-text-primary);
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::after {
+      content: '';
+
+      position: absolute;
+      top: 50%;
+      right: get-space(xs);
+
+      width: 9px;
+      height: 9px;
+      border-right: 1.5px solid var(--color-text-secondary);
+      border-bottom: 1.5px solid var(--color-text-secondary);
+      transform: translateY(-70%) rotate(45deg);
+      transition: transform var(--duration-fast) var(--ease-standard);
+    }
+  }
+
+  &[open] summary::after {
+    transform: translateY(-20%) rotate(225deg);
+  }
+
+  ul {
+    padding: get-space(xs) rem(32px) get-space(lg) 0;
+  }
 }
 
 @include respond-down(tablet) {
   .flight-search-results {
     padding-top: calc(var(--header-main-height-mobile) + #{get-space(md)});
+  }
+}
+
+@include respond-down(mobile) {
+  .fare-notice__header {
+    padding: get-space(lg) get-space(md) get-space(md);
+  }
+
+  .fare-notice__details {
+    padding-inline: get-space(md);
   }
 }

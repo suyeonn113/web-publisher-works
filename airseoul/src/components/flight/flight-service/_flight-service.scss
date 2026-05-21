@@ -11,7 +11,7 @@
   display: flex;
   align-items: flex-start;
   min-height: auto;
-  margin-top: -164px;
+  margin-top: -96px;
   padding-top: get-space(md);
 
   background: transparent;
@@ -122,7 +122,7 @@
 
 @include respond-down(tablet) {
   .flight-service-section--home {
-    margin-top: -140px;
+    margin-top: -80px;
     padding-top: get-space(md);
 
     .flight-service-shell {
@@ -196,7 +196,7 @@
 
 @include respond-down(mobile-sm) {
   .flight-service-section--home {
-    margin-top: -104px;
+    margin-top: -64px;
     padding-top: get-space(md);
   }
 

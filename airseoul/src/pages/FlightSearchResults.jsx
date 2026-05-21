@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react';
 import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 import FlightBookingPanel from '../components/flight/booking/FlightBookingPanel';
 import BookingContentLayout from '../components/flight/search/BookingContentLayout';
+import BookingKeyNotice from '../components/flight/search/BookingKeyNotice';
 import BookingSummaryAside from '../components/flight/search/BookingSummaryAside';
 import BookingStepNav from '../components/flight/search/BookingStepNav';
+import FareNoticeSection from '../components/flight/search/FareNoticeSection';
 import FlightSelectSection from '../components/flight/search/FlightSelectSection';
 import PlaneLandingIcon from '../components/icons/PlaneLandingIcon';
 import PlaneTakeoffIcon from '../components/icons/PlaneTakeoffIcon';
@@ -116,12 +118,15 @@ function FlightSearchResults() {
 
         <BookingContentLayout
           aside={
-            <BookingSummaryAside
-              inboundSelection={selectedInboundFlight}
-              isRoundTrip={isRoundTrip}
-              outboundSelection={selectedOutboundFlight}
-              passengers={passengers}
-            />
+            <>
+              <BookingSummaryAside
+                inboundSelection={selectedInboundFlight}
+                isRoundTrip={isRoundTrip}
+                outboundSelection={selectedOutboundFlight}
+                passengers={passengers}
+              />
+              <BookingKeyNotice />
+            </>
           }
         >
             <FlightSelectSection
@@ -152,7 +157,9 @@ function FlightSearchResults() {
               />
             )}
 
-            <section className="flight-search-results__notice" aria-label="예매 안내" />
+            <div className="flight-search-results__notice">
+              <FareNoticeSection />
+            </div>
         </BookingContentLayout>
       </div>
     </main>

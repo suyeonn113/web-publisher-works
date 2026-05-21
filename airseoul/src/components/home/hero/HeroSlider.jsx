@@ -12,12 +12,18 @@ function HeroSlider({ slides = [], autoPlayDelay = 5000 }) {
   const videoRefs = useRef([]);
 
   useEffect(() => {
-    const currentVideo = videoRefs.current[activeIndex];
+    videoRefs.current.forEach((video, index) => {
+      if (!video) return;
 
-    if (!currentVideo) return;
+      if (index !== activeIndex) {
+        video.pause();
+        video.currentTime = 0;
+        return;
+      }
 
-    currentVideo.currentTime = 0;
-    currentVideo.play().catch(() => {});
+      video.currentTime = 0;
+      video.play().catch(() => {});
+    });
   }, [activeIndex]);
 
   useEffect(() => {
@@ -44,6 +50,7 @@ function HeroSlider({ slides = [], autoPlayDelay = 5000 }) {
       <div className="hero-slider__track">
         {slides.map((slide, index) => {
           const isActive = index === activeIndex;
+          const isNext = index === (activeIndex + 1) % slides.length;
           const price = slide.lowestFare?.price;
           const description =
             slide.visual.description ??
@@ -66,7 +73,7 @@ function HeroSlider({ slides = [], autoPlayDelay = 5000 }) {
                   loop
                   playsInline
                   // poster={slide.visual.media.poster}
-                  src={slide.visual.media.src}
+                  src={isActive || isNext ? slide.visual.media.src : undefined}
                 />
               </div>
 

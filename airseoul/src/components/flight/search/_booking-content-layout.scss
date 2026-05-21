@@ -25,7 +25,13 @@
 .booking-content-layout__aside {
   grid-column: 2;
   grid-row: 1;
+  display: grid;
+  gap: get-space(md);
+  align-content: start;
   min-height: rem(320px);
+}
+
+.booking-summary-aside {
   padding: get-space(md);
   background: var(--color-white);
   border: var(--line-thin) solid var(--color-border-primary);
@@ -49,6 +55,37 @@
     padding: get-space(md);
     border-bottom: var(--line-thin) solid var(--color-border-primary);
     font-weight: 800;
+  }
+}
+
+.booking-key-notice {
+  display: grid;
+  gap: get-space(sm);
+  padding: get-space(md);
+  color: var(--color-text-secondary);
+  background: color-mix(in srgb, var(--color-bg-mint-soft) 42%, var(--color-white));
+  border-radius: var(--radius-sm);
+
+  h2 {
+    @include text-size(body);
+
+    color: var(--color-point-primary);
+    font-weight: 800;
+  }
+
+  ul {
+    display: grid;
+    gap: get-space(sm);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    @include text-size(caption);
+
+    line-height: 1.7;
+    word-break: keep-all;
   }
 }
 
