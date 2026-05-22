@@ -366,6 +366,7 @@ body.no-scroll {
     z-index: 1000;
 
     background: var(--color-white);
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, .08);
 }
 
 .quick-menu__list {
