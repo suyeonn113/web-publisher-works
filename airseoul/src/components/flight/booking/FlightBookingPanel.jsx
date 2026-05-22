@@ -9,7 +9,7 @@ import MinusIcon from '../../icons/MinusIcon';
 import PlusIcon from '../../icons/PlusIcon';
 import XIcon from '../../icons/XIcon';
 import { TRIP_TYPES } from '../../../constants/tripType';
-import { formatKoreanMonthDay } from '../../../utils/date';
+import { formatKoreanMonthDay, getAppNow } from '../../../utils/date';
 import {
   createSearchParamsFromCalendar,
   sortSelectedDates,
@@ -19,6 +19,7 @@ import AirportSelectionPanel from '../shared/AirportSelectionPanel';
 import FlightDateField from '../shared/FlightDateField';
 import FlightDatePicker from '../shared/FlightDatePicker';
 import FlightRouteSelector from '../shared/FlightRouteSelector';
+import FlightSelectMenu from '../shared/FlightSelectMenu';
 import useFlightServicePopupPosition from '../shared/useFlightServicePopupPosition';
 import { getAirport } from '../../../utils/airports';
 
@@ -33,6 +34,63 @@ const POPUP_WIDTHS = {
   [PANEL_TYPES.DATE]: 960,
   [PANEL_TYPES.PASSENGERS]: 720,
   DEFAULT: 520,
+};
+
+const MIN_BIRTH_YEAR = 1900;
+const AGE_CALCULATOR_PLACEHOLDERS = {
+  year: { label: '년', value: '' },
+  month: { label: '월', value: '' },
+  day: { label: '일', value: '' },
+};
+
+const getAgeCalculatorDateParts = () => {
+  const appNow = getAppNow();
+
+  return {
+    year: appNow.getFullYear(),
+    month: appNow.getMonth() + 1,
+    day: appNow.getDate(),
+  };
+};
+
+const getYearOptions = (currentYear) =>
+  Array.from({ length: currentYear - MIN_BIRTH_YEAR + 1 }, (_, index) => {
+    const year = currentYear - index;
+
+    return {
+      label: `${year}년`,
+      value: String(year),
+    };
+  });
+
+const getMonthOptions = (year, appDateParts) => {
+  const lastMonth = year === appDateParts.year ? appDateParts.month : 12;
+
+  return Array.from({ length: lastMonth }, (_, index) => {
+    const month = index + 1;
+
+    return {
+      label: `${month}월`,
+      value: String(month),
+    };
+  });
+};
+
+const getDayOptions = (year, month, appDateParts) => {
+  const daysInMonth = new Date(year, month, 0).getDate();
+  const lastDay =
+    year === appDateParts.year && month === appDateParts.month
+      ? appDateParts.day
+      : daysInMonth;
+
+  return Array.from({ length: lastDay }, (_, index) => {
+    const day = index + 1;
+
+    return {
+      label: `${day}일`,
+      value: String(day),
+    };
+  });
 };
 
 const PASSENGER_TYPES = [
@@ -96,6 +154,10 @@ function FlightBookingPanel({ defaultValues, onSearch, variant = 'home', isColla
   const [promotionCode, setPromotionCode] = useState('');
   const [activePanel, setActivePanel] = useState(null);
   const [isAgeCalculatorOpen, setIsAgeCalculatorOpen] = useState(false);
+  const [ageCalculatorDateParts] = useState(getAgeCalculatorDateParts);
+  const [birthYear, setBirthYear] = useState('');
+  const [birthMonth, setBirthMonth] = useState('');
+  const [birthDay, setBirthDay] = useState('');
   const [hasPendingRoundTripDate, setHasPendingRoundTripDate] = useState(false);
   const popupRef = useRef(null);
   const {
@@ -112,6 +174,10 @@ function FlightBookingPanel({ defaultValues, onSearch, variant = 'home', isColla
 
   const departureDate = selectedDates[0] ?? firstDate;
   const returnDate = tripType === TRIP_TYPES.ROUND_TRIP ? selectedDates[1] : '';
+  const birthYearNumber = Number(birthYear) || ageCalculatorDateParts.year;
+  const birthMonthNumber = Number(birthMonth) || ageCalculatorDateParts.month;
+  const birthMonthOptions = getMonthOptions(birthYearNumber, ageCalculatorDateParts);
+  const birthDayOptions = getDayOptions(birthYearNumber, birthMonthNumber, ageCalculatorDateParts);
   const fromAirport = getAirport(from);
   const toAirport = getAirport(to);
   const departureDateLabel = formatKoreanMonthDay(departureDate);
@@ -341,15 +407,71 @@ function FlightBookingPanel({ defaultValues, onSearch, variant = 'home', isColla
         <div className="flight-passenger-picker__age-calculator">
           <strong>생년월일</strong>
           <div>
-            <select aria-label="연도">
-              <option>연도</option>
-            </select>
-            <select aria-label="월">
-              <option>월</option>
-            </select>
-            <select aria-label="일">
-              <option>일</option>
-            </select>
+            <FlightSelectMenu
+              ariaLabel="연도"
+              onSelect={(year) => {
+                if (!year) {
+                  setBirthYear('');
+                  setBirthMonth('');
+                  setBirthDay('');
+                  return;
+                }
+
+                const nextMonthOptions = getMonthOptions(Number(year), ageCalculatorDateParts);
+                const nextMonth = nextMonthOptions.some((option) => option.value === birthMonth)
+                  ? birthMonth
+                  : nextMonthOptions[nextMonthOptions.length - 1].value;
+                const nextDayOptions = getDayOptions(
+                  Number(year),
+                  Number(nextMonth),
+                  ageCalculatorDateParts,
+                );
+
+                setBirthYear(year);
+                setBirthMonth(nextMonth);
+                setBirthDay((day) =>
+                  nextDayOptions.some((option) => option.value === day)
+                    ? day
+                    : nextDayOptions[nextDayOptions.length - 1].value,
+                );
+              }}
+              options={[
+                AGE_CALCULATOR_PLACEHOLDERS.year,
+                ...getYearOptions(ageCalculatorDateParts.year),
+              ]}
+              value={birthYear}
+            />
+            <FlightSelectMenu
+              ariaLabel="월"
+              onSelect={(month) => {
+                if (!month) {
+                  setBirthMonth('');
+                  setBirthDay('');
+                  return;
+                }
+
+                const nextDayOptions = getDayOptions(
+                  birthYearNumber,
+                  Number(month),
+                  ageCalculatorDateParts,
+                );
+
+                setBirthMonth(month);
+                setBirthDay((day) =>
+                  nextDayOptions.some((option) => option.value === day)
+                    ? day
+                    : nextDayOptions[nextDayOptions.length - 1].value,
+                );
+              }}
+              options={[AGE_CALCULATOR_PLACEHOLDERS.month, ...birthMonthOptions]}
+              value={birthMonth}
+            />
+            <FlightSelectMenu
+              ariaLabel="일"
+              onSelect={setBirthDay}
+              options={[AGE_CALCULATOR_PLACEHOLDERS.day, ...birthDayOptions]}
+              value={birthDay}
+            />
             <button type="button">계산하기</button>
           </div>
         </div>

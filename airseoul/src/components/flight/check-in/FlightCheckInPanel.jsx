@@ -3,6 +3,7 @@ import { addDays, formatDate, formatKoreanMonthDay, getAppNow } from '../../../u
 import CalendarIcon from '../../icons/CalendarIcon';
 import ChevronDownIcon from '../../icons/ChevronDownIcon';
 import FlightLookupField from '../shared/FlightLookupField';
+import FlightSelectMenu from '../shared/FlightSelectMenu';
 import { passengerLookupFields } from '../../../data/lookupFields';
 
 const CHECK_IN_DATE_OFFSETS = [-1, 0, 1, 2];
@@ -19,9 +20,6 @@ function FlightCheckInPanel() {
     };
   });
   const [departureDate, setDepartureDate] = useState(formatDate(appToday));
-  const [isDateOptionsOpen, setIsDateOptionsOpen] = useState(false);
-  const selectedDateLabel =
-    dateOptions.find((option) => option.value === departureDate)?.label ?? '';
 
   return (
     <div className="flight-service-panel flight-service-panel--check-in">
@@ -36,40 +34,13 @@ function FlightCheckInPanel() {
               <span>{field.label}</span>
               <span className="flight-lookup-field__control">
                 <CalendarIcon size={18} />
-                <span className="flight-check-in-date-select">
-                  <button
-                    className="flight-check-in-date-select__button"
-                    type="button"
-                    aria-expanded={isDateOptionsOpen}
-                    onClick={() => setIsDateOptionsOpen((isOpen) => !isOpen)}
-                  >
-                    {selectedDateLabel}
-                  </button>
-                  {isDateOptionsOpen && (
-                    <span className="flight-check-in-date-select__list" role="listbox">
-                      {dateOptions.map((option) => (
-                        <button
-                          className={[
-                            'flight-check-in-date-select__option',
-                            option.value === departureDate ? 'is-active' : '',
-                          ]
-                            .filter(Boolean)
-                            .join(' ')}
-                          key={option.value}
-                          type="button"
-                          role="option"
-                          aria-selected={option.value === departureDate}
-                          onClick={() => {
-                            setDepartureDate(option.value);
-                            setIsDateOptionsOpen(false);
-                          }}
-                        >
-                          {option.label}
-                        </button>
-                      ))}
-                    </span>
-                  )}
-                </span>
+                <FlightSelectMenu
+                  ariaLabel={field.label}
+                  className="flight-select-menu--lookup"
+                  onSelect={setDepartureDate}
+                  options={dateOptions}
+                  value={departureDate}
+                />
                 <ChevronDownIcon size={16} />
               </span>
             </label>

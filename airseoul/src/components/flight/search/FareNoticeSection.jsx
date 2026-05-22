@@ -1,4 +1,5 @@
 import { fareNoticeGroups } from '../../../data/fareNotices';
+import ChevronDownIcon from '../../icons/ChevronDownIcon';
 
 function FareNoticeSection() {
   return (
@@ -10,7 +11,10 @@ function FareNoticeSection() {
       <div className="fare-notice__details">
         {fareNoticeGroups.map((group) => (
           <details className="fare-notice__detail" key={group.title}>
-            <summary>{group.title}</summary>
+            <summary>
+              {group.title}
+              <ChevronDownIcon className="fare-notice__detail-icon" size={18} />
+            </summary>
 
             <ul>
               {group.items.map((item) => (

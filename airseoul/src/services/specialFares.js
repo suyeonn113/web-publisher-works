@@ -1,12 +1,12 @@
 import { APP_BASE_DATE } from '../constants/appDate';
 import { destinationImages } from '../data/destinationImages';
-import { flights } from '../data/flights';
 import { createFixedRoundTripSearchParams } from '../utils/searchParams';
+import { getFlightsWithFares } from './flightSearch';
 
 export const getSpecialFareCards = () => {
   const lowestFareByDestination = new Map();
 
-  flights
+  getFlightsWithFares()
     .filter((flight) => flight.route.from.code === 'ICN')
     .forEach((flight) => {
       const destinationCode = flight.route.to.code;

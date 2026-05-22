@@ -125,15 +125,10 @@
   margin-top: get-space(sm);
 }
 
-.flight-select-section__table-head,
 .flight-option-row {
   display: grid;
   grid-template-columns: minmax(rem(280px), 1.1fr) minmax(rem(360px), 2fr);
   align-items: center;
-}
-
-.flight-select-section__table-head {
-  display: none;
 }
 
 .flight-option-row {
@@ -153,13 +148,17 @@
   grid-template-columns: minmax(rem(64px), 0.75fr) minmax(rem(96px), 1fr) minmax(rem(64px), 0.75fr);
   align-items: center;
   gap: get-space(sm);
-  padding: get-space(md);
+  height: 100%;
+  padding: get-space(lg);
   background: var(--color-bg-sub);
   border-radius: var(--radius-sm);
 }
 
 .flight-option-row__info {
   grid-column: 1 / -1;
+  grid-row: 2;
+  justify-self: center;
+  justify-content: center;
   display: flex;
   align-items: center;
   gap: get-space(xs);
@@ -203,22 +202,9 @@
   text-align: center;
 
   span {
-    position: relative;
+    display: grid;
+    place-items: center;
     width: 100%;
-    height: var(--line-thin);
-    background: var(--color-border-secondary);
-
-    &::after {
-      position: absolute;
-      top: 50%;
-      right: 0;
-      width: rem(7px);
-      height: rem(7px);
-      border-top: var(--line-thin) solid var(--color-border-secondary);
-      border-right: var(--line-thin) solid var(--color-border-secondary);
-      content: '';
-      transform: translateY(-50%) rotate(45deg);
-    }
   }
 
   em {
@@ -226,6 +212,18 @@
 
     font-style: normal;
     white-space: nowrap;
+  }
+}
+
+.flight-option-row__duration-arrow {
+  color: var(--color-text-secondary);
+
+  &.is-horizontal {
+    width: 100%;
+  }
+
+  &.is-vertical {
+    display: none;
   }
 }
 
@@ -277,6 +275,7 @@
     @include text-size(caption);
 
     color: var(--color-text-secondary);
+    word-break: keep-all;
   }
 
   em {
@@ -311,16 +310,8 @@
     border-radius: 0;
   }
 
-  .flight-select-section__table-head {
-    display: none;
-  }
-
   .flight-option-row {
     gap: get-space(md);
-
-    & + .flight-option-row {
-      margin-top: get-space(md);
-    }
   }
 
   .flight-option-row__fares {
@@ -340,12 +331,68 @@
   }
 
   .flight-option-row {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(rem(128px), 0.82fr) minmax(0, 1.18fr);
+    gap: get-space(sm);
   }
 
   .flight-option-row__summary {
-    grid-template-columns: minmax(rem(58px), 0.8fr) minmax(rem(88px), 1fr) minmax(rem(58px), 0.8fr);
-    padding: get-space(md);
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: get-space(xs);
+    padding: get-space(sm);
+  }
+
+  .flight-option-row__time {
+    grid-template-columns: rem(32px) rem(72px);
+    align-items: center;
+    justify-content: center;
+    column-gap: get-space(sm);
+    width: fit-content;
+
+    strong {
+      grid-column: 2;
+      grid-row: 1;
+      text-align: left;
+    }
+
+    span {
+      grid-column: 1;
+      grid-row: 1;
+      text-align: center;
+    }
+  }
+
+  .flight-option-row__info {
+    grid-row: auto;
+  }
+
+  .flight-option-row__duration {
+    grid-template-columns: rem(32px) rem(72px);
+    justify-content: center;
+    justify-items: start;
+    align-items: center;
+    column-gap: get-space(sm);
+    width: fit-content;
+
+    em {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    span {
+      grid-column: 1;
+      grid-row: 1;
+      justify-self: center;
+      width: rem(32px);
+    }
+
+    .flight-option-row__duration-arrow.is-horizontal {
+      display: none;
+    }
+
+    .flight-option-row__duration-arrow.is-vertical {
+      display: block;
+    }
   }
 
   .flight-option-row__fare {

@@ -295,7 +295,7 @@
 }
 
 .flight-passenger-picker__age-toggle {
-  @include button-hover-white;
+  @include button-hover-none;
 
   display: inline-flex;
   align-items: center;
@@ -309,7 +309,6 @@
 .flight-passenger-picker__age-calculator {
   display: grid;
   gap: get-space(md);
-  padding: get-space(md) 0 0;
 
   > strong {
     color: var(--color-point-primary);
@@ -321,15 +320,21 @@
     gap: get-space(sm);
   }
 
-  select,
-  button {
+  > div > .flight-select-menu,
+  > div > button {
     min-height: 48px;
     padding: 0 get-space(md);
-    border: var(--line-thin) solid var(--color-point-primary);
+    border: var(--line-thin) solid var(--color-border-primary);
     border-radius: var(--radius-sm);
   }
 
-  button {
+  > div > .flight-select-menu {
+    display: flex;
+    align-items: center;
+    padding-inline: get-space(sm);
+  }
+
+  > div > button {
     @include button-hover-white;
 
     min-width: 120px;
@@ -412,7 +417,11 @@
   }
 
   .flight-passenger-picker__age-calculator > div {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    button {
+      grid-column: 1 / -1;
+    }
   }
 
   .flight-booking-panel--results {

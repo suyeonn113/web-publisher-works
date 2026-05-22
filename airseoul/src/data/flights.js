@@ -193,7 +193,7 @@ const createTokyoFlight = ({
   },
 });
 
-export const flights = [
+const flightRecords = [
   {
     id: 'rs715-icn-kix-20260514',
     airline: {
@@ -1356,3 +1356,16 @@ export const flights = [
   },
   ...TOKYO_EXTRA_FLIGHTS.map(createTokyoFlight),
 ];
+
+export const flightRows = flightRecords.map(({ fares, ...flight }) => flight);
+
+export const flightFareRows = flightRecords.flatMap((flight) => {
+  const { currency, ...fares } = flight.fares;
+
+  return Object.entries(fares).map(([fareType, fare]) => ({
+    flightId: flight.id,
+    fareType,
+    currency,
+    ...fare,
+  }));
+});

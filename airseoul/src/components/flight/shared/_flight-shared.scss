@@ -295,18 +295,23 @@
   }
 }
 
-.flight-check-in-date-select {
+.flight-select-menu {
+  position: relative;
   flex: 1;
   min-width: 0;
 }
 
-.flight-check-in-date-select__button {
+.flight-select-menu--lookup {
+  position: static;
+}
+
+.flight-select-menu__button {
   width: 100%;
   color: var(--color-text-primary);
   text-align: left;
 }
 
-.flight-check-in-date-select__list {
+.flight-select-menu__list {
   position: absolute;
   top: calc(100% + 8px);
   left: 0;
@@ -314,6 +319,8 @@
   z-index: get-z(dropdown);
   display: grid;
   gap: get-space(xs);
+  max-height: min(rem(260px), 40vh);
+  overflow-y: auto;
   padding: get-space(xs);
   background: var(--color-bg-main);
   border: var(--line-thin) solid var(--color-border-primary);
@@ -321,7 +328,7 @@
   box-shadow: var(--shadow-md);
 }
 
-.flight-check-in-date-select__option {
+.flight-select-menu__option {
   min-height: 36px;
   padding: 0 get-space(sm);
   color: var(--color-text-primary);

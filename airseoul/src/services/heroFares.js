@@ -1,5 +1,5 @@
-import { flights } from '../data/flights';
 import { heroSlides } from '../data/heroSlides';
+import { getFlightsWithFares } from './flightSearch';
 
 function getAvailableFares(flight) {
   return Object.values(flight.fares ?? {}).filter((fare) => {
@@ -18,7 +18,7 @@ function getLowestFare(flight) {
 }
 
 function getLowestFlightByDestination(toCode) {
-  const matchedFlights = flights.filter((flight) => {
+  const matchedFlights = getFlightsWithFares().filter((flight) => {
     return (
       flight.route?.to?.code === toCode &&
       flight.availability?.status === 'available'

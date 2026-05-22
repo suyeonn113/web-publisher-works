@@ -29,14 +29,6 @@ function FlightSelectSection({
       <DateFareBar items={dateFareItems} onSelectDate={onSelectDate} />
 
       <div className="flight-select-section__table">
-        <div className="flight-select-section__table-head" aria-hidden="true">
-          <span>편명</span>
-          <span>출발시간</span>
-          <span>소요시간</span>
-          <span>도착시간</span>
-          <span>운임</span>
-        </div>
-
         {flights.length > 0 ? (
           flights.map((flight) => (
             <FlightOptionRow

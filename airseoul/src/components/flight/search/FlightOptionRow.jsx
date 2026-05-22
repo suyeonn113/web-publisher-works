@@ -1,4 +1,5 @@
 import { formatKRW } from '../../../utils/price';
+import FlightPathArrowIcon from '../../icons/FlightPathArrowIcon';
 
 const FARE_OPTIONS = [
   { key: 'special', label: '이코노미 특가운임' },
@@ -24,7 +25,13 @@ function FlightOptionRow({ fareGroupName, flight, onSelectFare, selectedFareKey 
 
         <div className="flight-option-row__duration">
           <em>{formatDuration(flight.schedule.durationMinutes)}</em>
-          <span aria-hidden="true" />
+          <span aria-hidden="true">
+            <FlightPathArrowIcon className="flight-option-row__duration-arrow is-horizontal" />
+            <FlightPathArrowIcon
+              className="flight-option-row__duration-arrow is-vertical"
+              direction="down"
+            />
+          </span>
         </div>
 
         <div className="flight-option-row__time">
