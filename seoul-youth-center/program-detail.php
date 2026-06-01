@@ -55,7 +55,6 @@ $activityPeriod = ($programMeta['activity_period'] ?? '') !== '' ? $programMeta[
 
         <section class="program-detail-layout inner">
             <aside class="program-detail-summary" aria-label="프로그램 신청 요약">
-                <img src="<?= htmlspecialchars($imageSrc, ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($imageAlt, ENT_QUOTES, 'UTF-8') ?>">
                 <dl>
                     <div>
                         <dt>신청기간</dt>
@@ -109,6 +108,8 @@ $activityPeriod = ($programMeta['activity_period'] ?? '') !== '' ? $programMeta[
                     <span>첨부파일</span>
                     <strong><?= htmlspecialchars($programDetail['attachment'], ENT_QUOTES, 'UTF-8') ?></strong>
                 </div>
+
+                <img src="<?= htmlspecialchars($imageSrc, ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($imageAlt, ENT_QUOTES, 'UTF-8') ?>">
 
                 <section>
                     <h2>프로그램 안내</h2>

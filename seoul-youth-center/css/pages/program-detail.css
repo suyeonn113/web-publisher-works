@@ -60,12 +60,6 @@
     overflow: hidden;
 }
 
-.program-detail-summary img {
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-}
-
 .program-detail-summary dl {
     display: grid;
     padding: var(--space-3);
@@ -94,7 +88,10 @@
 }
 
 .program-detail-summary__actions {
-    display: flex;
+    display: flex!important;
+    overflow: hidden;
+    margin-inline: var(--space-3);
+    margin-bottom: var(--space-2);
 }
 
 .program-detail-button {
@@ -211,7 +208,7 @@
 
     .program-detail-summary {
         position: sticky;
-        top: calc(var(--global-menu-height, 0px) + var(--space-3));
+        top: calc(var(--global-menu-height, 0px) + var(--space-5));
     }
 
     .program-detail-content {

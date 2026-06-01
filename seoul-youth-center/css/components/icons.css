@@ -88,12 +88,12 @@
 }
 
 .icon--quick-menu {
-    width: var(--fs-24);
+    width: var(--fs-20);
     aspect-ratio: 1 / 1;
 }
 
 .icon--home {
-    width: var(--fs-22);
+    width: var(--fs-18);
     aspect-ratio: 1 / 1;
 }
 .icon--home__background {
@@ -101,7 +101,7 @@
     justify-content: center;
     align-items: center;
 
-    width: 1.8rem;
+    width: 1.5rem;
     aspect-ratio: 1 / 1;
     background: var(--color-yellow);
     border-radius: var(--radius-full);
@@ -204,7 +204,7 @@
 }
 
 .icon--quick-menu {
-    width: var(--fs-36);
+    width: var(--fs-28);
     aspect-ratio: 1 / 1;
 }
 
@@ -213,12 +213,12 @@
     justify-content: center;
     align-items: center;
 
-    width: var(--fs-40);
-    height: var(--fs-40);
+    width: var(--fs-36);
+    height: var(--fs-36);
 }
 .icon--home {
-    width: 1.875rem;
-    height: 1.875rem;
+    width: 1.5rem;
+    height: 1.5rem;
 }
    
 
@@ -259,7 +259,7 @@
 }
 
 .icon--menu-all {
-    width: var(--fs-24);
+    width: var(--fs-20);
     aspect-ratio: 1 / 1;
 }
 

@@ -160,7 +160,7 @@
     width: 100%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
-    background: #fff;
+    background: #000;
 }
 
 [data-platform-panel="youtube"] .sns__thumb img {

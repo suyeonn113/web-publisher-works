@@ -66,7 +66,9 @@ foreach ($dataAttributes as $name => $value) {
 ?>
 
 <article class="<?= implode(' ', $cardClasses) ?>"<?= $cardAttributes ?>>
-    <a class="card__link" href="<?= htmlspecialchars(BASE_URL . $url, ENT_QUOTES, 'UTF-8') ?>">
+    <a class="card__link" 
+       href="<?= BASE_URL ?>/program-detail.php?id=<?= (int) ($program['id'] ?? 0) ?>"
+       aria-labelledby="program-card-title-<?= (int) ($program['id'] ?? 0) ?>">
 
         <!-- 이미지 영역 (공통) -->
         <div class="card__image">
