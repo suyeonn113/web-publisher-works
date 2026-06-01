@@ -12,7 +12,7 @@ import PlaneTakeoffIcon from '../components/icons/PlaneTakeoffIcon';
 import { ROUTES } from '../constants/routes';
 import { TRIP_TYPES } from '../constants/tripType';
 import { getDateFareBarItems } from '../services/dateFareBar';
-import { fetchFlights, searchFlights } from '../services/flightSearch';
+import { searchFlights } from '../services/flightSearch';
 
 function getFlightSearchParams(searchParams) {
   return {
@@ -35,21 +35,6 @@ function FlightSearchResults() {
   const [selectedInboundDate, setSelectedInboundDate] = useState(searchParams.returnDate);
   const [selectedOutboundFlight, setSelectedOutboundFlight] = useState(null);
   const [selectedInboundFlight, setSelectedInboundFlight] = useState(null);
-  const [outboundFlights, setOutboundFlights] = useState(() =>
-    searchFlights({
-      ...searchParams,
-      departureDate: searchParams.departureDate,
-    }),
-  );
-  const [inboundFlights, setInboundFlights] = useState(() =>
-    searchParams.tripType === TRIP_TYPES.ROUND_TRIP
-      ? searchFlights({
-          from: searchParams.to,
-          to: searchParams.from,
-          departureDate: searchParams.returnDate,
-        })
-      : [],
-  );
 
   useEffect(() => {
     setSelectedOutboundDate(searchParams.departureDate);
@@ -64,66 +49,22 @@ function FlightSearchResults() {
     searchParams.tripType,
   ]);
 
-  useEffect(() => {
-    let isCurrentSearch = true;
-    const isRoundTripSearch = searchParams.tripType === TRIP_TYPES.ROUND_TRIP;
-    const fallbackOutboundFlights = searchFlights({
-      ...searchParams,
-      departureDate: selectedOutboundDate,
-    });
-    const fallbackInboundFlights = isRoundTripSearch
-      ? searchFlights({
-          from: searchParams.to,
-          to: searchParams.from,
-          departureDate: selectedInboundDate,
-        })
-      : [];
-
-    setOutboundFlights(fallbackOutboundFlights);
-    setInboundFlights(fallbackInboundFlights);
-
-    fetchFlights({
-      from: searchParams.from,
-      to: searchParams.to,
-      departureDate: selectedOutboundDate,
-    })
-      .then((flights) => {
-        if (isCurrentSearch) {
-          setOutboundFlights(flights);
-        }
-      })
-      .catch(() => undefined);
-
-    if (isRoundTripSearch) {
-      fetchFlights({
-        from: searchParams.to,
-        to: searchParams.from,
-        departureDate: selectedInboundDate,
-      })
-        .then((flights) => {
-          if (isCurrentSearch) {
-            setInboundFlights(flights);
-          }
-        })
-        .catch(() => undefined);
-    }
-
-    return () => {
-      isCurrentSearch = false;
-    };
-  }, [
-    searchParams.from,
-    searchParams.to,
-    searchParams.tripType,
-    selectedInboundDate,
-    selectedOutboundDate,
-  ]);
-
   if (!searchParams.from || !searchParams.to || !searchParams.departureDate) {
     return <Navigate to={ROUTES.booking.root} replace />;
   }
 
   const isRoundTrip = searchParams.tripType === TRIP_TYPES.ROUND_TRIP;
+  const outboundFlights = searchFlights({
+    ...searchParams,
+    departureDate: selectedOutboundDate,
+  });
+  const inboundFlights = isRoundTrip
+    ? searchFlights({
+        from: searchParams.to,
+        to: searchParams.from,
+        departureDate: selectedInboundDate,
+      })
+    : [];
   const outboundDateFareItems = getDateFareBarItems({
     from: searchParams.from,
     to: searchParams.to,

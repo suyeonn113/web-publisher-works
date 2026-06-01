@@ -5,9 +5,4 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   base: '/airseoul/',
   plugins: [react()],
-  server: {
-    proxy: {
-      '/api': 'http://localhost:4000',
-    },
-  },
 })

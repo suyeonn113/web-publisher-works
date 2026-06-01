@@ -61,17 +61,6 @@ export const searchFlights = ({ from, to, departureDate }) =>
     return matchesFrom && matchesTo && matchesDepartureDate;
   });
 
-export const fetchFlights = async ({ from, to, departureDate }) => {
-  const params = new URLSearchParams({ from, to, departureDate });
-  const response = await fetch(`/api/flights?${params}`);
-
-  if (!response.ok) {
-    throw new Error('Failed to fetch flights.');
-  }
-
-  return response.json();
-};
-
 export const searchRoundTripFlights = ({ from, to, departureDate, returnDate }) => ({
   outboundFlights: searchFlights({ from, to, departureDate }),
   inboundFlights: searchFlights({
