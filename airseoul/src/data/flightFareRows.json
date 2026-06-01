@@ -2455,5 +2455,32 @@
     "price": 149700,
     "seatsLeft": 17,
     "baggageIncluded": true
+  },
+  {
+    "flightId": "rs541-icn-cxr-20260514",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 149100,
+    "seatsLeft": 4,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs541-icn-cxr-20260514",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 219100,
+    "seatsLeft": 8,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs541-icn-cxr-20260514",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 409100,
+    "seatsLeft": 12,
+    "baggageIncluded": true
   }
 ]

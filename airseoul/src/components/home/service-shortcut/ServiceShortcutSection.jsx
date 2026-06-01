@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
 import { ROUTES } from '../../../constants/routes';
 import { serviceShortcuts } from '../../../data/serviceShortcuts';
 import { iconSize } from '../../../tokens/size';
+import AppLink from '../../common/AppLink';
 import ChevronRightIcon from '../../icons/ChevronRightIcon';
 import ServiceShortcutItem from './ServiceShortcutItem';
 
@@ -21,10 +21,10 @@ function ServiceShortcutSection() {
             <span>부가 서비스를 미리 만나보세요.</span>
           </p>
 
-          <Link className="service-shortcut__guide" to={ROUTES.travel.root}>
+          <AppLink className="service-shortcut__guide" to={ROUTES.travel.root}>
             <span>전체 보기</span>
             <ChevronRightIcon size={iconSize.md} />
-          </Link>
+          </AppLink>
         </div>
 
         <ul className="service-shortcut__list">

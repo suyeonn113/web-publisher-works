@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 
 import { heroPromotions } from '../../../data/heroPromotions';
+import AppLink from '../../common/AppLink';
 
 const PROMOTION_AUTOPLAY_DELAY = 5200;
 const PROMOTION_SWIPE_ADVANCE_DELAY = 560;
@@ -95,7 +95,7 @@ function HeroPromotionList() {
       aria-label="프로모션 선택"
     >
       {visiblePromotions.map((promotion, index) => (
-        <Link
+        <AppLink
           className={`hero-promotion-card hero-promotion-card--${index + 1}`}
           key={isSwipeLayout ? promotion.id : `${activeIndex}-${promotion.id}`}
           to={promotion.path}
@@ -112,7 +112,7 @@ function HeroPromotionList() {
               {promotion.title}
             </strong>
           </div>
-        </Link>
+        </AppLink>
       ))}
 
       <div className="hero-promotion-list__pagination" aria-hidden="true">

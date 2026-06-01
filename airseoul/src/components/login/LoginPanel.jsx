@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ROUTES } from '../../constants/routes';
 import { usePanelTransition } from '../../hooks/usePanelTransition';
 import { iconSize } from '../../tokens/size';
+import AppLink from '../common/AppLink';
 import SearchIcon from '../icons/SearchIcon';
 import SquarePenIcon from '../icons/SquarePenIcon';
 import SmartPhoneIcon from '../icons/SmartPhoneIcon';
@@ -159,15 +160,15 @@ export default function LoginPanel({ isOpen, onClose }) {
 
         {isMemberLogin && (
           <div className="login-panel__links">
-            <a className="login-panel__link" href={ROUTES.auth.login}>
+            <AppLink className="login-panel__link" to={ROUTES.auth.login}>
               <SearchIcon className="login-panel__link-icon" size={iconSize.sm} />
               <span>아이디 / 비밀번호 찾기</span>
-            </a>
+            </AppLink>
 
-            <a className="login-panel__link" href={ROUTES.auth.login}>
+            <AppLink className="login-panel__link" to={ROUTES.auth.login}>
               <SquarePenIcon className="login-panel__link-icon" size={iconSize.sm} />
               <span>회원가입</span>
-            </a>
+            </AppLink>
           </div>
         )}
       </aside>

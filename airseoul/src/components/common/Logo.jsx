@@ -1,8 +1,11 @@
+import { ROUTES } from '../../constants/routes';
+import AppLink from './AppLink';
+
 export default function Logo({ className = '', ariaLabel = 'AIR SEOUL 홈으로 이동' }) {
   return (
-    <a
+    <AppLink
       className={`logo ${className}`}
-      href="/"
+      to={ROUTES.home}
       aria-label={ariaLabel}
     >
       <svg
@@ -22,6 +25,6 @@ export default function Logo({ className = '', ariaLabel = 'AIR SEOUL 홈으로 
         <path d="M281.32,26.58c0,7.54-4.3,8.94-7.16,8.94s-7.8-1-7.8-9.15v-25H255.27V26.67c0,13.19,7.44,18.54,19,18.54,11.36,0,18.14-6.37,18.14-18V1.39H281.32Z"/>
         <polygon points="315.57 34.79 315.57 1.39 304.54 1.39 304.54 44.06 328.43 44.06 328.43 39.3 328.43 34.79 315.57 34.79"/>
       </svg>
-    </a> 
+    </AppLink> 
   ); 
 }

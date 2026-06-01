@@ -7,54 +7,54 @@ export const ROUTES = {
     root: '/booking',
 
     flight: '/booking/flight',
-    bookingCheck: '/booking/check',
-    refund: '/booking/refund',
-    checkin: '/booking/checkin',
-    flightStatus: '/booking/status',
+    bookingCheck: '#',
+    refund: '#',
+    checkin: '#',
+    flightStatus: '#',
   },
 
   travel: {
-    root: '/travel',
+    root: '#',
 
-    seat: '/travel/seat',
-    baggage: '/travel/baggage',
-    meal: '/travel/meal',
-    insurance: '/travel/insurance',
+    seat: '#',
+    baggage: '#',
+    meal: '#',
+    insurance: '#',
 
-    dutyFree: '/travel/duty-free',
-    cafeMint: '/travel/cafe-mint',
+    dutyFree: '#',
+    cafeMint: '#',
 
-    airportService: '/travel/airport-service',
-    travelSupport: '/travel/support',
+    airportService: '#',
+    travelSupport: '#',
   },
 
   service: {
-    root: '/service',
+    root: '#',
 
-    cabinService: '/service/cabin-service',
-    aircraft: '/service/aircraft',
-    groupBooking: '/service/group-booking',
-    documents: '/service/documents',
+    cabinService: '#',
+    aircraft: '#',
+    groupBooking: '#',
+    documents: '#',
   },
 
   benefit: {
-    root: '/benefit',
+    root: '#',
 
-    event: '/benefit/event',
-    partnership: '/benefit/partnership',
-    membership: '/benefit/membership',
+    event: '#',
+    partnership: '#',
+    membership: '#',
   },
 
   contact: {
-    root: '/contact',
+    root: '#',
 
-    notice: '/contact/notice',
-    faq: '/contact/faq',
-    inquiry: '/contact/inquiry',
-    lost: '/contact/lost',
+    notice: '#',
+    faq: '#',
+    inquiry: '#',
+    lost: '#',
   },
 
   auth: {
-    login: '/login',
+    login: '#',
   },
 };

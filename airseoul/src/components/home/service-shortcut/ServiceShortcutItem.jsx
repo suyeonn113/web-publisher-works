@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import AppLink from '../../common/AppLink';
 function ServiceShortcutItem({ item }) {
   const handleIconError = (event) => {
     event.currentTarget.hidden = true;
@@ -6,7 +6,7 @@ function ServiceShortcutItem({ item }) {
 
   return (
     <li className="service-shortcut__item">
-      <Link className="service-shortcut__link" to={item.to}>
+      <AppLink className="service-shortcut__link" to={item.to}>
         <span className="service-shortcut__icon" aria-hidden="true">
           {item.iconSrc && (
             <img src={item.iconSrc} alt="" loading="lazy" onError={handleIconError} />
@@ -15,7 +15,7 @@ function ServiceShortcutItem({ item }) {
 
         <strong className="service-shortcut__label">{item.label}</strong>
         <span className="service-shortcut__description">{item.description}</span>
-      </Link>
+      </AppLink>
     </li>
   );
 }

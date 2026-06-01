@@ -1909,5 +1909,26 @@
     "durationMinutes": 80,
     "availabilityStatus": "available",
     "seatsLeft": 18
+  },
+  {
+    "id": "rs541-icn-cxr-20260514",
+    "airlineCode": "RS",
+    "airlineName": "에어서울",
+    "flightNo": "RS541",
+    "originCode": "ICN",
+    "originCity": "서울",
+    "originAirport": "인천",
+    "originTerminal": "T1",
+    "destinationCode": "CXR",
+    "destinationCity": "나트랑",
+    "destinationAirport": "깜란",
+    "destinationTerminal": "T2",
+    "departureDate": "2026-05-14",
+    "departureTime": "19:35",
+    "arrivalDate": "2026-05-14",
+    "arrivalTime": "23:10",
+    "durationMinutes": 335,
+    "availabilityStatus": "available",
+    "seatsLeft": 12
   }
 ]

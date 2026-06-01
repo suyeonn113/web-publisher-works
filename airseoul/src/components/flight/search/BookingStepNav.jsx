@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import AppLink from '../../common/AppLink';
 
 const BOOKING_STEPS = [
   { number: '01', label: '여정/일정/인원' },
@@ -29,9 +29,9 @@ function BookingStepNav({ activeStep = 2, stepRoutes = {} }) {
               aria-current={isActive ? 'step' : undefined}
             >
               {canReturnToStep ? (
-                <Link className="booking-step-nav__link" to={stepRoutes[stepNumber]}>
+                <AppLink className="booking-step-nav__link" to={stepRoutes[stepNumber]}>
                   {stepContent}
-                </Link>
+                </AppLink>
               ) : (
                 stepContent
               )}

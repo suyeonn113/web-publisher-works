@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
 import { footerCompanyInfo, footerLinkGroups } from '../../data/footerLinks';
+import AppLink, { PLACEHOLDER_LINK } from '../common/AppLink';
 import Logo from '../common/Logo';
 import FacebookIcon from '../icons/FacebookIcon';
 import InstagramIcon from '../icons/InstagramIcon';
@@ -7,10 +7,10 @@ import TwitterIcon from '../icons/TwitterIcon';
 import YoutubeIcon from '../icons/YoutubeIcon';
 
 const footerSocialLinks = [
-  { id: 'facebook', label: 'Facebook', href: '#facebook', icon: FacebookIcon },
-  { id: 'instagram', label: 'Instagram', href: '#instagram', icon: InstagramIcon },
-  { id: 'youtube', label: 'YouTube', href: '#youtube', icon: YoutubeIcon },
-  { id: 'twitter', label: 'Twitter', href: '#twitter', icon: TwitterIcon },
+  { id: 'facebook', label: 'Facebook', to: PLACEHOLDER_LINK, icon: FacebookIcon },
+  { id: 'instagram', label: 'Instagram', to: PLACEHOLDER_LINK, icon: InstagramIcon },
+  { id: 'youtube', label: 'YouTube', to: PLACEHOLDER_LINK, icon: YoutubeIcon },
+  { id: 'twitter', label: 'Twitter', to: PLACEHOLDER_LINK, icon: TwitterIcon },
 ];
 
 function Footer() {
@@ -25,9 +25,9 @@ function Footer() {
 
                 return (
                   <li className={`site-footer__social-item site-footer__social-item--${social.id}`} key={social.label}>
-                    <a href={social.href} aria-label={social.label}>
+                    <AppLink to={social.to} aria-label={social.label}>
                       <SocialIcon size={18} />
-                    </a>
+                    </AppLink>
                   </li>
                 );
               })}
@@ -42,7 +42,7 @@ function Footer() {
                 <ul className="site-footer__links">
                   {group.links.map((link) => (
                     <li key={link.label}>
-                      <Link to={link.to}>{link.label}</Link>
+                      <AppLink to={link.to}>{link.label}</AppLink>
                     </li>
                   ))}
                 </ul>

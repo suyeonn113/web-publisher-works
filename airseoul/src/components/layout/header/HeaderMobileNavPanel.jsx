@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import AppLink from '../../common/AppLink';
 
 export default function HeaderMobileNavPanel({ menus, sectionRefs }) {
   return (
@@ -21,12 +21,12 @@ export default function HeaderMobileNavPanel({ menus, sectionRefs }) {
                 className="site-header__mobile-panel-item"
                 key={item.id}
               >
-                <Link
+                <AppLink
                   className="site-header__mobile-panel-link"
                   to={item.href}
                 >
                   {item.label}
-                </Link>
+                </AppLink>
               </li>
             ))}
           </ul>

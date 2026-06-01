@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { ROUTES } from '../../../constants/routes';
 import {
   customerActionLinks,
@@ -6,6 +5,7 @@ import {
   partnershipInquiries,
 } from '../../../data/homeInfo';
 import { iconSize } from '../../../tokens/size';
+import AppLink from '../../common/AppLink';
 import ChatIcon from '../../icons/ChatIcon';
 import ChevronRightIcon from '../../icons/ChevronRightIcon';
 
@@ -19,10 +19,10 @@ function CustomerCenterPanel() {
           <ChatIcon />
           <h3>고객센터</h3>
         </div>
-        <Link className="home-info-more" to={ROUTES.contact.root}>
+        <AppLink className="home-info-more" to={ROUTES.contact.root}>
           <span>더보기</span>
           <ChevronRightIcon size={iconSize.sm} />
-        </Link>
+        </AppLink>
       </header>
 
       <div className="home-info-customer__main">
@@ -41,11 +41,11 @@ function CustomerCenterPanel() {
           const ActionIcon = action.icon;
 
           return (
-            <Link className="home-info-customer__button" to={action.to} key={action.id}>
+            <AppLink className="home-info-customer__button" to={action.to} key={action.id}>
               <ActionIcon size={iconSize.sm} />
               <span>{action.label}</span>
               <ChevronRightIcon size={iconSize.sm} />
-            </Link>
+            </AppLink>
           );
         })}
       </div>

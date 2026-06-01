@@ -1,10 +1,26 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import AppLink, { PLACEHOLDER_LINK } from '../../common/AppLink';
+import { ROUTES } from '../../../constants/routes';
+import { createOneWaySearchParams } from '../../../utils/searchParams';
 
 function formatPrice(price) {
   if (typeof price !== 'number') return '';
 
   return price.toLocaleString('ko-KR');
+}
+
+function getBookingLink(flight) {
+  if (!flight) return PLACEHOLDER_LINK;
+
+  const query = new URLSearchParams(
+    createOneWaySearchParams({
+      from: flight.route.from.code,
+      to: flight.route.to.code,
+      departureDate: flight.schedule.departureDate,
+    }),
+  ).toString();
+
+  return `${ROUTES.booking.flight}?${query}`;
 }
 
 function HeroSlider({ slides = [], autoPlayDelay = 5000 }) {
@@ -102,9 +118,9 @@ function HeroSlider({ slides = [], autoPlayDelay = 5000 }) {
                   </p>
                 )}
 
-                <Link className="hero-slider__cta" to="">
+                <AppLink className="hero-slider__cta" to={getBookingLink(slide.flight)}>
                   지금 예약하기
-                </Link>
+                </AppLink>
               </div>
             </article>
           );

@@ -1,7 +1,6 @@
+import AppLink from '../common/AppLink';
 
-import { Link } from 'react-router-dom';
-
-<Link
+<AppLink
   className="service-shortcut-section__item"
   to={item.href}
 >
@@ -10,4 +9,4 @@ import { Link } from 'react-router-dom';
   </span>
 
   <strong>{item.label}</strong>
-</Link>
+</AppLink>

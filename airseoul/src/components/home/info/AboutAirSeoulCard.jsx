@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
 import { ROUTES } from '../../../constants/routes';
 import { airSeoulStats } from '../../../data/homeInfo';
 import { iconSize } from '../../../tokens/size';
+import AppLink from '../../common/AppLink';
 import ChevronRightIcon from '../../icons/ChevronRightIcon';
 
 function AboutAirSeoulCard() {
@@ -19,10 +19,10 @@ function AboutAirSeoulCard() {
           <br />
           여행을 더 쉽게 완성합니다.
         </p>
-        <Link className="home-info-about__button" to={ROUTES.service.root}>
+        <AppLink className="home-info-about__button" to={ROUTES.service.root}>
           <span>에어서울 소개</span>
           <ChevronRightIcon size={iconSize.sm} />
-        </Link>
+        </AppLink>
       </div>
 
       <img
