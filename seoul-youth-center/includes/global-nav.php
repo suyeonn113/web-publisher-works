@@ -213,6 +213,9 @@
                     <a class="sub-menu__link" href="<?= BASE_URL ?>/programs.php">활동신청</a>
                 </li>
                 <li class="sub-menu__item">
+                    <a class="sub-menu__link" href="<?= BASE_URL ?>/applications.php">신청목록</a>
+                </li>
+                <li class="sub-menu__item">
                     <a class="sub-menu__link" href="#">참여활동</a>
                 </li>
                 <li class="sub-menu__item">

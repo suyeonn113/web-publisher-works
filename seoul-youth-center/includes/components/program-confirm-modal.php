@@ -13,7 +13,8 @@
             <h2 id="program-confirm-title">프로그램 신청 정보를 입력해주세요.</h2>
             <span data-program-confirm-name>선택한 프로그램</span>
         </div>
-        <form class="program-confirm-modal__form">
+        <form class="program-confirm-modal__form" action="<?= BASE_URL ?>/actions/application_confirm.php" method="post">
+            <input type="hidden" name="program_id" value="" data-program-confirm-id>
             <label>
                 <span>신청자명 <strong>*</strong></span>
                 <input type="text" name="applicant_name" autocomplete="name" required>

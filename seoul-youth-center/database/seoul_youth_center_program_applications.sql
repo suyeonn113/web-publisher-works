@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS seoul_youth_center_program_applications (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    program_id INT UNSIGNED NOT NULL,
+    program_title VARCHAR(255) NOT NULL,
+    applicant_name VARCHAR(50) NOT NULL,
+    birthdate CHAR(8) NOT NULL,
+    gender ENUM('male', 'female') NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    email VARCHAR(120) DEFAULT NULL,
+    address VARCHAR(255) DEFAULT NULL,
+    school VARCHAR(120) DEFAULT NULL,
+    attachment_name VARCHAR(255) DEFAULT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    INDEX idx_syc_program_applications_program_id (program_id),
+    INDEX idx_syc_program_applications_phone (phone),
+    INDEX idx_syc_program_applications_created_at (created_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

@@ -1,5 +1,9 @@
 <?php
 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 $serverName = $_SERVER['SERVER_NAME'] ?? 'localhost';
 
 $isLocal = in_array($serverName, [

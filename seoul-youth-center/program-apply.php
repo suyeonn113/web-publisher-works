@@ -39,7 +39,9 @@ $activityPeriod = ($programMeta['activity_period'] ?? '') !== '' ? $programMeta[
             <h1 id="program-apply-title">청소년 활동 신청</h1>
         </section>
 
-        <form class="program-apply-form inner" action="#" method="post">
+        <form class="program-apply-form inner" action="<?= BASE_URL ?>/actions/application_create.php" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="program_id" value="<?= (int) $programId ?>">
+            <input type="hidden" name="program_title" value="<?= htmlspecialchars($title, ENT_QUOTES, 'UTF-8') ?>">
             <section class="program-apply-agree" aria-labelledby="program-agree-title">
                 <div class="program-apply-section-title">
                     <h2 id="program-agree-title">개인정보 수집 및 이용 동의</h2>
@@ -99,7 +101,7 @@ $activityPeriod = ($programMeta['activity_period'] ?? '') !== '' ? $programMeta[
                             <input type="password" name="password" placeholder="4자 이상" minlength="4" required>
                         </label>
                         <label>
-                            <span>비번 재확인 <strong>*</strong></span>
+                            <span>비밀번호 확인 <strong>*</strong></span>
                             <input type="password" name="password_confirm" placeholder="4자 이상" minlength="4" required>
                         </label>
                         <label>
@@ -143,5 +145,6 @@ $activityPeriod = ($programMeta['activity_period'] ?? '') !== '' ? $programMeta[
 
 <script src="<?= BASE_URL ?>/js/global-nav.js"></script>
 <script src="<?= BASE_URL ?>/js/header-search.js"></script>
+<script src="<?= BASE_URL ?>/js/program-apply.js"></script>
 </body>
 </html>

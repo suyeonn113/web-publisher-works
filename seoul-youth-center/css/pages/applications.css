@@ -1,0 +1,203 @@
+@charset "utf-8";
+
+.applications-page,
+.application-detail-page {
+    padding-bottom: var(--section-padding-block);
+    background: var(--color-white);
+}
+
+.applications-header {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-2);
+    padding-block: var(--space-4) var(--space-3);
+    text-align: center;
+}
+
+.applications-header h1 {
+    color: var(--color-text-default);
+    font-size: var(--text-title-section-size);
+    font-weight: var(--text-title-section-weight);
+}
+
+.applications-header p {
+    color: var(--color-text-default-soft);
+    font-weight: 800;
+}
+
+.applications-header strong {
+    color: var(--color-purple);
+}
+
+.applications-search {
+    display: flex;
+    width: min(100%, 42rem);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+}
+
+.applications-search input {
+    flex: 1;
+    min-width: 0;
+    min-height: 3.25rem;
+    padding-inline: var(--space-2);
+    color: var(--color-text-default);
+}
+
+.applications-search button {
+    min-width: 7rem;
+    padding-inline: var(--space-2);
+    color: var(--color-text-on);
+    font-weight: 900;
+    background: var(--color-purple);
+}
+
+.applications-board {
+    overflow-x: auto;
+}
+
+.applications-board table {
+    width: 100%;
+    min-width: 48rem;
+    border-top: 2px solid var(--color-text-default);
+}
+
+.applications-board th,
+.applications-board td {
+    padding: var(--space-2);
+    color: var(--color-text-default);
+    text-align: center;
+    border-bottom: 1px solid var(--color-line);
+}
+
+.applications-board th {
+    font-weight: 900;
+    background: var(--color-beige);
+}
+
+.applications-board td:nth-child(2) {
+    text-align: left;
+}
+
+.applications-pagination {
+    display: flex;
+    justify-content: center;
+    gap: .375rem;
+    padding-top: var(--space-3);
+}
+
+.applications-pagination a,
+.applications-pagination strong {
+    display: grid;
+    place-items: center;
+    min-width: 2.5rem;
+    min-height: 2.5rem;
+    color: var(--color-text-default);
+    font-weight: 900;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-sm);
+}
+
+.applications-pagination strong {
+    color: var(--color-text-on);
+    background: var(--color-purple);
+    border-color: var(--color-purple);
+}
+
+.application-detail {
+    display: grid;
+    gap: var(--space-3);
+    max-width: 48rem;
+    margin-inline: auto;
+}
+
+.application-detail dl {
+    border-top: 2px solid var(--color-text-default);
+}
+
+.application-detail dl > div {
+    display: grid;
+    grid-template-columns: 9rem minmax(0, 1fr);
+    border-bottom: 1px solid var(--color-line);
+}
+
+.application-detail dt,
+.application-detail dd {
+    min-height: 3.5rem;
+    padding: var(--space-2);
+    color: var(--color-text-default);
+}
+
+.application-detail dt {
+    font-weight: 900;
+    background: var(--color-beige);
+}
+
+.application-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-1);
+    padding-bottom: var(--space-3);
+}
+
+.application-actions__manage {
+    display: flex;
+    gap: var(--space-1);
+}
+
+.application-actions__manage form {
+    display: grid;
+}
+
+.application-actions a,
+.application-actions button {
+    display: grid;
+    place-items: center;
+    min-width: 9rem;
+    min-height: 3.25rem;
+    padding-inline: var(--space-3);
+    color: var(--color-text-default);
+    font-size: var(--button-text-size);
+    font-weight: var(--button-text-weight);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-sm);
+}
+
+.application-actions__manage a {
+    color: var(--color-text-on);
+    background: var(--color-purple);
+    border-color: var(--color-purple);
+}
+
+@media (max-width: 599px) {
+    .application-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-content: stretch;
+        align-items: stretch;
+    }
+
+    .application-actions__manage {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .application-actions__manage form {
+        width: 100%;
+    }
+
+    .application-actions a,
+    .application-actions button {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .applications-search {
+        display: grid;
+    }
+
+    .application-detail dl > div {
+        grid-template-columns: 1fr;
+    }
+}
