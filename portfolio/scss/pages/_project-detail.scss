@@ -35,6 +35,24 @@ body[data-page='project-detail'] {
     @include mar('gutter', 'md', 'bottom');
   }
 
+  .section-description {
+    max-width: rem(560px);
+    @include text-style('sm', 'medium');
+    color: $text-secondary;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  .section-title + .section-description {
+    @include mar('gutter', 'md', 'bottom');
+  }
+
+  .project-key-flows > .section-title,
+  .project-highlights__header .section-title,
+  .project-etc .section-title {
+    @include mar('gutter', 'xs', 'bottom');
+  }
+
   .project-detail__error {
     margin: 0 auto;
     @include pad('pad', 'lg');
@@ -372,121 +390,61 @@ body[data-page='project-detail'] {
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    min-height: 100vh;
+    justify-content: flex-start;
     @include pad('pad', 'md', 'y');
   }
 
   .project-summary__header {
-    position: absolute;
-    top: rem(40px);
-    left: 0;
-    z-index: get-z('base');
+    position: relative;
+    @include mar('gutter', 'md', 'bottom');
 
     .section-title {
+      @include mar('gutter', 'xs', 'bottom');
+    }
+
+    .section-description {
+      margin-top: 0;
       margin-bottom: 0;
     }
   }
 
   .project-summary__content {
-    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     width: 100%;
-    height: clamp(rem(200px), 40vh, rem(400px));
+    @include g-gap('gutter', 'sm');
   }
 
   .project-summary__block {
-    position: absolute;
-    inset: 0;
-    @include flex-center;
+    min-width: 0;
+    display: flex;
     flex-direction: column;
-    @include f-gap('gutter', 'lg');
-    text-align: center;
-    opacity: 0;
-    visibility: hidden;
-    will-change: transform, opacity;
+    @include f-gap('gutter', 'sm');
+    @include pad('pad', 'sm');
+    background: $detail-panel-bg;
+    border: 1px solid $detail-panel-border;
+    backdrop-filter: $detail-panel-backdrop;
+    -webkit-backdrop-filter: $detail-panel-backdrop;
   }
 
   .project-summary__label {
-    @include text-style('base', 'bold', 'tight', 'tight');
+    @include text-style('xs', 'bold', 'tight', 'tight');
     color: $text-tertiary;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     word-break: keep-all;
-    overflow: hidden;
   }
 
   .project-summary__text {
-    max-width: min(100%, rem(1040px));
-    @include text-style('lg', 'medium', 'tight', 'tight');
+    @include text-style('sm', 'medium');
     color: $text-primary;
     word-break: keep-all;
     overflow-wrap: break-word;
   }
 
-
-  .project-summary__label .split-line-mask,
-  .project-summary__text .split-line-mask {
-    overflow: hidden;
-    display: block;
-  }
-
-  .project-summary__text .split-line-mask + .split-line-mask {
-    @include mar('pad', 'xs', 'top');
-  }
-  
-  .project-summary__label .split-line,
-  .project-summary__text .split-line {
-    display: block;
-    will-change: transform;
-  }
-
-  @media (min-width: $tablet) {
+  @include respond-down('desktop') {
     .project-summary__content {
-      max-width: none;
-      height: clamp(rem(240px), 44vh, rem(480px));
-    }
-
-    .project-summary__text {
-      max-width: min(100%, rem(1120px));
-    }
-  }
-
-  /* Reduced motion: 순서대로 정적 나열 */
-  @media (prefers-reduced-motion: reduce) {
-    .project-summary {
-      min-height: auto;
-    }
-
-    .project-summary__container {
-      min-height: auto;
-    }
-
-    .project-summary__header {
-      position: relative;
-      top: auto;
-      left: auto;
-
-      .section-title {
-        @include mar('gutter', 'md', 'bottom');
-      }
-    }
-
-    .project-summary__content {
-      height: auto;
-    }
-
-    .project-summary__block {
-      position: static;
-      opacity: 1;
-      visibility: visible;
-      @include mar('gap', 'sm', 'top');
-
-      &:first-child {
-        margin-top: 0;
-      }
-    }
-
-    .project-summary__text {
-      @include text-style('base');
+      grid-template-columns: minmax(0, 1fr);
     }
   }
 
@@ -499,6 +457,7 @@ body[data-page='project-detail'] {
     grid-template-columns: minmax(0, 1fr);
     align-items: start;
     @include g-gap('gutter', 'lg');
+    margin-top: 0;
   }
 
   .project-key-flows__nav {
@@ -673,8 +632,8 @@ body[data-page='project-detail'] {
 
   .flow-panel__content {
     display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    @include g-gap('gutter', 'md');
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    @include g-gap('gutter', 'sm');
   }
 
   .flow-panel__content section {
@@ -686,14 +645,27 @@ body[data-page='project-detail'] {
     border-top: 1px solid $border-soft;
   }
 
+  .flow-panel__section--implementation,
+  .flow-panel__section--insight {
+    grid-column: 1 / -1;
+  }
+
+  .flow-panel__section--insight {
+    @include pad('pad', 'sm');
+    background: $detail-panel-bg;
+    border: 1px solid $detail-panel-border;
+    backdrop-filter: $detail-panel-backdrop;
+    -webkit-backdrop-filter: $detail-panel-backdrop;
+  }
+
   .flow-panel__content h4 {
-    @include text-style('base', 'bold');
+    @include text-style('sm', 'bold');
     color: $text-primary;
   }
 
   .flow-panel__content p,
   .flow-panel__implementation-item {
-    @include text-style('base');
+    @include text-style('sm');
     color: $text-secondary;
   }
 
@@ -716,6 +688,16 @@ body[data-page='project-detail'] {
     width: rem(5px);
     height: rem(5px);
     background: $text-tertiary;
+  }
+
+  .flow-panel__section--insight .flow-panel__key-point {
+    color: $text-primary;
+  }
+
+  @include respond-down('tablet') {
+    .flow-panel__content {
+      grid-template-columns: minmax(0, 1fr);
+    }
   }
 
   .flow-steps {
@@ -1089,88 +1071,64 @@ body[data-page='project-detail'] {
   }
 
   .project-highlights__body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: block;
     @include f-gap('gutter', 'lg');
   }
 
   .highlight-list {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     width: 100%;
-    max-width: rem(1080px);
-    @include f-gap('gutter', 'sm');
+    @include g-gap('gutter', 'sm');
   }
 
-  .highlight-chip {
-    flex: 0 1 auto;
-    white-space: normal;
-    text-align: center;
-
-    @include text-style('sm', 'medium');
-    @include pad('pad', 'xs', 'y');
-    @include pad('pad', 'md', 'x');
-  }
-   
-
-  .highlight-display {
-    width: 100%;
+  .highlight-card {
+    position: relative;
+    min-width: 0;
+    min-height: rem(184px);
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-width: 0;
-    max-width: rem(960px);
-    min-height: clamp(rem(160px), 16vw, rem(224px));
-    @include f-gap('gutter', 'md');
-    text-align: center;
+    @include f-gap('gutter', 'sm');
+    @include pad('pad', 'sm');
+    color: $text-primary;
+    background: $detail-panel-bg;
+    border: 1px solid $detail-panel-border;
+    backdrop-filter: $detail-panel-backdrop;
+    -webkit-backdrop-filter: $detail-panel-backdrop;
   }
 
-  .highlight-display__title {
-    @include text-style('lg', 'medium', 'tight', 'tight');
+  .highlight-card__index {
+    @include text-style('xs', 'bold', 'tight');
+    color: $text-tertiary;
+  }
+
+  .highlight-card__title {
+    @include text-style('base', 'bold', 'tight', 'tight');
     color: $text-primary;
     word-break: keep-all;
-    overflow: hidden;
-    text-align: center;
   }
 
-  .highlight-display__text {
-    max-width: rem(760px);
-    @include text-style('base', 'medium', 'tight');
+  .highlight-card__text {
+    min-width: 0;
+    @include text-style('sm', 'medium');
     color: $text-secondary;
     word-break: keep-all;
     overflow-wrap: break-word;
-    text-align: center;
   }
 
-  .highlight-display__title .split-line-mask,
-  .highlight-display__text .split-line-mask {
-    overflow: hidden;
-    display: block;
-  }
-
-  .highlight-display__text .split-line-mask + .split-line-mask {
-    @include mar('pad', 'xs', 'top');
-  }
-
-  .highlight-display__title .split-line,
-  .highlight-display__text .split-line {
-    display: block;
-    will-change: transform;
-  }
-
-  @include respond-up('tablet') {
-    .highlight-display {
-      max-width: rem(1040px);
+  @include respond-down('desktop') {
+    .highlight-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
-  @include respond-down('tablet') {
-    .highlight-display {
-      min-height: clamp(rem(184px), 42vw, rem(256px));
+  @include respond-down('mobile') {
+    .highlight-list {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .highlight-card {
+      min-height: auto;
     }
   }
 

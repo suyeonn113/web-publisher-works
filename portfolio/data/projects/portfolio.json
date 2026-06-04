@@ -1,5 +1,5 @@
 {
-  "id": "p00",
+  "id": "p03",
   "slug": "portfolio",
   "meta": {
     "title": "Suyeon's Portfolio",
@@ -15,122 +15,163 @@
   },
   "hero": {
     "description": [
-      "웹 퍼블리셔 조수연의 역량을 집약한 메인 포트폴리오 사이트입니다.",
-      "사용자 경험을 고려한 동적인 인터렉션과 정돈된 레이아웃을 통해",
-      "전달력 있는 작업물 탐색 환경을 구축했습니다."
+      "작업물을 단순히 나열하는 대신,",
+      "각 프로젝트의 핵심 어필과 상세 흐름을 한곳에 모아",
+      "채용 담당자가 빠르게 탐색할 수 있도록 만든 포트폴리오이다."
     ],
-    "tags": ["HTML5", "CSS3", "JavaScript", "GSAP"],
+    "tags": ["HTML", "SCSS", "JavaScript", "GSAP", "Swup"],
     "visuals": {
       "mobile": {
         "screen": "assets/images/projects/portfolio/mobile-mokup.png",
-        "alt": "포트폴리오 모바일 버전 메인 화면 - 세로형 레이아웃 최적화"
+        "alt": "포트폴리오 모바일 메인 화면 목업"
       },
       "tablet": {
         "screen": "assets/images/projects/portfolio/tablet-mokup.png",
-        "alt": "포트폴리오 태블릿 버전 메인 화면 - 유연한 그리드 레이아웃"
+        "alt": "포트폴리오 태블릿 메인 화면 목업"
       },
       "pc": {
         "screen": "assets/images/projects/portfolio/pc-mokup.png",
-        "alt": "포트폴리오 PC 버전 메인 화면 - 와이드 화면에 최적화된 전체 레이아웃"
+        "alt": "포트폴리오 PC 메인 화면 목업"
       }
     }
   },
   "summary": {
-    "overview": "퍼블리셔로서의 기술적 숙련도와 디자인 감각을 보여주기 위해 제작된 포트폴리오입니다. 메인 비주얼부터 프로젝트 리스트까지 하나의 일관된 흐름으로 구성되었습니다.",
-    "role": "전체적인 UI 설계와 퍼블리싱을 담당했으며, 특히 스크롤 애니메이션과 각 섹션 간의 부드러운 전환 효과를 구현하는 데 집중했습니다.",
-    "tech": "CSS 변수를 활용한 테마 관리와 GSAP 라이브러리를 이용한 모션 구현, 그리고 웹 접근성을 준수하는 시맨틱 마크업을 적용했습니다."
+    "overview": "개인 포트폴리오를 흔한 자기소개형 페이지보다 작업물 중심의 링크 허브로 설계. 방문자가 여러 프로젝트를 빠르게 훑고, 관심 있는 프로젝트 상세에서 기획, UI 디테일, 구조, 기술 사용 방식을 확인할 수 있도록 정보 흐름을 구성했다.",
+    "role": "전체 기획, 디자인, 퍼블리싱과 프로젝트 목록 및 상세 페이지 연결 구조 설계. 디자인은 계속 다듬을 여지가 있지만, 각 프로젝트의 핵심 어필을 모아 보여주는 구조와 인터랙션 흐름에 집중했다.",
+    "tech": "SCSS를 처음 본격적으로 활용하며 foundation, layout, components, pages 단위로 스타일을 나눴다. CSS 변수와 테마 상태로 라이트/다크 모드를 구성했고, JSON 데이터 기반으로 프로젝트 상세를 렌더링해 새 작업물을 추가하기 쉬운 구조를 만들었다."
   },
   "keyFlows": [
     {
       "id": "flow-01",
-      "title": "타이포그래피 히어로 모션",
-      "summary": "사이트 진입 시 시선을 사로잡는 타이틀 애니메이션 흐름",
+      "title": "작업물 링크 허브",
+      "summary": "메인에서 프로젝트 목록과 상세 페이지로 빠르게 이동하는 흐름",
       "icon": "search",
-      "problem": "단순한 텍스트 배치는 방문자에게 깊은 인상을 남기기 어려웠습니다.",
-      "solution": "GSAP 모션을 활용해 텍스트가 순차적으로 등장하거나 스크롤에 반응하게 하여 역동성을 부여했습니다.",
+      "problem": "프로젝트가 늘어날수록 단순 썸네일 나열만으로는 각 작업의 차이와 핵심 어필이 드러나기 어렵다.",
+      "solution": "포트폴리오를 자기소개 페이지보다 작업물 탐색 허브로 보고, Work 페이지에서 프로젝트를 훑은 뒤 상세 페이지로 이동해 핵심 내용을 확인하는 구조로 설계했다.",
       "implementation": [
-        "텍스트 단위 애니메이션 제어",
-        "스크롤 트리거 기반 모션 구현",
-        "반응형 폰트 사이즈 최적화"
+        "프로젝트 인덱스 JSON을 기반으로 Work 카드 목록 렌더링",
+        "디바이스와 프로젝트 타입 기준 필터/정렬 구성",
+        "카드 클릭 시 slug 기반 상세 페이지로 이동"
       ],
       "steps": [
-        { "label": "메인 로드", "alt": "타이틀이 등장하는 메인 화면", "image": "assets/images/projects/portfolio/detail/case01-step01.png" }
+        {
+          "label": "Work 리스트",
+          "alt": "여러 프로젝트 카드가 정렬되어 있는 포트폴리오 Work 페이지",
+          "image": "assets/images/projects/portfolio/detail/case01-step01.png"
+        },
+        {
+          "label": "필터 / 정렬",
+          "alt": "프로젝트 디바이스나 타입을 기준으로 필터링하는 화면",
+          "image": "assets/images/projects/portfolio/detail/case01-step02.png"
+        }
       ],
-      "keyPoint": "퍼블리셔로서의 동적인 구현 능력을 첫 화면에서 바로 보여줄 수 있도록 설계했습니다."
+      "keyPoint": "채용 담당자가 여러 작업물을 빠르게 훑고 관심 있는 프로젝트로 바로 들어갈 수 있도록 탐색 동선을 우선했다."
     },
     {
       "id": "flow-02",
-      "title": "프로젝트 그리드 탐색",
-      "summary": "작업물을 카테고리별로 확인하고 상세 내역을 탐색하는 흐름",
+      "title": "프로젝트 상세 구조",
+      "summary": "기획, 흐름, 하이라이트, 기술 정보를 같은 틀로 정리하는 상세 페이지",
       "icon": "filter",
-      "problem": "여러 프로젝트를 한 화면에서 가독성 있게 보여줄 구조가 필요했습니다.",
-      "solution": "깔끔한 카드 레이아웃과 호버 효과를 통해 각 프로젝트의 썸네일과 정보를 직관적으로 배치했습니다.",
+      "problem": "프로젝트별 설명 방식이 달라지면 보는 사람이 각 작업의 강점을 비교하기 어렵고, 작성자도 새 작업을 추가할 때마다 구조를 다시 고민하게 된다.",
+      "solution": "Hero, Summary, Key Flows, Highlights, ETC로 상세 페이지를 고정해 프로젝트마다 같은 기준으로 기획 의도와 구현 포인트를 설명할 수 있게 만들었다.",
       "implementation": [
-        "Flexbox/Grid를 활용한 반응형 레이아웃",
-        "마우스 호버 시 상세 정보 노출 인터렉션",
-        "이미지 최적화 및 로딩 처리"
+        "프로젝트별 JSON 데이터로 상세 콘텐츠 관리",
+        "디바이스 목업, flow gallery, highlight card를 공통 렌더링",
+        "이미지 비율에 따라 갤러리 레이아웃을 자동 분기"
       ],
       "steps": [
-        { "label": "워크 섹션", "alt": "프로젝트 카드들이 나열된 섹션", "image": "assets/images/projects/portfolio/detail/case02-step01.png" }
+        {
+          "label": "상세 Hero",
+          "alt": "프로젝트 제목, 설명, 태그, 디바이스 목업이 보이는 상세 첫 화면",
+          "image": "assets/images/projects/portfolio/detail/case02-step01.png"
+        },
+        {
+          "label": "Key Flow",
+          "alt": "Problem, Solution, Implementation, Insight로 프로젝트 흐름을 설명하는 상세 섹션",
+          "image": "assets/images/projects/portfolio/detail/case02-step02.png"
+        },
+        {
+          "label": "Highlights",
+          "alt": "기획 포인트, UI 디테일, 구조, 기술 사용을 카드로 정리한 상세 섹션",
+          "image": "assets/images/projects/portfolio/detail/case02-step03.png"
+        }
       ],
-      "keyPoint": "사용자가 작업물을 쉽고 빠르게 훑어볼 수 있도록 시각적 위계를 정리했습니다."
+      "keyPoint": "프로젝트 설명을 기능 목록이 아니라 같은 평가 기준으로 정리할 수 있는 상세 페이지 시스템을 만들었다."
     },
     {
       "id": "flow-03",
-      "title": "자기소개 및 스킬 시각화",
-      "summary": "퍼블리셔로서의 강점과 사용 기술을 효과적으로 전달하는 흐름",
-      "icon": "cart",
-      "problem": "단순한 텍스트 위주의 자기소개는 전문성을 강조하기 부족했습니다.",
-      "solution": "사용 가능한 기술 스택을 아이콘과 그래프 등을 활용해 시각적으로 표현하여 가독성을 높였습니다.",
+      "title": "SCSS 스타일 시스템",
+      "summary": "테마와 공통 스타일을 분리해 포트폴리오 전체 톤을 관리하는 구조",
+      "icon": "bag",
+      "problem": "페이지가 늘어나면 색상, 폰트, 여백, 버튼 스타일이 쉽게 흩어져 유지보수와 디자인 일관성이 떨어질 수 있다.",
+      "solution": "SCSS를 foundation, layout, components, pages로 나누고 변수, 함수, 믹스인을 사용해 반복되는 스타일을 공통화했다.",
       "implementation": [
-        "스킬셋 아이콘 배치 및 정렬",
-        "자기소개 텍스트의 가독성 확보",
-        "콘텐츠 블록 간의 여백 최적화"
+        "foundation에서 변수, 함수, 믹스인, 테마 토큰 관리",
+        "layout과 components를 분리해 헤더, 푸터, 버튼, 커서 등 공통 UI 관리",
+        "page 단위 SCSS로 각 화면별 스타일 범위 분리"
       ],
       "steps": [
-        { "label": "어바웃 섹션", "alt": "기술 스택과 자기소개가 담긴 화면", "image": "assets/images/projects/portfolio/detail/case03-step01.png" }
+        {
+          "label": "SCSS 구조",
+          "alt": "foundation, layout, components, pages로 나뉜 포트폴리오 SCSS 파일 구조",
+          "image": "assets/images/projects/portfolio/detail/case03-step01.png"
+        },
+        {
+          "label": "테마 전환",
+          "alt": "포트폴리오 라이트 모드와 다크 모드가 전환되는 화면",
+          "image": "assets/images/projects/portfolio/detail/case03-step02.png"
+        }
       ],
-      "keyPoint": "기술적 역량을 명확한 지표와 레이아웃으로 제시하여 신뢰감을 주었습니다."
+      "keyPoint": "SCSS를 학습하는 단계에서 끝내지 않고 실제 포트폴리오 전체의 테마와 공통 스타일을 관리하는 시스템으로 적용했다."
     },
     {
       "id": "flow-04",
-      "title": "접근성 중심의 내비게이션",
-      "summary": "모든 디바이스와 사용자 환경을 고려한 이동 흐름",
-      "icon": "bag",
-      "problem": "다양한 해상도에서 메뉴 탐색이 불편해지거나 정보가 누락될 수 있었습니다.",
-      "solution": "반응형 GNB와 시맨틱 마크업을 통해 키보드와 모바일 터치 환경에서도 접근이 용이하게 만들었습니다.",
+      "title": "인터랙션과 전환",
+      "summary": "작업물 탐색에 리듬을 주기 위한 카드 hover와 페이지 전환",
+      "icon": "cart",
+      "problem": "정적인 링크 모음만으로는 포트폴리오의 인상이 약하고, 페이지 이동이 많을수록 탐색 흐름이 끊겨 보일 수 있다.",
+      "solution": "GSAP과 Swup을 사용해 카드 hover, 섹션 등장, 페이지 전환을 적용했다. 다만 일부 모션은 다소 강하게 느껴질 수 있어 추후 톤 조정 여지를 남겨둔 상태다.",
       "implementation": [
-        "반응형 햄버거 메뉴 구현",
-        "웹 표준에 맞는 시맨틱 태그 활용",
-        "포커스 이동 및 탭 순서 최적화"
+        "GSAP 기반 Work 카드 hover 이미지 전환",
+        "Swup 기반 페이지 이동 전환",
+        "상세 페이지 Summary와 Flow 섹션에 스크롤 반응 모션 적용"
       ],
       "steps": [
-        { "label": "전체 메뉴", "alt": "모바일 및 데스크톱 내비게이션 화면", "image": "assets/images/projects/portfolio/detail/case04-step01.png" }
+        {
+          "label": "카드 hover",
+          "alt": "프로젝트 카드에 마우스를 올렸을 때 이미지와 톤이 전환되는 화면",
+          "image": "assets/images/projects/portfolio/detail/case04-step01.png"
+        },
+        {
+          "label": "페이지 전환",
+          "alt": "프로젝트 목록에서 상세 페이지로 이동할 때 전환 애니메이션이 적용된 화면",
+          "image": "assets/images/projects/portfolio/detail/case04-step02.png"
+        }
       ],
-      "keyPoint": "비주얼뿐만 아니라 웹의 본질인 '정보 전달'과 '접근성'에 충실했습니다."
+      "keyPoint": "인터랙션을 통해 작업물 탐색에 리듬을 주려 했고, 현재는 내용 전달을 해치지 않는 선으로 계속 조정해갈 수 있는 상태이다."
     }
   ],
   "highlights": [
-    { 
-      "title": "동적 인터렉션 구현", 
-      "description": "GSAP 라이브러리를 활용하여 스크롤 깊이에 따라 반응하는 세련된 모션을 적용했습니다." 
+    {
+      "title": "기획 포인트",
+      "description": "포트폴리오를 단순 자기소개 페이지가 아니라 작업물 링크 허브로 보고, 각 프로젝트의 핵심 어필을 같은 기준으로 모아 보여주는 구조를 설계했다."
     },
-    { 
-      "title": "반응형 레이아웃 최적화", 
-      "description": "다양한 디바이스 환경에서 레이아웃 무너짐 없이 일관된 UX를 제공합니다." 
+    {
+      "title": "UI 디테일",
+      "description": "프로젝트 카드 hover, 상세 섹션 네비게이션, 디바이스 목업, 기술 아이콘, 테마 전환을 통해 작업물을 훑고 비교하는 흐름을 만들었다."
     },
-    { 
-      "title": "웹 접근성 준수", 
-      "description": "시맨틱 마크업과 웹 표준을 기반으로 구축하여 정보 접근성을 극대화했습니다." 
+    {
+      "title": "구조 / 확장성",
+      "description": "프로젝트 데이터를 JSON으로 분리하고 상세 페이지를 공통 렌더링했다. 새 프로젝트를 추가할 때 HTML을 반복 작성하지 않고 데이터 중심으로 확장할 수 있게 했다."
     },
-    { 
-      "title": "효율적인 스타일 관리", 
-      "description": "SCSS를 활용해 공통 스타일을 모듈화하고 유지보수가 용이한 코드를 작성했습니다." 
+    {
+      "title": "주요 툴 / 기술",
+      "description": "SCSS는 테마와 스타일 시스템에, JavaScript는 데이터 렌더링과 필터/정렬에, GSAP과 Swup은 카드 hover와 페이지 전환 모션에 사용했다."
     }
   ],
   "etc": {
     "deployment": "dothome 배포 환경",
-    "tools": "VS Code, GSAP, SCSS",
-    "contribution": "기획, 디자인, 퍼블리싱 100%"
+    "tools": "Figma, HTML, SCSS, JavaScript, GSAP, Swup, VS Code, GitHub, FileZilla",
+    "contribution": "기획, 디자인, 퍼블리싱, 프로젝트 데이터 구조 설계"
   }
 }

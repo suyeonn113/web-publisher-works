@@ -9,186 +9,166 @@
     "dateStart": "2026-03",
     "dateEnd": "2026-04",
     "role": ["기획", "디자인", "퍼블리싱"],
-    "projectType": "모바일 커머스 프로젝트",
+    "projectType": "모바일 커머스 리뉴얼",
     "liveLink": "https://suyeonn.dothome.co.kr/fragfarm-mobile/index.php",
     "githubLink": ""
   },
   "hero": {
     "description": [
-      "사용자가 상품을 탐색하고 구매 흐름으로 자연스럽게 이동할 수 있도록",
-      "모바일 환경에 맞춘 메인, 상품 목록, 계정 흐름, 브랜드 소개 화면을 설계했습니다.",
-      "브랜드 무드와 실사용 흐름이 함께 보이도록 구조와 UI를 정리한 프로젝트입니다."
+      "모바일에서 무너졌던 상품 탐색 흐름을 다시 정리하고,",
+      "심플하고 페미닌한 브랜드 무드가 먼저 느껴지도록",
+      "메인, 상품 목록, 상세, 계정 흐름을 연결한 커머스 프로젝트이다."
     ],
-    "tags": ["PHP", "JavaScript", "CSS", "Responsive UI"],
+    "tags": ["PHP", "JavaScript", "jQuery", "CSS", "Mobile UI"],
     "visuals": {
       "mobile": {
         "screen": "assets/images/projects/fragfarm/main-mokup.png",
-        "alt": "Fragfarm Mobile 메인 화면"
+        "alt": "Fragfarm Mobile 메인 화면 목업"
       }
     }
   },
   "summary": {
-    "overview": "Fragfarm Mobile은 브랜드 무드와 상품 탐색 경험을 함께 보여주는 모바일 중심 커머스 페이지입니다. 메인 화면에서 주요 섹션을 노출하고, 상품 목록과 계정 관련 화면, 브랜드 소개까지 하나의 흐름으로 이어지도록 구성했습니다.",
-    "role": "프로젝트 구조 설계부터 UI 구현까지 전반을 담당했습니다. 메인 화면 섹션 구성, 목록 상태 분기, 로그인 및 회원가입 흐름 정리, 브랜드 소개 페이지의 무드 설계까지 직접 구성했습니다.",
-    "tech": "PHP, JavaScript, CSS를 기반으로 페이지 구조를 만들고, 카테고리, 정렬, 페이지 상태를 URL 중심으로 반영하는 방식으로 목록 경험을 설계했습니다."
+    "overview": "기존 Fragfarm 사이트는 모바일 반응형 대응이 부족하고 상품 탐색과 상세 정보 전달이 약했다. 인지도가 높지 않은 브랜드일수록 홈페이지가 신뢰감과 무드를 보완해야 한다고 판단해, 심플하고 모던한 베이스에 젊고 페미닌한 톤, 자연스럽고 동화적인 이미지를 더해 브랜드 인상을 먼저 정돈했다.",
+    "role": "외부 플랫폼에서 유입된 사용자가 브랜드 분위기를 이해한 뒤 상품을 탐색하고 계정 흐름으로 이동할 수 있도록 메인, 상품 목록, 상세, ABOUT, 로그인/회원가입 페이지를 설계했다. 첫 학습 프로젝트였기 때문에 코드 정돈에는 시행착오가 있었지만, 페이지 수와 기능 범위를 넓게 가져가며 커머스 제작 흐름을 직접 익혔다.",
+    "tech": "PHP는 공통 include, 상품 데이터, 로그인/회원가입 처리 흐름에 사용했고 JavaScript와 jQuery는 검색, 필터, 정렬, 상세 페이지 인터랙션에 사용했다. CSS는 core, layout, components, pages로 나눠 카드, 버튼, 모달, 체크박스 같은 UI 조각을 반복 사용하기 쉽게 정리했다."
   },
   "keyFlows": [
     {
       "id": "flow-01",
-      "title": "상품 탐색 구조",
-      "summary": "메인에서 주요 상품 섹션을 보여주고 목록 페이지로 자연스럽게 연결되는 흐름",
-      "icon": "cart",
-      "problem": "메인 화면이 단순히 상품만 나열되는 방식보다 브랜드 분위기와 상품 진입 경로를 함께 보여줄 필요가 있었습니다.",
-      "solution": "NEW, SALE, REVIEW, ABOUT 섹션을 분리해 배치하고, 각 섹션에서 목록이나 상세 탐색으로 자연스럽게 이어지도록 구조를 정리했습니다.",
+      "title": "브랜드 무드 진입",
+      "summary": "첫 화면에서 브랜드 톤을 인지한 뒤 상품 섹션으로 이동하는 흐름",
+      "icon": "search",
+      "problem": "기존 사이트는 상품성이나 브랜드 인지도를 보완할 만한 홈페이지 무드가 약했고, 모바일에서는 레이아웃이 깨져 첫인상과 탐색 흐름이 함께 흔들렸다.",
+      "solution": "메인 히어로와 섹션 구성을 단순화하고, 심플한 흰 배경과 핑크 포인트, 세리프 계열 브랜드 폰트, 부드러운 이미지 흐름으로 브랜드의 젊고 페미닌한 인상을 먼저 보여주도록 구성했다.",
       "implementation": [
-        "메인 화면 섹션 단위 구성",
-        "주요 상품과 리뷰 영역 분리 노출",
-        "브랜드 소개 페이지와 상품 탐색 흐름 연결"
+        "메인 히어로와 NEW, SALE, REVIEW, ABOUT 섹션을 목적별로 분리",
+        "브랜드 폰트와 포인트 컬러를 사용해 심플한 화면 안에 감도 부여",
+        "모바일 화면 기준으로 섹션 이동과 상품 진입 경로 정리"
       ],
       "steps": [
         {
-          "label": "메인 진입",
-          "alt": "Fragfarm 모바일 메인 화면에서 주요 섹션이 노출되는 모습",
+          "label": "메인 히어로",
+          "alt": "심플한 배경과 브랜드 이미지가 보이는 Fragfarm 모바일 메인 첫 화면",
           "image": "assets/images/projects/fragfarm/detail/case01-step01.png"
         },
         {
-          "label": "상품 섹션 탐색",
-          "alt": "메인 화면에서 상품 섹션과 탐색 영역이 보이는 화면",
+          "label": "브랜드 섹션",
+          "alt": "자연스럽고 페미닌한 분위기의 ABOUT 또는 브랜드 무드 섹션",
           "image": "assets/images/projects/fragfarm/detail/case01-step02.png"
-        },
-        {
-          "label": "목록 페이지 이동",
-          "alt": "상품 목록 페이지로 이동해 상품 카드가 보이는 화면",
-          "image": "assets/images/projects/fragfarm/detail/case01-step03.png"
-        },
-        {
-          "label": "상품 확인",
-          "alt": "상품 상세 확인 단계로 이어지는 모바일 화면",
-          "image": "assets/images/projects/fragfarm/detail/case01-step04.png"
         }
       ],
-      "keyPoint": "브랜드 인상을 먼저 전달한 뒤 상품 탐색으로 이어지도록 만들어 첫 진입 경험과 탐색 흐름을 함께 잡았습니다."
+      "keyPoint": "상품을 바로 나열하기보다 사용자가 먼저 브랜드의 결을 이해하고 상품 탐색으로 넘어가도록 첫 진입 흐름을 정리했다."
     },
     {
       "id": "flow-02",
-      "title": "상품 리스트 필터",
-      "summary": "카테고리, 정렬, 보기 방식, 페이지 이동을 고려한 목록 UX",
+      "title": "상품 목록 탐색",
+      "summary": "카테고리, 정렬, 보기 방식, 페이지 이동을 유지하는 목록 UX",
       "icon": "filter",
-      "problem": "상품 수가 많아질수록 사용자가 원하는 상품군을 빠르게 좁혀보기 어렵다는 문제가 있었습니다.",
-      "solution": "카테고리 필터, 정렬 기준, 보기 개수 전환, 페이지 이동 요소를 함께 배치해 목록 상태 기반으로 탐색할 수 있도록 정리했습니다.",
+      "problem": "모바일 커머스에서는 상품 수가 늘어날수록 원하는 상품군을 좁히기 어렵고, 정렬이나 페이지 이동 후 현재 탐색 상태를 놓치기 쉽다.",
+      "solution": "카테고리, sale/new 상태, 정렬 기준, 보기 방식, 페이지네이션을 하나의 목록 상태로 다뤄 사용자가 조건을 바꿔도 같은 맥락에서 상품을 비교하도록 구성했다.",
       "implementation": [
-        "카테고리별 목록 분기",
-        "최신순, 인기순, 할인순 등 정렬 기준 적용",
-        "페이지 이동과 보기 개수 상태 반영"
+        "카테고리와 sale, new 상태별 상품 목록 분기",
+        "최신순, 리뷰순, 할인순 정렬 기준 적용",
+        "URL 파라미터 기반으로 페이지, 보기 방식, 정렬 상태 유지"
       ],
       "steps": [
         {
           "label": "카테고리 선택",
-          "alt": "상품 리스트 화면에서 카테고리를 선택한 상태",
+          "alt": "상품 목록에서 카테고리 필터를 선택한 화면",
           "image": "assets/images/projects/fragfarm/detail/case02-step01.png"
         },
         {
-          "label": "정렬 기준 선택",
-          "alt": "상품 목록 화면에서 정렬 옵션을 선택하는 화면",
+          "label": "정렬 변경",
+          "alt": "상품 목록에서 정렬 옵션을 변경하는 화면",
           "image": "assets/images/projects/fragfarm/detail/case02-step02.png"
         },
         {
-          "label": "상품 카드 탐색",
-          "alt": "상품 카드가 여러 개 배치된 목록 화면",
-          "image": "assets/images/projects/fragfarm/detail/case02-step03.png"
-        },
-        {
           "label": "페이지 이동",
-          "alt": "상품 목록에서 다음 페이지로 이동하는 화면",
-          "image": "assets/images/projects/fragfarm/detail/case02-step04.png"
+          "alt": "상품 목록 하단 페이지네이션으로 다음 상품 묶음을 탐색하는 화면",
+          "image": "assets/images/projects/fragfarm/detail/case02-step03.png"
         }
       ],
-      "keyPoint": "목록 상태를 분명하게 나눠 사용자가 비교와 이동을 빠르게 할 수 있도록 만든 흐름입니다."
+      "keyPoint": "필터와 정렬을 장식이 아니라 탐색 시간을 줄이는 도구로 보고, 사용자가 현재 조건을 유지한 채 상품을 비교할 수 있게 만들었다."
     },
     {
       "id": "flow-03",
-      "title": "로그인 / 회원가입",
-      "summary": "로그인과 회원가입 입력 흐름을 단계적으로 정리한 계정 UX",
-      "icon": "bag",
-      "problem": "계정 진입 화면은 입력 항목이 많아질수록 가독성이 떨어지고 회원가입 구조도 복잡하게 보일 수 있었습니다.",
-      "solution": "로그인 화면은 빠른 진입 중심으로, 회원가입 화면은 정보 구역을 나눠 입력 흐름이 단계적으로 이어지도록 구성했습니다.",
+      "title": "상품 상세 확인",
+      "summary": "이미지 나열을 줄이고 구매 판단에 필요한 정보를 정리하는 상세 흐름",
+      "icon": "cart",
+      "problem": "기존 상세페이지는 이미지가 길게 나열되어 상품의 핵심 정보와 구매 판단 요소를 파악하기 어려웠다.",
+      "solution": "상품 이미지, 가격, 컬러, 옵션, 구매 버튼, 리뷰와 Q&A 영역을 구분해 사용자가 이미지를 훑는 데서 끝나지 않고 필요한 정보를 단계적으로 확인하도록 정리했다.",
       "implementation": [
-        "로그인과 회원가입 화면 분리",
-        "간편 로그인 영역 별도 구성",
-        "회원가입 입력 구역과 약관 동의 구조 정리"
+        "상품 기본 정보와 구매 액션을 상세 상단에 배치",
+        "선택 옵션, 수량, 장바구니, 구매 버튼의 시각적 위계 정리",
+        "리뷰와 문의 영역을 별도 섹션으로 분리"
       ],
       "steps": [
         {
-          "label": "로그인 진입",
-          "alt": "Fragfarm 모바일 로그인 화면에서 입력 영역이 보이는 상태",
+          "label": "상세 상단",
+          "alt": "상품 이미지와 가격, 옵션, 구매 버튼이 함께 보이는 상품 상세 상단 화면",
           "image": "assets/images/projects/fragfarm/detail/case03-step01.png"
         },
         {
-          "label": "회원가입 이동",
-          "alt": "로그인 화면에서 회원가입 화면으로 이동하는 흐름",
+          "label": "리뷰 / 문의",
+          "alt": "상품 상세 하단의 리뷰와 문의 영역을 확인하는 화면",
           "image": "assets/images/projects/fragfarm/detail/case03-step02.png"
-        },
-        {
-          "label": "정보 입력",
-          "alt": "회원가입 화면에서 사용자 정보를 입력하는 상태",
-          "image": "assets/images/projects/fragfarm/detail/case03-step03.png"
-        },
-        {
-          "label": "약관 동의 / 완료",
-          "alt": "회원가입 과정에서 약관 동의와 완료 단계가 보이는 화면",
-          "image": "assets/images/projects/fragfarm/detail/case03-step04.png"
         }
       ],
-      "keyPoint": "복잡한 입력 과정도 구역을 나누면 사용자가 현재 무엇을 하고 있는지 더 쉽게 이해할 수 있습니다."
+      "keyPoint": "상품 상세를 단순 이미지 감상이 아니라 구매 판단을 돕는 정보 구조로 정리하려 했다."
     },
     {
       "id": "flow-04",
-      "title": "브랜드 소개",
-      "summary": "ABOUT 페이지를 통해 브랜드 무드와 인상을 보완하는 구조",
-      "icon": "search",
-      "problem": "쇼핑 페이지가 기능 중심으로만 보이면 브랜드 인상과 분위기가 충분히 전달되지 않는 문제가 있었습니다.",
-      "solution": "메인 ABOUT 섹션과 별도 소개 페이지를 연결해 브랜드 무드와 콘텐츠 흐름이 보강되도록 구성했습니다.",
+      "title": "계정 흐름 연결",
+      "summary": "백엔드 협업 가능성을 보여주기 위한 로그인과 회원가입 흐름",
+      "icon": "bag",
+      "problem": "정적 화면만으로는 실제 커머스 서비스에서 필요한 계정 흐름과 데이터 처리 구조를 보여주기 어렵다.",
+      "solution": "로그인, 회원가입, 아이디/비밀번호 찾기, 마이페이지 등 계정 관련 페이지를 PHP로 연결해 백엔드와 협업 가능한 기본 흐름을 구현했다.",
       "implementation": [
-        "메인 ABOUT 섹션 구성",
-        "브랜드 소개 페이지 연결",
-        "무드 중심 콘텐츠 배치"
+        "PHP 기반 로그인, 회원가입, 로그아웃 액션 구성",
+        "회원 정보 수정과 비밀번호 변경 화면 구성",
+        "입력 그룹과 약관 동의 영역을 분리해 모바일 폼 가독성 개선"
       ],
       "steps": [
         {
-          "label": "메인 ABOUT 섹션",
-          "alt": "메인 화면의 ABOUT 섹션에서 브랜드 소개 콘텐츠가 보이는 화면",
+          "label": "로그인",
+          "alt": "Fragfarm 모바일 로그인 화면",
           "image": "assets/images/projects/fragfarm/detail/case04-step01.png"
         },
         {
-          "label": "ABOUT 페이지 이동",
-          "alt": "브랜드 소개용 ABOUT 페이지로 이동한 화면",
+          "label": "회원가입",
+          "alt": "정보 입력과 약관 동의 영역이 나뉜 Fragfarm 회원가입 화면",
           "image": "assets/images/projects/fragfarm/detail/case04-step02.png"
+        },
+        {
+          "label": "마이페이지",
+          "alt": "회원 정보 확인 또는 수정으로 이어지는 마이페이지 화면",
+          "image": "assets/images/projects/fragfarm/detail/case04-step03.png"
         }
       ],
-      "keyPoint": "구매 흐름 안에서도 브랜드 인상을 함께 전달해 전체 경험이 더 일관되도록 만들었습니다."
+      "keyPoint": "초기 학습 프로젝트였지만 화면 제작에서 멈추지 않고 커머스의 기본 계정 흐름까지 끝까지 연결해보는 데 의미를 뒀다."
     }
   ],
   "highlights": [
     {
-      "title": "상태 기반 목록 설계",
-      "description": "카테고리, 정렬, 보기 방식, 페이지 이동을 조합해 목록 화면이 유연하게 반응하도록 구성했습니다."
+      "title": "기획 포인트",
+      "description": "브랜드 인지도와 상품 정보 전달이 약한 상황에서 홈페이지가 신뢰감과 무드를 보완해야 한다고 보고, 외부 유입 사용자가 브랜드 인상과 상품 탐색 흐름을 함께 경험하도록 설계했다."
     },
     {
-      "title": "모바일 중심 UI 흐름",
-      "description": "좁은 화면에서도 상품 카드, 입력 폼, 정보 블록의 우선순위가 자연스럽게 이어지도록 설계했습니다."
+      "title": "UI 디테일",
+      "description": "심플한 화면 구조에 핑크 포인트, 브랜드 폰트, 여백 중심의 상품 카드를 적용했다. 목록에서는 필터, 정렬, 페이지네이션의 활성 상태를 명확히 해 모바일 탐색 흐름을 놓치지 않게 했다."
     },
     {
-      "title": "브랜드와 커머스 연결",
-      "description": "상품 판매 흐름 안에서도 ABOUT, 리뷰, 무드 콘텐츠를 통해 브랜드 인상을 함께 전달하도록 구성했습니다."
+      "title": "구조 / 확장성",
+      "description": "상품 데이터와 목록 상태를 분리하고, 공통 헤더/푸터를 include로 관리했다. 완성도에는 학습 초기의 흔적이 있지만 다양한 페이지를 직접 연결하며 웹 제작 전반을 익힌 프로젝트이다."
     },
     {
-      "title": "계정 구조 정리",
-      "description": "로그인과 회원가입 화면에서 입력 영역을 구분해 사용자가 흐름을 놓치지 않도록 설계했습니다."
+      "title": "주요 툴 / 기술",
+      "description": "PHP는 계정 흐름과 공통 레이아웃에, JavaScript와 jQuery는 검색/필터/정렬/상세 인터랙션에 사용했다. CSS는 페이지와 컴포넌트 단위로 나눠 커머스 UI를 관리했다."
     }
   ],
   "etc": {
     "deployment": "dothome 배포 환경",
-    "tools": "Figma, VS Code, GitHub, FileZilla",
-    "contribution": "기획, 디자인, 퍼블리싱, 프론트 구현 전반"
+    "tools": "Figma, PHP, JavaScript, jQuery, CSS, VS Code, GitHub, FileZilla",
+    "contribution": "기획, 디자인, 퍼블리싱, 상품 목록 상태 설계, 계정 흐름 구현"
   }
 }

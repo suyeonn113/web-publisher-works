@@ -1060,31 +1060,37 @@ function bindGallerySwipe(root, state) {
 function renderHighlights(project, root) {
   const container = root.querySelector('[data-field="highlights"]');
   const template = root.querySelector('#tpl-highlight');
-  const displayTitle = root.querySelector('[data-highlight-title]');
-  const displayDescription = root.querySelector('[data-highlight-description]');
   const items = Array.isArray(project.highlights) ? project.highlights : [];
 
-  if (!container || !template || !displayTitle || !displayDescription) return;
+  if (!container || !template) return;
 
   container.innerHTML = '';
 
   items.forEach((item, index) => {
     const node = template.content.cloneNode(true);
-    const button = node.querySelector('.highlight-chip');
+    const card = node.querySelector('.highlight-card');
+    const cardIndex = node.querySelector('.highlight-card__index');
+    const title = node.querySelector('.highlight-card__title');
+    const text = node.querySelector('.highlight-card__text');
 
-    if (button) {
-      button.textContent = item.title || '';
-      button.dataset.highlightIndex = String(index);
-      button.classList.toggle('is-active', index === 0);
-      button.setAttribute('aria-pressed', String(index === 0));
+    if (card) {
+      card.style.setProperty('--highlight-order', String(index));
+    }
+
+    if (cardIndex) {
+      cardIndex.textContent = String(index + 1).padStart(2, '0');
+    }
+
+    if (title) {
+      title.textContent = item.title || '';
+    }
+
+    if (text) {
+      text.textContent = item.description || item.summary || '';
     }
 
     container.appendChild(node);
   });
-
-  const firstItem = items[0] || { title: '', description: '', summary: '' };
-  displayTitle.textContent = firstItem.title || '';
-  displayDescription.textContent = firstItem.description || firstItem.summary || '';
 }
 
 function normalizeToolName(tool = '') {
@@ -1384,7 +1390,6 @@ export async function loadProjectDetail() {
 
     renderProjectDetail(project, root, state);
     bindFlowEvents(root, state);
-    initSummaryScrollAnimation(root);
     initHighlightInteractiveAnimation(project, root);
     initFlowScrollSync(root, state);
     initProjectSectionNavigator(root);

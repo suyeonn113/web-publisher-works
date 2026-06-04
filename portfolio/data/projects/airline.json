@@ -1,144 +1,194 @@
 {
-  "id": "p03",
-  "slug": "airline-pc-renewal",
+  "id": "p04",
+  "slug": "airline",
   "meta": {
-    "title": "Global Air PC Renewal",
-    "label": "PC Web",
-    "projectMode": "pc",
+    "title": "Air Seoul Renewal",
+    "label": "Responsive Web",
+    "projectMode": "responsive",
     "projectScale": "solo",
     "dateStart": "2026-04",
     "dateEnd": "2026-05",
-    "role": ["기획", "디자인", "퍼블리싱"],
-    "projectType": "항공사 메인 페이지 리뉴얼",
-    "liveLink": "https://suyeonn.dothome.co.kr/global-air/index.php",
+    "role": ["기획", "디자인", "퍼블리싱", "React 구현"],
+    "projectType": "항공사 예매 서비스 리뉴얼",
+    "liveLink": "https://suyeonn.dothome.co.kr/airseoul/",
     "githubLink": ""
   },
   "hero": {
     "description": [
-      "복잡한 항공권 예매 과정을 직관적인 스텝바와 필터로 간소화하고,",
-      "대형 화면을 활용한 시원한 비주얼 레이아웃을 통해",
-      "여행의 설렘이 시작되는 프리미엄 웹 경험을 제공합니다."
+      "저가항공의 핵심인 프로모션 비주얼을 히어로에서 크게 보여주고,",
+      "항공권 예매라는 복잡한 핵심 행동은 React 컴포넌트로 분리해",
+      "깔끔하고 친근한 예약 경험으로 정리한 종합 프로젝트이다."
     ],
-    "tags": ["PHP", "JavaScript", "SCSS", "UI/UX Design"],
+    "tags": ["React", "Vite", "SCSS", "JavaScript", "Responsive UI"],
     "visuals": {
       "pc": {
         "screen": "assets/images/projects/airline/pc-mokup.png",
-        "alt": "글로벌 에어 PC 버전 메인 화면"
+        "alt": "Air Seoul Renewal PC 메인 화면 목업"
+      },
+      "tablet": {
+        "screen": "assets/images/projects/airline/tablet-mokup.png",
+        "alt": "Air Seoul Renewal 태블릿 화면 목업"
+      },
+      "mobile": {
+        "screen": "assets/images/projects/airline/mobile-mokup.png",
+        "alt": "Air Seoul Renewal 모바일 화면 목업"
       }
     }
   },
   "summary": {
-    "overview": "기존의 복잡하고 딱딱한 항공사 예약 시스템을 사용자 친화적인 인터페이스로 개선한 PC 중심 리뉴얼 프로젝트입니다. 빠른 노선 검색과 맞춤형 여행 상품 제안에 초점을 맞췄습니다.",
-    "role": "사용자 여정 분석을 통한 예약 엔진 UI 재설계 및 대용량 데이터를 효율적으로 보여주는 리스트 페이지 퍼블리싱을 담당했습니다.",
-    "tech": "PHP 동적 쿼리를 통한 노선 검색 시스템을 구현하고, 공통 요소를 SCSS 믹스인으로 관리하여 일관된 디자인 시스템을 유지했습니다."
+    "overview": "기존 에어서울 사이트는 친근한 방향성은 있었지만 반응형 대응과 시각적 완성도가 아쉬운 상태였다. 저가항공에서 가장 강한 어필인 특가와 프로모션을 히어로 영상으로 크게 보여주고, 동시에 사용자가 항공권 예매라는 핵심 행동을 놓치지 않도록 예약 패널을 중심에 둔 리뉴얼을 기획했다.",
+    "role": "React를 처음 본격적으로 적용한 프로젝트. 복잡한 예매 UI를 출발지/도착지, 날짜, 탑승객, 검색 결과, 운임 선택 단위로 나누며 컴포넌트 사고를 익혔다. 대한항공 페이지를 참고해 불필요한 UI는 덜어내고, 민트 포인트와 둥근 보더를 사용해 깔끔하지만 친근하고 설레는 분위기를 구성했다.",
+    "tech": "React와 Vite로 화면을 구성하고, SCSS는 토큰, foundation, components, pages 단위로 관리했다. 실제 DB 연결 대신 더미데이터와 service 함수를 사용해 항공편 검색, 날짜별 운임, 예매 결과 흐름을 구현했으며 추후 Firebase 회원가입이나 항공편 데이터 연동이 가능하도록 구조를 분리했다."
   },
   "keyFlows": [
     {
       "id": "flow-01",
-      "title": "원클릭 노선 검색 시스템",
-      "summary": "출발지, 목적지, 날짜를 한 구역에서 빠르게 선택하는 예약 흐름",
+      "title": "프로모션 히어로",
+      "summary": "특가와 여행의 설렘을 영상으로 먼저 전달하는 첫 화면",
       "icon": "search",
-      "problem": "기존 시스템은 입력 단계마다 페이지가 새로고침되어 탐색 속도가 느리고 번거로웠습니다.",
-      "solution": "메인 히어로 영역에 통합 검색 바를 배치하고, 레이어 팝업 형태의 캘린더와 도시 선택기를 도입해 이탈 없는 검색 환경을 만들었습니다.",
+      "problem": "기존 항공사 사이트는 정보는 많지만 첫 화면에서 여행의 기대감이나 저가항공의 프로모션 장점이 강하게 드러나지 않았다.",
+      "solution": "오사카, 도쿄, 다낭, 나트랑, 제주 등 목적지 영상을 히어로에 배치해 프로모션을 시각적으로 먼저 인지하게 하고, 예약 패널과 함께 보여 예매 행동으로 이어지도록 구성했다.",
       "implementation": [
-        "JS 기반 실시간 도시 검색 필터",
-        "다양한 옵션(왕복/편도/다구간) 전환 기능",
-        "인원 및 좌석 등급 선택 UI 최적화"
+        "목적지별 히어로 영상 데이터 분리",
+        "프로모션 리스트와 히어로 슬라이드 컴포넌트 구성",
+        "헤더 톤이 히어로 구간 이후 자연스럽게 바뀌도록 스크롤 상태 처리"
       ],
       "steps": [
         {
-          "label": "노선 선택",
-          "alt": "메인 화면 상단 예약 바에서 도시를 검색하는 화면",
+          "label": "히어로 영상",
+          "alt": "목적지 영상과 프로모션 문구가 크게 보이는 Air Seoul 메인 히어로",
           "image": "assets/images/projects/airline/detail/case01-step01.png"
+        },
+        {
+          "label": "프로모션 카드",
+          "alt": "히어로 영역에서 특가 또는 목적지 프로모션 카드가 보이는 화면",
+          "image": "assets/images/projects/airline/detail/case01-step02.png"
         }
       ],
-      "keyPoint": "사용자가 가장 먼저 마주하는 예약 과정을 간소화하여 구매 전환율을 높였습니다."
+      "keyPoint": "포트폴리오에서 상대적으로 약했던 비주얼 요소를 보완하면서도, 항공사 사이트의 핵심인 예매 행동과 분리되지 않게 설계했다."
     },
     {
       "id": "flow-02",
-      "title": "최저가 운임 캘린더",
-      "summary": "날짜별 최저가 정보를 시각화하여 합리적인 선택을 돕는 흐름",
+      "title": "항공권 예매 패널",
+      "summary": "출발지, 도착지, 날짜, 탑승객을 한 흐름에서 선택하는 예약 UI",
       "icon": "calendar",
-      "problem": "가격 비교를 위해 여러 날짜를 반복해서 검색해야 하는 불편함이 있었습니다.",
-      "solution": "검색 결과 상단에 7일 단위 최저가 캘린더를 배치하여 가격 정보를 한눈에 비교할 수 있도록 개선했습니다.",
+      "problem": "비행기 예매는 입력 조건이 많아 UI가 쉽게 복잡해지고, 사용자가 어떤 순서로 선택해야 하는지 놓치기 쉽다.",
+      "solution": "왕복/편도, 출발지/도착지, 날짜, 탑승객, 프로모션 코드 입력을 하나의 예매 패널 안에서 단계적으로 선택하도록 구성했다. 둥근 보더와 민트 포인트를 사용해 기능이 많은 화면도 딱딱해 보이지 않게 조정했다.",
       "implementation": [
-        "날짜별 운임 데이터 시각화",
-        "스크롤에 반응하는 고정형 운임 바",
-        "필터링을 통한 시간대별/항공사별 정렬"
+        "FlightBookingPanel에서 예약 조건 상태 관리",
+        "FlightRouteSelector, FlightDatePicker, FlightSelectMenu 등 선택 UI 컴포넌트 분리",
+        "팝업 열림 상태에 따라 body scroll lock과 focus 복귀 처리"
       ],
       "steps": [
         {
-          "label": "운임 비교",
-          "alt": "날짜별 최저가가 표시된 항공권 리스트 화면",
+          "label": "예약 패널",
+          "alt": "왕복/편도와 출발지, 도착지, 날짜, 탑승객을 선택하는 Air Seoul 예매 패널",
           "image": "assets/images/projects/airline/detail/case02-step01.png"
+        },
+        {
+          "label": "공항 선택",
+          "alt": "출발지 또는 도착지 공항을 선택하는 패널 화면",
+          "image": "assets/images/projects/airline/detail/case02-step02.png"
+        },
+        {
+          "label": "날짜 선택",
+          "alt": "왕복 일정의 출발일과 도착일을 선택하는 날짜 선택 화면",
+          "image": "assets/images/projects/airline/detail/case02-step03.png"
+        },
+        {
+          "label": "탑승객 선택",
+          "alt": "성인, 소아, 유아 인원과 나이 계산 안내를 확인하는 탑승객 선택 화면",
+          "image": "assets/images/projects/airline/detail/case02-step04.png"
         }
       ],
-      "keyPoint": "비교 과정을 시각화하여 사용자가 최적의 선택을 하도록 유도했습니다."
+      "keyPoint": "복잡한 예약 입력을 하나의 큰 폼으로 만들지 않고, 선택 단위별 컴포넌트로 분리해 React의 장점을 체감하며 구현했다."
     },
     {
       "id": "flow-03",
-      "title": "맞춤형 여행지 추천",
-      "summary": "사용자 취향과 시즌 정보를 결합한 큐레이션 흐름",
+      "title": "검색 결과와 운임 선택",
+      "summary": "검색 조건을 URL로 넘기고 더미데이터 기반 항공편을 선택하는 흐름",
       "icon": "filter",
-      "problem": "단순한 텍스트 위주의 이벤트 안내는 주목도가 낮아 클릭률이 저조했습니다.",
-      "solution": "고해상도 이미지와 인터렉티브 카드를 활용하여 인기 여행지 및 특가 상품을 매거진 형태로 구성했습니다.",
+      "problem": "예매 UI는 검색 조건 입력에서 끝나지 않고, 결과 확인과 항공편 선택까지 이어져야 실제 서비스 흐름처럼 보인다.",
+      "solution": "검색 조건을 URLSearchParams로 전달하고, 결과 페이지에서 출발편과 도착편을 나누어 항공편을 선택하도록 구성했다. 날짜별 운임 바를 함께 배치해 사용자가 날짜와 가격을 비교할 수 있게 했다.",
       "implementation": [
-        "카드형 UI 레이아웃 및 호버 모션",
-        "테마별(휴양/도시/액티비티) 분류 시스템",
-        "GSAP 기반 배너 슬라이드 인터렉션"
+        "검색 조건을 URL query로 전달해 결과 페이지 진입",
+        "flightSearch service로 더미 항공편 데이터 필터링",
+        "DateFareBar로 날짜별 운임 비교 UI 구성",
+        "왕복일 경우 가는편과 오는편 선택 상태를 분리"
       ],
       "steps": [
         {
-          "label": "추천 큐레이션",
-          "alt": "시즌별 인기 여행지가 나열된 매거진 스타일 섹션",
+          "label": "검색 결과",
+          "alt": "검색 조건에 따라 항공편 목록이 보이는 예매 결과 페이지",
           "image": "assets/images/projects/airline/detail/case03-step01.png"
+        },
+        {
+          "label": "날짜별 운임",
+          "alt": "날짜별 최저 운임을 비교할 수 있는 운임 바 화면",
+          "image": "assets/images/projects/airline/detail/case03-step02.png"
+        },
+        {
+          "label": "항공편 선택",
+          "alt": "가는편과 오는편 항공편을 선택하고 예매 요약을 확인하는 화면",
+          "image": "assets/images/projects/airline/detail/case03-step03.png"
         }
       ],
-      "keyPoint": "목적지가 정해지지 않은 고객에게도 매력적인 여행을 제안하는 구조를 구축했습니다."
+      "keyPoint": "실제 DB 연결 전 단계에서도 검색 조건, 결과 데이터, 선택 상태를 분리해 예매 서비스의 흐름을 끝까지 보여주려 했다."
     },
     {
       "id": "flow-04",
-      "title": "실시간 운항 정보 안내",
-      "summary": "출/도착 현황 및 수하물 규정 등 필수 정보를 제공하는 흐름",
+      "title": "컴포넌트와 스타일 구조",
+      "summary": "React, SCSS, 데이터 분리를 통해 확장 가능한 항공 서비스 UI 만들기",
       "icon": "bag",
-      "problem": "공항 이용 시 필수적인 정보들이 하부 메뉴에 숨겨져 있어 접근성이 낮았습니다.",
-      "solution": "퀵 메뉴와 하단 위젯을 통해 실시간 운항 스케줄 조회 및 수하물 계산기 등 유틸리티 기능을 전면에 배치했습니다.",
+      "problem": "항공사 사이트는 예매, 체크인, 예약 조회, 운항 스케줄, 부가 서비스처럼 기능이 많아 컴포넌트와 데이터 구조를 분리하지 않으면 유지보수가 어렵다.",
+      "solution": "pages, components, data, services, hooks, utils, tokens로 역할을 나누고, SCSS도 foundation과 컴포넌트 단위로 분리해 기능과 스타일이 함께 확장될 수 있도록 정리했다.",
       "implementation": [
-        "실시간 데이터 연동형 테이블 UI",
-        "아이콘 중심의 직관적인 정보 전달",
-        "자주 묻는 질문(FAQ)의 아코디언 레이아웃"
+        "FlightServiceSection에서 예매, 나의 예약, 체크인, 운항 스케줄 탭 분기",
+        "data 폴더에서 공항, 항공편, 프로모션, 서비스 링크 데이터 관리",
+        "hooks와 utils로 스크롤 잠금, 패널 위치, 날짜/가격 포맷 분리",
+        "SCSS 토큰으로 색상, 간격, radius, shadow 관리"
       ],
       "steps": [
         {
-          "label": "운항 정보 조회",
-          "alt": "실시간 출도착 현황을 조회하는 테이블 화면",
+          "label": "서비스 탭",
+          "alt": "예매, 나의 예약, 체크인, 운항 스케줄 탭이 있는 항공 서비스 영역",
           "image": "assets/images/projects/airline/detail/case04-step01.png"
+        },
+        {
+          "label": "모바일 메뉴",
+          "alt": "모바일에서 항공사 내비게이션과 로그인 패널이 열리는 화면",
+          "image": "assets/images/projects/airline/detail/case04-step02.png"
+        },
+        {
+          "label": "파일 구조",
+          "alt": "React components, data, services, hooks, styles 폴더가 나뉜 프로젝트 구조",
+          "image": "assets/images/projects/airline/detail/case04-step03.png"
         }
       ],
-      "keyPoint": "편의 기능을 강화하여 서비스 신뢰도를 높이고 고객 지원 리소스를 절감했습니다."
+      "keyPoint": "이 프로젝트를 통해 React 컴포넌트 사고와 SCSS 구조화를 본격적으로 적용했고, 이후 데이터 연동까지 확장할 수 있는 기반을 만들었다."
     }
   ],
   "highlights": [
     {
-      "title": "데이터 가독성 최적화",
-      "description": "복잡한 항공 데이터와 텍스트를 그리드 시스템을 통해 명확한 위계로 정리했습니다."
+      "title": "기획 포인트",
+      "description": "저가항공의 강점인 프로모션을 히어로 영상으로 강조하면서도, 예매 패널을 함께 배치해 여행의 설렘과 핵심 예약 행동이 동시에 보이도록 설계했다."
     },
     {
-      "title": "유지보수를 고려한 SCSS 설계",
-      "description": "반복되는 버튼, 폼 요소, 팝업 등을 믹스인으로 공통화하여 효율적인 코드 구조를 만들었습니다."
+      "title": "UI 디테일",
+      "description": "깔끔한 흰 배경과 민트 포인트, 둥근 보더를 사용해 기능이 많은 예매 UI도 친근하게 느껴지도록 했다. 공항, 날짜, 탑승객 선택은 각각 패널로 분리해 사용 흐름을 명확히 했다."
     },
     {
-      "title": "웹 표준 지침 준수",
-      "description": "모든 입력 폼에 레이블을 제공하고 키보드 탭 순서를 고려하여 접근성 결함을 최소화했습니다."
+      "title": "구조 / 확장성",
+      "description": "React 컴포넌트, hooks, services, data, utils를 분리했다. 더미데이터 기반 검색 흐름을 먼저 완성해 추후 Firebase 회원가입이나 실제 항공편 데이터 연결로 확장할 수 있게 했다."
     },
     {
-      "title": "동적 비주얼 인터렉션",
-      "description": "GSAP 라이브러리를 통해 항공기가 이동하는 듯한 부드러운 모션을 구현하여 브랜드 무드를 강조했습니다."
+      "title": "주요 툴 / 기술",
+      "description": "React와 Vite는 화면과 라우팅 구성에, SCSS는 토큰과 컴포넌트 단위 스타일 관리에 사용했다. JavaScript service 함수는 항공편 검색과 날짜별 운임 계산에 사용했다."
     }
   ],
   "etc": {
-    "deployment": "dothome 배포 환경",
-    "tools": "Figma, VS Code, PHP, GSAP",
-    "contribution": "기획, 디자인, 퍼블리싱 100%"
+    "deployment": "정적 빌드 배포 예정",
+    "tools": "Figma, React, Vite, SCSS, JavaScript, VS Code, GitHub",
+    "contribution": "기획, 디자인, React 구현, SCSS 구조 설계, 더미데이터 기반 예매 흐름 구현"
   }
 }

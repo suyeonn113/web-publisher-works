@@ -63,18 +63,19 @@
           <div class="project-summary__container">
             <div class="project-summary__header">
               <h2 class="section-title">SUMMARY</h2>
+              <p class="section-description">프로젝트의 기획 방향, 사용자 흐름, 구조적 기준을 요약</p>
             </div>
             <div class="project-summary__content">
               <div class="project-summary__block" data-summary-index="0">
-                <h3 class="project-summary__label">Overview</h3>
+                <h3 class="project-summary__label">Planning Point</h3>
                 <p class="project-summary__text" data-field="summary.overview"></p>
               </div>
               <div class="project-summary__block" data-summary-index="1">
-                <h3 class="project-summary__label">Core Role</h3>
+                <h3 class="project-summary__label">UX Direction</h3>
                 <p class="project-summary__text" data-field="summary.role"></p>
               </div>
               <div class="project-summary__block" data-summary-index="2">
-                <h3 class="project-summary__label">Tech Stack</h3>
+                <h3 class="project-summary__label">Structure & Tech</h3>
                 <p class="project-summary__text" data-field="summary.tech"></p>
               </div>
             </div>
@@ -87,6 +88,7 @@
       ========================================= -->
       <section class="project-key-flows" data-section="key-flows" data-gsap-target="section">
         <h2 class="section-title">KEY FLOWS</h2>
+        <p class="section-description">실제 사용 흐름을 문제, 해결, 구현, 인사이트 기준으로 정리</p>
         <div class="project-key-flows__layout">
           <aside class="project-key-flows__nav" aria-label="Key flow navigation">
             <div class="project-key-flows__nav-inner">
@@ -111,13 +113,10 @@
           <div class="project-highlights__container">
             <div class="project-highlights__header">
               <h2 class="section-title">HIGHLIGHTS</h2>
+              <p class="section-description">기획, UI, 구조, 기술 사용 관점의 핵심 포인트</p>
             </div>
             <div class="project-highlights__body">
               <div class="highlight-list" data-field="highlights"></div>
-              <article class="highlight-display" data-highlight-display aria-live="polite">
-                <h3 class="highlight-display__title" data-highlight-title></h3>
-                <p class="highlight-display__text" data-highlight-description></p>
-              </article>
             </div>
           </div>
         </div>
@@ -129,6 +128,7 @@
       <section class="project-etc" data-section="etc" data-gsap-target="section">
         <div>
           <h2 class="section-title">ETC</h2>
+          <p class="section-description">배포 환경과 사용 도구, 기여 범위</p>
           <div class="project-etc__grid">
             <div>
               <h3>Deployment</h3>
@@ -171,19 +171,19 @@
           </div>
           <div class="flow-panel__layout">
             <div class="flow-panel__content">
-              <section>
+              <section class="flow-panel__section flow-panel__section--problem">
                 <h4>Problem</h4>
                 <p class="flow-panel__problem"></p>
               </section>
-              <section>
+              <section class="flow-panel__section flow-panel__section--solution">
                 <h4>Solution</h4>
                 <p class="flow-panel__solution"></p>
               </section>
-              <section>
+              <section class="flow-panel__section flow-panel__section--implementation">
                 <h4>Implementation</h4>
                 <ul class="flow-panel__implementation"></ul>
               </section>
-              <section>
+              <section class="flow-panel__section flow-panel__section--insight">
                 <h4>Insight</h4>
                 <p class="flow-panel__key-point"></p>
               </section>
@@ -235,7 +235,11 @@
       </template>
 
       <template id="tpl-highlight">
-        <button class="btn btn--surface btn--compact highlight-chip" type="button"></button>
+        <article class="highlight-card">
+          <p class="highlight-card__index"></p>
+          <h3 class="highlight-card__title"></h3>
+          <p class="highlight-card__text"></p>
+        </article>
       </template>
 
       <template id="tpl-hero-visual">
