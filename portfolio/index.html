@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
@@ -6,41 +6,9 @@
   <title>SUYEON'S WORKROOM</title>
   <link rel="icon" href="./assets/icons/favicon.ico">
   <link rel="apple-touch-icon" href="./assets/icons/favicon.png">
-  <link rel="stylesheet" href="./css/main.css">
-  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body data-page="work">
-  <main id="main" class="transition-main" data-page="work">
-    <section class="work-page l-fullspan" aria-labelledby="work-page-title">
-      <div class="work-page__inner inner">
-        <!-- Header -->
-        <h1 id="work-page-title" class="visually-hidden">Work Index</h1>
-
-        <!-- Results -->
-        <section class="work-page__body" aria-labelledby="work-page-list-title">
-          <h2 id="work-page-list-title" class="visually-hidden">Work list</h2>
-          <p class="work-page__status visually-hidden" aria-live="polite" aria-atomic="true">
-            Total <span class="work-page__count">0</span> works.
-          </p>
-          <div class="work-page__list-wrap">
-            <ul id="work-list" class="work-page__list" aria-label="Work list">
-              <li class="work-page__loading">
-                <div class="work__loading">
-                  <span class="loading-text">Loading...</span>
-                </div>
-              </li>
-              <!-- Project cards render here -->
-            </ul>
-          </div>
-        </section>
-      </div>
-    </section>
-  </main>
-  <svg style="position: absolute; width: 0; height: 0; pointer-events: none;">
-    <filter id="noiseFilter">
-      <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="3" stitchTiles="stitch" />
-    </filter>
-  </svg>
-  <script type="module" src="js/main.js"></script>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
 </body>
 </html>
