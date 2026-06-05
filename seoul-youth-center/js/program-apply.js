@@ -29,6 +29,26 @@ document.addEventListener('DOMContentLoaded', () => {
         return Array.from(requiredAgreements).some((checkbox) => !checkbox.checked);
     }
 
+    function getFirstInvalidField() {
+        return Array.from(form.querySelectorAll('input, select, textarea')).find((field) => {
+            if (Array.from(requiredAgreements).includes(field)) return false;
+            return typeof field.checkValidity === 'function' && !field.checkValidity();
+        });
+    }
+
+    function showFieldValidation(field) {
+        if (!field) return false;
+
+        field.focus();
+        field.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        window.requestAnimationFrame(() => {
+            field.reportValidity();
+        });
+
+        return true;
+    }
+
     form.addEventListener('input', () => {
         isDirty = true;
     });
@@ -39,6 +59,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     submitButtons.forEach((button) => {
         button.addEventListener('click', (event) => {
+            const invalidField = getFirstInvalidField();
+            if (invalidField) {
+                event.preventDefault();
+                showFieldValidation(invalidField);
+                return;
+            }
+
             if (!hasUncheckedAgreement()) return;
 
             event.preventDefault();
@@ -47,6 +74,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     form.addEventListener('submit', (event) => {
+        const invalidField = getFirstInvalidField();
+        if (invalidField) {
+            event.preventDefault();
+            showFieldValidation(invalidField);
+            return;
+        }
+
         if (hasUncheckedAgreement()) {
             event.preventDefault();
             showAgreementAlert();

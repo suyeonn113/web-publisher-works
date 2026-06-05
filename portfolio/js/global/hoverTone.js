@@ -4,12 +4,12 @@ export function initInteractiveTone() {
   if (!canHover) return;
 
   const selectors = [
-    '.site-header__link',
+    '.site-header__brand',
+    '.site-header__theme-toggle',
     '.site-footer a',
     '.btn',
     '.btn-more',
-    '.fixed-menu__btn',
-    '.scroll-down'
+    '.fixed-menu__btn'
   ];
 
   document.querySelectorAll(selectors.join(', ')).forEach((element) => {

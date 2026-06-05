@@ -9,7 +9,7 @@ body[data-page='project-detail'] {
   }
 
   .project-detail > section + section {
-    @include mar('gap', 'sm', 'top');
+    @include mar('gap', 'md', 'top');
   }
 
   .project-hero,
@@ -26,12 +26,27 @@ body[data-page='project-detail'] {
   .project-key-flows,
   .project-highlights,
   .project-etc {
+    width: min(100%, rem(1280px));
     margin: 0 auto;
+  }
+
+  .project-summary,
+  .project-key-flows,
+  .project-highlights,
+  .project-etc {
+    @include pad('pad', 'lg');
+    background: $detail-panel-bg;
+    border: 1px solid $detail-panel-border;
+    box-shadow: $detail-panel-shadow;
+    backdrop-filter: $detail-panel-backdrop;
+    -webkit-backdrop-filter: $detail-panel-backdrop;
   }
 
   .section-title {
     @include text-style('sm', 'bold', 'tight', 'tight');
     color: $text-tertiary;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
     @include mar('gutter', 'md', 'bottom');
   }
 
@@ -91,13 +106,21 @@ body[data-page='project-detail'] {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     @include g-gap('gutter', 'lg');
+    min-height: min(rem(720px), calc(100vh - rem(120px)));
+    @include pad('pad', 'lg');
+    align-items: center;
+    background: $detail-panel-bg;
+    border: 1px solid $detail-panel-border;
+    box-shadow: $detail-panel-shadow;
+    backdrop-filter: $detail-panel-backdrop;
+    -webkit-backdrop-filter: $detail-panel-backdrop;
   }
 
   .project-hero__body {
     display: flex;
     flex-direction: column;
     min-width: 0;
-    @include f-gap('gutter', 'md');
+    @include f-gap('gutter', 'lg');
   }
 
   .project-hero__label,
@@ -116,10 +139,13 @@ body[data-page='project-detail'] {
   .project-hero__label {
     align-self: flex-start;
     @include text-style('xs', 'bold');
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
   }
 
   .project-hero__title {
     @include text-style('title', 'bold', 'tight', 'tight');
+    max-width: rem(640px);
     color: $text-primary;
   }
 
@@ -131,7 +157,10 @@ body[data-page='project-detail'] {
 
   .project-hero__desc-line {
     @include text-style('base');
+    max-width: rem(560px);
     color: $text-secondary;
+    word-break: keep-all;
+    overflow-wrap: break-word;
   }
 
   .project-hero__tags {
@@ -148,7 +177,9 @@ body[data-page='project-detail'] {
   .project-meta {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    @include g-gap('gutter', 'md');
+    @include g-gap('gutter', 'sm');
+    @include pad('pad', 'md', 'top');
+    border-top: 1px solid $border-soft;
   }
 
   .project-meta > div {
@@ -187,6 +218,7 @@ body[data-page='project-detail'] {
     justify-self: center;
     width: 100%;
     min-width: 0;
+    min-height: rem(420px);
     overflow: visible;
   }
 
@@ -391,12 +423,15 @@ body[data-page='project-detail'] {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    @include pad('pad', 'md', 'y');
   }
 
   .project-summary__header {
     position: relative;
-    @include mar('gutter', 'md', 'bottom');
+    display: grid;
+    grid-template-columns: minmax(rem(180px), rem(240px)) minmax(0, 1fr);
+    align-items: start;
+    @include g-gap('gutter', 'lg');
+    @include mar('gutter', 'lg', 'bottom');
 
     .section-title {
       @include mar('gutter', 'xs', 'bottom');
@@ -420,11 +455,9 @@ body[data-page='project-detail'] {
     display: flex;
     flex-direction: column;
     @include f-gap('gutter', 'sm');
-    @include pad('pad', 'sm');
-    background: $detail-panel-bg;
-    border: 1px solid $detail-panel-border;
-    backdrop-filter: $detail-panel-backdrop;
-    -webkit-backdrop-filter: $detail-panel-backdrop;
+    @include pad('pad', 'md');
+    background: transparent;
+    border-top: 1px solid $border-soft;
   }
 
   .project-summary__label {
@@ -436,7 +469,7 @@ body[data-page='project-detail'] {
   }
 
   .project-summary__text {
-    @include text-style('sm', 'medium');
+    @include text-style('base', 'medium');
     color: $text-primary;
     word-break: keep-all;
     overflow-wrap: break-word;
@@ -457,7 +490,7 @@ body[data-page='project-detail'] {
     grid-template-columns: minmax(0, 1fr);
     align-items: start;
     @include g-gap('gutter', 'lg');
-    margin-top: 0;
+    @include mar('gutter', 'lg', 'top');
   }
 
   .project-key-flows__nav {
@@ -468,6 +501,8 @@ body[data-page='project-detail'] {
     display: flex;
     flex-direction: column;
     @include f-gap('gutter', 'md');
+    @include pad('pad', 'md');
+    border-left: 1px solid $border-soft;
   }
 
   .project-key-flows__eyebrow {
@@ -601,16 +636,24 @@ body[data-page='project-detail'] {
     display: flex;
     flex-direction: column;
     min-width: 0;
-    @include f-gap('gutter', 'md');
-    @include pad('pad', 'md');
+    @include f-gap('gutter', 'lg');
+    @include pad('pad', 'lg');
+    background: $detail-panel-bg-strong;
+    border: 1px solid $detail-panel-border;
+    box-shadow: $detail-panel-shadow;
+    backdrop-filter: $detail-panel-backdrop;
+    -webkit-backdrop-filter: $detail-panel-backdrop;
     scroll-margin-top: rem(120px);
   }
 
   .flow-panel__heading {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: rem(56px) minmax(0, 1fr);
+    align-items: baseline;
     min-width: 0;
     @include f-gap('gutter', 'sm');
+    @include pad('pad', 'md', 'bottom');
+    border-bottom: 1px solid $border-soft;
   }
 
   .flow-panel__index {
@@ -620,7 +663,7 @@ body[data-page='project-detail'] {
   }
 
   .flow-panel__title {
-    @include text-style('base', 'bold', 'tight');
+    @include text-style('lg', 'bold', 'tight', 'tight');
     color: $text-primary;
   }
 
@@ -641,7 +684,7 @@ body[data-page='project-detail'] {
     flex-direction: column;
     min-width: 0;
     @include f-gap('gutter', 'sm');
-    @include pad('pad', 'sm', 'top');
+    @include pad('pad', 'md', 'top');
     border-top: 1px solid $border-soft;
   }
 
@@ -651,7 +694,7 @@ body[data-page='project-detail'] {
   }
 
   .flow-panel__section--insight {
-    @include pad('pad', 'sm');
+    @include pad('pad', 'md');
     background: $detail-panel-bg;
     border: 1px solid $detail-panel-border;
     backdrop-filter: $detail-panel-backdrop;
@@ -661,12 +704,16 @@ body[data-page='project-detail'] {
   .flow-panel__content h4 {
     @include text-style('sm', 'bold');
     color: $text-primary;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
   .flow-panel__content p,
   .flow-panel__implementation-item {
-    @include text-style('sm');
+    @include text-style('sm', 'medium');
     color: $text-secondary;
+    word-break: keep-all;
+    overflow-wrap: break-word;
   }
 
   .flow-panel__content ul {
@@ -734,6 +781,8 @@ body[data-page='project-detail'] {
     overflow: hidden;
     width: 100%;
     max-height: clamp(rem(132px), 18vw, rem(220px));
+    background: $detail-panel-bg;
+    border: 1px solid $detail-panel-border;
     transition: transform get-duration('fast') get-easing('standard'),
                 opacity get-duration('fast') get-easing('standard');
   }
@@ -761,7 +810,7 @@ body[data-page='project-detail'] {
   .flow-steps[data-gallery-layout='single'] .flow-step__visual,
   .flow-steps[data-gallery-layout='single-portrait'] .flow-step__visual,
   .flow-steps[data-gallery-layout='feature-stack'] .flow-step.is-featured .flow-step__visual {
-    max-height: clamp(rem(180px), 24vw, rem(280px));
+    max-height: clamp(rem(240px), 28vw, rem(420px));
   }
 
   .flow-steps img {
@@ -1061,12 +1110,17 @@ body[data-page='project-detail'] {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    @include pad('pad', 'md', 'y');
   }
 
   .project-highlights__header {
+    display: grid;
+    grid-template-columns: minmax(rem(180px), rem(240px)) minmax(0, 1fr);
+    align-items: start;
+    @include g-gap('gutter', 'lg');
+    @include mar('gutter', 'lg', 'bottom');
+
     .section-title {
-      @include mar('gutter', 'md', 'bottom');
+      @include mar('gutter', 'xs', 'bottom');
     }
   }
 
@@ -1077,7 +1131,7 @@ body[data-page='project-detail'] {
 
   .highlight-list {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     width: 100%;
     @include g-gap('gutter', 'sm');
   }
@@ -1085,16 +1139,14 @@ body[data-page='project-detail'] {
   .highlight-card {
     position: relative;
     min-width: 0;
-    min-height: rem(184px);
+    min-height: rem(208px);
     display: flex;
     flex-direction: column;
     @include f-gap('gutter', 'sm');
-    @include pad('pad', 'sm');
+    @include pad('pad', 'md');
     color: $text-primary;
-    background: $detail-panel-bg;
-    border: 1px solid $detail-panel-border;
-    backdrop-filter: $detail-panel-backdrop;
-    -webkit-backdrop-filter: $detail-panel-backdrop;
+    background: transparent;
+    border-top: 1px solid $border-soft;
   }
 
   .highlight-card__index {
@@ -1139,7 +1191,8 @@ body[data-page='project-detail'] {
   .project-etc__grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    @include g-gap('gutter', 'lg');
+    @include g-gap('gutter', 'md');
+    @include mar('gutter', 'lg', 'top');
   }
 
   .project-etc__grid > div {

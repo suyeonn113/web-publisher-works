@@ -13,7 +13,7 @@
             <h2 id="program-confirm-title">프로그램 신청 정보를 입력해주세요.</h2>
             <span data-program-confirm-name>선택한 프로그램</span>
         </div>
-        <form class="program-confirm-modal__form" action="<?= BASE_URL ?>/actions/application_confirm.php" method="post">
+        <form class="program-confirm-modal__form" action="<?= BASE_URL ?>/actions/application_confirm.php" method="post" autocomplete="off">
             <input type="hidden" name="program_id" value="" data-program-confirm-id>
             <label>
                 <span>신청자명 <strong>*</strong></span>
@@ -21,7 +21,7 @@
             </label>
             <label>
                 <span>비밀번호 <strong>*</strong></span>
-                <input type="password" name="password" minlength="4" required>
+                <input type="password" name="password" minlength="4" autocomplete="new-password" required>
             </label>
             <label>
                 <span>휴대전화 <strong>*</strong></span>

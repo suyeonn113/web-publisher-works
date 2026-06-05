@@ -3,68 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>수연의 작업실</title>
+  <title>SUYEON'S WORKROOM</title>
   <link rel="icon" href="./assets/icons/favicon.ico">
   <link rel="apple-touch-icon" href="./assets/icons/favicon.png">
   <link rel="stylesheet" href="./css/main.css">
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body data-page="home">
-  <main id="main" class="transition-main" data-page="home">
-    <!-- Hero -->
-    <section class="hero l-fullspan">
-      <div class="hero__text-wrap">
-        <div class="hero__roof" aria-hidden="true">
-          <svg viewBox="25 15 170 60" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <mask id="roofWindowMask">
-                <rect width="220" height="90" fill="white"/>
-                <rect x="95" y="44" width="12" height="11" fill="black" transform="rotate(-3 101 49.5)"/>
-                <rect x="112" y="43" width="13" height="12" fill="black" transform="rotate(2 118.5 49)"/>
-                <rect x="96" y="59" width="11" height="10" fill="black" transform="rotate(2 101.5 64)"/>
-                <rect x="113" y="58" width="12" height="11" fill="black" transform="rotate(-3 119 63.5)"/>
-              </mask>
-            </defs>
-            <g mask="url(#roofWindowMask)">
-              <path d="M37 66 L107 19 L185 65 L181 67 L110 27 L43 68 Z" fill="currentColor"/>
-              <path d="M149 23 L162 26 L160 47 L147 43 Z" fill="currentColor"/>
-            </g>
-          </svg>
-        </div>
-        <h1 class="main-title" aria-label="수연의 작업실">
-          <span class="word word--suyeon">
-            <span class="char" aria-hidden="true">S</span>
-            <span class="char" aria-hidden="true">U</span>
-            <span class="char" aria-hidden="true">Y</span>
-            <span class="char" aria-hidden="true">E</span>
-            <a href="./work.html" class="char char--key-hole" aria-label="워크 페이지로 이동">
-              <svg class="svg-o" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <path d="M50 5C24.5 5 4 25.5 4 50s20.5 45 46 45 46-20.5 46-45S75.5 5 50 5zm0 28c4.4 0 8 3.6 8 8 0 3.2-1.9 6-4.6 7.3L56 68H44l2.6-19.7c-2.7-1.3-4.6-4.1-4.6-7.3 0-4.4 3.6-8 8-8z" fill="currentColor"/>
-              </svg>
-            </a>
-            <span class="char" aria-hidden="true">N</span>
-            <span class="char" aria-hidden="true">'</span>
-            <span class="char" aria-hidden="true">S</span>
-          </span>
-          <span class="word word--workroom">
-            <span class="char" aria-hidden="true">W</span>
-            <span class="char" aria-hidden="true">O</span>
-            <span class="char" aria-hidden="true">R</span>
-            <span class="char" aria-hidden="true">K</span>
-            <span class="char" aria-hidden="true">R</span>
-            <span class="char" aria-hidden="true">O</span>
-            <span class="char" aria-hidden="true">O</span>
-            <span class="char" aria-hidden="true">M</span>
-          </span>
-        </h1>
+<body data-page="work">
+  <main id="main" class="transition-main" data-page="work">
+    <section class="work-page l-fullspan" aria-labelledby="work-page-title">
+      <div class="work-page__inner inner">
+        <!-- Header -->
+        <h1 id="work-page-title" class="visually-hidden">Work Index</h1>
+
+        <!-- Results -->
+        <section class="work-page__body" aria-labelledby="work-page-list-title">
+          <h2 id="work-page-list-title" class="visually-hidden">Work list</h2>
+          <p class="work-page__status visually-hidden" aria-live="polite" aria-atomic="true">
+            Total <span class="work-page__count">0</span> works.
+          </p>
+          <div class="work-page__list-wrap">
+            <ul id="work-list" class="work-page__list" aria-label="Work list">
+              <li class="work-page__loading">
+                <div class="work__loading">
+                  <span class="loading-text">Loading...</span>
+                </div>
+              </li>
+              <!-- Project cards render here -->
+            </ul>
+          </div>
+        </section>
       </div>
     </section>
   </main>
-
-  <div class="door-transition" aria-hidden="true">
-    <div class="door-transition__panel"></div>
-  </div>
-
+  <svg style="position: absolute; width: 0; height: 0; pointer-events: none;">
+    <filter id="noiseFilter">
+      <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="3" stitchTiles="stitch" />
+    </filter>
+  </svg>
   <script type="module" src="js/main.js"></script>
 </body>
 </html>

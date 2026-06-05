@@ -40,6 +40,7 @@
       "device": "Mobile",
       "projectType": "E-commerce",
       "keywords": ["Minimal", "Mono-Tone"],
+      "summary": "모바일 커머스의 브랜드 무드와 상품 탐색, 상세 확인, 계정 흐름을 정리한 리뉴얼 작업입니다.",
       "featuredOrder": 2
     },
     {
@@ -51,6 +52,7 @@
       "device": "Responsive",
       "projectType": "Public",
       "keywords": ["A11y", "Grid-System", "Standard"],
+      "summary": "청소년 프로그램 탐색과 신청, 확인 흐름을 하나의 공공 서비스 경험으로 묶은 반응형 작업입니다.",
       "featuredOrder": 1
     },
     {
@@ -62,6 +64,7 @@
       "device": "Responsive",
       "projectType": "Personal",
       "keywords": ["Editorial", "Interactive"],
+      "summary": "작업물을 빠르게 훑고 각 프로젝트의 기획, UI, 구현 흐름을 이어서 볼 수 있게 만든 개인 포트폴리오입니다.",
       "featuredOrder": 3
     },
     {
@@ -73,6 +76,7 @@
       "device": "PC",
       "projectType": "Brand",
       "keywords": ["Impactful", "Modern"],
+      "summary": "항공권 예매 흐름과 프로모션 경험을 React 컴포넌트 기반으로 정리한 항공사 리뉴얼 작업입니다.",
       "featuredOrder": 4
     },
     {
@@ -84,6 +88,7 @@
       "device": "Responsive",
       "projectType": "Brand",
       "keywords": ["Keyword", "Keyword"],
+      "summary": "추가 예정인 작업입니다.",
       "featuredOrder": 5
     }
   ]

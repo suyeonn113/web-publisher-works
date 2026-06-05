@@ -105,11 +105,11 @@ mysqli_close($mysqli);
                 <?php else: ?>
                     <?php foreach ($applications as $application): ?>
                         <tr>
-                            <td><?= (int) $application['id'] ?></td>
-                            <td><?= htmlspecialchars($application['program_title'], ENT_QUOTES, 'UTF-8') ?></td>
-                            <td><?= htmlspecialchars(syc_mask_name($application['applicant_name']), ENT_QUOTES, 'UTF-8') ?></td>
-                            <td><?= htmlspecialchars(syc_mask_phone($application['phone']), ENT_QUOTES, 'UTF-8') ?></td>
-                            <td><?= htmlspecialchars(date('Y.m.d', strtotime($application['created_at'])), ENT_QUOTES, 'UTF-8') ?></td>
+                            <td data-label="번호"><?= (int) $application['id'] ?></td>
+                            <td data-label="프로그램명"><?= htmlspecialchars($application['program_title'], ENT_QUOTES, 'UTF-8') ?></td>
+                            <td data-label="신청자"><?= htmlspecialchars(syc_mask_name($application['applicant_name']), ENT_QUOTES, 'UTF-8') ?></td>
+                            <td data-label="연락처"><?= htmlspecialchars(syc_mask_phone($application['phone']), ENT_QUOTES, 'UTF-8') ?></td>
+                            <td data-label="등록일"><?= htmlspecialchars(date('Y.m.d', strtotime($application['created_at'])), ENT_QUOTES, 'UTF-8') ?></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php endif; ?>

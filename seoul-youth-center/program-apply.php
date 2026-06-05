@@ -39,7 +39,7 @@ $activityPeriod = ($programMeta['activity_period'] ?? '') !== '' ? $programMeta[
             <h1 id="program-apply-title">청소년 활동 신청</h1>
         </section>
 
-        <form class="program-apply-form inner" action="<?= BASE_URL ?>/actions/application_create.php" method="post" enctype="multipart/form-data">
+        <form class="program-apply-form inner" action="<?= BASE_URL ?>/actions/application_create.php" method="post" enctype="multipart/form-data" autocomplete="off">
             <input type="hidden" name="program_id" value="<?= (int) $programId ?>">
             <input type="hidden" name="program_title" value="<?= htmlspecialchars($title, ENT_QUOTES, 'UTF-8') ?>">
             <section class="program-apply-agree" aria-labelledby="program-agree-title">
@@ -98,11 +98,11 @@ $activityPeriod = ($programMeta['activity_period'] ?? '') !== '' ? $programMeta[
                         </label>
                         <label>
                             <span>비밀번호 <strong>*</strong></span>
-                            <input type="password" name="password" placeholder="4자 이상" minlength="4" required>
+                            <input type="password" name="password" placeholder="4자 이상" minlength="4" autocomplete="new-password" required>
                         </label>
                         <label>
                             <span>비밀번호 확인 <strong>*</strong></span>
-                            <input type="password" name="password_confirm" placeholder="4자 이상" minlength="4" required>
+                            <input type="password" name="password_confirm" placeholder="4자 이상" minlength="4" autocomplete="new-password" required>
                         </label>
                         <label>
                             <span>휴대전화 <strong>*</strong></span>
@@ -110,7 +110,7 @@ $activityPeriod = ($programMeta['activity_period'] ?? '') !== '' ? $programMeta[
                         </label>
                         <label>
                             <span>이메일</span>
-                            <input type="email" name="email">
+                            <input type="email" name="email" autocomplete="off">
                         </label>
                         <label>
                             <span>주소</span>

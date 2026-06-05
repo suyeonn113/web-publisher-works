@@ -238,23 +238,3 @@ input[type="search"]::-webkit-search-decoration {
   }
 }
 
-/* ============================================================
-   Door Transition
-============================================================ */
-
-.door-transition {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.door-transition__panel {
-  position: absolute;
-  inset: 0;
-  background: $bg-door;
-  transform: scaleX(0);
-  transform-origin: right center;
-  will-change: transform;
-}

@@ -41,7 +41,7 @@ $pageCss = ['program-apply.css', 'applications.css'];
         <h1 id="application-edit-title">신청 정보 수정</h1>
     </section>
 
-    <form class="program-apply-form inner" action="<?= BASE_URL ?>/actions/application_update.php" method="post">
+    <form class="program-apply-form inner" action="<?= BASE_URL ?>/actions/application_update.php" method="post" autocomplete="off">
         <input type="hidden" name="id" value="<?= (int) $application['id'] ?>">
 
         <section class="program-apply-info" aria-labelledby="application-edit-info-title">
@@ -75,7 +75,7 @@ $pageCss = ['program-apply.css', 'applications.css'];
                     </label>
                     <label>
                         <span>이메일</span>
-                        <input type="email" name="email" value="<?= htmlspecialchars($application['email'], ENT_QUOTES, 'UTF-8') ?>">
+                        <input type="email" name="email" value="<?= htmlspecialchars($application['email'], ENT_QUOTES, 'UTF-8') ?>" autocomplete="off">
                     </label>
                     <label>
                         <span>주소</span>

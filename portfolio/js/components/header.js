@@ -19,13 +19,32 @@ function createHeaderIcons() {
 /* 헤더 DOM 주입 */
 export function renderHeader() {
   const headerHTML = `
-    <header class="site-header l-fullspan">
+    <header class="site-header site-header--rail" aria-label="Primary navigation">
+      <a class="site-header__brand" href="index.html" aria-label="Go to work index">
+        <span class="site-header__brand-roof" aria-hidden="true"></span>
+        <span class="site-header__brand-line site-header__brand-line--top" aria-hidden="true">
+          <span class="site-header__brand-char">S</span>
+          <span class="site-header__brand-char">U</span>
+          <span class="site-header__brand-char">Y</span>
+          <span class="site-header__brand-char">E</span>
+          <span class="site-header__brand-key" aria-hidden="true"></span>
+          <span class="site-header__brand-char">N</span>
+          <span class="site-header__brand-char">'</span>
+          <span class="site-header__brand-char">S</span>
+        </span>
+        <span class="site-header__brand-line site-header__brand-line--bottom" aria-hidden="true">
+          <span class="site-header__brand-char">W</span>
+          <span class="site-header__brand-char">O</span>
+          <span class="site-header__brand-char">R</span>
+          <span class="site-header__brand-char">K</span>
+          <span class="site-header__brand-char">R</span>
+          <span class="site-header__brand-char">O</span>
+          <span class="site-header__brand-char">O</span>
+          <span class="site-header__brand-char">M</span>
+        </span>
+      </a>
       <nav class="site-header__nav">
         <ul class="site-header__menu">
-          <li><a class="site-header__link" href="index.html">HOME</a></li>
-          <li><a class="site-header__link" href="work.html">WORK</a></li>
-          <li><a class="site-header__link" href="log.html">LOG</a></li>
-          <li><a class="site-header__link" href="contact.html">CONTACT</a></li>
           <li>
             <button type="button"
                     class="site-header__theme-toggle"
@@ -104,6 +123,8 @@ export function initHeaderEntrance() {
 export function initHeaderScroll() {
   const header = document.querySelector(".site-header");
   if (!header) return;
+
+  return;
 
   const pageType = getPageType();
 

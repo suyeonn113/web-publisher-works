@@ -1,8 +1,4 @@
 /* Component order
- - cursor: global cursor treatment
- - scroll-down: hero scroll hint
  - btn: shared button styles
  */
-@forward 'cursor';
-@forward 'scroll-down';
 @forward 'btn';
