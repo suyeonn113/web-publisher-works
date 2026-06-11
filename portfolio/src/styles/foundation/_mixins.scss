@@ -118,7 +118,7 @@
   }
 
   @include respond-up(wide) {
-    width: $page-max-width;
+    width: min(100%, $page-max-width);
   }
 }
 

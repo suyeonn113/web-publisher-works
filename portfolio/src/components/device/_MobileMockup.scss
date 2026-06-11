@@ -1,0 +1,108 @@
+@use "../../styles/foundation" as *;
+
+.device-frame--mobile {
+  --phone-shell: #171717;
+  --phone-shell-edge: #4a4a4a;
+  --phone-button: #2c2c2c;
+  --phone-status-bg: #f3f3f3;
+  --phone-screen-bg: #ffffff;
+  --phone-ui: #111111;
+
+  // 이미지형 목업 전용 수치
+  --phone-shell-width: #{fluid-page(2px, 3px)};
+  --phone-top-area: #{fluid-page(27px, 36px)};
+
+  isolation: isolate;
+  aspect-ratio: 390 / 844;
+  padding: var(--phone-shell-width);
+  overflow: visible;
+  border: stroke(thin) solid var(--phone-shell-edge);
+  border-radius: fluid-page(30px, 41px);
+  background: var(--phone-shell);
+  box-shadow:
+    0 fluid-page(8px, 14px) fluid-page(18px, 28px)
+    rgb(var(--color-black-rgb) / 10%);
+
+  // 음량 버튼
+  &::before,
+  &::after {
+    position: absolute;
+    z-index: 1;
+    width: fluid-page(1px, 2px);
+    content: "";
+    border-radius: radius(full);
+    background: var(--phone-button);
+  }
+
+  &::before {
+    top: 23%;
+    left: calc(#{fluid-page(1px, 2px)} * -1);
+    height: 7%;
+    box-shadow:
+      0 fluid-page(30px, 42px) 0 var(--phone-button),
+      0 fluid-page(57px, 78px) 0 var(--phone-button);
+  }
+
+  // 전원 버튼
+  &::after {
+    top: 30%;
+    right: calc(#{fluid-page(1px, 2px)} * -1);
+    height: 13%;
+  }
+}
+
+.device-frame--mobile .device-frame__screen {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border: 0;
+  border-radius: fluid-page(27px, 38px);
+  background:
+    linear-gradient(
+      to bottom,
+      var(--phone-status-bg) 0,
+      var(--phone-status-bg) var(--phone-top-area),
+      var(--phone-screen-bg) var(--phone-top-area),
+      var(--phone-screen-bg) 100%
+    );
+  box-shadow: none;
+
+  img {
+    position: absolute;
+    top: var(--phone-top-area);
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% - var(--phone-top-area));
+    object-fit: cover;
+    object-position: top center;
+    background: var(--phone-screen-bg);
+  }
+}
+
+.device-frame__phone-top {
+  position: absolute;
+  z-index: 3;
+  top: var(--phone-shell-width);
+  right: calc(var(--phone-shell-width) + #{fluid-page(7px, 10px)});
+  left: calc(var(--phone-shell-width) + #{fluid-page(7px, 10px)});
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: var(--phone-top-area);
+  color: var(--phone-ui);
+  pointer-events: none;
+}
+
+.device-frame__dynamic-island {
+  align-self: start;
+  width: fluid-page(38px, 54px);
+  height: fluid-page(10px, 14px);
+  margin-top: fluid-page(5px, 7px);
+  border-radius: radius(full);
+  background: #050505;
+}
+

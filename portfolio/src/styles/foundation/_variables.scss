@@ -25,7 +25,7 @@ $font-family-mono:
 
 // PPT형 페이지 프레임
 $page-design-width: 1440px;
-$page-max-width: $page-design-width;
+$page-max-width: 1920px;
 $page-aspect-ratio: math.div(16, 9);
 
 // 프레임 내부 실제 콘텐츠 영역

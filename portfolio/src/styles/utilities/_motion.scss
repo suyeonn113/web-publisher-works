@@ -1,0 +1,45 @@
+@use "../foundation" as *;
+
+.motion-fade-up {
+  animation: motion-fade-up duration(emphasis) easing(emphasis) both;
+}
+
+.motion-delay-1 {
+  animation-delay: delay(short);
+}
+
+.hover-lift,
+.hover-soft-scale {
+  transition: transform motion(base, standard);
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+.hover-soft-scale:hover {
+  transform: scale(1.01);
+}
+
+@keyframes motion-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-fade-up {
+    animation: none;
+  }
+
+  .hover-lift,
+  .hover-soft-scale {
+    transition: none;
+  }
+}

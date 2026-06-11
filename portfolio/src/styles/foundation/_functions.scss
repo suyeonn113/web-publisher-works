@@ -83,6 +83,10 @@
   @return _get-scale($durations, $key, "duration");
 }
 
+@function delay($key) {
+  @return _get-scale($delays, $key, "delay");
+}
+
 @function easing($key) {
   @return _get-scale($easings, $key, "easing");
 }

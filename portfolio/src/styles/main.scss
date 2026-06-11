@@ -1,6 +1,8 @@
 @use "./foundation" as *;
 @use "./foundation/reset";
 @use "./foundation/themes";
+@use "./utilities/motion";
+@use "./utilities/print";
 
 
 // ========================================
@@ -12,5 +14,5 @@
 
   position: relative;
   color: var(--color-text-primary);
-  background: var(--color-bg-primary);
+  background: transparent;
 }

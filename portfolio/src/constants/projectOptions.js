@@ -29,6 +29,10 @@ export const workTypeMap = {
   practice: "Practice",
 };
 
+export const siteTypeMap = {
+  "public-website": "공공 웹사이트",
+};
+
 export const platformMap = {
   responsive: "Responsive Web",
   mobile: "Mobile Web",

@@ -1,0 +1,51 @@
+@use "../../styles/foundation" as *;
+
+.device-showcase {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  min-width: 0;
+  aspect-ratio: 1.42 / 1;
+  margin: 0;
+}
+
+.device-frame {
+  position: relative;
+  min-width: 0;
+  background: var(--color-bg-elevated);
+}
+
+.device-frame__screen {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--color-bg-elevated);
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
+}
+
+.device-showcase__desktop,
+.device-showcase__mobile {
+  position: absolute;
+}
+
+.device-showcase__desktop {
+  z-index: 1;
+  top: 3%;
+  left: 0;
+  width: 94%;
+}
+
+.device-showcase__mobile {
+  z-index: 2;
+  right: 4%;
+  bottom: 0;
+  width: 23%;
+}
