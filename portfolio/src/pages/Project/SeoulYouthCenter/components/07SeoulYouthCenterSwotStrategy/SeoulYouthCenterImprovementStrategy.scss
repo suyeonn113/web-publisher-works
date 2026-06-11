@@ -1,0 +1,39 @@
+.seoul-youth-center__improvement-strategy {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.seoul-youth-center__improvement-strategy-header {
+  display: grid;
+}
+
+.seoul-youth-center__improvement-strategy-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  align-items: center;
+}
+
+.seoul-youth-center__improvement-strategy-list {
+  display: grid;
+}
+
+.seoul-youth-center__improvement-strategy-list li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+}
+
+.seoul-youth-center__improvement-strategy-diagram {
+  display: block;
+  aspect-ratio: 1;
+  width: 100%;
+}
+
+.seoul-youth-center__improvement-strategy-direction {
+  display: grid;
+}
+
+@media (max-width: 900px) {
+  .seoul-youth-center__improvement-strategy-layout {
+    grid-template-columns: 1fr;
+  }
+}

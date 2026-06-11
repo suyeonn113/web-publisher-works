@@ -111,11 +111,12 @@
     left: calc(
       var(--preview-left, 0px) +
       var(--preview-rendered-width, 100%) -
-      var(--preview-scrollbar-cover, 0px)
+      var(--preview-scrollbar-cover, 0px) -
+      1px
     );
 
     z-index: 2;
-    width: calc(var(--preview-scrollbar-cover, 0px) + 1px);
+    width: calc(var(--preview-scrollbar-cover, 0px) + 2px);
     pointer-events: none;
     content: "";
     background: var(--color-white);
@@ -313,6 +314,15 @@
     margin-top: fluid-page(18px, 28px);
     margin-left: 30%;
     margin-right: 0;
+
+    background: transparent;
+    box-shadow: none;
+
+    .seoul-youth-center__iframe-wrap {
+      width: calc(100% - var(--preview-right-crop, 0px));
+      height: 100%;
+      box-shadow: var(--shadow-md);
+    }
   }
 
   .seoul-youth-center__links {

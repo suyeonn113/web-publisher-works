@@ -21,7 +21,7 @@ const previewDevices = [
 
     // 로컬에서 iframe 내부 접근이 불가능할 때 사용하는 임시 높이
     pageHeight: 4900,
-    scrollbarGutter: 18,
+    scrollbarGutter: 7,
 
     Icon: () => (
       <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -37,7 +37,7 @@ const previewDevices = [
     width: 834,
     height: 1112,
     pageHeight: 4650,
-    scrollbarGutter: 14,
+    scrollbarGutter: 1,
 
     Icon: () => (
       <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -52,7 +52,7 @@ const previewDevices = [
     width: 390,
     height: 844,
     pageHeight: 4750,
-    scrollbarGutter: 10,
+    scrollbarGutter: 4,
 
     Icon: () => (
       <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -62,6 +62,10 @@ const previewDevices = [
     ),
   },
 ];
+
+const desktopPreviewDevice =
+  previewDevices.find(({ key }) => key === "desktop") ??
+  previewDevices[0];
 
 const clamp = (value, min, max) =>
   Math.min(max, Math.max(min, value));
@@ -375,6 +379,14 @@ const SeoulYouthCenterCover = ({ project }) => {
   const previewScrollbarCover =
     previewDevice.scrollbarGutter * previewScale;
 
+  const desktopPreviewScale =
+    previewFrame.height > 0
+      ? previewFrame.height / desktopPreviewDevice.height
+      : 1;
+
+  const previewRightCrop =
+    desktopPreviewDevice.scrollbarGutter * desktopPreviewScale;
+
   const fallbackScrollableHeight = Math.max(
     0,
     previewPageHeight * previewScale - previewFrame.height,
@@ -434,6 +446,7 @@ const SeoulYouthCenterCover = ({ project }) => {
                 "--preview-left": `${previewLeft}px`,
                 "--preview-rendered-width": `${previewWidth}px`,
                 "--preview-scrollbar-cover": `${previewScrollbarCover}px`,
+                "--preview-right-crop": `${previewRightCrop}px`,
               }}
             >
               <iframe

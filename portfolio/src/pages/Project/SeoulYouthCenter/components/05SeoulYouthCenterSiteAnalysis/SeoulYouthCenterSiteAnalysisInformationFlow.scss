@@ -1,0 +1,43 @@
+.seoul-youth-center__site-analysis-information-flow {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.seoul-youth-center__site-analysis-information-flow-header {
+  display: grid;
+}
+
+.seoul-youth-center__site-analysis-information-flow-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  align-items: center;
+}
+
+.seoul-youth-center__site-analysis-information-flow-media {
+  display: block;
+  aspect-ratio: 16 / 10;
+  width: 100%;
+}
+
+.seoul-youth-center__site-analysis-information-flow-copy {
+  display: grid;
+}
+
+.seoul-youth-center__site-analysis-information-flow-list {
+  display: grid;
+}
+
+.seoul-youth-center__site-analysis-information-flow-list li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+}
+
+.seoul-youth-center__site-analysis-information-flow-finding {
+  display: grid;
+}
+
+@media (max-width: 900px) {
+  .seoul-youth-center__site-analysis-information-flow-layout {
+    grid-template-columns: 1fr;
+  }
+}

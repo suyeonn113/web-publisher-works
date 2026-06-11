@@ -1,0 +1,102 @@
+.seoul-youth-center__positioning-swot {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.seoul-youth-center__positioning-swot-header {
+  display: grid;
+}
+
+.seoul-youth-center__positioning-swot-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  align-items: center;
+}
+
+.seoul-youth-center__positioning-swot-map {
+  position: relative;
+  display: grid;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+}
+
+.seoul-youth-center__positioning-swot-axis-label {
+  position: absolute;
+}
+
+.seoul-youth-center__positioning-swot-axis-label.is-top {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.seoul-youth-center__positioning-swot-axis-label.is-right {
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+.seoul-youth-center__positioning-swot-axis-label.is-bottom {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.seoul-youth-center__positioning-swot-axis-label.is-left {
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.seoul-youth-center__positioning-swot-axis {
+  position: absolute;
+}
+
+.seoul-youth-center__positioning-swot-axis.is-horizontal {
+  top: 50%;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: currentColor;
+}
+
+.seoul-youth-center__positioning-swot-axis.is-vertical {
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: currentColor;
+}
+
+.seoul-youth-center__positioning-swot-points {
+  position: absolute;
+  inset: 0;
+}
+
+.seoul-youth-center__positioning-swot-points li {
+  position: absolute;
+  top: var(--point-y);
+  left: var(--point-x);
+  transform: translate(-50%, -50%);
+}
+
+.seoul-youth-center__positioning-swot-position {
+  display: grid;
+}
+
+.seoul-youth-center__positioning-swot-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.seoul-youth-center__positioning-swot-list li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+}
+
+@media (max-width: 900px) {
+  .seoul-youth-center__positioning-swot-layout,
+  .seoul-youth-center__positioning-swot-list {
+    grid-template-columns: 1fr;
+  }
+}

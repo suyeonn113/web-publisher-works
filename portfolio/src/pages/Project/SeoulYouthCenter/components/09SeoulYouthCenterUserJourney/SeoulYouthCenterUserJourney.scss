@@ -1,0 +1,48 @@
+.seoul-youth-center__user-journey {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+}
+
+.seoul-youth-center__user-journey-header {
+  display: grid;
+}
+
+.seoul-youth-center__user-journey-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.seoul-youth-center__user-journey-steps li {
+  display: grid;
+}
+
+.seoul-youth-center__user-journey-scenarios {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+  align-items: center;
+}
+
+.seoul-youth-center__user-journey-scenarios-heading {
+  display: grid;
+}
+
+.seoul-youth-center__user-journey-scenarios ul {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.seoul-youth-center__user-journey-scenarios li {
+  display: grid;
+}
+
+.seoul-youth-center__user-journey-insight {
+  display: grid;
+}
+
+@media (max-width: 900px) {
+  .seoul-youth-center__user-journey-steps,
+  .seoul-youth-center__user-journey-scenarios,
+  .seoul-youth-center__user-journey-scenarios ul {
+    grid-template-columns: 1fr;
+  }
+}

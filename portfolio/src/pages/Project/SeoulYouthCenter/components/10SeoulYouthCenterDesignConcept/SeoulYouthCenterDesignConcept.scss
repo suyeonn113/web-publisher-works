@@ -1,0 +1,28 @@
+.seoul-youth-center__design-concept {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.seoul-youth-center__design-concept-header {
+  display: grid;
+}
+
+.seoul-youth-center__design-concept-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: center;
+}
+
+.seoul-youth-center__design-concept-list li {
+  display: grid;
+}
+
+.seoul-youth-center__design-concept-core {
+  display: grid;
+}
+
+@media (max-width: 900px) {
+  .seoul-youth-center__design-concept-list {
+    grid-template-columns: 1fr;
+  }
+}

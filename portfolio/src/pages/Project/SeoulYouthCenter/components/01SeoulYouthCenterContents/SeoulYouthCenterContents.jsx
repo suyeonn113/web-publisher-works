@@ -7,18 +7,18 @@ const contentsSections = [
     koreanTitle: "프로젝트 정의",
     items: [
       { number: "02", label: "프로젝트 개요" },
-      { number: "03", label: "추진 배경" },
+      { number: "03", label: "추진 배경 및 필요성" },
       { number: "04", label: "프로젝트 목표" },
     ],
   },
   {
     number: "02",
-    englishTitle: "Research",
-    koreanTitle: "분석 및 전략",
+    englishTitle: "Research & Strategy",
+    koreanTitle: "현황 분석 및 전략",
     items: [
       { number: "05", label: "기존 사이트 분석" },
       { number: "06", label: "사례 조사 및 벤치마킹" },
-      { number: "07", label: "SWOT 및 개선 전략" },
+      { number: "07", label: "SWOT 분석 및 개선 전략" },
     ],
   },
   {
@@ -27,10 +27,13 @@ const contentsSections = [
     koreanTitle: "사용자 경험 설계",
     items: [
       { number: "08", label: "사용자 분석" },
-      { number: "09", label: "사용자 여정" },
+      {
+        number: "09",
+        label: "사용자 여정 및 핵심 시나리오",
+      },
       { number: "10", label: "디자인 콘셉트" },
-      { number: "11", label: "정보 구조" },
-      { number: "12", label: "사용자 흐름" },
+      { number: "11", label: "정보 구조 설계" },
+      { number: "12", label: "사용자 흐름 설계" },
     ],
   },
   {
@@ -40,16 +43,25 @@ const contentsSections = [
     items: [
       { number: "13", label: "와이어프레임" },
       { number: "14", label: "UI 디자인" },
-      { number: "15", label: "디자인 시스템" },
+      {
+        number: "15",
+        label: "디자인 시스템 및 스타일 가이드",
+      },
       { number: "16", label: "개발 개요" },
-      { number: "17", label: "시스템 및 DB 구조" },
-      { number: "18", label: "반응형 및 접근성" },
+      {
+        number: "17",
+        label: "시스템 및 데이터베이스 구조",
+      },
+      {
+        number: "18",
+        label: "반응형 및 웹 접근성 구현",
+      },
     ],
   },
   {
     number: "05",
     englishTitle: "Outcome",
-    koreanTitle: "프로젝트 결과",
+    koreanTitle: "결과 및 확장 방향",
     items: [
       { number: "19", label: "프로젝트 일정" },
       { number: "20", label: "결과 및 기대 효과" },
@@ -58,7 +70,7 @@ const contentsSections = [
   },
 ];
 
-export default function SeoulYouthCenterContents() {
+const SeoulYouthCenterContents = () => {
   return (
     <div className="ppt-page-wrap">
       <section
@@ -67,9 +79,12 @@ export default function SeoulYouthCenterContents() {
       >
         <header className="seoul-youth-center__contents-header">
           <p className="seoul-youth-center__contents-eyebrow">
-            Contents
+            01. Table of Contents
           </p>
-          <h2 id="seoul-youth-center-contents-title">목차</h2>
+
+          <h2 id="seoul-youth-center-contents-title">
+            목차
+          </h2>
         </header>
 
         <ol className="seoul-youth-center__contents-list">
@@ -83,7 +98,7 @@ export default function SeoulYouthCenterContents() {
                   {section.number}
                 </span>
 
-                <div>
+                <div className="seoul-youth-center__contents-section-title">
                   <h3>{section.englishTitle}</h3>
                   <p>{section.koreanTitle}</p>
                 </div>
@@ -92,8 +107,13 @@ export default function SeoulYouthCenterContents() {
               <ol className="seoul-youth-center__contents-items">
                 {section.items.map((item) => (
                   <li key={item.number}>
-                    <span>{item.number}</span>
-                    <span>{item.label}</span>
+                    <span className="seoul-youth-center__contents-item-number">
+                      {item.number}
+                    </span>
+
+                    <span className="seoul-youth-center__contents-item-label">
+                      {item.label}
+                    </span>
                   </li>
                 ))}
               </ol>
@@ -103,4 +123,6 @@ export default function SeoulYouthCenterContents() {
       </section>
     </div>
   );
-}
+};
+
+export default SeoulYouthCenterContents;

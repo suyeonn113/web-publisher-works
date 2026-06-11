@@ -16,7 +16,7 @@ const SeoulYouthCenterOverview = ({ project }) => {
       >
         <header className="seoul-youth-center__overview-header">
           <p className="seoul-youth-center__overview-eyebrow">
-            Project Overview
+            02. Project Overview
           </p>
           <h2 id="seoul-youth-center-overview-title">프로젝트 개요</h2>
         </header>

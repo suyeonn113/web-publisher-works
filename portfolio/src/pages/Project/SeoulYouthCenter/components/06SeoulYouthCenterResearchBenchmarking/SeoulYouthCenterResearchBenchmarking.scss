@@ -1,0 +1,45 @@
+.seoul-youth-center__research-benchmarking {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.seoul-youth-center__research-benchmarking-header {
+  display: grid;
+}
+
+.seoul-youth-center__research-benchmarking-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+}
+
+.seoul-youth-center__research-benchmarking-criteria,
+.seoul-youth-center__research-benchmarking-targets {
+  display: grid;
+}
+
+.seoul-youth-center__research-benchmarking-criteria ol,
+.seoul-youth-center__research-benchmarking-targets ul {
+  display: grid;
+}
+
+.seoul-youth-center__research-benchmarking-criteria li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+}
+
+.seoul-youth-center__research-benchmarking-media {
+  display: block;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+}
+
+.seoul-youth-center__research-benchmarking-insight {
+  display: grid;
+}
+
+@media (max-width: 900px) {
+  .seoul-youth-center__research-benchmarking-layout {
+    grid-template-columns: 1fr;
+  }
+}

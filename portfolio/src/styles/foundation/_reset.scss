@@ -101,11 +101,6 @@ i {
   border-radius: var(--radius-focus);
 }
 
-::selection {
-  color: var(--color-text-primary);
-  background: color-mix(in srgb, var(--color-bg-mint-soft) 72%, var(--color-white));
-}
-
 * {
   scrollbar-width: thin;
   scrollbar-color: var(--color-border-gray) transparent;
