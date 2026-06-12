@@ -1,0 +1,284 @@
+@use "../../../styles/foundation" as *;
+
+.project-section-nav {
+  --section-nav-accent: var(--color-text-primary);
+  --section-nav-accent-glow: color-mix(
+    in srgb,
+    var(--section-nav-accent) 72%,
+    transparent
+  );
+  --section-nav-accent-halo: color-mix(
+    in srgb,
+    var(--section-nav-accent) 18%,
+    transparent
+  );
+  --section-nav-line: var(--color-gray-300);
+  --section-nav-dot: var(--color-gray-200);
+  --section-nav-text: var(--color-text-secondary);
+  --section-nav-text-active: var(--color-text-primary);
+
+  position: fixed;
+  top: space(4);
+  right: auto;
+  left: var(--project-section-nav-offset, #{space(4)});
+  z-index: layer(dropdown);
+  width: var(
+    --project-section-nav-width,
+    calc(100% - #{space(4)} - #{space(4)})
+  );
+  color: var(--section-nav-text);
+
+  // ========================================
+  // Mobile Toggle
+  // ========================================
+
+  &__toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 52px;
+    padding: space(3) space(4);
+    color: var(--section-nav-text-active);
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    border-radius: radius(sm);
+  }
+
+  &__toggle-heading {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  &__toggle-current {
+    display: flex;
+    gap: space(2);
+    align-items: center;
+    min-width: 0;
+    font-size: 0.75rem;
+
+    span:last-child {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  // ========================================
+  // Navigation Panel
+  // ========================================
+
+  &__panel {
+    display: none;
+    max-height: calc(100svh - 88px);
+    margin-top: space(2);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: none;
+    color: var(--section-nav-text);
+    background: transparent;
+    border-radius: radius(sm);
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &.is-open &__panel {
+    display: block;
+  }
+
+  &__header {
+    padding: space(4) space(4) space(3);
+  }
+
+  &__eyebrow {
+    margin: 0 0 space(2);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  &__project-title {
+    padding: 0;
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+
+    &:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+  }
+
+  // ========================================
+  // Groups
+  // ========================================
+
+  &__groups,
+  &__items {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  &__group {
+    padding: 0 space(4) space(3);
+  }
+
+  &__group-heading {
+    display: flex;
+    gap: space(2);
+    align-items: center;
+    margin-bottom: space(3);
+    color: var(--color-text-muted);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  &__group-number {
+    flex: 0 0 auto;
+  }
+
+  &__group-title {
+    min-width: 0;
+  }
+
+  // ========================================
+  // Navigation Items
+  // ========================================
+
+  &__items {
+    display: grid;
+    position: relative;
+
+    &::before {
+      position: absolute;
+      top: 0.625rem;
+      bottom: 0.625rem;
+      left: calc(#{space(2)} + 0.1875rem);
+      width: stroke(thin);
+      content: "";
+      background: var(--section-nav-line);
+    }
+  }
+
+  &__link {
+    display: grid;
+    grid-template-columns: 0.375rem 24px minmax(0, 1fr);
+    gap: space(2);
+    align-items: center;
+    position: relative;
+    padding: space(2);
+    color: var(--section-nav-text);
+    text-decoration: none;
+    border: stroke(thin) solid transparent;
+    border-radius: radius(xs);
+    transition:
+      color motion(fast, standard),
+      text-shadow motion(fast, standard);
+
+    &::before {
+      position: relative;
+      z-index: 1;
+      width: 0.375rem;
+      height: 0.375rem;
+      content: "";
+      background: var(--section-nav-dot);
+      border-radius: 50%;
+      transition:
+        background-color motion(fast, standard),
+        box-shadow motion(fast, standard),
+        transform motion(fast, standard);
+    }
+
+    &:hover {
+      color: var(--section-nav-text-active);
+    }
+
+    &.is-active {
+      color: var(--section-nav-text-active);
+      text-shadow: 0 0 12px var(--section-nav-accent-halo);
+
+      &::before {
+        background: var(--section-nav-accent);
+        box-shadow:
+          0 0 0 3px var(--section-nav-accent-halo),
+          0 0 12px var(--section-nav-accent-glow);
+        transform: scale(1.25);
+      }
+    }
+  }
+
+  &__item-number {
+    font-size: 0.6875rem;
+    line-height: line-height(heading);
+  }
+
+  &__item-label {
+    font-size: 0.75rem;
+    line-height: line-height(heading);
+  }
+
+  &__link.is-active &__item-label {
+    display: inline-block;
+    width: 100%;
+    padding: 0.125rem space(2);
+    margin-left: calc(#{space(2)} * -1);
+  }
+
+  // ========================================
+  // Desktop Fixed Navigation
+  // ========================================
+
+  @include respond-up(compact) {
+    top: 50%;
+    right: auto;
+    left: var(--project-section-nav-offset, #{space(6)});
+    width: var(--project-section-nav-width, 220px);
+    transform: translateY(-50%);
+
+    &__toggle {
+      display: none;
+    }
+
+    &__panel {
+      display: block;
+      max-height: calc(100svh - 48px);
+      margin-top: 0;
+    }
+
+    &__header {
+      padding: space(3) space(2) space(3);
+    }
+
+    &__group {
+      padding: 0 space(2) space(3);
+    }
+
+    &__group-heading {
+      margin-bottom: space(2);
+    }
+
+    &__link {
+      padding: space(1) space(2);
+    }
+  }
+}
+
+@media print {
+  .project-section-nav {
+    display: none;
+  }
+}

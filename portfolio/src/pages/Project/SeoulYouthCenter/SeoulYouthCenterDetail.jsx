@@ -1,4 +1,8 @@
 import { getProjectBySlug } from "../../../data/projects";
+import ProjectSectionNav from "../../../components/project-detail/ProjectSectionNav/ProjectSectionNav";
+
+import { seoulYouthCenterSections } from "./sections";
+
 import SeoulYouthCenterCover from "./components/00SeoulYouthCenterCover/SeoulYouthCenterCover";
 import SeoulYouthCenterContents from "./components/01SeoulYouthCenterContents/SeoulYouthCenterContents";
 import SeoulYouthCenterOverview from "./components/02SeoulYouthCenterOverview/SeoulYouthCenterOverview";
@@ -35,30 +39,155 @@ const SeoulYouthCenterDetail = () => {
 
   return (
     <main className="seoul-youth-center">
+      <ProjectSectionNav
+        project={project}
+        sections={seoulYouthCenterSections}
+      />
+
       <SeoulYouthCenterCover project={project} />
       <SeoulYouthCenterContents />
-      <SeoulYouthCenterOverview project={project} />
-      <SeoulYouthCenterBackground />
-      <SeoulYouthCenterGoals />
-      <SeoulYouthCenterSiteAnalysisResponsive />
-      <SeoulYouthCenterSiteAnalysisInformationFlow />
-      <SeoulYouthCenterResearchBenchmarking />
-      <SeoulYouthCenterPositioningSwot />
-      <SeoulYouthCenterImprovementStrategy />
-      <SeoulYouthCenterUserAnalysis />
-      <SeoulYouthCenterUserJourney />
-      <SeoulYouthCenterDesignConcept />
-      <SeoulYouthCenterInformationArchitecture />
-      <SeoulYouthCenterUserFlow />
-      <SeoulYouthCenterWireframes />
-      <SeoulYouthCenterUiDesign />
-      <SeoulYouthCenterDesignSystem />
-      <SeoulYouthCenterDevelopmentOverview project={project} />
-      <SeoulYouthCenterSystemArchitecture />
-      <SeoulYouthCenterResponsiveAccessibility />
-      <SeoulYouthCenterProjectSchedule />
-      <SeoulYouthCenterResultsImpact />
-      <SeoulYouthCenterFutureImprovements />
+
+      <div
+        id="overview"
+        className="project-section-group"
+      >
+        <SeoulYouthCenterOverview project={project} />
+      </div>
+
+      <div
+        id="background"
+        className="project-section-group"
+      >
+        <SeoulYouthCenterBackground />
+      </div>
+
+      <div
+        id="goals"
+        className="project-section-group"
+      >
+        <SeoulYouthCenterGoals />
+      </div>
+
+      <div
+        id="site-analysis"
+        className="project-section-group"
+      >
+        <SeoulYouthCenterSiteAnalysisResponsive />
+        <SeoulYouthCenterSiteAnalysisInformationFlow />
+      </div>
+
+      <div
+        id="research-benchmarking"
+        className="project-section-group"
+      >
+        <SeoulYouthCenterResearchBenchmarking />
+      </div>
+
+      <div
+        id="swot-strategy"
+        className="project-section-group"
+      >
+        <SeoulYouthCenterPositioningSwot />
+        <SeoulYouthCenterImprovementStrategy />
+      </div>
+
+      <div
+        id="user-analysis"
+        className="project-section-group"
+      >
+        <SeoulYouthCenterUserAnalysis />
+      </div>
+
+      <div
+        id="user-journey"
+        className="project-section-group"
+      >
+        <SeoulYouthCenterUserJourney />
+      </div>
+
+      <div
+        id="design-concept"
+        className="project-section-group"
+      >
+        <SeoulYouthCenterDesignConcept />
+      </div>
+
+      <div
+        id="information-architecture"
+        className="project-section-group"
+      >
+        <SeoulYouthCenterInformationArchitecture />
+      </div>
+
+      <div
+        id="user-flow"
+        className="project-section-group"
+      >
+        <SeoulYouthCenterUserFlow />
+      </div>
+
+      <div
+        id="wireframes"
+        className="project-section-group"
+      >
+        <SeoulYouthCenterWireframes />
+      </div>
+
+      <div
+        id="ui-design"
+        className="project-section-group"
+      >
+        <SeoulYouthCenterUiDesign />
+      </div>
+
+      <div
+        id="design-system"
+        className="project-section-group"
+      >
+        <SeoulYouthCenterDesignSystem />
+      </div>
+
+      <div
+        id="development-overview"
+        className="project-section-group"
+      >
+        <SeoulYouthCenterDevelopmentOverview project={project} />
+      </div>
+
+      <div
+        id="system-architecture"
+        className="project-section-group"
+      >
+        <SeoulYouthCenterSystemArchitecture />
+      </div>
+
+      <div
+        id="responsive-accessibility"
+        className="project-section-group"
+      >
+        <SeoulYouthCenterResponsiveAccessibility />
+      </div>
+
+      <div
+        id="project-schedule"
+        className="project-section-group"
+      >
+        <SeoulYouthCenterProjectSchedule />
+      </div>
+
+      <div
+        id="results-impact"
+        className="project-section-group"
+      >
+        <SeoulYouthCenterResultsImpact />
+      </div>
+
+      <div
+        id="future-improvements"
+        className="project-section-group"
+      >
+        <SeoulYouthCenterFutureImprovements />
+      </div>
     </main>
   );
 };
