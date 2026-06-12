@@ -1,1 +1,53 @@
 
+.seoul-youth-center__wireframes {
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+}
+
+.seoul-youth-center__wireframes-header,
+.seoul-youth-center__wireframes-section-heading,
+.seoul-youth-center__wireframes-highlights,
+.seoul-youth-center__wireframes-highlights ul,
+.seoul-youth-center__wireframes-highlights li,
+.seoul-youth-center__wireframes-insight {
+  display: grid;
+}
+
+.seoul-youth-center__wireframes-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+}
+
+.seoul-youth-center__wireframes-responsive {
+  display: grid;
+}
+
+.seoul-youth-center__wireframes-device-set {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 0.8fr);
+  align-items: start;
+}
+
+.seoul-youth-center__wireframes-device-set figure,
+.seoul-youth-center__wireframes-supporting figure {
+  display: grid;
+}
+
+.seoul-youth-center__wireframes-device-set img,
+.seoul-youth-center__wireframes-supporting img {
+  display: block;
+  max-width: 100%;
+}
+
+.seoul-youth-center__wireframes-supporting {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 1100px) {
+  .seoul-youth-center__wireframes-layout,
+  .seoul-youth-center__wireframes-device-set,
+  .seoul-youth-center__wireframes-supporting {
+    grid-template-columns: 1fr;
+  }
+}

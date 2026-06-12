@@ -1,1 +1,64 @@
 
+.seoul-youth-center__information-architecture {
+  display: grid;
+  grid-template-rows: auto auto auto auto auto;
+}
+
+.seoul-youth-center__information-architecture-header {
+  display: grid;
+}
+
+.seoul-youth-center__information-architecture-compare {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.seoul-youth-center__information-architecture-panel,
+.seoul-youth-center__information-architecture-panel ul,
+.seoul-youth-center__information-architecture-panel li {
+  display: grid;
+}
+
+.seoul-youth-center__information-architecture-detail {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.seoul-youth-center__information-architecture-detail section,
+.seoul-youth-center__information-architecture-detail ul,
+.seoul-youth-center__information-architecture-detail li {
+  display: grid;
+}
+
+.seoul-youth-center__information-architecture-map {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+}
+
+.seoul-youth-center__information-architecture-group {
+  display: grid;
+}
+
+.seoul-youth-center__information-architecture-group div,
+.seoul-youth-center__information-architecture-group ul {
+  display: grid;
+}
+
+.seoul-youth-center__information-architecture-insight {
+  display: grid;
+}
+
+@media (max-width: 1200px) {
+  .seoul-youth-center__information-architecture-map {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .seoul-youth-center__information-architecture-compare,
+  .seoul-youth-center__information-architecture-detail,
+  .seoul-youth-center__information-architecture-map {
+    grid-template-columns: 1fr;
+  }
+}
