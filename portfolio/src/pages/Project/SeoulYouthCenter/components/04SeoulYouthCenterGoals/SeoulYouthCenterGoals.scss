@@ -1,0 +1,133 @@
+@use "../../../../../styles/foundation" as *;
+
+.seoul-youth-center__goals {
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  row-gap: space(4);
+  align-content: stretch;
+}
+
+.seoul-youth-center__goals-header {
+  max-width: 980px;
+}
+
+.seoul-youth-center__goals-list {
+  display: grid;
+  height: 100%;
+  min-height: 0;
+  grid-template-rows: repeat(4, max-content);
+  gap: space(3);
+  align-content: space-between;
+}
+
+.seoul-youth-center__goals-item {
+  display: grid;
+  grid-template-columns: minmax(0, 0.26fr) minmax(0, 1fr);
+  gap: space(10);
+  align-items: start;
+  padding-block: space(2);
+  border-bottom: stroke(thin) solid var(--syc-rule-color);
+}
+
+.seoul-youth-center__goals-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: space(2);
+}
+
+.seoul-youth-center__goals-copy {
+  display: grid;
+  max-width: 900px;
+  gap: space(2);
+
+  h3 {
+    @include typography(body-lg);
+  }
+
+  p {
+    @include typography(meta);
+
+    line-height: line-height(base);
+  }
+}
+
+.seoul-youth-center__goals-statement {
+  display: grid;
+  grid-template-columns: minmax(0, 0.24fr) minmax(0, 1fr);
+  gap: space(10);
+  align-items: baseline;
+  padding: space(5);
+  border: stroke(thin) solid var(--syc-rule-color);
+  background: var(--syc-soft-surface);
+
+  p {
+    @include typography(meta);
+
+    color: var(--color-point);
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  strong {
+    @include typography(body-lg);
+  }
+}
+
+@include respond-down(wide) {
+  .seoul-youth-center__goals {
+    grid-template-rows: auto auto auto;
+    row-gap: var(--syc-content-gap);
+    align-content: start;
+  }
+
+  .seoul-youth-center__goals-header {
+    max-width: none;
+  }
+
+  .seoul-youth-center__goals-list {
+    height: auto;
+    min-height: initial;
+    grid-template-rows: none;
+    gap: space(4);
+    align-content: start;
+  }
+
+  .seoul-youth-center__goals-item {
+    grid-template-columns: minmax(180px, 0.28fr) minmax(0, 1fr);
+    gap: space(6);
+    padding-block: space(4);
+  }
+
+  .seoul-youth-center__goals-copy {
+    max-width: none;
+  }
+
+  .seoul-youth-center__goals-statement {
+    grid-template-columns: minmax(180px, 0.28fr) minmax(0, 1fr);
+    gap: space(6);
+    padding: space(4);
+  }
+}
+
+@include respond-down(laptop) {
+  .seoul-youth-center__goals-item,
+  .seoul-youth-center__goals-statement {
+    grid-template-columns: 1fr;
+    gap: space(3);
+  }
+}
+
+@include respond-down(tablet) {
+  .seoul-youth-center__goals-list {
+    gap: space(3);
+  }
+
+  .seoul-youth-center__goals-item {
+    padding-block: space(3);
+  }
+
+  .seoul-youth-center__goals-statement {
+    padding: space(3);
+  }
+}
+

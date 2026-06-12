@@ -64,9 +64,6 @@
   $weight: map.get($font-weights, map.get($config, weight));
   $leading: map.get($line-heights, map.get($config, leading));
   $tracking: map.get($letter-spacings, map.get($config, tracking));
-  $compact-size: map.get($sizes, compact);
-  $wide-size: map.get($sizes, wide);
-
   font-size: map.get($sizes, base);
   font-weight: $weight;
   line-height: $leading;
@@ -74,20 +71,8 @@
 
   @each $breakpoint, $size in $sizes {
     @if $breakpoint != base {
-      @if $compact-size != null and $wide-size != null {
-        @if $breakpoint == compact {
-          @include respond-up(compact) {
-            font-size: fluid-page($compact-size, $wide-size);
-          }
-        } @else if $breakpoint != desktop and $breakpoint != wide {
-          @include respond-up($breakpoint) {
-            font-size: $size;
-          }
-        }
-      } @else {
-        @include respond-up($breakpoint) {
-          font-size: $size;
-        }
+      @include respond-up($breakpoint) {
+        font-size: $size;
       }
     }
   }
@@ -103,22 +88,15 @@
   @include responsive-space(--frame-gutter, $frame-gutters);
   @include responsive-space(padding, $page-paddings);
 
-  width: min(
-    calc(100% - var(--frame-gutter) - var(--frame-gutter)),
-    $page-max-width
-  );
+  width: min(100%, $page-max-width);
   min-width: 0;
-  min-height: 100svh;
+  min-height: auto;
   margin-inline: auto;
-
-  @include respond-up(compact) {
-    width: min(100%, $page-max-width);
-    min-height: auto;
-    aspect-ratio: $page-aspect-ratio;
-  }
 
   @include respond-up(wide) {
     width: min(100%, $page-max-width);
+    min-height: auto;
+    aspect-ratio: $page-aspect-ratio;
   }
 }
 

@@ -319,15 +319,15 @@
   // Desktop Fixed Navigation
   // ========================================
 
-  @include respond-up(compact) {
+  @include respond-up(wide) {
     top: 50%;
     left: var(
       --project-section-nav-offset,
-      clamp(16px, 1.4vw, 28px)
+      #{space(6)}
     );
     width: var(
       --project-section-nav-width,
-      clamp(152px, 11vw, 190px)
+      calc(#{space(22)} * 2)
     );
     transform: translateY(-50%);
 

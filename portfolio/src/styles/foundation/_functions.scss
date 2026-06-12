@@ -1,5 +1,4 @@
 @use "sass:map";
-@use "sass:string";
 @use "./variables" as *;
 @use "./scales" as *;
 
@@ -35,25 +34,6 @@
 
 @function space($key) {
   @return _get-scale($spacing, $key, "spacing");
-}
-
-
-// ========================================
-// Page Fluid Value
-// compact부터 1440 디자인 폭까지 부드럽게 값 적용
-// ========================================
-
-@function fluid-page(
-  $min-value,
-  $max-value,
-  $min-width-key: compact,
-  $max-width: $page-design-width
-) {
-  $min-width: breakpoint($min-width-key);
-
-  @return string.unquote(
-    "clamp(#{$min-value}, calc(#{$min-value} + (#{$max-value} - #{$min-value}) * ((100vw - #{$min-width}) / (#{$max-width} - #{$min-width}))), #{$max-value})"
-  );
 }
 
 

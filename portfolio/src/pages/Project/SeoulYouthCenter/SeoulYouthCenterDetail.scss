@@ -1,9 +1,9 @@
 @use "../../../styles/foundation" as *;
 
 .seoul-youth-center {
-  --syc-page-row-gap: clamp(28px, 7vw, 56px);
-  --syc-content-gap: clamp(16px, 5vw, 32px);
-  --syc-line-gap: clamp(10px, 3vw, 18px);
+  --syc-page-row-gap: #{space(18)};
+  --syc-content-gap: #{space(12)};
+  --syc-line-gap: #{space(5)};
   --syc-rule-color: var(--color-border-secondary);
   --syc-muted-color: var(--color-text-secondary);
   --syc-soft-surface: var(--color-gray-50);
@@ -15,7 +15,6 @@
   :where(.syc-page) {
     display: grid;
     align-content: start;
-    gap: var(--syc-page-row-gap);
     overflow: hidden;
     background: var(--color-white);
   }
@@ -24,6 +23,7 @@
     display: grid;
     row-gap: var(--syc-line-gap);
     align-content: start;
+    margin-bottom: var(--syc-content-gap);
   }
 
   :where(.syc-page [class$="-eyebrow"]) {
@@ -73,7 +73,7 @@
   }
 
   :where(.syc-page [class$="-keyword"]) {
-    @include typography(meta);
+    @include typography(title);
 
     display: inline-flex;
     align-items: center;
@@ -83,9 +83,6 @@
     padding-inline: 0.75em;
     color: var(--color-point);
     text-transform: uppercase;
-    border: 1px solid color-mix(in srgb, var(--color-point) 28%, transparent);
-    border-radius: radius(full);
-    background: color-mix(in srgb, var(--color-point) 8%, transparent);
   }
 
   :where(.syc-page [class$="-link"], .seoul-youth-center__links a) {
@@ -94,8 +91,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: clamp(36px, 3vw, 44px);
-    padding-inline: clamp(16px, 2vw, 24px);
+    min-height: 44px;
+    padding-inline: 24px;
     color: var(--color-text-primary);
     border: 1px solid var(--syc-element-border);
     border-radius: radius(full);
@@ -144,7 +141,6 @@
 
   :where(.syc-page [class$="-list"]) {
     display: grid;
-    gap: var(--syc-line-gap);
   }
 
   :where(.syc-page [class$="-insight"]) {
@@ -157,7 +153,6 @@
   :where(
     .syc-page [class$="-finding"],
     .syc-page [class$="-direction"],
-    .syc-page [class$="-conclusion"],
     .syc-page [class$="-core"]
   ) {
     display: grid;
@@ -175,16 +170,19 @@
     text-transform: uppercase;
   }
 
-  @include respond-up(compact) {
-    --syc-page-row-gap: #{fluid-page(34px, 72px)};
-    --syc-content-gap: #{fluid-page(22px, 48px)};
-    --syc-line-gap: #{fluid-page(10px, 18px)};
-  }
+  @include respond-down(wide) {
+    --syc-content-gap: #{space(8)};
+    --syc-line-gap: #{space(3)};
 
-  @include respond-down(compact) {
     :where(.syc-page) {
       min-height: 100svh;
       aspect-ratio: auto;
+      gap: space(4);
+    }
+
+    :where(.syc-page [class$="-link"], .seoul-youth-center__links a) {
+      min-height: space(8);
+      padding-inline: space(4);
     }
 
     :where(.syc-page [class$="-layout"]) {

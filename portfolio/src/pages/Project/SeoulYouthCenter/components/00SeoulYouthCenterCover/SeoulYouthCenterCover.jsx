@@ -52,7 +52,7 @@ const previewDevices = [
     width: 390,
     height: 844,
     pageHeight: 4750,
-    scrollbarGutter: 4,
+    scrollbarGutter: 6,
 
     Icon: () => (
       <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">

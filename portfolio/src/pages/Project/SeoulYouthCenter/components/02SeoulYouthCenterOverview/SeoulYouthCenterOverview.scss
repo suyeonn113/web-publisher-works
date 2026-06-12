@@ -1,1 +1,143 @@
+@use "../../../../../styles/foundation" as *;
 
+.seoul-youth-center__overview {
+  grid-template-rows: auto minmax(0, 1fr);
+  row-gap: space(4);
+  align-content: stretch;
+}
+
+.seoul-youth-center__overview-header {
+  max-width: 980px;
+}
+
+.seoul-youth-center__overview-body {
+  display: grid;
+  height: 100%;
+  min-height: 0;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: space(8);
+  align-content: start;
+}
+
+.seoul-youth-center__overview-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: space(3);
+}
+
+.seoul-youth-center__overview-summary-item {
+  display: grid;
+  align-content: start;
+  gap: space(3);
+  min-height: 156px;
+  padding: space(5);
+  border: stroke(thin) solid var(--syc-rule-color);
+  background: var(--syc-soft-surface);
+
+  dt {
+    @include typography(meta);
+
+    color: var(--syc-muted-color);
+    font-weight: 700;
+  }
+
+  dd {
+    @include typography(body-lg);
+
+    color: var(--color-text-primary);
+    word-break: keep-all;
+  }
+}
+
+.seoul-youth-center__overview-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  align-content: start;
+}
+
+.seoul-youth-center__overview-item {
+  display: grid;
+  align-content: start;
+  grid-template-columns: minmax(160px, 0.18fr) minmax(0, 1fr);
+  gap: space(8);
+  align-items: baseline;
+  min-height: 0;
+  padding-block: space(3);
+  border-bottom: stroke(thin) solid var(--syc-rule-color);
+
+  dt {
+    @include typography(meta);
+
+    color: var(--syc-muted-color);
+    font-weight: 700;
+  }
+
+  dd {
+    color: var(--color-text-primary);
+    word-break: keep-all;
+  }
+}
+
+@include respond-down(wide) {
+  .seoul-youth-center__overview {
+    grid-template-rows: auto auto;
+    row-gap: var(--syc-content-gap);
+    align-content: start;
+  }
+
+  .seoul-youth-center__overview-header {
+    max-width: none;
+  }
+
+  .seoul-youth-center__overview-body {
+    height: auto;
+    min-height: initial;
+    grid-template-rows: auto auto;
+    gap: space(6);
+  }
+
+  .seoul-youth-center__overview-summary-item {
+    min-height: 0;
+    padding: space(4);
+  }
+
+  .seoul-youth-center__overview-list {
+    gap: space(2);
+  }
+
+  .seoul-youth-center__overview-item {
+    grid-template-columns: minmax(140px, 0.28fr) minmax(0, 1fr);
+    gap: space(5);
+    padding-block: space(4);
+  }
+}
+
+@include respond-down(laptop) {
+  .seoul-youth-center__overview-summary {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .seoul-youth-center__overview-item {
+    grid-template-columns: 1fr;
+    gap: space(2);
+  }
+}
+
+@include respond-down(mobile) {
+  .seoul-youth-center__overview-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .seoul-youth-center__overview-body {
+    gap: space(4);
+  }
+
+  .seoul-youth-center__overview-list {
+    gap: space(2);
+  }
+
+  .seoul-youth-center__overview-item {
+    padding-block: space(3);
+  }
+}

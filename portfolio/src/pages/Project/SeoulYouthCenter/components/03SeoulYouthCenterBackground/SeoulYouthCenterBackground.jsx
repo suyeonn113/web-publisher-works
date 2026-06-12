@@ -1,7 +1,7 @@
 import "./SeoulYouthCenterBackground.scss";
 
 const backgroundIntro =
-  "서울시립청소년센터는 서울시를 대표하는 청소년 기관임에도 기존 홈페이지가 반응형 환경을 충분히 지원하지 않아 모바일과 태블릿 이용자의 정보 접근성이 낮았습니다.";
+  "서울시립청소년센터는 서울시를 대표하는 청소년 기관임에도 기존 홈페이지가 반응형 환경을 충분히 지원하지 않아\n모바일과 태블릿 이용자의 정보 접근성이 낮았습니다.";
 
 const backgroundItems = [
   {

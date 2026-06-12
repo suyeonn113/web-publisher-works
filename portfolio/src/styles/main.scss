@@ -19,21 +19,21 @@
 }
 
 .project-section-nav-safe-area {
-  @include respond-up(compact) {
+  @include respond-up(wide) {
     padding-inline-start: var(
       --project-section-nav-reserved-space,
       calc(
         var(
           --project-section-nav-offset,
-          clamp(16px, 1.4vw, 28px)
+          #{space(10)}
         ) +
         var(
           --project-section-nav-width,
-          clamp(152px, 11vw, 190px)
+          calc(#{space(22)} * 2)
         ) +
         var(
           --project-section-nav-reserved-gap,
-          clamp(16px, 1.5vw, 28px)
+          #{space(6)}
         )
       )
     );

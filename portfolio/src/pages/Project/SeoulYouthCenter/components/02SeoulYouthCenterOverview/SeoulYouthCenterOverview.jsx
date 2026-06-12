@@ -7,6 +7,8 @@ const SeoulYouthCenterOverview = ({ project }) => {
   }
 
   const overviewItems = getProjectOverviewItems(project);
+  const summaryItems = overviewItems.slice(0, 4);
+  const detailItems = overviewItems.slice(4);
 
   return (
     <div className="ppt-page-wrap">
@@ -21,17 +23,31 @@ const SeoulYouthCenterOverview = ({ project }) => {
           <h2 id="seoul-youth-center-overview-title">프로젝트 개요</h2>
         </header>
 
-        <dl className="seoul-youth-center__overview-list">
-          {overviewItems.map(({ label, value }) => (
-            <div
-              className="seoul-youth-center__overview-item"
-              key={label}
-            >
-              <dt>{label}</dt>
-              <dd>{value}</dd>
-            </div>
-          ))}
-        </dl>
+        <div className="seoul-youth-center__overview-body">
+          <dl className="seoul-youth-center__overview-summary">
+            {summaryItems.map(({ label, value }) => (
+              <div
+                className="seoul-youth-center__overview-summary-item"
+                key={label}
+              >
+                <dt>{label}</dt>
+                <dd>{value}</dd>
+              </div>
+            ))}
+          </dl>
+
+          <dl className="seoul-youth-center__overview-list">
+            {detailItems.map(({ label, value }) => (
+              <div
+                className="seoul-youth-center__overview-item"
+                key={label}
+              >
+                <dt>{label}</dt>
+                <dd>{value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
       </section>
     </div>
   );
