@@ -65,6 +65,18 @@ $typography: (
     tracking: heading,
   ),
 
+  heading-sm: (
+    sizes: (
+      base: 1.5rem,
+      tablet: 1.75rem,
+      compact: 1.875rem,
+      wide: 2.25rem,
+    ),
+    weight: bold,
+    leading: heading,
+    tracking: heading,
+  ),
+
   title: (
     sizes: (
       base: 1.25rem,

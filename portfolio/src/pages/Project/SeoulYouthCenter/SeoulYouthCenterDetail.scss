@@ -1,1 +1,194 @@
 @use "../../../styles/foundation" as *;
+
+.seoul-youth-center {
+  --syc-page-row-gap: clamp(28px, 7vw, 56px);
+  --syc-content-gap: clamp(16px, 5vw, 32px);
+  --syc-line-gap: clamp(10px, 3vw, 18px);
+  --syc-rule-color: var(--color-border-secondary);
+  --syc-muted-color: var(--color-text-secondary);
+  --syc-soft-surface: var(--color-gray-50);
+  --syc-element-border: rgb(var(--color-black-rgb) / 12%);
+
+  color: var(--color-text-primary);
+  background: var(--color-bg-primary);
+
+  :where(.syc-page) {
+    display: grid;
+    align-content: start;
+    gap: var(--syc-page-row-gap);
+    overflow: hidden;
+    background: var(--color-white);
+  }
+
+  :where(.syc-page > header) {
+    display: grid;
+    row-gap: var(--syc-line-gap);
+    align-content: start;
+  }
+
+  :where(.syc-page [class$="-eyebrow"]) {
+    @include typography(eyebrow);
+
+    color: var(--syc-muted-color);
+    text-transform: uppercase;
+  }
+
+  :where(.syc-page h2) {
+    @include typography(heading);
+
+    color: var(--color-text-primary);
+  }
+
+  :where(.syc-page h3) {
+    @include typography(title);
+
+    color: var(--color-text-primary);
+  }
+
+  :where(.syc-page p, .syc-page li, .syc-page dd) {
+    @include typography(body);
+
+    color: var(--syc-muted-color);
+  }
+
+  :where(.syc-page strong) {
+    color: var(--color-text-primary);
+    font-weight: 600;
+  }
+
+  :where(.syc-page [class$="-summary"], .syc-page [class$="-intro"]) {
+    @include typography(body-lg);
+  }
+
+  :where(.seoul-youth-center__contents h2) {
+    @include typography(heading-sm);
+  }
+
+  :where(.syc-page [class$="-number"]) {
+    @include typography(meta);
+
+    color: var(--color-point);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  :where(.syc-page [class$="-keyword"]) {
+    @include typography(meta);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    min-height: 1.75em;
+    padding-inline: 0.75em;
+    color: var(--color-point);
+    text-transform: uppercase;
+    border: 1px solid color-mix(in srgb, var(--color-point) 28%, transparent);
+    border-radius: radius(full);
+    background: color-mix(in srgb, var(--color-point) 8%, transparent);
+  }
+
+  :where(.syc-page [class$="-link"], .seoul-youth-center__links a) {
+    @include typography(meta);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: clamp(36px, 3vw, 44px);
+    padding-inline: clamp(16px, 2vw, 24px);
+    color: var(--color-text-primary);
+    border: 1px solid var(--syc-element-border);
+    border-radius: radius(full);
+    background: rgb(var(--color-white-rgb) / 88%);
+    transition:
+      color motion(base, standard),
+      background-color motion(base, standard),
+      border-color motion(base, standard),
+      transform motion(base, standard);
+  }
+
+  :where(.syc-page [class$="-link"]:hover, .seoul-youth-center__links a:hover) {
+    color: var(--color-white);
+    border-color: var(--color-gray-900);
+    background: var(--color-gray-900);
+  }
+
+  :where(.syc-page [class$="-layout"]) {
+    display: grid;
+    gap: var(--syc-content-gap);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  :where(.syc-page figure) {
+    display: grid;
+    gap: var(--syc-line-gap);
+    align-content: start;
+  }
+
+  :where(.syc-page figcaption) {
+    @include typography(meta);
+
+    color: var(--syc-muted-color);
+  }
+
+  :where(.syc-page [class$="-media"]) {
+    overflow: hidden;
+    background: var(--color-gray-50);
+  }
+
+  :where(.syc-page [class$="-media"] img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  :where(.syc-page [class$="-list"]) {
+    display: grid;
+    gap: var(--syc-line-gap);
+  }
+
+  :where(.syc-page [class$="-insight"]) {
+    display: grid;
+    gap: var(--syc-line-gap);
+    padding-block: var(--syc-content-gap);
+    border-block: 1px solid var(--syc-rule-color);
+  }
+
+  :where(
+    .syc-page [class$="-finding"],
+    .syc-page [class$="-direction"],
+    .syc-page [class$="-conclusion"],
+    .syc-page [class$="-core"]
+  ) {
+    display: grid;
+    gap: var(--syc-line-gap);
+    padding: var(--syc-content-gap);
+    border: 1px solid var(--syc-rule-color);
+    background: var(--syc-soft-surface);
+  }
+
+  :where(.syc-page [class$="-section-heading"]) {
+    @include typography(meta);
+
+    color: var(--syc-muted-color);
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  @include respond-up(compact) {
+    --syc-page-row-gap: #{fluid-page(34px, 72px)};
+    --syc-content-gap: #{fluid-page(22px, 48px)};
+    --syc-line-gap: #{fluid-page(10px, 18px)};
+  }
+
+  @include respond-down(compact) {
+    :where(.syc-page) {
+      min-height: 100svh;
+      aspect-ratio: auto;
+    }
+
+    :where(.syc-page [class$="-layout"]) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
