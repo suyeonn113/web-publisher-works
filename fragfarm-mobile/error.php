@@ -1,8 +1,6 @@
 <?php
 include __DIR__ . '/includes/config.php';
 
-http_response_code(500);
-
 $pageTitle = '페이지를 불러올 수 없습니다 | Fragfarm';
 ?>
 

@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+
+import { ROUTES } from '../constants/routes';
 import './_not-found.scss';
 
 const NotFound = () => {
@@ -9,8 +12,8 @@ const NotFound = () => {
         <span>실제 사이트를 확인하거나 메인으로 돌아가 주세요.</span>
       </p>
       <div className="not-found-page__actions">
-        <a href="/">메인으로 돌아가기</a>
-        <a href="/booking">항공권 예매</a>
+        <Link to={ROUTES.home}>메인으로 돌아가기</Link>
+        <Link to={ROUTES.booking.root}>항공권 예매</Link>
       </div>
     </main>
   );
