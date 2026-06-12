@@ -66,7 +66,7 @@ const SeoulYouthCenterWireframes = () => {
   return (
     <div className="ppt-page-wrap">
       <section
-        className="ppt-page project-section-nav-safe-area seoul-youth-center__wireframes"
+        className="ppt-page syc-page project-section-nav-safe-area seoul-youth-center__wireframes"
         aria-labelledby="seoul-youth-center-wireframes-title"
       >
         <header className="seoul-youth-center__wireframes-header">

@@ -27,7 +27,7 @@ const SeoulYouthCenterDesignSystem = () => {
   return (
     <div className="ppt-page-wrap">
       <section
-        className="ppt-page project-section-nav-safe-area seoul-youth-center__design-system"
+        className="ppt-page syc-page project-section-nav-safe-area seoul-youth-center__design-system"
         aria-labelledby="seoul-youth-center-design-system-title"
       >
         <header className="seoul-youth-center__design-system-header">

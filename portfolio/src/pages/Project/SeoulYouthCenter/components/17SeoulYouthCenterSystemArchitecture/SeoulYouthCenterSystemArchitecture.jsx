@@ -38,7 +38,7 @@ const SeoulYouthCenterSystemArchitecture = () => {
   return (
     <div className="ppt-page-wrap">
       <section
-        className="ppt-page project-section-nav-safe-area seoul-youth-center__system-architecture"
+        className="ppt-page syc-page project-section-nav-safe-area seoul-youth-center__system-architecture"
         aria-labelledby="seoul-youth-center-system-architecture-title"
       >
         <header className="seoul-youth-center__system-architecture-header">

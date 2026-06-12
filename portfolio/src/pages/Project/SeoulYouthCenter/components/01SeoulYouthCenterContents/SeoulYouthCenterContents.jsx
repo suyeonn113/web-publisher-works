@@ -6,7 +6,7 @@ const SeoulYouthCenterContents = () => {
     <div className="ppt-page-wrap">
       <section
         id="contents"
-        className="ppt-page project-section-nav-safe-area seoul-youth-center__contents"
+        className="ppt-page syc-page project-section-nav-safe-area seoul-youth-center__contents"
         aria-labelledby="seoul-youth-center-contents-title"
       >
         <header className="seoul-youth-center__contents-header">

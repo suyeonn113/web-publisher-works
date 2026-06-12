@@ -38,7 +38,7 @@ const SeoulYouthCenterDetail = () => {
   }
 
   return (
-    <main className="seoul-youth-center">
+    <main className="project-detail project-detail--ppt seoul-youth-center">
       <ProjectSectionNav
         project={project}
         sections={seoulYouthCenterSections}

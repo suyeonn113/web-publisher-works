@@ -413,7 +413,7 @@ const SeoulYouthCenterCover = ({ project }) => {
   return (
     <div className="ppt-page-wrap seoul-youth-center__cover-wrap">
       <section
-        className="ppt-page seoul-youth-center__cover"
+        className="ppt-page syc-page seoul-youth-center__cover"
         aria-labelledby="seoul-youth-center-title"
       >
         <div className="seoul-youth-center__cover-copy">

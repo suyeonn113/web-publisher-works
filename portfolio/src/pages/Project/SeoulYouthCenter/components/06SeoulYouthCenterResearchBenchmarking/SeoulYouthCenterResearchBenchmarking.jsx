@@ -46,7 +46,7 @@ const SeoulYouthCenterResearchBenchmarking = () => {
   return (
     <div className="ppt-page-wrap">
       <section
-        className="ppt-page project-section-nav-safe-area seoul-youth-center__research-benchmarking"
+        className="ppt-page syc-page project-section-nav-safe-area seoul-youth-center__research-benchmarking"
         aria-labelledby="seoul-youth-center-research-benchmarking-title"
       >
         <header className="seoul-youth-center__research-benchmarking-header">

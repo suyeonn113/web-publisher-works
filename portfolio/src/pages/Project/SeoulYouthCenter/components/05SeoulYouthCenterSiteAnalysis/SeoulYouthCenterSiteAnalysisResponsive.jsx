@@ -25,7 +25,7 @@ const SeoulYouthCenterSiteAnalysisResponsive = () => {
   return (
     <div className="ppt-page-wrap">
       <section
-        className="ppt-page project-section-nav-safe-area seoul-youth-center__site-analysis-responsive"
+        className="ppt-page syc-page project-section-nav-safe-area seoul-youth-center__site-analysis-responsive"
         aria-labelledby="seoul-youth-center-site-analysis-responsive-title"
       >
         <header className="seoul-youth-center__site-analysis-responsive-header">

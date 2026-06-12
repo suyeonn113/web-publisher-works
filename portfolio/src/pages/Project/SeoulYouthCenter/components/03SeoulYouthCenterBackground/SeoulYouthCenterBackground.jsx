@@ -37,7 +37,7 @@ const SeoulYouthCenterBackground = () => {
   return (
     <div className="ppt-page-wrap">
       <section
-        className="ppt-page project-section-nav-safe-area seoul-youth-center__background"
+        className="ppt-page syc-page project-section-nav-safe-area seoul-youth-center__background"
         aria-labelledby="seoul-youth-center-background-title"
       >
         <header className="seoul-youth-center__background-header">
