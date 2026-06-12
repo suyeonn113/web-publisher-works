@@ -1,0 +1,150 @@
+@use "../../../../../styles/foundation" as *;
+
+.ppt-page.seoul-youth-center__contents {
+  --syc-contents-rule: rgb(var(--color-black-rgb) / 10%);
+  --syc-contents-subtle: rgb(var(--color-black-rgb) / 5%);
+
+  align-content: start;
+  background: var(--color-white);
+}
+
+.seoul-youth-center__contents-header {
+  position: relative;
+  padding-bottom: space(6);
+
+  h2 {
+    word-break: keep-all;
+  }
+}
+
+.seoul-youth-center__contents-list {
+  display: grid;
+  gap: space(8);
+}
+
+.seoul-youth-center__contents-section {
+  display: grid;
+  gap: space(5);
+  padding-top: space(5);
+}
+
+.seoul-youth-center__contents-section-heading {
+  display: grid;
+  grid-template-columns: minmax(42px, auto) minmax(0, 1fr);
+  gap: space(4);
+  align-items: start;
+}
+
+.seoul-youth-center__contents-section-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 1.6em;
+}
+
+.seoul-youth-center__contents
+  .seoul-youth-center__contents-section-number {
+  @include typography(title);
+}
+
+.seoul-youth-center__contents-section-title {
+  display: grid;
+  gap: space(1);
+
+  h3,
+  p {
+    margin: 0;
+    word-break: keep-all;
+  }
+
+  h3 {
+    color: var(--color-text-primary);
+  }
+
+  p {
+    color: var(--syc-muted-color);
+  }
+}
+
+.seoul-youth-center__contents-items {
+  display: grid;
+  gap: space(3);
+}
+
+.seoul-youth-center__contents-items li {
+  display: grid;
+  grid-template-columns: minmax(34px, auto) minmax(0, 1fr);
+  gap: space(3);
+  align-items: baseline;
+}
+
+.seoul-youth-center__contents-item-number {
+  color: var(--color-text-primary);
+}
+
+.seoul-youth-center__contents-item-label {
+  color: var(--syc-muted-color);
+  word-break: keep-all;
+}
+
+@include respond-up(compact) {
+  .ppt-page.seoul-youth-center__contents {
+    grid-template-columns: minmax(180px, 0.28fr) minmax(0, 1fr);
+    column-gap: fluid-page(48px, 92px);
+    row-gap: 0;
+    align-items: start;
+  }
+
+  .seoul-youth-center__contents-header {
+    position: sticky;
+    top: fluid-page(32px, 48px);
+    padding-bottom: fluid-page(24px, 42px);
+  }
+
+  .seoul-youth-center__contents-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: fluid-page(24px, 44px) fluid-page(42px, 72px);
+  }
+
+  .seoul-youth-center__contents-section {
+    gap: fluid-page(14px, 24px);
+    padding-top: fluid-page(16px, 24px);
+  }
+
+  .seoul-youth-center__contents-section-heading {
+    grid-template-columns: minmax(fluid-page(34px, 48px), auto) minmax(0, 1fr);
+    gap: fluid-page(14px, 20px);
+  }
+
+  .seoul-youth-center__contents-section-title {
+    gap: fluid-page(3px, 6px);
+  }
+
+  .seoul-youth-center__contents-items {
+    gap: fluid-page(8px, 13px);
+  }
+
+  .seoul-youth-center__contents-items li {
+    grid-template-columns: minmax(fluid-page(28px, 36px), auto) minmax(0, 1fr);
+    gap: fluid-page(10px, 16px);
+  }
+
+  .seoul-youth-center__contents-list
+    .seoul-youth-center__contents-section:nth-child(3) {
+    grid-row: span 2;
+  }
+}
+
+@include respond-down(compact) {
+  .ppt-page.seoul-youth-center__contents {
+    gap: space(8);
+  }
+
+  .seoul-youth-center__contents-header {
+    padding-bottom: space(5);
+  }
+
+  .seoul-youth-center__contents-section:first-child {
+    border-top-color: var(--syc-contents-subtle);
+  }
+}

@@ -27,6 +27,17 @@
     calc(100% - #{space(4)} - #{space(4)})
   );
   color: var(--section-nav-text);
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity motion(base, standard),
+    visibility motion(base, standard);
+
+  &.is-before-start {
+    pointer-events: none;
+    visibility: hidden;
+    opacity: 0;
+  }
 
   // ========================================
   // Mobile Toggle

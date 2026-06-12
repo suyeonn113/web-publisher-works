@@ -35,18 +35,21 @@
 
   :where(.syc-page h2) {
     @include typography(heading);
+    word-break: keep-all;
 
     color: var(--color-text-primary);
   }
 
   :where(.syc-page h3) {
     @include typography(title);
+    word-break: keep-all;
 
     color: var(--color-text-primary);
   }
 
   :where(.syc-page p, .syc-page li, .syc-page dd) {
     @include typography(body);
+    word-break: keep-all;
 
     color: var(--syc-muted-color);
   }
@@ -58,10 +61,12 @@
 
   :where(.syc-page [class$="-summary"], .syc-page [class$="-intro"]) {
     @include typography(body-lg);
+    word-break: keep-all;
   }
 
   :where(.seoul-youth-center__contents h2) {
     @include typography(heading-sm);
+    word-break: keep-all;
   }
 
   :where(.syc-page [class$="-number"]) {

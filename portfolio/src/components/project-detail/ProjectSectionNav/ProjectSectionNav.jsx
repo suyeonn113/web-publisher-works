@@ -25,6 +25,8 @@ const ProjectSectionNav = ({
   );
 
   const [isOpen, setIsOpen] = useState(false);
+  const [hasReachedStart, setHasReachedStart] =
+    useState(false);
 
   const activeItem = navigationItems.find(
     (item) => item.id === activeSectionId,
@@ -54,6 +56,21 @@ const ProjectSectionNav = ({
     let animationFrameId = null;
 
     const updateActiveSection = () => {
+      const firstSectionElement = sectionElements[0];
+      const firstSectionTop =
+        firstSectionElement.getBoundingClientRect().top +
+        window.scrollY;
+
+      const nextHasReachedStart =
+        window.scrollY + 1 >= firstSectionTop;
+
+      setHasReachedStart(nextHasReachedStart);
+
+      if (!nextHasReachedStart) {
+        setActiveSectionId(sectionElements[0]?.id ?? "");
+        return;
+      }
+
       if (window.scrollY <= 1) {
         setActiveSectionId(sectionElements[0]?.id ?? "");
         return;
@@ -98,6 +115,7 @@ const ProjectSectionNav = ({
     window.addEventListener("scroll", handleScroll, {
       passive: true,
     });
+    window.addEventListener("resize", handleScroll);
 
     const handleHashChange = () => {
       const nextSectionId = decodeURIComponent(
@@ -120,6 +138,7 @@ const ProjectSectionNav = ({
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
 
       if (animationFrameId) {
         window.cancelAnimationFrame(animationFrameId);
@@ -180,6 +199,7 @@ const ProjectSectionNav = ({
   const handleScrollToTop = () => {
     setIsOpen(false);
     setActiveSectionId(navigationItems[0]?.id ?? "");
+    setHasReachedStart(false);
 
     window.scrollTo({
       top: 0,
@@ -202,6 +222,7 @@ const ProjectSectionNav = ({
       className={[
         "project-section-nav",
         isOpen ? "is-open" : "",
+        hasReachedStart ? "" : "is-before-start",
       ]
         .filter(Boolean)
         .join(" ")}

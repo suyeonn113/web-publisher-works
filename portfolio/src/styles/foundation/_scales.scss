@@ -44,9 +44,11 @@ $typography: (
     sizes: (
       base: 2.25rem,
       tablet: 2.5rem,
-      compact: 2.5rem,
-      desktop: 3.125rem,
-      wide: 3.75rem,
+      compact: clamp(
+        2.5rem,
+        calc(0.5rem + 3.333vw),
+        4.5rem
+      ),
     ),
     weight: bold,
     leading: tight,
@@ -57,8 +59,11 @@ $typography: (
     sizes: (
       base: 1.75rem,
       tablet: 2rem,
-      compact: 2.25rem,
-      wide: 3rem,
+      compact: clamp(
+        2.125rem,
+        calc(0.5rem + 2.708vw),
+        3.75rem
+      ),
     ),
     weight: bold,
     leading: heading,
@@ -69,8 +74,11 @@ $typography: (
     sizes: (
       base: 1.5rem,
       tablet: 1.75rem,
-      compact: 1.875rem,
-      wide: 2.25rem,
+      compact: clamp(
+        1.5rem,
+        calc(0.375rem + 1.875vw),
+        2.625rem
+      ),
     ),
     weight: bold,
     leading: heading,
@@ -79,12 +87,16 @@ $typography: (
 
   title: (
     sizes: (
-      base: 1.25rem,
-      tablet: 1.5rem,
-      compact: 1.625rem,
+      base: 1.125rem,
+      tablet: 1.25rem,
+      compact: clamp(
+        1.125rem,
+        calc(0.625rem + 0.833vw),
+        1.625rem
+      ),
     ),
     weight: semibold,
-    leading: heading,
+    leading: tight,
     tracking: heading,
   ),
 
@@ -92,8 +104,11 @@ $typography: (
     sizes: (
       base: 1rem,
       tablet: 1.125rem,
-      compact: 1rem,
-      wide: 1.125rem,
+      compact: clamp(
+        1rem,
+        calc(0.75rem + 0.417vw),
+        1.25rem
+      ),
     ),
     weight: regular,
     leading: base,
@@ -104,6 +119,11 @@ $typography: (
     sizes: (
       base: 0.875rem,
       tablet: 1rem,
+      compact: clamp(
+        0.875rem,
+        calc(0.625rem + 0.417vw),
+        1.125rem
+      ),
     ),
     weight: regular,
     leading: base,
@@ -114,8 +134,11 @@ $typography: (
     sizes: (
       base: 0.75rem,
       tablet: 0.875rem,
-      compact: 0.75rem,
-      wide: 0.875rem,
+      compact: clamp(
+        0.75rem,
+        calc(0.5rem + 0.417vw),
+        1rem
+      ),
     ),
     weight: medium,
     leading: heading,
@@ -125,8 +148,11 @@ $typography: (
   eyebrow: (
     sizes: (
       base: 0.75rem,
-      compact: 0.6875rem,
-      wide: 0.8125rem,
+      compact: clamp(
+        0.6875rem,
+        calc(0.5rem + 0.313vw),
+        0.875rem
+      ),
     ),
     weight: semibold,
     leading: tight,
