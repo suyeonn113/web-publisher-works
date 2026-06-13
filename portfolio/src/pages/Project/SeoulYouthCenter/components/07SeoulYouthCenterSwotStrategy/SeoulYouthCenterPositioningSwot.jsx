@@ -3,23 +3,23 @@ import "./SeoulYouthCenterPositioningSwot.scss";
 const positioningPoints = [
   {
     name: "정부24",
-    x: 18,
-    y: 76,
+    x: 22,
+    y: 78,
   },
   {
     name: "청소년몽땅정보통",
-    x: 36,
-    y: 42,
+    x: 38,
+    y: 38,
   },
   {
     name: "청소년시설",
-    x: 64,
-    y: 46,
+    x: 68,
+    y: 48,
   },
   {
     name: "서울시립청소년센터",
     x: 72,
-    y: 24,
+    y: 22,
     isTarget: true,
   },
 ];
@@ -27,24 +27,30 @@ const positioningPoints = [
 const swotItems = [
   {
     key: "S",
-    title: "Strength",
-    description: "서울시 대표 청소년기관의 공공성과 신뢰도",
+    title: "공공기관 신뢰도",
+    description: "서울시 대표 청소년기관으로서 보유한 공공성과 신뢰성",
   },
   {
     key: "W",
-    title: "Weakness",
-    description: "반응형 접근성 부족과 정보 구조 미흡",
+    title: "반응형 접근성 부족",
+    description: "모바일과 태블릿 환경에서 정보 확인과 조작 흐름이 제한적",
   },
   {
     key: "O",
-    title: "Opportunity",
-    description: "청소년의 모바일 중심 정보 탐색 확대",
+    title: "모바일 탐색 확대",
+    description: "청소년 사용자의 모바일 중심 정보 탐색과 활동 참여 증가",
   },
   {
     key: "T",
-    title: "Threat",
-    description: "외부 채널 의존 시 홈페이지 활용도 저하",
+    title: "외부 채널 의존",
+    description: "SNS와 외부 플랫폼 중심 이용 시 홈페이지 활용도 저하",
   },
+];
+
+const keyPositionKeywords = [
+  "공공성 유지",
+  "탐색 흐름 강화",
+  "신청 접근성 개선",
 ];
 
 const SeoulYouthCenterPositioningSwot = () => {
@@ -115,11 +121,16 @@ const SeoulYouthCenterPositioningSwot = () => {
           </figure>
 
           <aside className="seoul-youth-center__positioning-swot-position">
-            <p>Key Position</p>
+            <p>Target Position</p>
             <strong>
               공공성과 접근성을 기반으로, 프로그램 탐색과 신청 흐름을
               강화한 사용자 친화형 공공 서비스
             </strong>
+            <ul>
+              {keyPositionKeywords.map((keyword) => (
+                <li key={keyword}>{keyword}</li>
+              ))}
+            </ul>
           </aside>
         </div>
 

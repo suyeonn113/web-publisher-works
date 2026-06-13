@@ -36,45 +36,49 @@
         .seoul-youth-center__ui-design-header
       )
   ) {
-    grid-template-columns: minmax(180px, 0.28fr) minmax(0, 1fr);
-    grid-template-rows: auto auto;
-    column-gap: space(16);
+    grid-template-columns: minmax(112px, 0.16fr) minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    column-gap: space(8);
     row-gap: space(2);
     max-width: none;
+    padding-bottom: space(5);
+    margin-bottom: space(8);
 
     &::before {
-      @include typography(display);
+      @include typography(heading-sm);
 
       grid-column: 1;
-      grid-row: 2;
-      color: var(--color-text-primary);
+      grid-row: 1 / span 2;
+      align-self: start;
+      color: var(--color-point);
       content: var(--syc-section-number);
     }
 
     &::after {
-      @include typography(body-lg);
+      @include typography(eyebrow);
 
       grid-column: 2;
       grid-row: 1;
       align-self: end;
-      color: var(--color-text-primary);
-      font-weight: 600;
+      color: var(--syc-muted-color);
+      font-weight: 700;
+      text-transform: uppercase;
       content: var(--syc-section-label);
     }
 
     h2 {
-      @include typography(display);
+      @include typography(heading-sm);
 
       grid-column: 2;
       grid-row: 2;
-      max-width: 10em;
+      max-width: 16em;
       align-self: start;
     }
 
     :where([class$="-summary"], [class$="-intro"]) {
       grid-column: 2;
       grid-row: 3;
-      margin-top: space(4);
+      margin-top: space(1);
     }
   }
 
@@ -206,17 +210,11 @@
     display: grid;
   }
 
-  :where(.syc-page [class$="-insight"]) {
-    display: grid;
-    gap: var(--syc-line-gap);
-    padding-block: var(--syc-content-gap);
-    border-block: 1px solid var(--syc-rule-color);
-  }
-
   :where(
     .syc-page [class$="-finding"],
     .syc-page [class$="-direction"],
-    .syc-page [class$="-core"]
+    .syc-page [class$="-core"],
+    .syc-page [class$="-insight"]
   ) {
     display: grid;
     gap: var(--syc-line-gap);
@@ -241,9 +239,11 @@
           .seoul-youth-center__ui-design-header
         )
     ) {
-      grid-template-columns: minmax(140px, 0.24fr) minmax(0, 1fr);
-      column-gap: space(8);
+      grid-template-columns: minmax(92px, 0.18fr) minmax(0, 1fr);
+      column-gap: space(6);
       row-gap: space(2);
+      padding-bottom: space(4);
+      margin-bottom: space(6);
     }
 
     :where(.syc-page) {
@@ -269,8 +269,31 @@
           .seoul-youth-center__ui-design-header
         )
     ) {
-      grid-template-columns: minmax(96px, 0.22fr) minmax(0, 1fr);
-      column-gap: space(5);
+      grid-template-columns: 1fr;
+      column-gap: 0;
+
+      &::before,
+      &::after,
+      h2,
+      :where([class$="-summary"], [class$="-intro"]) {
+        grid-column: 1;
+      }
+
+      &::before {
+        grid-row: 1;
+      }
+
+      &::after {
+        grid-row: 2;
+      }
+
+      h2 {
+        grid-row: 3;
+      }
+
+      :where([class$="-summary"], [class$="-intro"]) {
+        grid-row: 4;
+      }
     }
   }
 }

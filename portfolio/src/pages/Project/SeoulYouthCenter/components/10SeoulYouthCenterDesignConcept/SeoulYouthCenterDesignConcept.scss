@@ -1,6 +1,10 @@
+@use "../../../../../styles/foundation" as *;
+
 .seoul-youth-center__design-concept {
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  row-gap: space(4);
+  align-content: stretch;
 }
 
 .seoul-youth-center__design-concept-header {
@@ -13,19 +17,107 @@
 .seoul-youth-center__design-concept-list {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  align-items: center;
+  gap: space(5);
+  height: 100%;
+  min-height: 0;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  align-items: stretch;
 }
 
 .seoul-youth-center__design-concept-list li {
   display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: space(5);
+  min-height: 0;
+  padding-top: space(4);
+  border-top: stroke(medium) solid var(--color-text-primary);
+
+  > span {
+    @include typography(meta);
+
+    color: var(--color-point);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  > div {
+    display: grid;
+    align-content: center;
+    gap: space(3);
+    min-width: 0;
+  }
+
+  strong {
+    @include typography(heading-sm);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
+
+  h3 {
+    @include typography(body-lg);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+    word-break: keep-all;
+  }
+
+  p {
+    @include typography(body);
+
+    line-height: line-height(base);
+  }
 }
 
 .seoul-youth-center__design-concept-core {
   display: grid;
+  grid-template-columns: minmax(180px, 0.22fr) minmax(0, 1fr);
+  gap: space(5);
+  align-items: baseline;
+  padding: space(4) space(5);
+  background: var(--syc-soft-surface);
+  border-left: stroke(medium) solid var(--color-text-primary);
+  border-radius: 0 radius(sm) radius(sm) 0;
+
+  p {
+    @include typography(meta);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  strong {
+    @include typography(body-lg);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+    word-break: keep-all;
+  }
 }
 
-@media (max-width: 900px) {
+@include respond-down(wide) {
+  .seoul-youth-center__design-concept {
+    grid-template-rows: auto auto auto;
+    row-gap: var(--syc-content-gap);
+    align-content: start;
+  }
+
   .seoul-youth-center__design-concept-list {
+    height: auto;
+  }
+}
+
+@include respond-down(laptop) {
+  .seoul-youth-center__design-concept-list,
+  .seoul-youth-center__design-concept-core {
     grid-template-columns: 1fr;
+  }
+
+  .seoul-youth-center__design-concept-core {
+    gap: space(2);
+    padding: space(4);
   }
 }

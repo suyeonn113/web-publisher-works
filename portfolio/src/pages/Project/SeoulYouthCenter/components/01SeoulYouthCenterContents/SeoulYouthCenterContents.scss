@@ -3,7 +3,7 @@
 .ppt-page.seoul-youth-center__contents {
   align-content: start;
   grid-template-columns: 1fr;
-  grid-template-rows: 0.4fr 1fr;
+  grid-template-rows: 0.32fr 1fr;
   background: var(--color-white);
 }
 
@@ -31,7 +31,7 @@
 }
 
 .seoul-youth-center__contents-section:first-child {
-  border-top: stroke(thick) solid var(--color-text-primary);
+  border-top: stroke(medium) solid var(--color-text-primary);
 }
 
 .seoul-youth-center__contents-section-heading {

@@ -42,81 +42,137 @@ const benchmarkTargets = [
   },
 ];
 
+const benchmarkImages = [
+  {
+    src: "/images/projects/seoul-youth-center/benchmark-gov24.png",
+    alt: "정부24 대표 화면",
+  },
+  {
+    src: "/images/projects/seoul-youth-center/benchmark-sen.png",
+    alt: "서울특별시교육청 대표 화면",
+  },
+  {
+    src: "/images/projects/seoul-youth-center/benchmark-youth-info.png",
+    alt: "서울시청소년몽땅정보통 대표 화면",
+  },
+  {
+    src: "/images/projects/seoul-youth-center/benchmark-youth-facility.png",
+    alt: "청소년시설 대표 화면",
+  },
+];
+
 const SeoulYouthCenterResearchBenchmarking = () => {
   return (
-    <div className="ppt-page-wrap">
-      <section
-        className="ppt-page syc-page project-section-nav-safe-area seoul-youth-center__research-benchmarking"
-        aria-labelledby="seoul-youth-center-research-benchmarking-title"
-      >
-        <header className="seoul-youth-center__research-benchmarking-header">
-          <p className="seoul-youth-center__research-benchmarking-eyebrow">
-            06. Research &amp; Benchmarking
-          </p>
+    <>
+      <div className="ppt-page-wrap">
+        <section
+          className="ppt-page syc-page project-section-nav-safe-area seoul-youth-center__research-benchmarking"
+          aria-labelledby="seoul-youth-center-research-benchmarking-title"
+        >
+          <header className="seoul-youth-center__research-benchmarking-header">
+            <p className="seoul-youth-center__research-benchmarking-eyebrow">
+              06. Research &amp; Benchmarking
+            </p>
 
-          <h2 id="seoul-youth-center-research-benchmarking-title">
-            자료 조사 및 벤치마킹
-          </h2>
+            <h2 id="seoul-youth-center-research-benchmarking-title">
+              자료 조사 및 벤치마킹
+            </h2>
 
-          <p className="seoul-youth-center__research-benchmarking-summary">
-            기존 사이트 분석에서 도출한 문제를 기준으로 공공 포털과
-            청소년 기관 웹사이트의 UX 구조를 비교했습니다.
-          </p>
-        </header>
+            <p className="seoul-youth-center__research-benchmarking-summary">
+              기존 사이트 분석에서 도출한 문제를 기준으로 공공 포털과
+              청소년 기관 웹사이트의 UX 구조를 비교했습니다.
+            </p>
+          </header>
 
-        <div className="seoul-youth-center__research-benchmarking-layout">
-          <div className="seoul-youth-center__research-benchmarking-criteria">
-            <h3>Research Criteria</h3>
+          <div className="seoul-youth-center__research-benchmarking-layout">
+            <div className="seoul-youth-center__research-benchmarking-criteria">
+              <h3>Research Criteria</h3>
 
-            <ol>
-              {researchCriteria.map(
-                ({ number, title, description }) => (
-                  <li key={number}>
-                    <span>{number}</span>
-                    <div>
-                      <strong>{title}</strong>
-                      <p>{description}</p>
-                    </div>
+              <ol>
+                {researchCriteria.map(
+                  ({ number, title, description }) => (
+                    <li key={number}>
+                      <span>{number}</span>
+                      <div>
+                        <strong>{title}</strong>
+                        <p>{description}</p>
+                      </div>
+                    </li>
+                  ),
+                )}
+              </ol>
+            </div>
+
+            <div className="seoul-youth-center__research-benchmarking-targets">
+              <h3>Benchmarking Targets</h3>
+
+              <ul>
+                {benchmarkTargets.map(({ title, items }) => (
+                  <li key={title}>
+                    <strong>{title}</strong>
+                    <p>{items}</p>
                   </li>
-                ),
-              )}
-            </ol>
+                ))}
+              </ul>
+            </div>
           </div>
 
-          <div className="seoul-youth-center__research-benchmarking-targets">
-            <h3>Benchmarking Targets</h3>
+          <footer className="seoul-youth-center__research-benchmarking-insight">
+            <p>Key Insight</p>
+            <strong>
+              공공기관의 신뢰성과 접근성 기준을 바탕으로, 청소년 활동
+              탐색과 참여 흐름만 서울시립청소년센터에 맞게 강화합니다.
+            </strong>
+          </footer>
+        </section>
+      </div>
 
-            <ul>
-              {benchmarkTargets.map(({ title, items }) => (
-                <li key={title}>
-                  <strong>{title}</strong>
-                  <p>{items}</p>
-                </li>
-              ))}
-            </ul>
+      <div className="ppt-page-wrap">
+        <section
+          className="ppt-page syc-page project-section-nav-safe-area seoul-youth-center__research-benchmarking-board"
+          aria-labelledby="seoul-youth-center-research-benchmarking-board-title"
+        >
+          <header className="seoul-youth-center__research-benchmarking-board-header">
+            <p className="seoul-youth-center__research-benchmarking-board-eyebrow">
+              06. Research &amp; Benchmarking
+            </p>
 
-            <figure
-              className="seoul-youth-center__research-benchmarking-media"
-              aria-label="벤치마킹 대상 사이트 캡쳐 영역"
-            >
-              {/* 이미지 가이드: 정부24, 서울시교육청, 서울시청소년몽땅정보통, 청소년시설 사이트의 대표 화면을 3~4개 썸네일로 묶은 캡쳐. 공공성, 반응형 접근성, 메뉴 구조 비교가 느껴지도록 16:9 비율 권장. 파일명은 benchmarking-target-sites.png로 저장 */}
-              <img
-                src="/images/projects/seoul-youth-center/benchmarking-target-sites.png"
-                alt="벤치마킹 대상 사이트 대표 화면 모음"
-              />
-            </figure>
-          </div>
-        </div>
+            <h2 id="seoul-youth-center-research-benchmarking-board-title">
+              벤치마킹 화면 비교
+            </h2>
 
-        <footer className="seoul-youth-center__research-benchmarking-insight">
-          <p>Key Insight</p>
-          <strong>
-            공공기관의 신뢰성과 접근성 기준을 바탕으로, 청소년 활동
-            탐색과 참여 흐름만 서울시립청소년센터에 맞게 강화합니다.
-          </strong>
-        </footer>
-      </section>
-    </div>
+            <p className="seoul-youth-center__research-benchmarking-board-summary">
+              공공 포털과 청소년 기관의 대표 화면을 함께 배치해
+              정보 구조, 접근성, 탐색 흐름의 차이를 비교했습니다.
+            </p>
+          </header>
+
+          <figure
+            className="seoul-youth-center__research-benchmarking-media"
+            aria-label="벤치마킹 대상 사이트 캡쳐 영역"
+          >
+            {/* 이미지 가이드: 아래 파일명으로 각각 저장하면 코드에서 2x2 벤치마킹 보드로 자동 배치합니다.
+                - benchmark-gov24.png
+                - benchmark-sen.png
+                - benchmark-youth-info.png
+                - benchmark-youth-facility.png
+                저장 위치: public/images/projects/seoul-youth-center/
+                권장 캡쳐: 사이트 대표 화면 상단이 보이는 16:9 또는 4:3 비율 */}
+            {benchmarkImages.map(({ src, alt }) => (
+              <div
+                className="seoul-youth-center__research-benchmarking-shot"
+                key={src}
+              >
+                <img
+                  src={src}
+                  alt={alt}
+                />
+              </div>
+            ))}
+          </figure>
+        </section>
+      </div>
+    </>
   );
 };
 

@@ -1,48 +1,183 @@
+@use "../../../../../styles/foundation" as *;
 
 .seoul-youth-center__system-architecture {
   display: grid;
-  grid-template-rows: auto auto 1fr auto;
-}
-
-.seoul-youth-center__system-architecture-header,
-.seoul-youth-center__system-architecture-flow,
-.seoul-youth-center__system-architecture-flow li,
-.seoul-youth-center__system-architecture-data,
-.seoul-youth-center__system-architecture-section-heading,
-.seoul-youth-center__system-architecture-data ul,
-.seoul-youth-center__system-architecture-data li,
-.seoul-youth-center__system-architecture-erd,
-.seoul-youth-center__system-architecture-insight {
-  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  row-gap: space(4);
+  align-content: stretch;
 }
 
 .seoul-youth-center__system-architecture-header {
   --syc-section-number: "17.";
   --syc-section-label: "System & Database Architecture";
+
+  display: grid;
 }
 
 .seoul-youth-center__system-architecture-flow {
+  display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: space(5);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.seoul-youth-center__system-architecture-flow li {
+  display: grid;
+  gap: space(2);
+  padding-top: space(4);
+  border-top: stroke(medium) solid var(--color-text-primary);
+
+  h3 {
+    @include typography(body-lg);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
+
+  p {
+    @include typography(body);
+  }
 }
 
 .seoul-youth-center__system-architecture-layout {
   display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 0.48fr) minmax(0, 0.52fr);
+  gap: space(8);
+  min-height: 0;
+  align-items: stretch;
+}
+
+.seoul-youth-center__system-architecture-data,
+.seoul-youth-center__system-architecture-erd {
+  display: grid;
+  gap: space(4);
+  min-height: 0;
+}
+
+.seoul-youth-center__system-architecture-section-heading {
+  display: grid;
+  gap: space(1);
+
+  p {
+    @include typography(meta);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  h3 {
+    @include typography(body-lg);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
 }
 
 .seoul-youth-center__system-architecture-data ul {
+  display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: space(3);
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
-.seoul-youth-center__system-architecture-erd img {
-  display: block;
-  max-width: 100%;
+.seoul-youth-center__system-architecture-data li {
+  display: grid;
+  gap: space(2);
+  padding: space(4);
+  background: var(--syc-soft-surface);
+  border-radius: radius(sm);
+
+  strong {
+    @include typography(meta);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
+
+  p {
+    @include typography(meta);
+  }
 }
 
-@media (max-width: 900px) {
+.seoul-youth-center__system-architecture-erd {
+  grid-template-rows: minmax(0, 1fr) auto;
+  padding: space(3);
+  background: rgb(var(--color-black-rgb) / 2%);
+  border-radius: radius(md);
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    color: transparent;
+    font-size: 0;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  figcaption {
+    @include typography(meta);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
+}
+
+.seoul-youth-center__system-architecture-insight {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.22fr) minmax(0, 1fr);
+  gap: space(5);
+  align-items: baseline;
+  padding: space(4) space(5);
+  background: var(--syc-soft-surface);
+  border-left: stroke(medium) solid var(--color-text-primary);
+  border-radius: 0 radius(sm) radius(sm) 0;
+
+  p {
+    @include typography(meta);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  strong {
+    @include typography(body-lg);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+    word-break: keep-all;
+  }
+}
+
+@include respond-down(wide) {
+  .seoul-youth-center__system-architecture {
+    grid-template-rows: auto auto auto auto;
+    row-gap: var(--syc-content-gap);
+    align-content: start;
+  }
+
+  .seoul-youth-center__system-architecture-erd {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@include respond-down(laptop) {
   .seoul-youth-center__system-architecture-flow,
   .seoul-youth-center__system-architecture-layout,
-  .seoul-youth-center__system-architecture-data ul {
+  .seoul-youth-center__system-architecture-data ul,
+  .seoul-youth-center__system-architecture-insight {
     grid-template-columns: 1fr;
+  }
+
+  .seoul-youth-center__system-architecture-insight {
+    gap: space(2);
+    padding: space(4);
   }
 }

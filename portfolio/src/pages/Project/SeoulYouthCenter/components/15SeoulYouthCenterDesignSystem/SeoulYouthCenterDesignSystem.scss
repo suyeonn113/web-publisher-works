@@ -1,33 +1,121 @@
+@use "../../../../../styles/foundation" as *;
 
 .seoul-youth-center__design-system {
   display: grid;
-  grid-template-rows: auto 1fr auto;
-}
-
-.seoul-youth-center__design-system-header,
-.seoul-youth-center__design-system-list,
-.seoul-youth-center__design-system-list li,
-.seoul-youth-center__design-system-insight {
-  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  row-gap: space(4);
+  align-content: stretch;
 }
 
 .seoul-youth-center__design-system-header {
   --syc-section-number: "15.";
   --syc-section-label: "Design System & Style Guide";
+
+  display: grid;
 }
 
 .seoul-youth-center__design-system-list {
+  display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  align-items: center;
+  gap: space(4);
+  height: 100%;
+  min-height: 0;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  align-items: stretch;
 }
 
-@media (max-width: 1100px) {
-  .seoul-youth-center__design-system-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+.seoul-youth-center__design-system-list li {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: space(4);
+  min-height: 0;
+  padding-top: space(4);
+  border-top: stroke(medium) solid var(--color-text-primary);
+
+  span {
+    @include typography(meta);
+
+    color: var(--color-point);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  div {
+    display: grid;
+    align-content: center;
+    gap: space(3);
+    min-width: 0;
+  }
+
+  h3 {
+    @include typography(body-lg);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
+
+  p {
+    @include typography(body);
+
+    line-height: line-height(base);
   }
 }
 
-@media (max-width: 700px) {
+.seoul-youth-center__design-system-insight {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.22fr) minmax(0, 1fr);
+  gap: space(5);
+  align-items: baseline;
+  padding: space(4) space(5);
+  background: var(--syc-soft-surface);
+  border-left: stroke(medium) solid var(--color-text-primary);
+  border-radius: 0 radius(sm) radius(sm) 0;
+
+  p {
+    @include typography(meta);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  strong {
+    @include typography(body-lg);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+    word-break: keep-all;
+  }
+}
+
+@include respond-down(wide) {
+  .seoul-youth-center__design-system {
+    grid-template-rows: auto auto auto;
+    row-gap: var(--syc-content-gap);
+    align-content: start;
+  }
+
+  .seoul-youth-center__design-system-list {
+    height: auto;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+@include respond-down(laptop) {
+  .seoul-youth-center__design-system-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .seoul-youth-center__design-system-insight {
+    grid-template-columns: 1fr;
+    gap: space(2);
+    padding: space(4);
+  }
+}
+
+@include respond-down(tablet) {
   .seoul-youth-center__design-system-list {
     grid-template-columns: 1fr;
   }

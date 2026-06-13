@@ -1,6 +1,10 @@
+@use "../../../../../styles/foundation" as *;
+
 .seoul-youth-center__user-journey {
   display: grid;
-  grid-template-rows: auto auto 1fr auto;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  row-gap: space(4);
+  align-content: stretch;
 }
 
 .seoul-youth-center__user-journey-header {
@@ -13,39 +17,150 @@
 .seoul-youth-center__user-journey-steps {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: space(4);
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
 .seoul-youth-center__user-journey-steps li {
   display: grid;
+  grid-template-columns: minmax(space(8), auto) minmax(0, 1fr);
+  gap: space(3);
+  align-items: start;
+  padding-top: space(4);
+  border-top: stroke(medium) solid var(--color-text-primary);
+
+  > span {
+    @include typography(meta);
+
+    color: var(--color-point);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  div {
+    display: grid;
+    gap: space(2);
+    min-width: 0;
+  }
+
+  h3 {
+    @include typography(body-lg);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
+
+  p {
+    @include typography(body);
+
+    line-height: line-height(base);
+  }
 }
 
 .seoul-youth-center__user-journey-scenarios {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+  grid-template-columns: minmax(180px, 0.22fr) minmax(0, 1fr);
+  gap: space(6);
   align-items: center;
+  min-height: 0;
 }
 
 .seoul-youth-center__user-journey-scenarios-heading {
   display: grid;
+  gap: space(2);
+
+  p {
+    @include typography(meta);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  h3 {
+    @include typography(body-lg);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
 }
 
 .seoul-youth-center__user-journey-scenarios ul {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: space(4);
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
 .seoul-youth-center__user-journey-scenarios li {
   display: grid;
+  gap: space(2);
+  min-height: 0;
+  padding: space(4);
+  background: var(--syc-soft-surface);
+  border-radius: radius(sm);
+
+  strong {
+    @include typography(body-lg);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
+
+  p {
+    @include typography(body);
+  }
 }
 
 .seoul-youth-center__user-journey-insight {
   display: grid;
+  grid-template-columns: minmax(180px, 0.22fr) minmax(0, 1fr);
+  gap: space(5);
+  align-items: baseline;
+  padding: space(4) space(5);
+  background: var(--syc-soft-surface);
+  border-left: stroke(medium) solid var(--color-text-primary);
+  border-radius: 0 radius(sm) radius(sm) 0;
+
+  p {
+    @include typography(meta);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  strong {
+    @include typography(body-lg);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+    word-break: keep-all;
+  }
 }
 
-@media (max-width: 900px) {
+@include respond-down(wide) {
+  .seoul-youth-center__user-journey {
+    grid-template-rows: auto auto auto auto;
+    row-gap: var(--syc-content-gap);
+    align-content: start;
+  }
+}
+
+@include respond-down(laptop) {
   .seoul-youth-center__user-journey-steps,
   .seoul-youth-center__user-journey-scenarios,
   .seoul-youth-center__user-journey-scenarios ul {
     grid-template-columns: 1fr;
+  }
+
+  .seoul-youth-center__user-journey-insight {
+    grid-template-columns: 1fr;
+    gap: space(2);
+    padding: space(4);
   }
 }

@@ -24,28 +24,30 @@
 
   > div {
     display: grid;
-    grid-template-columns: minmax(180px, 0.28fr) minmax(0, 1fr);
-    grid-template-rows: auto auto;
-    column-gap: space(16);
+    grid-template-columns: minmax(112px, 0.16fr) minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    column-gap: space(8);
     row-gap: space(2);
 
     &::before {
-      @include typography(display);
+      @include typography(heading-sm);
 
       grid-column: 1;
-      grid-row: 2;
-      color: var(--color-text-primary);
+      grid-row: 1 / span 2;
+      align-self: start;
+      color: var(--color-point);
       content: var(--syc-section-number);
     }
 
     &::after {
-      @include typography(body-lg);
+      @include typography(eyebrow);
 
       grid-column: 2;
       grid-row: 1;
       align-self: end;
-      color: var(--color-text-primary);
-      font-weight: 600;
+      color: var(--syc-muted-color);
+      font-weight: 700;
+      text-transform: uppercase;
       content: var(--syc-section-label);
     }
   }
@@ -55,18 +57,18 @@
   }
 
   h2 {
-    @include typography(display);
+    @include typography(heading-sm);
 
     grid-column: 2;
     grid-row: 2;
-    max-width: 10em;
+    max-width: 16em;
     align-self: start;
   }
 
   .seoul-youth-center__ui-design-summary {
     grid-column: 2;
     grid-row: 3;
-    margin-top: space(4);
+    margin-top: space(1);
   }
 
   .seoul-youth-center__ui-design-figma-link {
@@ -107,11 +109,34 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-@media (max-width: 1100px) {
+@include respond-down(laptop) {
   .seoul-youth-center__ui-design-header {
     > div {
-      grid-template-columns: minmax(96px, 0.22fr) minmax(0, 1fr);
-      column-gap: space(5);
+      grid-template-columns: 1fr;
+      column-gap: 0;
+    }
+
+    > div::before,
+    > div::after,
+    h2,
+    .seoul-youth-center__ui-design-summary {
+      grid-column: 1;
+    }
+
+    > div::before {
+      grid-row: 1;
+    }
+
+    > div::after {
+      grid-row: 2;
+    }
+
+    h2 {
+      grid-row: 3;
+    }
+
+    .seoul-youth-center__ui-design-summary {
+      grid-row: 4;
     }
 
     .seoul-youth-center__ui-design-figma-link {

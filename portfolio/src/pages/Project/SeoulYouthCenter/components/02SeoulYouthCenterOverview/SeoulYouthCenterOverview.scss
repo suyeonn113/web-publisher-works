@@ -32,7 +32,7 @@
   gap: space(3);
   min-height: 156px;
   padding-block: space(4);
-  border-top: stroke(thick) solid var(--color-text-primary);
+  border-top: stroke(medium) solid var(--color-text-primary);
 
   dt {
     @include typography(meta);

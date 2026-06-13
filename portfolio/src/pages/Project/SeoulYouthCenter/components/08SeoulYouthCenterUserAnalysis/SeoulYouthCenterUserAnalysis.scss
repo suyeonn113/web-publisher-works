@@ -1,6 +1,10 @@
+@use "../../../../../styles/foundation" as *;
+
 .seoul-youth-center__user-analysis {
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  row-gap: space(4);
+  align-content: stretch;
 }
 
 .seoul-youth-center__user-analysis-header {
@@ -13,33 +17,153 @@
 .seoul-youth-center__user-analysis-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: space(5);
+  height: 100%;
+  min-height: 0;
+  align-items: stretch;
 }
 
 .seoul-youth-center__user-analysis-card {
   display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  gap: space(4);
+  min-height: 0;
+  padding-top: space(4);
+  border-top: stroke(medium) solid var(--color-text-primary);
 }
 
 .seoul-youth-center__user-analysis-card-heading {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-columns: minmax(space(8), auto) minmax(0, 1fr);
+  gap: space(4);
+  align-items: start;
+
+  > span {
+    @include typography(meta);
+
+    color: var(--color-point);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  h3 {
+    @include typography(body-lg);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
+
+  p {
+    @include typography(meta);
+
+    color: var(--syc-muted-color);
+    font-weight: 700;
+  }
+}
+
+.seoul-youth-center__user-analysis-situation {
+  @include typography(body);
+
+  padding-bottom: space(4);
+  border-bottom: stroke(thin) solid var(--syc-rule-color);
 }
 
 .seoul-youth-center__user-analysis-detail {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
+  grid-template-columns: 1fr;
+  gap: space(4);
+  align-content: start;
+  min-height: 0;
 
-.seoul-youth-center__user-analysis-detail ul {
-  display: grid;
+  > div {
+    display: grid;
+    gap: space(2);
+  }
+
+  strong {
+    @include typography(meta);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  ul {
+    display: grid;
+    gap: space(2);
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  li {
+    @include typography(body);
+
+    position: relative;
+    padding-left: space(4);
+
+    &::before {
+      position: absolute;
+      top: 0.72em;
+      left: 0;
+      width: 0.35em;
+      height: 0.35em;
+      content: "";
+      background: var(--color-text-primary);
+      border-radius: radius(full);
+    }
+  }
 }
 
 .seoul-youth-center__user-analysis-insight {
   display: grid;
+  grid-template-columns: minmax(180px, 0.22fr) minmax(0, 1fr);
+  gap: space(5);
+  align-items: baseline;
+  padding: space(4) space(5);
+  background: var(--syc-soft-surface);
+  border-left: stroke(medium) solid var(--color-text-primary);
+  border-radius: 0 radius(sm) radius(sm) 0;
+
+  p {
+    @include typography(meta);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  strong {
+    @include typography(body-lg);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+    word-break: keep-all;
+  }
 }
 
-@media (max-width: 900px) {
-  .seoul-youth-center__user-analysis-grid,
-  .seoul-youth-center__user-analysis-detail {
+@include respond-down(wide) {
+  .seoul-youth-center__user-analysis {
+    grid-template-rows: auto auto auto;
+    row-gap: var(--syc-content-gap);
+    align-content: start;
+  }
+
+  .seoul-youth-center__user-analysis-grid {
+    height: auto;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: space(4);
+  }
+}
+
+@include respond-down(laptop) {
+  .seoul-youth-center__user-analysis-grid {
     grid-template-columns: 1fr;
+  }
+
+  .seoul-youth-center__user-analysis-insight {
+    grid-template-columns: 1fr;
+    gap: space(2);
+    padding: space(4);
   }
 }

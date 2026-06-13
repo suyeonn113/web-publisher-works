@@ -49,7 +49,7 @@ const SeoulYouthCenterGoals = () => {
 
           <p className="seoul-youth-center__goals-intro">
             서울시립청소년센터 홈페이지의 정보 구조와 반응형
-            UX/UI를 개선하여, 청소년 사용자가 모바일과 태블릿
+            UX/UI를 개선하여, <br /> 청소년 사용자가 모바일과 태블릿
             환경에서도 필요한 정보를 직관적으로 탐색하고 활동에
             참여할 수 있도록 합니다.
           </p>
