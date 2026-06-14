@@ -10,14 +10,14 @@
   isolation: isolate;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
-  row-gap: 28px;
+  row-gap: space(16);
   align-content: stretch;
   overflow: hidden;
   background:
     linear-gradient(
       to bottom,
-      var(--color-point) 0%,
-      var(--color-point) 58%,
+      var(--color-point-2) 0%,
+      var(--color-point-2) 58%,
       var(--color-bg-primary) 58%,
       var(--color-bg-primary) 100%
     );
@@ -275,18 +275,69 @@
 .seoul-youth-center__links {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   position: absolute;
-  top: calc(58% - 62px);
-  right: 70%;
-  gap: 14px;
+  top: calc(59% - 62px);
+  right: 71%;
+  gap: space(8);
   margin-top: 0;
+}
+
+.seoul-youth-center__preview-cta,
+.seoul-youth-center__external-text {
+  @include typography(meta);
+
+  color: var(--color-text-primary);
+  transition:
+    color motion(base, standard),
+    background-color motion(base, standard),
+    border-color motion(base, standard),
+    transform motion(base, standard);
+}
+
+.seoul-youth-center__preview-cta {
+  position: absolute;
+  top: -64px;
+  right: 0;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding-inline: 24px;
+  white-space: nowrap;
+  background: rgb(var(--color-white-rgb) / 90%);
+  border: 1px solid rgb(var(--color-black-rgb) / 10%);
+  border-radius: radius(full);
+  box-shadow: 0 8px 20px rgb(var(--color-black-rgb) / 10%);
+}
+
+.seoul-youth-center__preview-cta:hover,
+.seoul-youth-center__preview-cta:focus-visible {
+  color: var(--color-white);
+  background: var(--color-gray-900);
+  border-color: var(--color-gray-900);
+}
+
+.seoul-youth-center__external-text {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: 2px;
+  color: rgb(var(--color-white-rgb) / 84%);
+  white-space: nowrap;
+}
+
+.seoul-youth-center__external-text:hover,
+.seoul-youth-center__external-text:focus-visible {
+  color: var(--color-white);
 }
 
 @include respond-down(laptop) {
   .ppt-page.seoul-youth-center__cover {
     display: grid;
     grid-template-rows: none;
-    row-gap: normal;
+    row-gap: space(10);
     align-content: start;
   }
 
@@ -364,6 +415,15 @@
     top: auto;
     right: auto;
     gap: space(3);
-    margin-top: space(4);
+    margin-top: -1 * space(6);
+  }
+
+  .seoul-youth-center__external-text {
+    color: var(--color-text-primary);
+  }
+
+  .seoul-youth-center__external-text:hover,
+  .seoul-youth-center__external-text:focus-visible {
+    color: var(--color-text-secondary);
   }
 }

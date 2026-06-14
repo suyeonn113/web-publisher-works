@@ -44,10 +44,36 @@ const PreviewFrame = ({
   onControlStatusChange,
   onUnavailable,
 }) => {
+  const shellRef = useRef(null);
   const iframeRef = useRef(null);
   const measureTimeoutRef = useRef(null);
   const [frameHeight, setFrameHeight] = useState(device.frameHeight);
+  const [frameScale, setFrameScale] = useState(1);
   const src = getPreviewUrl(project.liveUrl, step.path);
+
+  useEffect(() => {
+    const shell = shellRef.current;
+
+    if (!shell) {
+      return undefined;
+    }
+
+    const updateFrameScale = () => {
+      const { width } = shell.getBoundingClientRect();
+      const nextScale = Math.min(1, width / device.width);
+
+      setFrameScale(Number.isFinite(nextScale) ? nextScale : 1);
+    };
+
+    updateFrameScale();
+
+    const resizeObserver = new ResizeObserver(updateFrameScale);
+    resizeObserver.observe(shell);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, [device.width]);
 
   useEffect(() => {
     setFrameHeight(device.frameHeight);
@@ -150,16 +176,27 @@ const PreviewFrame = ({
   };
 
   return (
-    <iframe
-      key={`${src}-${device.width}`}
-      ref={iframeRef}
-      title={`${project.title} ${step.title} preview`}
-      src={src}
-      width={device.width}
-      height={frameHeight}
-      onLoad={handleLoad}
-      onError={onUnavailable}
-    />
+    <div
+      ref={shellRef}
+      className="preview-frame-shell"
+      style={{
+        "--preview-device-width": `${device.width}px`,
+        "--preview-frame-height": `${frameHeight}px`,
+        "--preview-frame-scale": frameScale,
+        "--preview-shell-height": `${frameHeight * frameScale}px`,
+      }}
+    >
+      <iframe
+        key={`${src}-${device.width}`}
+        ref={iframeRef}
+        title={`${project.title} ${step.title} preview`}
+        src={src}
+        width={device.width}
+        height={frameHeight}
+        onLoad={handleLoad}
+        onError={onUnavailable}
+      />
+    </div>
   );
 };
 

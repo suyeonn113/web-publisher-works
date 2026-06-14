@@ -1,0 +1,76 @@
+@use "../../styles/foundation" as *;
+
+.site-header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: layer(header);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: space(5) max(space(5), 4vw);
+  background: transparent;
+  transition: transform motion(base, standard);
+
+  &.is-hidden {
+    transform: translateY(-100%);
+  }
+
+  &.is-visible {
+    transform: translateY(0);
+  }
+}
+
+.site-header__logo {
+  @include typography(title);
+
+  color: var(--color-text-primary);
+}
+
+.site-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: space(4);
+  padding: space(5) max(space(5), 4vw);
+  background: transparent;
+
+  p {
+    @include typography(meta);
+
+    margin: 0;
+    color: var(--color-text-muted);
+  }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: space(4);
+  }
+
+  a {
+    @include typography(meta);
+
+    color: var(--color-text-secondary);
+    transition: color motion(base, standard);
+
+    &:hover,
+    &:focus-visible {
+      color: var(--color-text-primary);
+    }
+  }
+}
+
+@include respond-down(tablet) {
+  .site-header,
+  .site-footer {
+    padding: space(4);
+  }
+
+  .site-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

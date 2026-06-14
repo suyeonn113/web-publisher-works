@@ -123,8 +123,9 @@ const SeoulYouthCenterPositioningSwot = () => {
           <aside className="seoul-youth-center__positioning-swot-position">
             <p>Target Position</p>
             <strong>
-              공공성과 접근성을 기반으로, 프로그램 탐색과 신청 흐름을
-              강화한 사용자 친화형 공공 서비스
+              공공성과 접근성을 기반으로, <br />
+              프로그램 탐색과 신청 흐름을 강화한 <br />
+              사용자 친화형 공공 서비스
             </strong>
             <ul>
               {keyPositionKeywords.map((keyword) => (

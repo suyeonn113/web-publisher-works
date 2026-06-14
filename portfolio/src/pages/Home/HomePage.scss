@@ -1,0 +1,148 @@
+@use "../../styles/foundation" as *;
+
+.home-page {
+  min-height: 100svh;
+  color: var(--color-text-primary);
+  background: var(--color-bg-primary);
+}
+
+.home-main {
+  display: grid;
+  gap: 20svh;
+  min-height: 100svh;
+  padding: 16svh 10% 12svh;
+}
+
+.home-info-grid,
+.home-work-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: space(10);
+  width: 100%;
+
+  a {
+    display: grid;
+    align-content: start;
+    min-width: 0;
+    padding: space(6);
+    color: var(--color-text-primary);
+    box-shadow: 0 0 0 transparent;
+    transition:
+      color motion(base, standard),
+      box-shadow motion(base, standard),
+      transform motion(base, standard);
+
+    &:hover,
+    &:focus-visible {
+      color: var(--color-point);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+
+      .home-link-card__head::after {
+        background: currentColor;
+      }
+    }
+  }
+}
+
+.home-info-grid {
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: 4svh;
+  width: 47%;
+
+  .home-link-card__title {
+    @include typography(home-menu-small);
+  }
+
+  .home-link-card__head {
+    margin-bottom: 4%;
+  }
+
+  .home-link-card__description {
+    margin-top: space(1);
+  }
+}
+
+.home-work-grid {
+  width: 100%;
+  column-gap: 6%;
+  row-gap: 8svh;
+
+  a {
+    aspect-ratio: 5 / 3;
+
+    @include respond-down(wide) {
+      aspect-ratio: 3 / 2;
+    }
+
+    @include respond-down(laptop) {
+      aspect-ratio: 5 / 4;
+    }
+
+    @include respond-down(tablet) {
+      aspect-ratio: 3 / 4;
+    }
+  }
+}
+
+.home-link-card__head {
+  @include typography(meta);
+
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: space(4);
+  width: 100%;
+  margin-bottom: 5%;
+  color: currentColor;
+  letter-spacing: 0;
+
+  &::after {
+    display: block;
+    height: stroke(medium);
+    content: "";
+    background: var(--color-text-primary);
+    transition: background-color motion(base, standard);
+  }
+}
+
+.home-link-card__title {
+  @include typography(home-menu);
+
+  display: grid;
+  color: currentColor;
+}
+
+.home-link-card__meta,
+.home-link-card__description {
+  @include typography(body);
+
+  color: currentColor;
+  letter-spacing: 0;
+}
+
+.home-link-card__meta {
+  margin-top: space(3);
+  font-weight: 600;
+}
+
+.home-link-card__description {
+  margin-top: space(2);
+}
+
+@include respond-down(tablet) {
+  .home-main {
+    gap: 10svh;
+    padding-inline: 6%;
+  }
+
+  .home-info-grid,
+  .home-work-grid {
+    width: 100%;
+    gap: 5%;
+  }
+
+  .home-work-grid {
+    row-gap: 8svh;
+  }
+}

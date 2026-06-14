@@ -7,10 +7,14 @@ const CONTROL_MODE_LABELS = {
 const PreviewGuidePanel = ({ preview, step, controlMode }) => {
   return (
     <aside className="preview-guide-panel">
-      <p>제어 방식: {CONTROL_MODE_LABELS[controlMode] ?? preview.mode}</p>
+      <p className="preview-guide-panel__meta">
+        제어 방식: {CONTROL_MODE_LABELS[controlMode] ?? preview.mode}
+      </p>
       <h2>{step.title}</h2>
       <p>{step.guide}</p>
-      <p>{step.interactionHint}</p>
+      <p className="preview-guide-panel__hint">
+        {step.interactionHint}
+      </p>
     </aside>
   );
 };

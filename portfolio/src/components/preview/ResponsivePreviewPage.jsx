@@ -6,6 +6,7 @@ import PreviewHeader from "./PreviewHeader";
 import PreviewStage from "./PreviewStage";
 import PreviewStepNavigation from "./PreviewStepNavigation";
 import { NotFoundPage } from "../../pages/NotFound";
+import "./ResponsivePreviewPage.scss";
 
 const ResponsivePreviewPage = ({ project, preview }) => {
   const [selectedDevice, setSelectedDevice] = useState(preview.defaultDevice);

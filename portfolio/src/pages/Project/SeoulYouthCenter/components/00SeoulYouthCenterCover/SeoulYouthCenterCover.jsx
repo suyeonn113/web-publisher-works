@@ -4,6 +4,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { Link } from "react-router-dom";
 
 import { prepareProjectDetail } from "../../../../../utils/projectHelpers";
 import "./SeoulYouthCenterCover.scss";
@@ -438,6 +439,13 @@ const SeoulYouthCenterCover = ({ project }) => {
           className="seoul-youth-center__cover-image motion-fade-up"
           aria-label={`${project.title} 메인 화면`}
         >
+          <Link
+            className="seoul-youth-center__preview-cta hover-lift no-print"
+            to={`/projects/${project.slug}/preview`}
+          >
+            Responsive Preview →
+          </Link>
+
           {project.liveUrl ? (
             <div
               className="seoul-youth-center__iframe-wrap no-print"
@@ -592,23 +600,23 @@ const SeoulYouthCenterCover = ({ project }) => {
         <div className="seoul-youth-center__links no-print">
           {project.liveUrl ? (
             <a
-              className="hover-lift"
+              className="seoul-youth-center__external-text"
               href={project.liveUrl}
               target="_blank"
               rel="noreferrer"
             >
-              View website
+              Website ↗
             </a>
           ) : null}
 
           {project.githubUrl ? (
             <a
-              className="hover-lift"
+              className="seoul-youth-center__external-text"
               href={project.githubUrl}
               target="_blank"
               rel="noreferrer"
             >
-              View GitHub
+              GitHub ↗
             </a>
           ) : null}
         </div>

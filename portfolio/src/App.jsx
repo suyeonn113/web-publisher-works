@@ -1,30 +1,30 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
+import SiteChrome from "./components/layout/SiteChrome";
+import HomePage from "./pages/Home/HomePage";
 import { NotFoundPage } from "./pages/NotFound";
 import SeoulYouthCenterDetail from "./pages/Project/SeoulYouthCenter/SeoulYouthCenterDetail";
 import ProjectPreviewPage from "./pages/ProjectPreview/ProjectPreviewPage";
 
 const App = () => {
   return (
-    <Routes>
-      {/* 인덱스 페이지 제작 전 임시 연결 */}
-      <Route
-        path="/"
-        element={<Navigate to="/projects/seoul-youth-center" replace />}
-      />
+    <SiteChrome>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
 
-      <Route
-        path="/projects/seoul-youth-center"
-        element={<SeoulYouthCenterDetail />}
-      />
+        <Route
+          path="/projects/seoul-youth-center"
+          element={<SeoulYouthCenterDetail />}
+        />
 
-      <Route
-        path="/projects/:slug/preview"
-        element={<ProjectPreviewPage />}
-      />
+        <Route
+          path="/projects/:slug/preview"
+          element={<ProjectPreviewPage />}
+        />
 
-      <Route path="*" element={<NotFoundPage />} />
-    </Routes>
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </SiteChrome>
   );
 };
 

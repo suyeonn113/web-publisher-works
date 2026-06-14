@@ -35,6 +35,14 @@
 --color-blue-700: #4338ca;
 --color-blue-900: #312e81;
 --color-blue-950: #1e1b4b;
+
+// Purple
+--color-purple-50: #fdf4ff;
+--color-purple-300: #f0abfc;
+--color-purple-500: #d946ef;
+--color-purple-600: #c026d3;
+--color-purple-700: #a21caf;
+--color-purple-950: #4a044e;
 }
 
 // ========================================
@@ -47,7 +55,7 @@
 color-scheme: light;
 
 // Background
-  --color-bg-primary: var(--color-white);
+--color-bg-primary: var(--color-gray-50);
 --color-bg-secondary: var(--color-white);
 --color-bg-elevated: var(--color-white);
 
@@ -62,9 +70,12 @@ color-scheme: light;
 --color-border-secondary: var(--color-gray-200);
 
 // Point
---color-point: var(--color-blue-600);
---color-point-hover: var(--color-blue-700);
---color-point-soft: var(--color-blue-50);
+--color-point: var(--color-purple-600);
+--color-point-hover: var(--color-purple-700);
+--color-point-soft: var(--color-purple-50);
+--color-point-2: var(--color-blue-600);
+--color-point-2-hover: var(--color-blue-700);
+--color-point-2-soft: var(--color-blue-50);
 
 // Interaction
 --color-focus: var(--color-blue-500);
@@ -127,9 +138,12 @@ color-scheme: dark;
 --color-border-secondary: var(--color-gray-800);
 
 // Point
---color-point: var(--color-blue-400);
---color-point-hover: var(--color-blue-300);
---color-point-soft: var(--color-blue-950);
+--color-point: var(--color-purple-300);
+--color-point-hover: var(--color-purple-500);
+--color-point-soft: var(--color-purple-950);
+--color-point-2: var(--color-blue-400);
+--color-point-2-hover: var(--color-blue-300);
+--color-point-2-soft: var(--color-blue-950);
 
 // Interaction
 --color-focus: var(--color-blue-300);

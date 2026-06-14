@@ -27,6 +27,7 @@ $line-heights: (
 // ========================================
 
 $letter-spacings: (
+  none: 0,
   tight: -0.03em,
   heading: -0.02em,
   base: -0.01em,
@@ -40,6 +41,32 @@ $letter-spacings: (
 // ========================================
 
 $typography: (
+  home-menu: (
+    sizes: (
+      base: 2rem,
+      mobile: 2.5rem,
+      tablet: 3rem,
+      laptop: 3.25rem,
+      wide: 3.5rem,
+    ),
+    weight: semibold,
+    leading: tight,
+    tracking: none,
+  ),
+
+  home-menu-small: (
+    sizes: (
+      base: 1.125rem,
+      mobile: 1.25rem,
+      tablet: 1.375rem,
+      laptop: 1.5rem,
+      wide: 1.625rem,
+    ),
+    weight: semibold,
+    leading: tight,
+    tracking: none,
+  ),
+
   display: (
     sizes: (
       base: 2rem,

@@ -69,7 +69,7 @@
   justify-self: start;
   width: space(8);
   height: space(8);
-  color: var(--color-point);
+  color: var(--color-point-2);
   stroke-width: 1.8;
   opacity: 0.9;
 }
@@ -83,7 +83,7 @@
 .seoul-youth-center__improvement-strategy-step-number {
   @include typography(title);
 
-  color: var(--color-point);
+  color: var(--color-point-2);
   font-weight: 700;
   line-height: 1;
   font-variant-numeric: tabular-nums;
