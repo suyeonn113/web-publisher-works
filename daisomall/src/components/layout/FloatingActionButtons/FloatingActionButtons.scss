@@ -1,0 +1,35 @@
+@use '../../../styles/foundation/functions' as *;
+@use '../../../styles/foundation/mixins' as *;
+
+.floating-action-buttons {
+  position: fixed;
+  right: var(--floating-action-right);
+  bottom: var(--floating-action-bottom);
+  z-index: get-z(bottom-bar);
+  display: grid;
+
+  @include responsive-space(gap, var(--space-2), var(--space-3));
+
+  @include respond-up(tablet) {
+    bottom: var(--space-5);
+  }
+}
+
+.floating-action-button {
+  @include icon-button(var(--floating-action-size));
+
+  border: var(--line-thin) solid var(--color-border-secondary);
+  border-radius: var(--radius-circle);
+  background: rgb(var(--color-bg-main-rgb) / 0.75);
+  color: var(--color-text-primary);
+
+  box-shadow: 0 2px 8px rgb(var(--color-black-rgb) / 0.07);
+  backdrop-filter: blur(6px);
+
+  @include interactive-hover-icon;
+
+}
+
+.floating-action-button--top svg {
+  transform: rotate(-90deg);
+}

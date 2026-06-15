@@ -1,0 +1,16 @@
+{
+    "ranking":[
+        {"beauty":[1001]},
+        {"kitchen":[2001]},
+        {"clean-bath":[3001]},
+        {"organizing":[4001]},
+        {"fancy":[5001]},
+        {"interior":[6001]},
+        {"tools-digital":[7001]},
+        {"food":[8001]},
+        {"sports":[9001]},
+        {"fashion":[1101]},
+        {"pet":[1201]},
+        {"kids-toy":[1301]}
+    ]
+}

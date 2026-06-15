@@ -1,0 +1,96 @@
+@use '../../../styles/foundation/functions' as *;
+@use '../../../styles/foundation/mixins' as *;
+
+.home-category-menu-section {
+  margin-top: calc(var(--space-8) * -1);
+  padding-top: 0;
+
+  @include respond-up(laptop) {
+    margin-top: 0;
+    padding-top: var(--space-8);
+  }
+}
+
+.category-menu-grid {
+  @include scroll-row(var(--category-menu-column-width), 0);
+  
+  grid-template-rows: repeat(2, auto);
+  align-items: start;
+  row-gap: var(--space-4);
+
+  margin-inline: calc(var(--space-4) * -1);
+  padding-inline: var(--space-4);
+  padding-block: var(--space-3);
+  overflow-y: hidden;
+
+  @include respond-up(tablet) {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-rows: none;
+    grid-auto-flow: row;
+
+    margin-inline: 0;
+    padding-inline: 0;
+    overflow: visible;
+  }
+
+  @include respond-up(laptop) {
+    width: min(100%, get-breakpoint(desktop-lg));
+    margin-inline: auto;
+  }
+}
+
+.category-menu-button {
+  position: relative;
+  isolation: isolate;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: start;
+  gap: var(--space-1);
+
+  min-height: var(--category-menu-button-min-height);
+  padding-inline: var(--space-2);
+  transform: translateY(0);
+  transition: transform var(--duration-fast) var(--ease-standard);
+
+  @include text-size(caption);
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover,
+    &:focus-visible {
+      transform: translateY(-8px);
+      z-index: get-z(base) + 1;
+    }
+  }
+
+  @include respond-up(tablet) {
+    min-height: var(--category-menu-button-min-height-tablet);
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-2);
+  }
+
+  @include respond-up(laptop) {
+    min-height: var(--category-menu-button-min-height-laptop);
+    padding: var(--space-4) var(--space-2);
+  }
+
+  span {
+    font-weight: 600;
+    text-align: center;
+    line-height: var(--line-height-tight);
+  }
+}
+
+.category-menu-button img {
+  width: var(--category-icon-size);
+  height: var(--category-icon-size);
+  object-fit: contain;
+  flex-shrink: 0;
+
+  @include respond-up(laptop) {
+    width: var(--category-icon-size-laptop);
+    height: var(--category-icon-size-laptop);
+  }
+}

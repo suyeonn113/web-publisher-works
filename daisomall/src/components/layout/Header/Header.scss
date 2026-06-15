@@ -1,0 +1,195 @@
+@use '../../../styles/foundation/functions' as *;
+@use '../../../styles/foundation/mixins' as *;
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: get-z(sticky);
+  width: 100%;
+  background: var(--color-bg-main);
+  color: var(--color-text-primary);
+}
+
+/* Hide main header on search route for mobile so search input can be top-most */
+.app-shell.is-search-route {
+  @include respond-down(tablet) {
+    .site-header {
+      display: none;
+    }
+  }
+}
+
+.site-header__content {
+  @include mobile-shell;
+
+  background: rgb(var(--color-bg-main-rgb) / 1.0);
+  transition: transform var(--duration-base) var(--ease-standard);
+}
+
+.site-header.is-bar-hidden .site-header__content {
+  @include responsive-space(
+    transform,
+    translateY(calc(-1 * var(--header-bar-height))),
+    translateY(calc(-1 * var(--header-bar-height-tablet))),
+    translateY(calc(-1 * var(--header-bar-height-laptop)))
+  );
+}
+
+.site-header__bar {
+  @include flex-center;
+  @include responsive-space(padding-inline, var(--space-3), var(--space-4), var(--space-5));
+  @include responsive-space(gap, var(--space-4), var(--space-5));
+
+  justify-content: flex-start;
+  @include responsive-space(
+    height,
+    var(--header-bar-height),
+    var(--header-bar-height-tablet),
+    var(--header-bar-height-laptop)
+  );
+
+}
+
+.site-header.is-bar-hidden .site-header__bar {
+  pointer-events: none;
+}
+
+.site-header.is-bar-hidden {
+  background: transparent;
+}
+
+.site-header__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--color-text-tertiary);
+
+  @include text-size(title);
+  @include transition(color);
+  @include interactive-hover-text;
+
+  line-height: 1;
+}
+
+.site-header__logo.is-active {
+  color: var(--color-daiso-red);
+}
+
+.site-header__logo .logo__symbol {
+  width: auto;
+  height: 1em;
+}
+
+.site-header__logo .logo__wordmark {
+  width: auto;
+  height: 1em;
+}
+
+.site-header__store-wrap {
+  position: relative;
+}
+
+.site-header__store {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--icon-size-lg);
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  line-height: 1;
+  transform: translateY(2px);
+
+  @include text-size(body-lg);
+  @include transition(color);
+}
+
+.site-header__store:hover {
+  color: var(--color-text-primary);
+}
+
+.site-header__store.is-active {
+  color: var(--color-daiso-red);
+}
+
+.site-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  margin-left: auto;
+}
+
+.site-header__icon-button {
+  flex: 0 0 auto;
+
+  @include icon-button(var(--icon-size-lg));
+  @include interactive-hover-icon;
+}
+
+.site-header__notification {
+  display: inline-flex;
+}
+
+.site-header__desktop-action {
+  display: none;
+}
+
+@include respond-up(tablet) {
+  .site-header__actions .site-header__icon-button {
+    width: var(--icon-size-lg);
+    aspect-ratio: 1 / 1;
+    height: auto;
+  }
+
+  .site-header__notification {
+    display: none;
+  }
+
+  .site-header__desktop-action {
+    display: grid;
+  }
+}
+
+.site-header__store-tip {
+  position: absolute;
+  top: calc(100% + var(--space-3));
+  left: 50%;
+  z-index: get-z(sticky);
+  display: grid;
+  gap: var(--radius-xs);
+  width: max-content;
+  min-width: 172px;
+  max-width: 220px;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-lg);
+  background: rgb(var(--color-black-rgb) / 0.84);
+  color: var(--color-text-inverse);
+  box-shadow: 0 8px 24px rgb(var(--color-black-rgb) / 0.14);
+  transform: translateX(-50%);
+
+  @include text-size(caption);
+}
+
+.site-header__store-tip::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid rgb(var(--color-black-rgb) / 0.84);
+  border-left: 6px solid transparent;
+  transform: translateX(-50%);
+}
+
+.site-header__store-tip strong {
+  color: var(--color-text-inverse);
+  font-weight: 800;
+  line-height: var(--line-height-tight);
+}
+
+.site-header__store-tip span {
+  color: rgb(var(--color-text-inverse-rgb) / 0.72);
+  line-height: var(--line-height-tight);
+}

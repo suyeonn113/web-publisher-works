@@ -1,0 +1,164 @@
+/* ================================
+   FUNCTIONS
+================================ */
+/* ================================
+   MAPS
+================================ */
+/* Sass-only values used by functions and mixins. */
+/* =========================
+   BREAKPOINT
+========================= */
+/* =========================
+   SPACING
+========================= */
+/* =========================
+   FONT SIZE
+========================= */
+/* =========================
+   RADIUS
+========================= */
+/* =========================
+   Z-INDEX
+========================= */
+/* =========================
+   PX to REM
+========================= */
+/* =========================
+   MAP GETTERS
+========================= */
+/* ================================
+   MIXINS
+================================ */
+/* =========================
+   RESPONSIVE
+========================= */
+/* =========================
+   FLEX / GRID
+========================= */
+/* =========================
+   UI
+========================= */
+/* =========================
+   TYPOGRAPHY
+========================= */
+/* =========================
+   TRANSITION
+========================= */
+/* =========================
+   INTERACTIVE HOVER
+========================= */
+.home-category-menu-section {
+  margin-top: calc(var(--space-8) * -1);
+  padding-top: 0;
+}
+@media (min-width: 1024px) {
+  .home-category-menu-section {
+    margin-top: 0;
+    padding-top: var(--space-8);
+  }
+}
+
+.category-menu-grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: var(--category-menu-column-width);
+  gap: 0;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: none;
+}
+.category-menu-grid::-webkit-scrollbar {
+  display: none;
+}
+.category-menu-grid {
+  grid-template-rows: repeat(2, auto);
+  align-items: start;
+  margin-inline: calc(var(--space-4) * -1);
+  padding-inline: var(--space-4);
+  padding-block: var(--space-3);
+  overflow: hidden;
+}
+@media (min-width: 768px) {
+  .category-menu-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-rows: none;
+    grid-auto-flow: row;
+    margin-inline: 0;
+    padding-inline: 0;
+    overflow: visible;
+  }
+}
+@media (min-width: 1024px) {
+  .category-menu-grid {
+    width: min(100%, 1440px);
+    margin-inline: auto;
+  }
+}
+
+.category-menu-button {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: start;
+  gap: var(--space-1);
+  min-height: var(--category-menu-button-min-height);
+  padding-inline: var(--space-2);
+  transform: translateY(0);
+  transition: transform var(--duration-fast) var(--ease-standard);
+  font-size: 12px;
+}
+@media (min-width: 768px) {
+  .category-menu-button {
+    font-size: 13px;
+  }
+}
+@media (min-width: 1024px) {
+  .category-menu-button {
+    font-size: 13px;
+  }
+}
+@media (min-width: 1280px) {
+  .category-menu-button {
+    font-size: 14px;
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .category-menu-button:hover, .category-menu-button:focus-visible {
+    transform: translateY(-8px);
+    z-index: 2;
+  }
+}
+@media (min-width: 768px) {
+  .category-menu-button {
+    min-height: var(--category-menu-button-min-height-tablet);
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-2);
+  }
+}
+@media (min-width: 1024px) {
+  .category-menu-button {
+    min-height: var(--category-menu-button-min-height-laptop);
+    padding: var(--space-4) var(--space-2);
+  }
+}
+.category-menu-button span {
+  text-align: center;
+  line-height: var(--line-height-tight);
+}
+
+.category-menu-button img {
+  width: var(--category-icon-size);
+  height: var(--category-icon-size);
+  -o-object-fit: contain;
+     object-fit: contain;
+  flex-shrink: 0;
+}
+@media (min-width: 1024px) {
+  .category-menu-button img {
+    width: var(--category-icon-size-laptop);
+    height: var(--category-icon-size-laptop);
+  }
+}/*# sourceMappingURL=HomeCategoryMenuSection.css.map */

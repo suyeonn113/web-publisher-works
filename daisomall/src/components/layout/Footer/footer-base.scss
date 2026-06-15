@@ -1,0 +1,33 @@
+@use '../../../styles/foundation/mixins' as *;
+
+.site-footer {
+  @include mobile-shell;
+  display: flex;
+  flex-direction: column;
+  @include responsive-space(
+    padding,
+    var(--space-8) var(--space-5) calc(var(--bottom-tab-height) + var(--space-10)),
+    var(--space-10) var(--space-6) calc(var(--bottom-tab-height) + var(--space-12))
+  );
+  
+  background: var(--color-bg-main);
+  color: var(--color-text-primary);
+
+  @include respond-up(tablet) {
+    padding-top: var(--space-12);
+    box-shadow: 0 calc(-1 * var(--space-1)) var(--space-3) rgb(var(--color-black-rgb) / 0.025);
+  }
+
+  @include respond-up(laptop) {
+    display: grid;
+    grid-template-columns:
+      minmax(340px, 1.6fr)
+      minmax(150px, 0.7fr)
+      minmax(220px, 1fr)
+      minmax(180px, 0.7fr);
+    grid-template-rows: auto auto auto auto;
+    align-items: start;
+    column-gap: var(--space-10);
+    row-gap: var(--space-7);
+  }
+}

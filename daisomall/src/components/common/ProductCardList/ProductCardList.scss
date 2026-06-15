@@ -1,0 +1,24 @@
+@use '../../../styles/foundation/mixins' as *;
+
+.product-card-list {
+  @include scroll-row(minmax(var(--product-card-min-width), 1fr));
+  @include responsive-space(gap, var(--space-2), var(--space-3));
+
+  padding-left: var(--space-4);
+  padding-bottom: var(--space-1);
+  // padding-right: var(--space-4);
+  scroll-snap-type: inline mandatory;
+}
+
+.product-card-list > * {
+  scroll-snap-align: start;
+}
+
+.product-card-list.is-ranked {
+  grid-auto-flow: column;
+  grid-auto-columns: var(--product-ranked-list-column-width);
+  grid-template-rows: repeat(4, auto);
+
+  @include responsive-space(column-gap, var(--space-6), var(--space-8));
+  @include responsive-space(row-gap, var(--space-2), var(--space-3));
+}

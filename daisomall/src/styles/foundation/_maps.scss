@@ -1,0 +1,146 @@
+/* ================================
+   MAPS
+================================ */
+
+/* Sass-only values used by functions and mixins. */
+
+/* =========================
+   BREAKPOINT
+========================= */
+
+$breakpoints: (
+  mobile-xs: 360px,
+  mobile-sm: 390px,
+  mobile: 430px,
+  tablet: 768px,
+  laptop: 1024px,
+  desktop: 1280px,
+  desktop-lg: 1440px,
+);
+
+/* =========================
+   SPACING
+========================= */
+
+$spacing: (
+  0: 0,
+  1: 4px,
+  2: 8px,
+  3: 12px,
+  4: 16px,
+  5: 20px,
+  6: 24px,
+  7: 28px,
+  8: 32px,
+  10: 40px,
+  12: 48px,
+  16: 64px,
+);
+
+/* =========================
+   FONT SIZE
+========================= */
+
+$font-sizes: (
+  display: (
+    default: 26px,
+    mobile-xs: 24px,
+    mobile-sm: 24px,
+    tablet: 32px,
+    laptop: 36px,
+    desktop: 40px,
+  ),
+  title-lg: (
+    default: 20px,
+    mobile-xs: 19px,
+    mobile-sm: 19px,
+    tablet: 22px,
+    laptop: 24px,
+    desktop: 26px,
+  ),
+  title: (
+    default: 18px,
+    mobile-xs: 17px,
+    mobile-sm: 17px,
+    tablet: 20px,
+    laptop: 22px,
+    desktop: 24px,
+  ),
+  body-lg: (
+    default: 16px,
+    mobile-xs: 16px,
+    mobile-sm: 16px,
+    tablet: 17px,
+    laptop: 18px,
+    desktop: 18px,
+  ),
+  body: (
+    default: 14px,
+    mobile-xs: 14px,
+    mobile-sm: 14px,
+    tablet: 15px,
+    laptop: 16px,
+    desktop: 16px,
+  ),
+  body-sm: (
+    default: 13px,
+    mobile-xs: 13px,
+    mobile-sm: 13px,
+    tablet: 14px,
+    laptop: 14px,
+    desktop: 15px,
+  ),
+  caption: (
+    default: 12px,
+    mobile-xs: 12px,
+    mobile-sm: 12px,
+    tablet: 13px,
+    laptop: 13px,
+    desktop: 14px,
+  ),
+  micro: (
+    default: 11px,
+    mobile-xs: 11px,
+    mobile-sm: 11px,
+    tablet: 12px,
+    laptop: 12px,
+    desktop: 12px,
+  ),
+  tiny: (
+    default: 10px,
+    mobile-xs: 10px,
+    mobile-sm: 10px,
+    tablet: 11px,
+    laptop: 11px,
+    desktop: 11px,
+  ),
+);
+
+/* =========================
+   RADIUS
+========================= */
+
+$radius: (
+  xs: 2px,
+  sm: 4px,
+  md: 6px,
+  lg: 8px,
+  pill: 999px,
+  circle: 50%,
+);
+
+/* =========================
+   Z-INDEX
+========================= */
+
+$z-indexes: (
+  hide: -1,
+  base: 1,
+  dropdown: 10,
+  sticky: 20,
+  bottom-bar: 30,
+  overlay: 40,
+  drawer: 50,
+  modal: 60,
+  toast: 100,
+);

@@ -1,0 +1,7 @@
+@use '../styles/foundation/mixins' as *;
+
+.home-page {
+  @include mobile-shell;
+
+  background: var(--color-page);
+}

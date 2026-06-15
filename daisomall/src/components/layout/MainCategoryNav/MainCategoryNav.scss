@@ -1,0 +1,190 @@
+@use '../../../styles/foundation/functions' as *;
+@use '../../../styles/foundation/mixins' as *;
+
+.main-category-nav-shell {
+  position: relative;
+  width: 100%;
+}
+
+.main-category-nav {
+  position: relative;
+  display: flex;
+  @include responsive-space(gap, var(--space-2), var(--space-3));
+  @include responsive-space(padding-inline, var(--space-4), var(--space-5), var(--space-6));
+  background: var(--color-bg-main);
+
+  overflow-x: auto;
+  padding-block: var(--space-1);
+  scrollbar-width: none;
+}
+
+.main-category-nav-shell::after {
+  content: '';
+  position: absolute;
+  right: 50%;
+  bottom: 0;
+  left: 50%;
+  height: var(--line-thin);
+  width: 100vw;
+  margin-inline: -50vw;
+  background: var(--color-border-primary);
+  pointer-events: none;
+}
+.main-category-nav-shell::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background: var(--color-bg-main);
+  z-index: -1;
+}
+
+.main-category-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.main-category-nav__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: var(--header-nav-height);
+  padding-inline: var(--space-2);
+  color: var(--color-text-tertiary);
+  font-weight: 500;
+  white-space: nowrap;
+
+  @include transition((background, color));
+  @include interactive-hover-text;
+
+  &:focus-visible {
+    outline-offset: -2px;
+  }
+}
+
+.main-category-nav__link.is-active {
+  color: var(--color-text-primary);
+  font-weight: 700;
+}
+
+.main-category-nav__link.is-active::after {
+  content: '';
+  position: absolute;
+  right: var(--space-2);
+  bottom: calc(-1 * var(--space-1));
+  left: var(--space-2);
+  height: var(--line-thin);
+  border-radius: var(--radius-xs);
+  background: currentColor;
+}
+
+.main-category-nav__link--category-action {
+  display: none;
+}
+
+.main-category-nav__link--desktop-shortcut,
+.main-category-nav__delivery-links {
+  display: none;
+}
+
+@include respond-up(tablet) {
+  .main-category-nav__link--category-action {
+    display: inline-flex;
+    gap: var(--space-2);
+  }
+}
+
+@include respond-up(laptop) {
+  .main-category-nav {
+    align-items: center;
+    padding-inline: var(--space-5);
+  }
+
+  .main-category-nav__link--desktop-shortcut,
+  .main-category-nav__delivery-links {
+    display: inline-flex;
+  }
+
+  .main-category-nav__link--delivery {
+    display: none;
+  }
+
+  .main-category-nav__delivery-links {
+    align-items: center;
+    gap: var(--space-2);
+    margin-left: auto;
+    .main-category-nav__item {
+      color: var(--color-text-primary);
+    }
+  }
+
+  .main-category-nav__link--delivery-service {
+    gap: var(--space-1);
+  }
+}
+
+.main-category-nav__link--beauty {
+  color: var(--color-nav-beauty-muted);
+  background: linear-gradient(
+    90deg,
+    var(--color-nav-beauty-muted) 0%,
+    var(--color-nav-beauty-muted) 52%,
+    var(--color-nav-beauty-health-muted)
+  );
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.main-category-nav__link--beauty.is-active {
+  color: var(--color-nav-beauty);
+  background: linear-gradient(
+    90deg,
+    var(--color-nav-beauty) 0%,
+    var(--color-nav-beauty) 52%,
+    var(--color-nav-beauty-health)
+  );
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.main-category-nav__link--beauty.is-active::after {
+  background: linear-gradient(
+    90deg,
+    var(--color-nav-beauty) 0%,
+    var(--color-nav-beauty) 52%,
+    var(--color-nav-beauty-health)
+  );
+}
+
+.main-category-nav__link--new {
+  color: var(--color-nav-new-muted);
+}
+
+.main-category-nav__link--new.is-active {
+  color: var(--color-nav-new);
+}
+
+.main-category-nav__link--delivery-service-pickup svg {
+  color: var(--color-daiso-service-pickup-icon);
+}
+
+.main-category-nav__link--delivery-service-today svg {
+  color: var(--color-daiso-service-today-icon);
+}
+
+.main-category-nav__link--delivery-service-bulk svg {
+  color: var(--color-daiso-service-bulk-icon-primary);
+}
+
+.main-category-nav__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  white-space: nowrap;
+  font-size: get-font-size(body);
+  @include respond-up(tablet) {
+    font-size: get-font-size(body-lg);
+  }
+  line-height: 1;
+}

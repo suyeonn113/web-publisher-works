@@ -1,0 +1,257 @@
+/* ================================
+   TOKENS
+================================ */
+
+/* CSS custom properties used directly in rendered styles. */
+
+:root {
+  /* =========================
+     COLOR
+  ========================= */
+
+  --color-white: #ffffff;
+  --color-white-rgb: 255 255 255;
+  --color-black: #15161a;
+  --color-black-rgb: 21 22 26;
+
+  --color-white-soft: rgb(var(--color-white-rgb) / 0.08);
+  --color-white-medium: rgb(var(--color-white-rgb) / 0.16);
+  --color-white-hard: rgb(var(--color-white-rgb) / 0.86);
+  --color-black-soft: rgb(var(--color-black-rgb) / 0.08);
+  --color-black-medium: rgb(var(--color-black-rgb) / 0.16);
+  --color-black-hard: rgb(var(--color-black-rgb) / 0.86);
+
+  /* Brand */
+  --color-daiso-real-red: #d70011;
+  --color-daiso-real-blue: #0054a6;
+  --color-daiso-real-white: #ffffff;
+  --color-daiso-real-dark-gray: #96969a;
+  --color-daiso-red: var(--color-daiso-real-red);
+  --color-daiso-white: var(--color-daiso-real-white);
+  --color-daiso-dark-gray: var(--color-daiso-real-dark-gray);
+  --color-brand-red: #d81624;
+  --color-brand-red-dark: #b90f1c;
+  --color-brand-blue: #0759a8;
+  --color-nav-beauty: #d83a7c;
+  --color-nav-beauty-health: #2f83ff;
+  --color-nav-beauty-muted: #9e7a89;
+  --color-nav-beauty-health-muted: #7588a5;
+  --color-nav-new: #f2b600;
+  --color-nav-new-muted: #a89452;
+
+  /* SNS */
+  --color-sns-blog: #03c75a;
+  --color-sns-instagram: #e4405f;
+  --color-sns-facebook: #1877f2;
+  --color-sns-youtube: #ff0033;
+  --color-sns-tiktok: #111111;
+
+  /* Daiso service icon */
+  --color-daiso-service-delivery-icon: #28323c;
+  --color-daiso-service-delivery-icon-secondary: #3f4a55;
+  --color-daiso-service-pickup-icon: #d70011;
+  --color-daiso-service-today-icon: #7b3ff2;
+  --color-daiso-service-bulk-icon-primary: #1e7afc;
+  --color-daiso-service-bulk-icon-secondary: #8ebcfd;
+
+  /* Service */
+  --color-service-delivery: #29313B;
+  --color-service-pickup: #D60211;
+  --color-service-today: #6810E9;
+  --color-service-bulk: #1575FC;
+
+  /* Text */
+  --color-text-primary: #24262b;
+  --color-text-secondary: #5a5f68;
+  --color-text-tertiary: #777f8c;
+  --color-text-muted: #9aa2ad;
+  --color-text-inverse: #ffffff;
+  --color-text-inverse-rgb: var(--color-white-rgb);
+
+  /* Background */
+  --color-bg-page: #f6f4f1;
+  --color-bg-main: #ffffff;
+  --color-bg-main-rgb: var(--color-white-rgb);
+  --color-bg-sub: #f6f8fb;
+  --color-bg-icon-fill: #eef3f8;
+  --color-bg-chip: #f1f4f8;
+  --color-bg-dark: #2f3237;
+  --color-bg-backdrop: rgb(var(--color-black-rgb) / 0.35);
+  --color-bg-header: rgb(80 76 66 / 0.78);
+  --color-badge-product-bg: #15171a;
+  --color-badge-product-accent: #bfe7f2;
+  --color-badge-product-highlight: rgb(var(--color-white-rgb) / 0.18);
+  --gradient-image-readable:
+    linear-gradient(
+      180deg,
+      rgb(var(--color-black-rgb) / 0) 38%,
+      rgb(var(--color-black-rgb) / 0.48) 100%
+    );
+
+  /* Border */
+  --color-border-primary: #e4e8ee;
+  --color-border-secondary: #d8dee7;
+  --color-border-strong: #c6ced8;
+
+  /* State */
+  --color-state-active: var(--color-text-primary);
+  --color-state-selected: var(--color-text-primary);
+  --color-state-focus: var(--color-brand-blue);
+  --color-state-disabled: var(--color-text-muted);
+  --color-focus-ring: var(--color-state-focus);
+  --focus-ring-width: 2px;
+
+  /* Compatibility aliases */
+  --color-page: var(--color-bg-page);
+  --color-bg: var(--color-bg-main);
+  --color-text: var(--color-text-primary);
+  --color-muted: var(--color-text-tertiary);
+  --color-line: var(--color-border-primary);
+  --color-primary: var(--color-brand-red);
+  --color-dark: var(--color-bg-dark);
+  --color-chip: var(--color-bg-chip);
+
+  /* =========================
+     TYPOGRAPHY
+  ========================= */
+
+  --font-family-base:
+    'Pretendard',
+    'SUIT',
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+
+  --line-height-base: 1.45;
+  --line-height-tight: 1.2;
+  --line-height-comfy: 1.6;
+
+  /* =========================
+     LAYOUT
+  ========================= */
+
+  --layout-min-width: 320px;
+  --layout-max-width: 430px;
+  --layout-wide-width: 480px;
+  --layout-content-max-width: 1280px;
+
+  --header-height: 88px;
+  --header-bar-height: 42px;
+  --header-bar-height-tablet: 48px;
+  --header-bar-height-laptop: 52px;
+  --header-nav-height: 36px;
+  --bottom-tab-height: 64px;
+  --floating-action-bottom: calc(var(--bottom-tab-height) + var(--space-4));
+  --floating-action-right: var(--space-4);
+  --floating-action-size: 42px;
+  --drawer-width: min(100vw, var(--layout-max-width));
+  --drawer-sidebar-button-min-height: 52px;
+  --drawer-menu-image-size: 28px;
+
+  /* =========================
+     SPACING
+  ========================= */
+
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* =========================
+     ICON / COMPONENT
+  ========================= */
+
+  --icon-size-xxs: 10px;
+  --icon-size-xs: 14px;
+  --icon-size-sm: 18px;
+  --icon-size-md: 20px;
+  --icon-size-lg: 28px;
+
+  --shortcut-size: 56px;
+
+  --category-icon-size: clamp(38px, 8vw, 52px);
+  --category-icon-size-laptop: 52px;
+  --category-menu-column-width: clamp(88px, 24vw, 120px);
+  --category-menu-button-min-height: clamp(40px, 12vw, 56px);
+  --category-menu-button-min-height-tablet: 64px;
+  --category-menu-button-min-height-laptop: 84px;
+
+  --product-card-min-width: clamp(150px, 38vw, 192px);
+  --product-ranked-list-column-width: min(100%, clamp(240px, 75vw, 420px));
+
+  --ranking-image-size: clamp(60px, 16vw, 110px);
+  --ranking-number-width: clamp(20px, 2vw, 36px);
+
+  --new-arrival-card-width: clamp(276px, 62vw, 376px);
+  --new-arrival-card-aspect-ratio: 2 / 3;
+  
+  --promotion-card-height: 200px;
+
+  --delivery-card-min-height: clamp(104px, 28vw, 128px);
+  --delivery-card-min-height-tablet: clamp(220px, 28vw, 260px);
+  --delivery-card-min-height-laptop: clamp(220px, 18vw, 280px);
+  --delivery-card-icon-size-mobile: 40px;
+
+  --product-rank-offset: 52px;
+  --product-rank-indent: -18px;
+  
+  --app-icon-size: 48px;
+
+  /* =========================
+     RADIUS
+  ========================= */
+
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-pill: 999px;
+  --radius-circle: 50%;
+  --radius-focus: 6px;
+
+  /* =========================
+     SHADOW
+  ========================= */
+
+  --shadow-sm: 0 2px 8px rgb(var(--color-black-rgb) / 0.06);
+  --shadow-md: 0 8px 24px rgb(var(--color-black-rgb) / 0.1);
+  --shadow-product-badge:
+    inset 0 1px 0 var(--color-badge-product-highlight),
+    inset 0 -1px 1px rgb(var(--color-black-rgb) / 0.28),
+    0 2px 5px rgb(var(--color-black-rgb) / 0.24);
+  --shadow-icon-fill:
+    inset 0 1px 0 rgb(var(--color-bg-main-rgb) / 0.95),
+    inset 0 -1px 2px rgb(var(--color-black-rgb) / 0.06),
+    0 3px 10px rgb(var(--color-black-rgb) / 0.12);
+  --shadow-nav-glass:
+    inset 0 1px 0 rgb(var(--color-bg-main-rgb) / 0.74),
+    0 2px 8px rgb(var(--color-black-rgb) / 0.06);
+
+  /* =========================
+     LINE
+  ========================= */
+
+  --line-thin: 1px;
+  --line-bold: 2px;
+
+  /* =========================
+     TRANSITION
+  ========================= */
+
+  --duration-fast: 0.18s;
+  --duration-base: 0.28s;
+  --duration-panel: 0.36s;
+
+  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-panel: cubic-bezier(0.16, 1, 0.3, 1);
+}

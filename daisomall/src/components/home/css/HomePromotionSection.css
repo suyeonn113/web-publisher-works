@@ -1,0 +1,672 @@
+/* ================================
+   MIXINS
+================================ */
+/* ================================
+   MAPS
+================================ */
+/* Sass-only values used by functions and mixins. */
+/* =========================
+   BREAKPOINT
+========================= */
+/* =========================
+   SPACING
+========================= */
+/* =========================
+   FONT SIZE
+========================= */
+/* =========================
+   RADIUS
+========================= */
+/* =========================
+   Z-INDEX
+========================= */
+/* ================================
+   MIXINS
+================================ */
+/* ================================
+   FUNCTIONS
+================================ */
+/* =========================
+   PX to REM
+========================= */
+/* =========================
+   MAP GETTERS
+========================= */
+/* =========================
+   RESPONSIVE
+========================= */
+/* =========================
+   FLEX / GRID
+========================= */
+/* =========================
+   UI
+========================= */
+/* =========================
+   TYPOGRAPHY
+========================= */
+/* =========================
+   TRANSITION
+========================= */
+/* =========================
+   INTERACTIVE HOVER
+========================= */
+.promotion-tab-list {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--space-5);
+  gap: var(--space-5);
+}
+@media (min-width: 768px) {
+  .promotion-tab-list {
+    gap: var(--space-7);
+  }
+}
+
+.promotion-tab-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-block: var(--space-2);
+  color: var(--color-muted);
+  font-weight: 700;
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  .promotion-tab-button {
+    font-size: 15px;
+  }
+}
+@media (min-width: 1024px) {
+  .promotion-tab-button {
+    font-size: 16px;
+  }
+}
+@media (min-width: 1280px) {
+  .promotion-tab-button {
+    font-size: 16px;
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .promotion-tab-button {
+    transition: color var(--duration-fast) var(--ease-standard);
+  }
+  .promotion-tab-button:hover {
+    opacity: 0.7;
+  }
+}
+
+.promotion-tab-button__icon {
+  flex: 0 0 auto;
+}
+
+.promotion-tab-button.is-active {
+  color: var(--color-text);
+}
+
+.promotion-tab-button.is-active::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: var(--line-bold);
+  background: currentColor;
+}
+
+.promotion-card-list {
+  display: flex;
+  gap: var(--space-2);
+}
+@media (min-width: 768px) {
+  .promotion-card-list {
+    gap: var(--space-3);
+  }
+}
+
+.promotion-card {
+  flex: var(--promotion-base-grow) 1 0;
+  min-width: 0;
+  min-height: 0;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  transition: flex-grow var(--duration-base) var(--ease-standard);
+  position: relative;
+  z-index: 0;
+  border-radius: 4px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .promotion-card {
+    transition: transform var(--duration-base) var(--ease-standard), filter var(--duration-base) var(--ease-standard);
+  }
+  .promotion-card:hover {
+    transform: scale(1.02);
+    filter: brightness(0.9);
+  }
+}
+
+.promotion-card:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-bg-main), 0 0 0 4px var(--color-focus-ring);
+  outline: none;
+}
+
+.promotion-card__media {
+  position: relative;
+  flex: 1 1 auto;
+  isolation: isolate;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--color-bg-sub);
+  color: var(--color-text-inverse);
+}
+
+.promotion-card__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: get-z(base)1;
+  background: var(--gradient-image-readable);
+  pointer-events: none;
+}
+
+.promotion-card__media img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  position: absolute;
+  inset: 0;
+  z-index: get-z(base);
+  transition: filter var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-standard);
+}
+
+.promotion-card:not(.is-active) .promotion-card__media img {
+  filter: blur(2px) brightness(0.7);
+  transform: scale(1.04);
+}
+
+.promotion-card__title-icon,
+.promotion-card__corner-icon {
+  opacity: 0;
+}
+
+.promotion-card.is-active .promotion-card__title-icon,
+.promotion-card.is-active .promotion-card__corner-icon {
+  opacity: 1;
+}
+
+.promotion-card__ranking {
+  position: static;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-primary);
+}
+
+.promotion-card__rank {
+  font-weight: 800;
+  line-height: 1.2;
+  font-size: 17px;
+}
+@media (min-width: 768px) {
+  .promotion-card__rank {
+    font-size: 20px;
+  }
+}
+@media (min-width: 1024px) {
+  .promotion-card__rank {
+    font-size: 22px;
+  }
+}
+@media (min-width: 1280px) {
+  .promotion-card__rank {
+    font-size: 24px;
+  }
+}
+
+.promotion-card__rank-change {
+  font-weight: 500;
+  font-size: 12px;
+}
+@media (min-width: 768px) {
+  .promotion-card__rank-change {
+    font-size: 13px;
+  }
+}
+@media (min-width: 1024px) {
+  .promotion-card__rank-change {
+    font-size: 13px;
+  }
+}
+@media (min-width: 1280px) {
+  .promotion-card__rank-change {
+    font-size: 14px;
+  }
+}
+
+.promotion-card__rank-change.is-up {
+  color: var(--color-brand-red);
+}
+
+.promotion-card__rank-change.is-down {
+  color: var(--color-brand-blue);
+}
+
+.promotion-card__rank-change.is-same {
+  color: var(--color-text-secondary);
+}
+
+.promotion-card__media strong {
+  position: absolute;
+  right: var(--space-3);
+  bottom: var(--space-3);
+  left: var(--space-3);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  font-weight: 700;
+  text-shadow: 0 var(--line-thin) var(--space-2) var(--color-black-hard);
+  font-size: 16px;
+}
+@media (min-width: 768px) {
+  .promotion-card__media strong {
+    font-size: 17px;
+  }
+}
+@media (min-width: 1024px) {
+  .promotion-card__media strong {
+    font-size: 18px;
+  }
+}
+@media (min-width: 1280px) {
+  .promotion-card__media strong {
+    font-size: 18px;
+  }
+}
+
+.promotion-card:not(.is-active) .promotion-card__media strong {
+  font-size: 12px;
+}
+@media (min-width: 768px) {
+  .promotion-card:not(.is-active) .promotion-card__media strong {
+    font-size: 13px;
+  }
+}
+@media (min-width: 1024px) {
+  .promotion-card:not(.is-active) .promotion-card__media strong {
+    font-size: 13px;
+  }
+}
+@media (min-width: 1280px) {
+  .promotion-card:not(.is-active) .promotion-card__media strong {
+    font-size: 14px;
+  }
+}
+.promotion-card:not(.is-active) .promotion-card__media strong {
+  font-weight: 400;
+}
+
+.promotion-card .promotion-card__media strong span {
+  min-width: 0;
+}
+
+.promotion-card__title-icon,
+.promotion-card__corner-icon {
+  flex: 0 0 auto;
+  fill: currentColor;
+}
+
+.promotion-card__corner-icon {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  z-index: 3;
+  color: var(--color-text-inverse);
+  filter: drop-shadow(0 var(--line-thin) var(--space-2) var(--color-black-hard));
+}
+
+.promotion-card-list {
+  --promotion-base-grow: 1;
+  aspect-ratio: 11/10;
+}
+.promotion-card-list.is-horizontal {
+  --promotion-active-grow: 4;
+  flex-direction: column;
+}
+.promotion-card-list.is-vertical {
+  --promotion-active-grow: 1.5;
+  flex-direction: row;
+  overflow-x: auto;
+  overflow-y: visible;
+  overscroll-behavior-inline: contain;
+  padding: 4px 4px;
+  margin: -4px -4px -4px -4px;
+  scroll-snap-type: inline mandatory;
+  scrollbar-width: none;
+}
+.promotion-card-list.is-vertical::-webkit-scrollbar {
+  display: none;
+}
+.promotion-card-list .promotion-card img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.promotion-card-list .promotion-card {
+  scroll-snap-align: start;
+}
+.promotion-card-list.active-index-0 .promotion-card:nth-child(1), .promotion-card-list.active-index-1 .promotion-card:nth-child(2), .promotion-card-list.active-index-2 .promotion-card:nth-child(3), .promotion-card-list.active-index-3 .promotion-card:nth-child(4), .promotion-card-list.active-index-4 .promotion-card:nth-child(5), .promotion-card-list.active-index-5 .promotion-card:nth-child(6), .promotion-card-list.active-index-6 .promotion-card:nth-child(7), .promotion-card-list.active-index-7 .promotion-card:nth-child(8), .promotion-card-list.active-index-8 .promotion-card:nth-child(9) {
+  flex-grow: var(--promotion-active-grow);
+}
+.promotion-card-list.is-horizontal .promotion-card:nth-child(n+4) {
+  display: none;
+}
+.promotion-card-list.is-vertical .promotion-card:nth-child(n+5) {
+  display: none;
+}
+
+@media (min-width: 430px) {
+  .promotion-card-list.is-horizontal .promotion-card:nth-child(n+4) {
+    display: flex;
+  }
+  .promotion-card-list.is-horizontal .promotion-card:nth-child(n+5) {
+    display: none;
+  }
+  .promotion-card-list.is-vertical {
+    --promotion-active-grow: 2;
+  }
+  .promotion-card-list.is-vertical .promotion-card:nth-child(n+5) {
+    display: flex;
+  }
+  .promotion-card-list.is-vertical .promotion-card:nth-child(n+6) {
+    display: none;
+  }
+}
+@media (min-width: 768px) {
+  .promotion-card__media strong {
+    font-size: 17px;
+  }
+}
+@media (min-width: 768px) and (min-width: 768px) {
+  .promotion-card__media strong {
+    font-size: 20px;
+  }
+}
+@media (min-width: 768px) and (min-width: 1024px) {
+  .promotion-card__media strong {
+    font-size: 22px;
+  }
+}
+@media (min-width: 768px) and (min-width: 1280px) {
+  .promotion-card__media strong {
+    font-size: 24px;
+  }
+}
+@media (min-width: 768px) {
+  .promotion-card-list.is-horizontal {
+    aspect-ratio: 5/2;
+    --promotion-active-grow: 6;
+    flex-direction: row;
+  }
+  .promotion-card-list.is-horizontal .promotion-card:nth-child(n+5) {
+    display: none;
+  }
+  .promotion-card-list.is-vertical {
+    aspect-ratio: 5/2;
+    --promotion-active-grow: 1.8;
+    --promotion-base-grow: 1;
+  }
+  .promotion-card-list.is-vertical .promotion-card:nth-child(n+6) {
+    display: flex;
+  }
+  .promotion-card-list.is-vertical .promotion-card:nth-child(n+8) {
+    display: none;
+  }
+}
+@media (min-width: 1024px) {
+  .promotion-card-list {
+    --promotion-base-grow: 1;
+    --promotion-active-grow: 1;
+    overflow: visible;
+  }
+  .promotion-card-list .promotion-card {
+    flex: 1 1 0;
+  }
+  .promotion-card-list .promotion-card, .promotion-card-list.active-index-0 .promotion-card:nth-child(1), .promotion-card-list.active-index-1 .promotion-card:nth-child(2), .promotion-card-list.active-index-2 .promotion-card:nth-child(3), .promotion-card-list.active-index-3 .promotion-card:nth-child(4), .promotion-card-list.active-index-4 .promotion-card:nth-child(5), .promotion-card-list.active-index-5 .promotion-card:nth-child(6), .promotion-card-list.active-index-6 .promotion-card:nth-child(7), .promotion-card-list.active-index-7 .promotion-card:nth-child(8), .promotion-card-list.active-index-8 .promotion-card:nth-child(9) {
+    flex-grow: 1;
+  }
+  .promotion-card-list .promotion-card:not(.is-active) .promotion-card__media img {
+    filter: none;
+    transform: none;
+  }
+  .promotion-card-list .promotion-card__media strong {
+    font-size: 16px;
+  }
+}
+@media (min-width: 1024px) and (min-width: 768px) {
+  .promotion-card-list .promotion-card__media strong {
+    font-size: 17px;
+  }
+}
+@media (min-width: 1024px) and (min-width: 1024px) {
+  .promotion-card-list .promotion-card__media strong {
+    font-size: 18px;
+  }
+}
+@media (min-width: 1024px) and (min-width: 1280px) {
+  .promotion-card-list .promotion-card__media strong {
+    font-size: 18px;
+  }
+}
+@media (min-width: 1024px) {
+  .promotion-card-list .promotion-card:not(.is-active) .promotion-card__media strong {
+    font-size: 16px;
+    font-weight: 700;
+  }
+}
+@media (min-width: 1024px) and (min-width: 768px) {
+  .promotion-card-list .promotion-card:not(.is-active) .promotion-card__media strong {
+    font-size: 17px;
+  }
+}
+@media (min-width: 1024px) and (min-width: 1024px) {
+  .promotion-card-list .promotion-card:not(.is-active) .promotion-card__media strong {
+    font-size: 18px;
+  }
+}
+@media (min-width: 1024px) and (min-width: 1280px) {
+  .promotion-card-list .promotion-card:not(.is-active) .promotion-card__media strong {
+    font-size: 18px;
+  }
+}
+@media (min-width: 1024px) {
+  .promotion-card-list .promotion-card__title-icon,
+  .promotion-card-list .promotion-card__corner-icon {
+    opacity: 1;
+  }
+  .promotion-card-list.is-horizontal {
+    aspect-ratio: 11/5;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    flex-direction: initial;
+  }
+  .promotion-card-list.is-horizontal .promotion-card:nth-child(n) {
+    display: flex;
+  }
+  .promotion-card-list.is-horizontal .promotion-card:nth-child(n+5) {
+    display: none;
+  }
+  .promotion-card-list.is-vertical {
+    aspect-ratio: 11/5;
+    display: flex;
+    flex-direction: row;
+  }
+  .promotion-card-list.is-vertical .promotion-card__rank {
+    font-size: 16px;
+    font-weight: 900;
+  }
+}
+@media (min-width: 1024px) and (min-width: 768px) {
+  .promotion-card-list.is-vertical .promotion-card__rank {
+    font-size: 17px;
+  }
+}
+@media (min-width: 1024px) and (min-width: 1024px) {
+  .promotion-card-list.is-vertical .promotion-card__rank {
+    font-size: 18px;
+  }
+}
+@media (min-width: 1024px) and (min-width: 1280px) {
+  .promotion-card-list.is-vertical .promotion-card__rank {
+    font-size: 18px;
+  }
+}
+@media (min-width: 1024px) {
+  .promotion-card-list.is-vertical .promotion-card__ranking {
+    flex: 0 0 32px;
+  }
+  .promotion-card-list.is-vertical .promotion-card:nth-child(-n+3) .promotion-card__rank {
+    font-size: 19px;
+    font-weight: 900;
+  }
+}
+@media (min-width: 1024px) and (min-width: 768px) {
+  .promotion-card-list.is-vertical .promotion-card:nth-child(-n+3) .promotion-card__rank {
+    font-size: 22px;
+  }
+}
+@media (min-width: 1024px) and (min-width: 1024px) {
+  .promotion-card-list.is-vertical .promotion-card:nth-child(-n+3) .promotion-card__rank {
+    font-size: 24px;
+  }
+}
+@media (min-width: 1024px) and (min-width: 1280px) {
+  .promotion-card-list.is-vertical .promotion-card:nth-child(-n+3) .promotion-card__rank {
+    font-size: 26px;
+  }
+}
+@media (min-width: 1024px) {
+  .promotion-card-list.is-vertical .promotion-card:nth-child(n+4) .promotion-card__media strong {
+    font-size: 14px;
+  }
+}
+@media (min-width: 1024px) and (min-width: 768px) {
+  .promotion-card-list.is-vertical .promotion-card:nth-child(n+4) .promotion-card__media strong {
+    font-size: 15px;
+  }
+}
+@media (min-width: 1024px) and (min-width: 1024px) {
+  .promotion-card-list.is-vertical .promotion-card:nth-child(n+4) .promotion-card__media strong {
+    font-size: 16px;
+  }
+}
+@media (min-width: 1024px) and (min-width: 1280px) {
+  .promotion-card-list.is-vertical .promotion-card:nth-child(n+4) .promotion-card__media strong {
+    font-size: 16px;
+  }
+}
+@media (min-width: 1024px) {
+  .promotion-card-list.is-vertical .promotion-card:nth-child(-n+3) {
+    flex-grow: 1.35;
+  }
+  .promotion-card-list.is-vertical .promotion-card:nth-child(n) {
+    display: none;
+  }
+  .promotion-card-list.is-vertical .promotion-card:nth-child(-n+6) {
+    display: flex;
+  }
+}
+@media (min-width: 1280px) {
+  .promotion-card-list.is-horizontal {
+    aspect-ratio: 3/1;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .promotion-card-list.is-horizontal .promotion-card:nth-child(n) {
+    display: flex;
+  }
+  .promotion-card-list.is-horizontal .promotion-card:nth-child(n+7) {
+    display: none;
+  }
+  .promotion-card-list.is-vertical {
+    aspect-ratio: 3.5/1;
+  }
+  .promotion-card-list.is-vertical .promotion-card__ranking {
+    flex: 0 0 36px;
+  }
+  .promotion-card-list.is-vertical .promotion-card:nth-child(n) {
+    display: none;
+  }
+  .promotion-card-list.is-vertical .promotion-card:nth-child(-n+10) {
+    display: flex;
+  }
+}
+.promotion-banner-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-image-readable);
+  pointer-events: none;
+}
+.promotion-banner-card {
+  position: relative;
+  overflow: hidden;
+  min-height: var(--promotion-card-height);
+  background: var(--color-bg-sub);
+}
+
+.promotion-banner-card img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  height: var(--promotion-card-height);
+}
+
+.promotion-banner-card strong {
+  position: absolute;
+  right: var(--space-4);
+  bottom: var(--space-4);
+  left: var(--space-4);
+  z-index: get-z(base);
+  color: var(--color-text-inverse);
+  font-size: 17px;
+}
+@media (min-width: 768px) {
+  .promotion-banner-card strong {
+    font-size: 20px;
+  }
+}
+@media (min-width: 1024px) {
+  .promotion-banner-card strong {
+    font-size: 22px;
+  }
+}
+@media (min-width: 1280px) {
+  .promotion-banner-card strong {
+    font-size: 24px;
+  }
+}
+
+.promotion-accordion-list {
+  display: grid;
+  margin-top: var(--space-2);
+}
+
+.promotion-accordion-list a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-black-hard);
+  color: var(--color-text-inverse);
+  padding: var(--space-3) var(--space-4);
+}
+@media (min-width: 768px) {
+  .promotion-accordion-list a {
+    padding: var(--space-4) var(--space-5);
+  }
+}/*# sourceMappingURL=HomePromotionSection.css.map */

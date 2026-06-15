@@ -1,0 +1,23 @@
+@use '../../../styles/foundation/mixins' as *;
+
+.badge-button {
+  @include chip;
+
+  min-height: 34px;
+  background: var(--color-bg-chip);
+  color: var(--color-text-secondary);
+  font-weight: 700;
+  position: relative;
+  z-index: 0;
+  @include interactive-hover-button;
+}
+
+.badge-button.is-active {
+  background: var(--color-bg-dark);
+  color: var(--color-text-inverse);
+}
+
+.badge-button:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-bg-chip), 0 0 0 4px var(--color-focus-ring);
+  outline: none;
+}

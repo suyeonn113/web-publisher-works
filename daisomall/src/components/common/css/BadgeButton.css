@@ -1,0 +1,84 @@
+/* ================================
+   MIXINS
+================================ */
+/* ================================
+   MAPS
+================================ */
+/* Sass-only values used by functions and mixins. */
+/* =========================
+   BREAKPOINT
+========================= */
+/* =========================
+   SPACING
+========================= */
+/* =========================
+   FONT SIZE
+========================= */
+/* =========================
+   RADIUS
+========================= */
+/* =========================
+   Z-INDEX
+========================= */
+/* ================================
+   MIXINS
+================================ */
+/* ================================
+   FUNCTIONS
+================================ */
+/* =========================
+   PX to REM
+========================= */
+/* =========================
+   MAP GETTERS
+========================= */
+/* =========================
+   RESPONSIVE
+========================= */
+/* =========================
+   FLEX / GRID
+========================= */
+/* =========================
+   UI
+========================= */
+/* =========================
+   TYPOGRAPHY
+========================= */
+/* =========================
+   TRANSITION
+========================= */
+/* =========================
+   INTERACTIVE HOVER
+========================= */
+.badge-button {
+  padding: 6px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-chip);
+  color: var(--color-text-muted);
+  font-size: 12px;
+  white-space: nowrap;
+  min-height: 34px;
+  background: var(--color-bg-chip);
+  color: var(--color-text-secondary);
+  font-weight: 700;
+  position: relative;
+  z-index: 0;
+}
+@media (hover: hover) and (pointer: fine) {
+  .badge-button {
+    transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard);
+  }
+  .badge-button:hover {
+    filter: brightness(0.92);
+  }
+}
+
+.badge-button.is-active {
+  background: var(--color-bg-dark);
+  color: var(--color-text-inverse);
+}
+
+.badge-button:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-bg-chip), 0 0 0 4px var(--color-focus-ring);
+  outline: none;
+}/*# sourceMappingURL=BadgeButton.css.map */

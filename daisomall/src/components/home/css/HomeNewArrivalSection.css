@@ -1,0 +1,364 @@
+/* ================================
+   MIXINS
+================================ */
+/* ================================
+   MAPS
+================================ */
+/* Sass-only values used by functions and mixins. */
+/* =========================
+   BREAKPOINT
+========================= */
+/* =========================
+   SPACING
+========================= */
+/* =========================
+   FONT SIZE
+========================= */
+/* =========================
+   RADIUS
+========================= */
+/* =========================
+   Z-INDEX
+========================= */
+/* ================================
+   MIXINS
+================================ */
+/* ================================
+   FUNCTIONS
+================================ */
+/* =========================
+   PX to REM
+========================= */
+/* =========================
+   MAP GETTERS
+========================= */
+/* =========================
+   RESPONSIVE
+========================= */
+/* =========================
+   FLEX / GRID
+========================= */
+/* =========================
+   UI
+========================= */
+/* =========================
+   TYPOGRAPHY
+========================= */
+/* =========================
+   TRANSITION
+========================= */
+/* =========================
+   INTERACTIVE HOVER
+========================= */
+.new-arrival-carousel {
+  display: flex;
+  gap: var(--space-2);
+  padding-left: var(--space-4);
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scroll-snap-type: inline mandatory;
+  scrollbar-width: none;
+}
+
+.new-arrival-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.new-arrival-card {
+  position: relative;
+  flex: 0 0 var(--new-arrival-card-width);
+  display: grid;
+  gap: var(--space-2);
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+.new-arrival-card__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-image-readable);
+  pointer-events: none;
+}
+.new-arrival-card__media {
+  position: relative;
+  aspect-ratio: var(--new-arrival-card-aspect-ratio);
+  overflow: hidden;
+  background: var(--color-border-secondary);
+}
+
+.new-arrival-card__media > img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.new-arrival-card__copy {
+  position: absolute;
+  right: var(--space-3);
+  bottom: var(--space-3);
+  left: var(--space-3);
+  z-index: 1;
+  max-width: calc(100% - var(--space-12));
+  color: var(--color-text-inverse);
+  text-shadow: 0 var(--line-thin) var(--space-2) var(--color-black-hard);
+}
+
+.new-arrival-card__copy span {
+  display: inline-block;
+  margin-bottom: var(--space-1);
+  padding: 3px 6px;
+  border-radius: var(--radius-pill);
+  background: rgb(var(--color-black-rgb)/0.28);
+  line-height: var(--line-height-tight);
+  backdrop-filter: blur(6px);
+  font-size: 12px;
+}
+@media (min-width: 768px) {
+  .new-arrival-card__copy span {
+    font-size: 13px;
+  }
+}
+@media (min-width: 1024px) {
+  .new-arrival-card__copy span {
+    font-size: 13px;
+  }
+}
+@media (min-width: 1280px) {
+  .new-arrival-card__copy span {
+    font-size: 14px;
+  }
+}
+
+.new-arrival-card__copy strong {
+  display: block;
+  line-height: var(--line-height-tight);
+  text-wrap: balance;
+  font-size: 17px;
+}
+@media (min-width: 768px) {
+  .new-arrival-card__copy strong {
+    font-size: 20px;
+  }
+}
+@media (min-width: 1024px) {
+  .new-arrival-card__copy strong {
+    font-size: 22px;
+  }
+}
+@media (min-width: 1280px) {
+  .new-arrival-card__copy strong {
+    font-size: 24px;
+  }
+}
+
+.new-arrival-card__product-toggle {
+  position: absolute;
+  bottom: var(--space-3);
+  right: var(--space-3);
+  z-index: 3;
+  display: grid;
+  width: var(--space-10);
+  aspect-ratio: 1/1;
+  place-items: center;
+  border-radius: var(--radius-circle);
+  background: rgb(var(--color-black-rgb)/0.42);
+  color: var(--color-text-inverse);
+  font-weight: 500;
+  line-height: var(--line-height-tight);
+  box-shadow: 0 4px 14px rgb(var(--color-black-rgb)/0.18);
+  backdrop-filter: blur(8px);
+  transition: background var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard);
+}
+@media (hover: hover) and (pointer: fine) {
+  .new-arrival-card__product-toggle {
+    transition: background-color var(--duration-fast) var(--ease-standard);
+  }
+  .new-arrival-card__product-toggle:hover {
+    opacity: 0.8;
+  }
+}
+.new-arrival-card__product-toggle:focus-within {
+  outline-offset: -3px;
+}
+.new-arrival-card__product-toggle {
+  font-size: 12px;
+}
+@media (min-width: 768px) {
+  .new-arrival-card__product-toggle {
+    font-size: 13px;
+  }
+}
+@media (min-width: 1024px) {
+  .new-arrival-card__product-toggle {
+    font-size: 13px;
+  }
+}
+@media (min-width: 1280px) {
+  .new-arrival-card__product-toggle {
+    font-size: 14px;
+  }
+}
+.new-arrival-card__product-toggle[aria-expanded=true] {
+  background: rgb(var(--color-bg-main-rgb)/0.92);
+  color: var(--color-text-primary);
+}
+
+.new-arrival-card__products {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  padding: var(--space-2);
+  background: rgb(var(--color-white-rgb)/0.9);
+  backdrop-filter: blur(10px);
+}
+
+.new-arrival-card__product-list {
+  height: calc(100% - var(--space-10) - var(--space-3));
+  align-content: start;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-2);
+  display: grid;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.new-arrival-card__product-list::-webkit-scrollbar {
+  display: none;
+}
+
+.new-arrival-card__product {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+}
+@media (min-width: 768px) {
+  .new-arrival-card__product {
+    grid-template-columns: 80px minmax(0, 1fr);
+  }
+}
+.new-arrival-card__product {
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+  padding: var(--space-1);
+  border-radius: var(--radius-sm);
+  background: rgb(var(--color-bg-main-rgb)/0.96);
+  color: var(--color-text-primary);
+  box-shadow: 0 4px 12px rgb(var(--color-black-rgb)/0.08);
+}
+@media (hover: hover) and (pointer: fine) {
+  .new-arrival-card__product {
+    transition: transform var(--duration-base) var(--ease-standard), filter var(--duration-base) var(--ease-standard);
+  }
+  .new-arrival-card__product:hover {
+    transform: scale(1.02);
+    filter: brightness(0.9);
+  }
+}
+
+.new-arrival-card__product img {
+  height: 100%;
+  aspect-ratio: 1/1;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: var(--radius-xs);
+}
+
+.new-arrival-card__product span {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 0;
+  line-height: var(--line-height-tight);
+}
+
+.new-arrival-card__product strong,
+.new-arrival-card__product em {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.new-arrival-card__product strong {
+  font-style: normal;
+  font-weight: 800;
+  font-size: 12px;
+}
+@media (min-width: 768px) {
+  .new-arrival-card__product strong {
+    font-size: 13px;
+  }
+}
+@media (min-width: 1024px) {
+  .new-arrival-card__product strong {
+    font-size: 13px;
+  }
+}
+@media (min-width: 1280px) {
+  .new-arrival-card__product strong {
+    font-size: 14px;
+  }
+}
+@media (min-width: 768px) {
+  .new-arrival-card__product strong {
+    font-size: 14px;
+  }
+}
+@media (min-width: 768px) and (min-width: 768px) {
+  .new-arrival-card__product strong {
+    font-size: 15px;
+  }
+}
+@media (min-width: 768px) and (min-width: 1024px) {
+  .new-arrival-card__product strong {
+    font-size: 16px;
+  }
+}
+@media (min-width: 768px) and (min-width: 1280px) {
+  .new-arrival-card__product strong {
+    font-size: 16px;
+  }
+}
+
+.new-arrival-card__product em {
+  color: var(--color-text-secondary);
+  font-style: normal;
+  font-size: 11px;
+}
+@media (min-width: 768px) {
+  .new-arrival-card__product em {
+    font-size: 12px;
+  }
+}
+@media (min-width: 1024px) {
+  .new-arrival-card__product em {
+    font-size: 12px;
+  }
+}
+@media (min-width: 1280px) {
+  .new-arrival-card__product em {
+    font-size: 12px;
+  }
+}
+@media (min-width: 768px) {
+  .new-arrival-card__product em {
+    font-size: 12px;
+  }
+}
+@media (min-width: 768px) and (min-width: 768px) {
+  .new-arrival-card__product em {
+    font-size: 13px;
+  }
+}
+@media (min-width: 768px) and (min-width: 1024px) {
+  .new-arrival-card__product em {
+    font-size: 13px;
+  }
+}
+@media (min-width: 768px) and (min-width: 1280px) {
+  .new-arrival-card__product em {
+    font-size: 14px;
+  }
+}/*# sourceMappingURL=HomeNewArrivalSection.css.map */

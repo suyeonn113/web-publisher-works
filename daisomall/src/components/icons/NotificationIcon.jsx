@@ -1,0 +1,11 @@
+import IconBase from './IconBase'
+
+function NotificationIcon(props) {
+  return (
+    <IconBase viewBox="7.5 6 17 21.03" stroke="none" {...props}>
+      <path d="M16 6c-4.69 0-8.5 3.81-8.5 8.5v8.53H12c0 2.21 1.79 4 4 4s4-1.79 4-4h3v-1.5H9V14.5c0-3.86 3.14-7 7-7s7 3.14 7 7v7.03h1.5V14.5C24.5 9.81 20.69 6 16 6Zm2.5 17.03a2.5 2.5 0 0 1-5 0h5Z" />
+    </IconBase>
+  )
+}
+
+export default NotificationIcon

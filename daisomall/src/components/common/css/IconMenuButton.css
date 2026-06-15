@@ -1,0 +1,99 @@
+/* ================================
+   MIXINS
+================================ */
+/* ================================
+   MAPS
+================================ */
+/* Sass-only values used by functions and mixins. */
+/* =========================
+   BREAKPOINT
+========================= */
+/* =========================
+   SPACING
+========================= */
+/* =========================
+   FONT SIZE
+========================= */
+/* =========================
+   RADIUS
+========================= */
+/* =========================
+   Z-INDEX
+========================= */
+/* ================================
+   MIXINS
+================================ */
+/* ================================
+   FUNCTIONS
+================================ */
+/* =========================
+   PX to REM
+========================= */
+/* =========================
+   MAP GETTERS
+========================= */
+/* =========================
+   RESPONSIVE
+========================= */
+/* =========================
+   FLEX / GRID
+========================= */
+/* =========================
+   UI
+========================= */
+/* =========================
+   TYPOGRAPHY
+========================= */
+/* =========================
+   TRANSITION
+========================= */
+/* =========================
+   INTERACTIVE HOVER
+========================= */
+.icon-menu-button {
+  display: grid;
+  gap: var(--space-2);
+  justify-items: center;
+  color: var(--color-text);
+  font-size: 12px;
+}
+@media (min-width: 768px) {
+  .icon-menu-button {
+    font-size: 13px;
+  }
+}
+@media (min-width: 1024px) {
+  .icon-menu-button {
+    font-size: 13px;
+  }
+}
+@media (min-width: 1280px) {
+  .icon-menu-button {
+    font-size: 14px;
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .icon-menu-button {
+    transition: transform var(--duration-base) var(--ease-standard), filter var(--duration-base) var(--ease-standard);
+  }
+  .icon-menu-button:hover {
+    transform: scale(1.02);
+    filter: brightness(0.9);
+  }
+}
+
+.icon-menu-button__image {
+  display: grid;
+  width: var(--shortcut-size);
+  height: var(--shortcut-size);
+  place-items: center;
+  border-radius: var(--radius-circle);
+  background: var(--color-chip);
+}
+
+.icon-menu-button__image img {
+  width: calc(var(--shortcut-size) - 18px);
+  height: calc(var(--shortcut-size) - 18px);
+  -o-object-fit: contain;
+     object-fit: contain;
+}/*# sourceMappingURL=IconMenuButton.css.map */

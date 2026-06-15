@@ -1,0 +1,19 @@
+@use '../styles/foundation/mixins' as *;
+
+.page-placeholder {
+  @include mobile-shell;
+  @include section-padding(8, 4);
+
+  min-height: 320px;
+  background: var(--color-bg);
+}
+
+.page-placeholder h1 {
+  margin-bottom: var(--space-3);
+
+  @include text-size(title-lg);
+}
+
+.page-placeholder p {
+  color: var(--color-muted);
+}

@@ -1,0 +1,358 @@
+/* ================================
+   MIXINS
+================================ */
+/* ================================
+   MAPS
+================================ */
+/* Sass-only values used by functions and mixins. */
+/* =========================
+   BREAKPOINT
+========================= */
+/* =========================
+   SPACING
+========================= */
+/* =========================
+   FONT SIZE
+========================= */
+/* =========================
+   RADIUS
+========================= */
+/* =========================
+   Z-INDEX
+========================= */
+/* ================================
+   MIXINS
+================================ */
+/* ================================
+   FUNCTIONS
+================================ */
+/* =========================
+   PX to REM
+========================= */
+/* =========================
+   MAP GETTERS
+========================= */
+/* =========================
+   RESPONSIVE
+========================= */
+/* =========================
+   FLEX / GRID
+========================= */
+/* =========================
+   UI
+========================= */
+/* =========================
+   TYPOGRAPHY
+========================= */
+/* =========================
+   TRANSITION
+========================= */
+/* =========================
+   INTERACTIVE HOVER
+========================= */
+.delivery-service-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  gap: var(--space-2);
+}
+@media (min-width: 768px) {
+  .delivery-service-grid {
+    gap: var(--space-3);
+  }
+}
+@media (min-width: 768px) {
+  .delivery-service-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+  }
+}
+
+.delivery-service-card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--delivery-card-min-height);
+  background-color: var(--color-service-delivery);
+  background-image: var(--delivery-service-image);
+  color: var(--color-text-inverse);
+  gap: var(--space-3);
+}
+@media (min-width: 768px) {
+  .delivery-service-card {
+    gap: var(--space-4);
+  }
+}
+@media (min-width: 1024px) {
+  .delivery-service-card {
+    gap: var(--space-5);
+  }
+}
+.delivery-service-card {
+  padding: var(--space-4);
+}
+@media (min-width: 768px) {
+  .delivery-service-card {
+    padding: var(--space-4);
+  }
+}
+@media (min-width: 1024px) {
+  .delivery-service-card {
+    padding: var(--space-5);
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .delivery-service-card {
+    transition: transform var(--duration-base) var(--ease-standard), filter var(--duration-base) var(--ease-standard);
+  }
+  .delivery-service-card:hover {
+    transform: scale(1.02);
+    filter: brightness(0.9);
+  }
+}
+@media (min-width: 768px) {
+  .delivery-service-card {
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: var(--delivery-card-min-height-tablet);
+  }
+}
+@media (min-width: 1024px) {
+  .delivery-service-card {
+    min-height: var(--delivery-card-min-height-laptop);
+  }
+}
+
+.delivery-service-card,
+.delivery-service-card--pickup,
+.delivery-service-card--today,
+.delivery-service-card--bulk {
+  background-size: 30% auto;
+  background-position: right 0px bottom 0px;
+  background-repeat: no-repeat;
+}
+@media (min-width: 768px) {
+  .delivery-service-card,
+  .delivery-service-card--pickup,
+  .delivery-service-card--today,
+  .delivery-service-card--bulk {
+    background-size: 72% auto;
+  }
+}
+@media (min-width: 1024px) {
+  .delivery-service-card,
+  .delivery-service-card--pickup,
+  .delivery-service-card--today,
+  .delivery-service-card--bulk {
+    background-size: 86% auto;
+  }
+}
+
+.delivery-service-card--pickup {
+  background-color: var(--color-service-pickup);
+}
+
+.delivery-service-card--today {
+  background-color: var(--color-service-today);
+}
+
+.delivery-service-card--bulk {
+  background-color: var(--color-service-bulk);
+}
+
+.delivery-service-card__icon {
+  position: relative;
+  z-index: get-z(base);
+  --delivery-service-card-icon-size: var(--delivery-card-icon-size-mobile);
+  flex-shrink: 0;
+}
+@media (min-width: 768px) {
+  .delivery-service-card__icon {
+    --delivery-service-card-icon-size: calc(var(--app-icon-size) + var(--space-2));
+  }
+}
+@media (min-width: 1024px) {
+  .delivery-service-card__icon {
+    --delivery-service-card-icon-size: calc(var(--app-icon-size) + var(--space-4));
+  }
+}
+
+.delivery-service-card__copy {
+  position: relative;
+  z-index: get-z(base);
+}
+
+.delivery-service-card__eyebrow {
+  display: block;
+  margin-bottom: var(--space-2);
+  line-height: var(--line-height-tight);
+  color: rgb(var(--color-text-inverse-rgb)/0.92);
+  font-size: 12px;
+}
+@media (min-width: 768px) {
+  .delivery-service-card__eyebrow {
+    font-size: 13px;
+  }
+}
+@media (min-width: 1024px) {
+  .delivery-service-card__eyebrow {
+    font-size: 13px;
+  }
+}
+@media (min-width: 1280px) {
+  .delivery-service-card__eyebrow {
+    font-size: 14px;
+  }
+}
+@media (min-width: 768px) {
+  .delivery-service-card__eyebrow {
+    font-size: 14px;
+  }
+}
+@media (min-width: 768px) and (min-width: 768px) {
+  .delivery-service-card__eyebrow {
+    font-size: 15px;
+  }
+}
+@media (min-width: 768px) and (min-width: 1024px) {
+  .delivery-service-card__eyebrow {
+    font-size: 16px;
+  }
+}
+@media (min-width: 768px) and (min-width: 1280px) {
+  .delivery-service-card__eyebrow {
+    font-size: 16px;
+  }
+}
+
+.delivery-service-card strong {
+  display: block;
+  line-height: var(--line-height-tight);
+  font-size: 16px;
+}
+@media (min-width: 768px) {
+  .delivery-service-card strong {
+    font-size: 17px;
+  }
+}
+@media (min-width: 1024px) {
+  .delivery-service-card strong {
+    font-size: 18px;
+  }
+}
+@media (min-width: 1280px) {
+  .delivery-service-card strong {
+    font-size: 18px;
+  }
+}
+@media (min-width: 768px) {
+  .delivery-service-card strong {
+    font-size: 19px;
+  }
+}
+@media (min-width: 768px) and (min-width: 768px) {
+  .delivery-service-card strong {
+    font-size: 22px;
+  }
+}
+@media (min-width: 768px) and (min-width: 1024px) {
+  .delivery-service-card strong {
+    font-size: 24px;
+  }
+}
+@media (min-width: 768px) and (min-width: 1280px) {
+  .delivery-service-card strong {
+    font-size: 26px;
+  }
+}
+@media (min-width: 1024px) {
+  .delivery-service-card strong {
+    font-size: 17px;
+  }
+}
+@media (min-width: 1024px) and (min-width: 768px) {
+  .delivery-service-card strong {
+    font-size: 20px;
+  }
+}
+@media (min-width: 1024px) and (min-width: 1024px) {
+  .delivery-service-card strong {
+    font-size: 22px;
+  }
+}
+@media (min-width: 1024px) and (min-width: 1280px) {
+  .delivery-service-card strong {
+    font-size: 24px;
+  }
+}
+
+.delivery-service-card p {
+  margin-top: var(--space-3);
+  color: rgb(var(--color-text-inverse-rgb)/0.88);
+  line-height: 1.35;
+  font-size: 12px;
+}
+@media (min-width: 768px) {
+  .delivery-service-card p {
+    font-size: 13px;
+  }
+}
+@media (min-width: 1024px) {
+  .delivery-service-card p {
+    font-size: 13px;
+  }
+}
+@media (min-width: 1280px) {
+  .delivery-service-card p {
+    font-size: 14px;
+  }
+}
+@media (min-width: 768px) {
+  .delivery-service-card p {
+    font-size: 13px;
+  }
+}
+@media (min-width: 768px) and (min-width: 768px) {
+  .delivery-service-card p {
+    font-size: 14px;
+  }
+}
+@media (min-width: 768px) and (min-width: 1024px) {
+  .delivery-service-card p {
+    font-size: 14px;
+  }
+}
+@media (min-width: 768px) and (min-width: 1280px) {
+  .delivery-service-card p {
+    font-size: 15px;
+  }
+}
+@media (min-width: 1024px) {
+  .delivery-service-card p {
+    font-size: 12px;
+  }
+}
+@media (min-width: 1024px) and (min-width: 768px) {
+  .delivery-service-card p {
+    font-size: 13px;
+  }
+}
+@media (min-width: 1024px) and (min-width: 1024px) {
+  .delivery-service-card p {
+    font-size: 13px;
+  }
+}
+@media (min-width: 1024px) and (min-width: 1280px) {
+  .delivery-service-card p {
+    font-size: 14px;
+  }
+}
+
+.delivery-service-card p span {
+  display: block;
+  font-weight: 400;
+}/*# sourceMappingURL=HomeDeliverySection.css.map */

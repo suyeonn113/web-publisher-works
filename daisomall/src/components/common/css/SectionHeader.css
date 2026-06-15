@@ -1,0 +1,108 @@
+/* ================================
+   MIXINS
+================================ */
+/* ================================
+   MAPS
+================================ */
+/* Sass-only values used by functions and mixins. */
+/* =========================
+   BREAKPOINT
+========================= */
+/* =========================
+   SPACING
+========================= */
+/* =========================
+   FONT SIZE
+========================= */
+/* =========================
+   RADIUS
+========================= */
+/* =========================
+   Z-INDEX
+========================= */
+/* ================================
+   MIXINS
+================================ */
+/* ================================
+   FUNCTIONS
+================================ */
+/* =========================
+   PX to REM
+========================= */
+/* =========================
+   MAP GETTERS
+========================= */
+/* =========================
+   RESPONSIVE
+========================= */
+/* =========================
+   FLEX / GRID
+========================= */
+/* =========================
+   UI
+========================= */
+/* =========================
+   TYPOGRAPHY
+========================= */
+/* =========================
+   TRANSITION
+========================= */
+/* =========================
+   INTERACTIVE HOVER
+========================= */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+
+.section-header h2 {
+  font-size: 17px;
+}
+@media (min-width: 768px) {
+  .section-header h2 {
+    font-size: 20px;
+  }
+}
+@media (min-width: 1024px) {
+  .section-header h2 {
+    font-size: 22px;
+  }
+}
+@media (min-width: 1280px) {
+  .section-header h2 {
+    font-size: 24px;
+  }
+}
+
+.section-header a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--color-muted);
+  font-size: 12px;
+}
+@media (min-width: 768px) {
+  .section-header a {
+    font-size: 13px;
+  }
+}
+@media (min-width: 1024px) {
+  .section-header a {
+    font-size: 13px;
+  }
+}
+@media (min-width: 1280px) {
+  .section-header a {
+    font-size: 14px;
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .section-header a {
+    transition: color var(--duration-fast) var(--ease-standard);
+  }
+  .section-header a:hover {
+    opacity: 0.7;
+  }
+}/*# sourceMappingURL=SectionHeader.css.map */

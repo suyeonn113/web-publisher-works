@@ -1,0 +1,120 @@
+/* ================================
+   MIXINS
+================================ */
+/* ================================
+   MAPS
+================================ */
+/* Sass-only values used by functions and mixins. */
+/* =========================
+   BREAKPOINT
+========================= */
+/* =========================
+   SPACING
+========================= */
+/* =========================
+   FONT SIZE
+========================= */
+/* =========================
+   RADIUS
+========================= */
+/* =========================
+   Z-INDEX
+========================= */
+/* ================================
+   MIXINS
+================================ */
+/* ================================
+   FUNCTIONS
+================================ */
+/* =========================
+   PX to REM
+========================= */
+/* =========================
+   MAP GETTERS
+========================= */
+/* =========================
+   RESPONSIVE
+========================= */
+/* =========================
+   FLEX / GRID
+========================= */
+/* =========================
+   UI
+========================= */
+/* =========================
+   TYPOGRAPHY
+========================= */
+/* =========================
+   TRANSITION
+========================= */
+/* =========================
+   INTERACTIVE HOVER
+========================= */
+.home-feature-shortcut-section {
+  padding-top: var(--space-3);
+}
+@media (min-width: 1024px) {
+  .home-feature-shortcut-section {
+    display: none;
+  }
+}
+
+.feature-shortcut-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.feature-shortcut-button {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  gap: var(--space-1);
+  min-height: var(--shortcut-size);
+  padding: var(--space-2);
+  background: var(--color-bg-main);
+  box-shadow: 0 1px 4px rgb(var(--color-black-rgb)/0.04);
+}
+@media (hover: hover) and (pointer: fine) {
+  .feature-shortcut-button {
+    transition: transform var(--duration-base) var(--ease-standard), filter var(--duration-base) var(--ease-standard);
+  }
+  .feature-shortcut-button:hover {
+    transform: scale(1.02);
+    filter: brightness(0.9);
+  }
+}
+.feature-shortcut-button {
+  font-size: 12px;
+}
+@media (min-width: 768px) {
+  .feature-shortcut-button {
+    font-size: 13px;
+  }
+}
+@media (min-width: 1024px) {
+  .feature-shortcut-button {
+    font-size: 13px;
+  }
+}
+@media (min-width: 1280px) {
+  .feature-shortcut-button {
+    font-size: 14px;
+  }
+}
+
+.feature-shortcut-button img {
+  width: calc(var(--shortcut-size) - var(--space-1));
+  aspect-ratio: 1/1;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.feature-shortcut-button span {
+  color: var(--color-text-primary);
+  font-weight: 700;
+  line-height: var(--line-height-tight);
+  text-align: center;
+}/*# sourceMappingURL=HomeFeatureShortcutSection.css.map */

@@ -1,0 +1,44 @@
+@use '../../../styles/foundation/functions' as *;
+@use '../../../styles/foundation/mixins' as *;
+
+.scroll-navigator {
+  position: relative;
+}
+
+.scroll-navigator__button {
+  position: absolute;
+  top: 50%;
+  z-index: get-z(base) + 2;
+  display: none;
+  width: var(--space-10);
+
+  aspect-ratio: 1 / 1;
+  place-items: center;
+  background: rgb(var(--color-black-rgb) / 0.38);
+  color: var(--color-text-inverse);
+  backdrop-filter: blur(8px);
+  transform: translateY(-50%);
+  @include interactive-hover-icon;
+}
+
+.scroll-navigator__button.is-prev {
+  left: 0;
+}
+
+.scroll-navigator__button.is-prev svg {
+  transform: rotate(180deg);
+}
+
+.scroll-navigator__button.is-next {
+  right: 0;
+}
+
+@include respond-up(tablet) {
+  .scroll-navigator__button {
+    display: grid;
+  }
+}
+
+.scroll-navigator__button[hidden] {
+  display: none;
+}

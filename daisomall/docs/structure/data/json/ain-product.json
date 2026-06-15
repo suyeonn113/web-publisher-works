@@ -1,0 +1,170 @@
+{
+    "product":[
+        {"_comment":"뷰티/위생"},
+        {
+            "category":"beaty",
+            "id": 1001,
+            "price": 5000,
+            "name": "[퀵수분충전]VT PDRN 광채토너 200 ml",
+            "rating": 4.8,
+            "review_count": 5315,
+            "badges":["delivery_standard","pickup"],
+            "thumbnail":"",
+            "image":[""]
+        },
+
+
+        {"_comment":"주방용품"},
+        {
+            "category":"kitchen",
+            "id":2001,
+            "price": 5000,
+            "name": "니트릴 장갑 120매 L 블랙",
+            "rating": 4.8,
+            "review_count": 175,
+            "badges":["delivery_standard"],
+            "thumbnail":"",
+            "image":[""]
+        },
+
+
+        {"_comment":"청소/욕실"},
+        {
+            "category":"clean_bath",
+            "id":3001,
+            "price": 3000,
+            "name": "요석 석회 강력 제거제 500 ml",
+            "rating": 4.7,
+            "review_count": 7301,
+            "badges":["delivery_standard","pickup","delivery_today"],
+            "thumbnail":"",
+            "image":[""]
+        },
+
+
+        {"_comment":"수납/정리"},
+        {
+            "category":"organizing",
+            "id":4001,
+            "price": 2000,
+            "name": "디자인 책꽂이",
+            "rating": 4.8,
+            "review_count": 1360,
+            "badges":["delivery_standard","pickup"],
+            "thumbnail":"",
+            "image":[""]
+        },
+
+
+        {"_comment":"문구/팬시"},
+        {
+            "category":"fancy",
+            "id":5001,
+            "price": 1000,
+            "name": "반투명 L홀더 12P",
+            "rating": 4.9,
+            "review_count": 941,
+            "badges":["delivery_standard","pickup","delivery_today"],
+            "thumbnail":"",
+            "image":[""]
+        },
+
+
+        {"_comment":"인테리어/원예"},
+        {
+            "category":"interior",
+            "id":6001,
+            "price": 5000,
+            "name": "단색 퍼즐 매트 30 X 30 X 1 cm 10개입",
+            "rating": 4.8,
+            "review_count": 152,
+            "badges":["delivery_standard","pickup"],
+            "thumbnail":"",
+            "image":[""]
+        },
+
+
+        {"_comment":"공구/디지털"},
+        {
+            "category":"tools_digital",
+            "id":7001,
+            "price": 2000,
+            "name": "무선 사각 탁상 선풍기 화이트",
+            "rating": 5.0,
+            "review_count": 99,
+            "badges":["new","delivery_standard"],
+            "thumbnail":"",
+            "image":[""]
+        },
+
+
+        {"_comment":"식품"},
+        {
+            "category":"food",
+            "id":8001,
+            "price": 5000,
+            "name": "[우형재 PICK] 익스트림 모노크레아틴 플러스 120 g 40일분",
+            "rating": 4.7,
+            "review_count": 63,
+            "badges":["new","delivery_standard","delivery_today"],
+            "thumbnail":"",
+            "image":[""]
+        },
+
+
+        {"_comment":"스포츠/레저/취미"},
+        {
+            "category":"sports",
+            "id":9001,
+            "price": 3000,
+            "name": "여행용 와이드 오픈 파우치",
+            "rating": 4.6,
+            "review_count": 285,
+            "badges":["delivery_standard"],
+            "thumbnail":"",
+            "image":[""]
+        },
+
+
+        {"_comment":"패션/잡화"},
+        {
+            "category":"fashion",
+            "id":1101,
+            "price": 2000,
+            "name": "대나무 접이식 부채 22.5 cm 한글",
+            "rating": 4.8,
+            "review_count": 75,
+            "badges":["new","delivery_standard","delivery_today"],
+            "thumbnail":"",
+            "image":[""]
+        },
+
+
+        {"_comment":"반려동물"},
+        {
+            "category":"pet",
+            "id":1201,
+            "price": 5000,
+            "name": "[펫] 포포몽 카사벤토 고양이 모래 3.2 kg (깨끗한나라) (100g당 156원)",
+            "rating": 4.8,
+            "review_count": 353,
+            "badges":["delivery_standard","pickup","delivery_today"],
+            "thumbnail":"",
+            "image":[""]
+        },
+
+
+        {"_comment":"유아/완구"},
+        {
+            "category":"kids_toy",
+            "id":1301,
+            "price": 2000,
+            "name": "천사 점토 하양 50 g",
+            "rating": 4.9,
+            "review_count": 321,
+            "badges":["delivery_standard","pickup","delivery_today"],
+            "thumbnail":"",
+            "image":[""]
+        }
+    ]
+}

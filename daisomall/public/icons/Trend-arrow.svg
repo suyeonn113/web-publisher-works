@@ -1,0 +1,19 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="상승 화살표 아이콘">
+  <defs>
+    <clipPath id="shape-clip">
+      <path d="M10 44 25 29l9 9 14-14h-9v-8h23v23h-8v-9L34 50l-9-9-9 9z" />
+    </clipPath>
+  </defs>
+  
+  <path
+    fill="#222"
+    d="M10 44 25 29l9 9 14-14h-9v-8h23v23h-8v-9L34 50l-9-9-9 9z"
+  />
+  
+  <g clip-path="url(#shape-clip)">
+    <path
+      fill="#555"
+      d="M10 44v6l15-15v-6zM34 38v6l14-14v-6z"
+    />
+  </g>
+</svg>

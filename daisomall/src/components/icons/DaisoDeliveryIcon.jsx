@@ -1,0 +1,16 @@
+import DaisoServiceIconBase from './DaisoServiceIconBase'
+
+function DaisoDeliveryIcon({
+  primaryColor = 'var(--color-daiso-service-delivery-icon)',
+  secondaryColor = 'var(--color-daiso-service-delivery-icon-secondary)',
+  ...props
+}) {
+  return (
+    <DaisoServiceIconBase type="delivery" {...props}>
+      <path d="M17.4505 14.2541L18.2259 9.06979L21.4223 9.08701L20.5823 7.10762H17.6013L18.2043 3.26086H4.25173L1.50342 20.8169H4.30772C4.16557 22.0791 5.0465 23.0871 6.32372 23.0871C7.60095 23.0871 8.79633 22.0791 9.05049 20.8169H12.04H15.7253C15.5853 22.0791 16.464 23.0849 17.7413 23.0849C19.0186 23.0849 20.2139 22.0791 20.468 20.8169H22.5874L23.4059 15.583V15.5722L23.6147 14.2541H17.4527H17.4505ZM9.37357 16.7289L9.36495 13.3861L6.63604 13.3969L8.46249 7.90671H12.2166L11.1096 11.1655H14.2176L9.37357 16.7267V16.7289Z" style={{ fill: primaryColor }} />
+      <path d="M17.451 14.2543H23.6133L21.4228 9.08722L18.2264 9.06998L17.451 14.2543Z" style={{ fill: secondaryColor }} />
+    </DaisoServiceIconBase>
+  )
+}
+
+export default DaisoDeliveryIcon

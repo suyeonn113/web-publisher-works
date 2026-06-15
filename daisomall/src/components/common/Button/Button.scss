@@ -1,0 +1,10 @@
+@use '../../../styles/foundation/mixins' as *;
+
+.button {
+  min-height: var(--space-10);
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  @include interactive-hover-button;
+}

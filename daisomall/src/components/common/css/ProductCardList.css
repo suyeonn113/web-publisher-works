@@ -1,0 +1,102 @@
+/* ================================
+   MIXINS
+================================ */
+/* ================================
+   MAPS
+================================ */
+/* Sass-only values used by functions and mixins. */
+/* =========================
+   BREAKPOINT
+========================= */
+/* =========================
+   SPACING
+========================= */
+/* =========================
+   FONT SIZE
+========================= */
+/* =========================
+   RADIUS
+========================= */
+/* =========================
+   Z-INDEX
+========================= */
+/* ================================
+   MIXINS
+================================ */
+/* ================================
+   FUNCTIONS
+================================ */
+/* =========================
+   PX to REM
+========================= */
+/* =========================
+   MAP GETTERS
+========================= */
+/* =========================
+   RESPONSIVE
+========================= */
+/* =========================
+   FLEX / GRID
+========================= */
+/* =========================
+   UI
+========================= */
+/* =========================
+   TYPOGRAPHY
+========================= */
+/* =========================
+   TRANSITION
+========================= */
+/* =========================
+   INTERACTIVE HOVER
+========================= */
+.product-card-list {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(var(--product-card-min-width), 1fr);
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: none;
+}
+.product-card-list::-webkit-scrollbar {
+  display: none;
+}
+.product-card-list {
+  gap: var(--space-2);
+}
+@media (min-width: 768px) {
+  .product-card-list {
+    gap: var(--space-3);
+  }
+}
+.product-card-list {
+  padding-left: var(--space-4);
+  padding-bottom: var(--space-1);
+  scroll-snap-type: inline mandatory;
+}
+
+.product-card-list > * {
+  scroll-snap-align: start;
+}
+
+.product-card-list.is-ranked {
+  grid-auto-flow: column;
+  grid-auto-columns: var(--product-ranked-list-column-width);
+  grid-template-rows: repeat(4, auto);
+  -moz-column-gap: var(--space-6);
+       column-gap: var(--space-6);
+}
+@media (min-width: 768px) {
+  .product-card-list.is-ranked {
+    -moz-column-gap: var(--space-8);
+         column-gap: var(--space-8);
+  }
+}
+.product-card-list.is-ranked {
+  row-gap: var(--space-2);
+}
+@media (min-width: 768px) {
+  .product-card-list.is-ranked {
+    row-gap: var(--space-3);
+  }
+}/*# sourceMappingURL=ProductCardList.css.map */

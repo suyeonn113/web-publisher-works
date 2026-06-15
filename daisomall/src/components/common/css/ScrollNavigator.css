@@ -1,0 +1,95 @@
+/* ================================
+   FUNCTIONS
+================================ */
+/* ================================
+   MAPS
+================================ */
+/* Sass-only values used by functions and mixins. */
+/* =========================
+   BREAKPOINT
+========================= */
+/* =========================
+   SPACING
+========================= */
+/* =========================
+   FONT SIZE
+========================= */
+/* =========================
+   RADIUS
+========================= */
+/* =========================
+   Z-INDEX
+========================= */
+/* =========================
+   PX to REM
+========================= */
+/* =========================
+   MAP GETTERS
+========================= */
+/* ================================
+   MIXINS
+================================ */
+/* =========================
+   RESPONSIVE
+========================= */
+/* =========================
+   FLEX / GRID
+========================= */
+/* =========================
+   UI
+========================= */
+/* =========================
+   TYPOGRAPHY
+========================= */
+/* =========================
+   TRANSITION
+========================= */
+/* =========================
+   INTERACTIVE HOVER
+========================= */
+.scroll-navigator {
+  position: relative;
+}
+
+.scroll-navigator__button {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  display: none;
+  width: var(--space-10);
+  aspect-ratio: 1/1;
+  place-items: center;
+  background: rgb(var(--color-black-rgb)/0.38);
+  color: var(--color-text-inverse);
+  backdrop-filter: blur(8px);
+  transform: translateY(-50%);
+}
+@media (hover: hover) and (pointer: fine) {
+  .scroll-navigator__button {
+    transition: background-color var(--duration-fast) var(--ease-standard);
+  }
+  .scroll-navigator__button:hover {
+    opacity: 0.8;
+  }
+}
+
+.scroll-navigator__button.is-prev {
+  left: 0;
+}
+
+.scroll-navigator__button.is-prev svg {
+  transform: rotate(180deg);
+}
+
+.scroll-navigator__button.is-next {
+  right: 0;
+}
+
+@media (min-width: 768px) {
+  .scroll-navigator__button {
+    display: grid;
+  }
+}
+.scroll-navigator__button[hidden] {
+  display: none;
+}/*# sourceMappingURL=ScrollNavigator.css.map */

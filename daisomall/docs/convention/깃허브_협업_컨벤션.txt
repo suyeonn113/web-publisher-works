@@ -1,0 +1,230 @@
+========================================
+GIT COMMIT & PUSH FLOW
+========================================
+
+1. main 최신 상태 받기
+
+[ GitHub Desktop ]
+Repository → Pull
+또는 Fetch origin 클릭
+
+[ Git ]
+git pull origin main
+
+----------------------------------------
+
+2. 브랜치 생성
+
+[ GitHub Desktop ]
+Current branch
+→ New branch
+→ 브랜치 생성
+
+예시:
+feature/main-layout
+
+[ Git ]
+git checkout -b feature/main-layout
+
+----------------------------------------
+
+3. 작업 진행
+
+HTML / SCSS / JS 작업
+
+----------------------------------------
+
+4. 변경 파일 등록
+
+[ Git ]
+git add .
+
+특정 파일만:
+git add index.html
+
+※ GitHub Desktop은 자동 등록됨
+
+----------------------------------------
+
+5. 커밋 작성
+
+커밋 형식:
+
+type(scope): 내용
+
+예시:
+feat(main): 메인 레이아웃 작업
+
+[ GitHub Desktop ]
+Summary 입력
+→ Commit 클릭
+
+[ Git ]
+git commit -m "feat(main): 메인 레이아웃 작업"
+
+----------------------------------------
+
+6. GitHub 업로드 (Push)
+
+[ GitHub Desktop ]
+Push origin 클릭
+
+[ Git ]
+git push origin feature/main-layout
+
+----------------------------------------
+
+7. Pull Request 생성
+
+GitHub 사이트 이동
+→ Compare & pull request
+→ Create pull request
+
+feature/main-layout
+→ main 병합 요청
+
+
+========================================
+자주 사용하는 커밋 컨벤션 정리
+========================================
+
+기본 형식
+
+type(scope): 작업 내용
+
+예시:
+feat(main): 메인 배너 섹션 추가
+
+----------------------------------------
+
+[ feat ]
+기능 추가
+
+새로운 기능을 만들 때 사용
+
+예시:
+feat(main): 메인 슬라이드 추가
+feat(login): 로그인 기능 구현
+feat(product): 상품 필터 기능 추가
+feat(cart): 장바구니 수량 기능 추가
+
+----------------------------------------
+
+[ fix ]
+오류 수정
+
+버그 / 동작 오류 수정 시 사용
+
+예시:
+fix(header): 모바일 메뉴 오류 수정
+fix(login): 로그인 validation 오류 수정
+fix(modal): 팝업 닫힘 오류 수정
+fix(swiper): 슬라이드 끊김 현상 수정
+
+----------------------------------------
+
+[ style ]
+디자인 / CSS 수정
+
+레이아웃 / 컬러 / 애니메이션 등
+UI 수정 시 사용
+
+예시:
+style(main): 메인 여백 수정
+style(button): 버튼 호버 디자인 수정
+style(header): 헤더 반응형 수정
+style(card): 카드 그림자 스타일 수정
+
+----------------------------------------
+
+[ refactor ]
+코드 구조 개선
+
+기능 변화 없이
+코드 구조만 정리할 때 사용
+
+예시:
+refactor(scss): 변수 구조 정리
+refactor(js): 이벤트 함수 분리
+refactor(component): 카드 컴포넌트 분리
+refactor(layout): 공통 레이아웃 구조 정리
+
+----------------------------------------
+
+[ chore ]
+설정 / 기타 작업
+
+빌드 설정
+폴더 정리
+라이브러리 설치 등
+
+예시:
+chore(git): gitignore 수정
+chore(setting): 프로젝트 초기 설정
+chore(folder): assets 폴더 구조 정리
+chore(package): 라이브러리 설치
+
+----------------------------------------
+
+[ docs ]
+문서 수정
+
+README
+기획 문서
+주석 등
+
+예시:
+docs(readme): 프로젝트 설명 추가
+docs(convention): 커밋 규칙 정리
+docs(comment): 코드 주석 추가
+
+----------------------------------------
+
+[ 추천 scope ]
+
+main
+header
+footer
+nav
+modal
+button
+card
+product
+login
+join
+mypage
+filter
+slider
+layout
+scss
+js
+git
+setting
+
+----------------------------------------
+
+[ 추천 방식 ]
+
+좋은 예시:
+feat(product): 상품 슬라이드 기능 추가
+style(header): 모바일 헤더 UI 수정
+
+안 좋은 예시:
+수정
+작업함
+최종
+ㅇㅇ
+fix
+style
+
+----------------------------------------
+
+[ 추천 규칙 ]
+
+- 기능 단위로 commit
+- 너무 큰 commit 지양
+- 의미 없는 commit 금지
+- 작업 끝날 때마다 commit
+- commit 내용은 최대한 명확하게 작성
+
+========================================

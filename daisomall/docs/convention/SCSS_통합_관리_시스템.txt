@@ -1,0 +1,91 @@
+[SCSS 통합 관리 시스템]
+
+1. 시스템 설명
+- SCSS 파일을 기능/컴포넌트 단위로 분리하여 관리
+- main.scss 파일에서 모든 스타일 파일을 통합
+- 저장 시 main.css로 자동 컴파일
+- HTML에는 최종적으로 main.css만 연결하여 사용
+
+
+
+2. 사용 목적
+- 유지보수 및 협업 효율 향상
+- 스타일 재사용성 증가
+- 공통 스타일 및 반응형 관리 용이
+- 컴포넌트 단위 구조화 가능
+
+
+
+3. 사용 확장 프로그램
+- VSCode : Live Sass Compiler
+
+
+
+4. 기본 구조 예시
+
+scss/
+  foundation/
+    _variables.scss
+    _mixins.scss
+
+  layout/
+    _header.scss
+    _footer.scss
+
+  components/
+    _button.scss
+    _card.scss
+
+  pages/
+    _home.scss
+
+  main.scss
+
+css/
+  main.css
+  main.css.map
+
+
+
+5. main.scss 예시
+
+@use './foundation/variables';
+@use './foundation/mixins';
+
+@use './layout/header';
+@use './layout/footer';
+
+@use './components/button';
+@use './components/card';
+
+@use './pages/home';
+
+
+
+6. HTML 연결 방식
+
+<link rel="stylesheet" href="./css/main.css">
+
+
+7. settings.json 설정 추가
+
+※ 기존 settings.json 코드 하단에 추가 (쉼표 필수)
+
+"liveSassCompile.settings.showOutputWindowOn": "None",
+
+"liveSassCompile.settings.formats": [
+  {
+    "format": "expanded",
+    "extensionName": ".css",
+    "savePath": "~/../css"
+  }
+],
+
+"liveSassCompile.settings.generateMap": true
+
+
+
+8. 작업 방식
+- .scss 파일만 수정
+- main.scss 저장 시 main.css 자동 생성
+- CSS 파일은 직접 수정하지 않음

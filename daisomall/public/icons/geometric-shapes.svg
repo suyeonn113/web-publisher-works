@@ -1,0 +1,23 @@
+<svg
+  width="200"
+  height="200"
+  viewBox="0 0 64 64"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label="도형 아이콘"
+>
+  <!-- 네모 -->
+  <path fill="#222" d="M21 17h11v11H21z"/>
+  <path fill="#555" d="M21 17h11l-2.5-2.5H23.5z"/>
+
+  <!-- 원 -->
+  <circle cx="42" cy="21" r="6.5" fill="#222"/>
+
+  <!-- 삼각형 -->
+  <path fill="#222" d="M19 46 25 35 32 46z"/>
+
+  <!-- 마름모 -->
+  <path fill="#222" d="M40 35 48 40 44 49 36 44z"/>
+  <path fill="#555" d="M40 35 48 40 45 36 38 31z"/>
+  <path fill="#444" d="M36 44 40 35 38 31 34 40z"/>
+</svg>

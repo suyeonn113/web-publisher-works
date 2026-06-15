@@ -1,0 +1,15 @@
+@use '../styles/foundation/mixins' as *;
+
+.app-shell {
+  min-height: 100dvh;
+  background: var(--color-bg-main);
+  color: var(--color-text);
+}
+
+.app-shell__main {
+  padding-bottom: var(--bottom-tab-height);
+
+  @include respond-up(tablet) {
+    padding-bottom: 0;
+  }
+}

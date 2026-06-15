@@ -1,0 +1,22 @@
+@use '../../../styles/foundation/mixins' as *;
+
+.section-header {
+  @include flex-between;
+
+  margin-bottom: var(--space-4);
+}
+
+.section-header h2 {
+  @include text-size(title);
+}
+
+.section-header a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--color-muted);
+
+  @include text-size(caption);
+  @include interactive-hover-text;
+}
+

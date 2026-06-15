@@ -1,0 +1,42 @@
+/* ================================
+   FUNCTIONS
+================================ */
+
+@use 'sass:map';
+@use 'sass:math';
+
+@use './maps';
+
+/* =========================
+   PX to REM
+========================= */
+
+@function rem($px, $base: 16px) {
+  @return math.div($px, $base) * 1rem;
+}
+
+/* =========================
+   MAP GETTERS
+========================= */
+
+@function get-breakpoint($key) {
+  @return map.get(maps.$breakpoints, $key);
+}
+
+@function get-space($key) {
+  @return map.get(maps.$spacing, $key);
+}
+
+@function get-radius($key) {
+  @return map.get(maps.$radius, $key);
+}
+
+@function get-z($key) {
+  @return map.get(maps.$z-indexes, $key);
+}
+
+@function get-font-size($key, $device: default) {
+  $size-map: map.get(maps.$font-sizes, $key);
+
+  @return map.get($size-map, $device);
+}

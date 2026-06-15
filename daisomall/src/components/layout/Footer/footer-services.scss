@@ -1,0 +1,237 @@
+@use '../../../styles/foundation/mixins' as *;
+
+.site-footer__services {
+  order: 2;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: var(--space-6);
+  margin-bottom: var(--space-3);
+
+
+   @include respond-up(tablet) {
+    gap: var(--space-8);
+    margin-bottom: var(--space-8);
+    padding-bottom: var(--space-7);
+  }
+
+  @include respond-up(laptop) {
+    grid-column: 1;
+    grid-row: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: var(--space-7);
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+}
+
+.site-footer__services::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: var(--line-thin);
+  background: var(--color-border-primary);
+
+  @include respond-up(tablet) {
+    display: none;
+  }
+
+  @include respond-up(laptop) {
+    content: '고객센터';
+    grid-column: 1 / -1;
+    position: static;
+    display: block;
+    width: auto;
+    height: auto;
+    background: none;
+    color: var(--color-text-primary);
+    font-weight: 800;
+
+    @include text-size(title);
+  }
+}
+
+.site-footer__service {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-1) var(--space-3);
+  min-width: 0;
+  padding-block: var(--space-4);
+
+  @include respond-up(tablet) {
+    display: block;
+    padding-block: 0;
+    border-bottom: 0;
+  }
+
+  @include respond-up(laptop) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--space-1);
+    padding-inline: 0;
+    padding-right: 0;
+  }
+}
+
+.site-footer__service + .site-footer__service {
+  padding-left: var(--space-2);
+
+  @include respond-up(tablet) {
+    padding-left: var(--space-5);
+    border-left: var(--line-thin) solid var(--color-border-primary);
+  }
+
+  @include respond-up(laptop) {
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+
+.site-footer__service h2 {
+  display: flex;
+  align-items: center;
+  @include text-size(body-lg);
+
+  gap: var(--space-2);
+  margin-bottom: var(--space-0);
+  font-weight: 800;
+  line-height: var(--line-height-tight);
+
+  @include respond-up(tablet) {
+    margin-bottom: var(--space-2);
+  }
+
+  @include respond-up(laptop) {
+    grid-column: 1;
+    margin-bottom: 0;
+
+    @include text-size(body-lg);
+  }
+}
+
+.site-footer__service h2 svg {
+  flex: 0 0 auto;
+
+  @include respond-up(laptop) {
+    display: none;
+  }
+}
+
+.site-footer__service-phone {
+  grid-column: 1;
+  color: var(--color-text-primary);
+  font-weight: 800;
+
+  @include text-size(body-lg);
+
+  @include respond-up(tablet) {
+    display: block;
+    margin-bottom: var(--space-2);
+  }
+
+  @include respond-up(laptop) {
+    grid-column: 1;
+    margin-bottom: 0;
+    align-self: baseline;
+
+    @include text-size(title-lg);
+  }
+}
+
+.site-footer__service p {
+  grid-column: 1;
+  margin-bottom: var(--space-0);
+  color: var(--color-text-secondary);
+
+  @include text-size(caption);
+
+  @include respond-up(tablet) {
+    margin-bottom: var(--space-4);
+  }
+
+  @include respond-up(laptop) {
+    grid-column: 1;
+  }
+}
+
+.site-footer__service-toggle {
+  grid-column: 2;
+  grid-row: 1 / span 3;
+  align-self: center;
+  display: grid;
+  width: var(--icon-size-lg);
+  aspect-ratio: 1 / 1;
+  place-items: center;
+  color: var(--color-text-secondary);
+  transition:
+    color var(--duration-fast) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-standard);
+
+  @include respond-up(tablet) {
+    display: none;
+  }
+
+  @include respond-up(laptop) {
+    display: none;
+  }
+}
+
+.site-footer__service.is-open .site-footer__service-toggle {
+  color: var(--color-text-primary);
+  transform: rotate(45deg);
+}
+
+.site-footer__service ul {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-2) var(--space-4);
+  grid-column: 1 / -1;
+  max-height: 0;
+  overflow: hidden;
+  padding-top: 0;
+  transition:
+    max-height var(--duration-base) var(--ease-standard),
+    padding-top var(--duration-base) var(--ease-standard);
+
+  @include respond-up(tablet) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-column: auto;
+    grid-row: auto;
+    align-self: auto;
+    max-height: none;
+    overflow: visible;
+    padding-top: 0;
+  }
+
+  @include respond-up(laptop) {
+    grid-column: 1;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-height: none;
+    overflow: visible;
+    padding-top: 0;
+    gap: var(--space-2) var(--space-4);
+  }
+}
+
+.site-footer__service.is-open ul {
+  max-height: 240px;
+  padding-top: var(--space-3);
+
+  @include respond-up(tablet) {
+    max-height: none;
+    padding-top: 0;
+  }
+}
+
+.site-footer__service a {
+  color: var(--color-text-primary);
+
+  @include text-size(caption);
+}

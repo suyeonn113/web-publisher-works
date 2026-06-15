@@ -1,0 +1,31 @@
+@use '../../../styles/foundation/functions' as *;
+@use '../../../styles/foundation/mixins' as *;
+
+.bottom-tab-bar {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: get-z(bottom-bar);
+  height: var(--bottom-tab-height);
+  border-top: var(--line-thin) solid var(--color-line);
+  background: var(--color-bg);
+
+  @include mobile-shell;
+  @include grid-columns(5, 0);
+
+  @include respond-up(tablet) {
+    display: none;
+  }
+}
+
+.bottom-tab-bar__item {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: get-radius(sm);
+  color: var(--color-text);
+
+  @include text-size(micro);
+  @include interactive-hover-text;
+}
