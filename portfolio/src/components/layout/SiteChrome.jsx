@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import ArrowIcon from "../icons/ArrowIcon";
+import HomeIcon from "../icons/HomeIcon";
 import "./SiteChrome.scss";
 
 const SiteChrome = ({ children }) => {
@@ -68,8 +69,21 @@ const SiteChrome = ({ children }) => {
               <ArrowIcon direction="left" />
             </button>
           )}
-          <Link className="site-header__logo" to="/">
-            수연의 Web Publisher Portfolio
+          <Link
+            className={[
+              "site-header__logo",
+              !isHomePage ? "is-icon-only" : "",
+            ]
+              .filter(Boolean)
+              .join(" ")}
+            to="/"
+            aria-label={!isHomePage ? "메인으로 이동" : undefined}
+          >
+            {isHomePage ? (
+              "수연의 Web Publisher Portfolio"
+            ) : (
+              <HomeIcon />
+            )}
           </Link>
         </div>
       </header>

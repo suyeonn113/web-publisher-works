@@ -9,6 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  min-height: $site-header-height;
   padding: space(5) max(space(5), 4vw);
   background: transparent;
   transition: transform motion(base, standard);
@@ -65,7 +66,20 @@
 .site-header__logo {
   @include typography(title);
 
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   color: var(--color-text-primary);
+
+  &.is-icon-only {
+    width: 1.5em;
+    height: 1.5em;
+
+    .home-icon {
+      width: 1em;
+      height: 1em;
+    }
+  }
 }
 
 .site-footer {

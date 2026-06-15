@@ -1,7 +1,7 @@
 export const daisoMallPreview = {
   projectId: "daisomall",
   githubUrl:
-    "https://github.com/suyeonn113/web-publisher-portfolio/tree/main",
+    "https://github.com/suyeonn113/web-publisher-portfolio/tree/main/daisomall",
   defaultDevice: "mobile",
   visibleDevices: ["mobile", "tablet", "desktop"],
   devices: {

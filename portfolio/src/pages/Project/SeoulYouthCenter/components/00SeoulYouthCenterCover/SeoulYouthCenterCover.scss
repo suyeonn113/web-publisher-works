@@ -13,6 +13,7 @@
   row-gap: space(16);
   align-content: stretch;
   overflow: hidden;
+  padding-block-start: calc(var(--frame-gutter) + #{$site-header-height});
   background:
     linear-gradient(
       to bottom,

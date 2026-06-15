@@ -117,17 +117,28 @@
 .home-link-card__description {
   @include typography(body);
 
-  color: currentColor;
   letter-spacing: 0;
 }
 
 .home-link-card__meta {
   margin-top: space(3);
+  color: currentColor;
   font-weight: 600;
 }
 
 .home-link-card__description {
   margin-top: space(2);
+  color: var(--color-text-muted);
+  transition: color motion(base, standard);
+}
+
+.home-info-grid a:hover,
+.home-info-grid a:focus-visible,
+.home-work-grid a:hover,
+.home-work-grid a:focus-visible {
+  .home-link-card__description {
+    color: var(--color-text-secondary);
+  }
 }
 
 @include respond-down(tablet) {

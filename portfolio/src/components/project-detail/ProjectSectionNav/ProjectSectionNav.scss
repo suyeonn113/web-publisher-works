@@ -7,15 +7,33 @@
   --section-nav-text-muted: var(--color-text-muted);
   --section-nav-text-active: var(--color-text-primary);
   --section-nav-background: var(--color-white);
+  --project-section-nav-compact-width: 30%;
 
   position: fixed;
   top: space(4);
-  left: var(--project-section-nav-offset, #{space(4)});
+  right: var(--project-section-nav-offset, #{space(4)});
+  left: auto;
   z-index: layer(dropdown);
   width: var(
     --project-section-nav-width,
-    calc(100% - #{space(4)} - #{space(4)})
+    min(
+      var(--project-section-nav-compact-width),
+      calc(100% - #{space(4)} - #{space(4)})
+    )
   );
+
+  @include respond-down(laptop) {
+    --project-section-nav-compact-width: 40%;
+  }
+
+  @include respond-down(tablet) {
+    --project-section-nav-compact-width: 55%;
+  }
+
+  @include respond-down(mobile) {
+    --project-section-nav-compact-width: 60%;
+  }
+
   color: var(--section-nav-text);
   visibility: visible;
   opacity: 1;
