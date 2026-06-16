@@ -92,7 +92,8 @@
 
 .seoul-youth-center__cover-image {
   width: min(58%, 960px);
-  height: min(100%, 536px);
+  height: auto;
+  max-height: 536px;
   aspect-ratio: 16 / 9;
   margin-top: 0;
   margin-left: 34%;
@@ -144,6 +145,9 @@
 
   iframe {
     position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     z-index: 0;
     display: block;
     border: 0;
