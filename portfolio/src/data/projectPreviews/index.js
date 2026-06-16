@@ -3,6 +3,8 @@ import { daisoMallPreview } from "./daisoMallPreview";
 import { fragfarmPreview } from "./fragfarmPreview";
 import { seoulYouthCenterPreview } from "./seoulYouthCenterPreview";
 
+export { getProjectBeforeScreens } from "./beforeScreens";
+
 export const projectPreviews = [
   daisoMallPreview,
   airSeoulPreview,

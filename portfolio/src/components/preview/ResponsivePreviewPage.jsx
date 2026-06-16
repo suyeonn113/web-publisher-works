@@ -5,8 +5,13 @@ import PreviewFloatingControls from "./PreviewFloatingControls";
 import PreviewHeader from "./PreviewHeader";
 import PreviewStage from "./PreviewStage";
 import PreviewStepNavigation from "./PreviewStepNavigation";
+import { getProjectBeforeScreens } from "../../data/projectPreviews";
+import PreviewBeforeSiteModal from "./PreviewBeforeSiteModal";
 import { NotFoundPage } from "../../pages/NotFound";
 import "./ResponsivePreviewPage.scss";
+
+const [isBeforeScreenOpen, setIsBeforeScreenOpen] = useState(false);
+const beforeScreens = getProjectBeforeScreens(preview.projectId);
 
 const isMobileOnlyProject = (project) =>
   project.platforms?.length === 1 && project.platforms.includes("mobile");
@@ -124,9 +129,9 @@ const ResponsivePreviewPage = ({ project, preview }) => {
     >
       <PreviewFloatingControls
         isPageScrollLocked={isPageScrollLocked}
-        onTogglePageScrollLock={() => {
-          setIsPageScrollLocked((currentValue) => !currentValue);
-        }}
+        onTogglePageScrollLock={onTogglePageScrollLock}
+        beforeScreens={beforeScreens}
+        onOpenBeforeScreen={() => setIsBeforeScreenOpen(true)}
       />
       <PreviewHeader project={project} preview={preview} />
       <div className="preview-control-row">

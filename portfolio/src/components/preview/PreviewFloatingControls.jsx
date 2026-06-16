@@ -1,3 +1,12 @@
+const BeforeScreenIcon = () => (
+  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path d="M11.1 22H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.589 3.588A2.4 2.4 0 0 1 20 8v3.25" />
+    <path d="M14 2v5a1 1 0 0 0 1 1h5" />
+    <path d="m21 22-2.88-2.88" />
+    <circle cx="16" cy="17" r="3" />
+  </svg>
+);
+
 const PinIcon = () => (
   <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
     <path d="M12 17v5" />
@@ -17,19 +26,44 @@ const PinOffIcon = () => (
 const PreviewFloatingControls = ({
   isPageScrollLocked,
   onTogglePageScrollLock,
+  beforeScreens = [],
+  onOpenBeforeScreen,
 }) => {
-  const label = isPageScrollLocked
+  const lockLabel = isPageScrollLocked
     ? "Unlock page scroll"
     : "Lock page scroll";
 
+  const hasBeforeScreens = beforeScreens.length > 0;
+
   return (
     <div className="preview-floating-controls no-print">
+      {hasBeforeScreens && (
+        <button
+          type="button"
+          className="preview-floating-controls__button preview-floating-controls__button--before"
+          aria-label="이전 화면 보기"
+          title="이전 화면 보기"
+          onClick={onOpenBeforeScreen}
+        >
+          <BeforeScreenIcon />
+          <span className="preview-floating-controls__label">
+            이전 화면 보기
+          </span>
+        </button>
+      )}
+
       <button
         type="button"
-        className={isPageScrollLocked ? "is-active" : ""}
-        aria-label={label}
+        className={[
+          "preview-floating-controls__button",
+          "preview-floating-controls__button--lock",
+          isPageScrollLocked ? "is-active" : "",
+        ]
+          .filter(Boolean)
+          .join(" ")}
+        aria-label={lockLabel}
         aria-pressed={isPageScrollLocked}
-        title={label}
+        title={lockLabel}
         onClick={onTogglePageScrollLock}
       >
         {isPageScrollLocked ? <PinOffIcon /> : <PinIcon />}
