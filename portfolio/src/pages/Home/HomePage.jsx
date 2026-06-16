@@ -12,7 +12,7 @@ const introLinks = [
   {
     number: "02",
     title: "Resume",
-    to: "#resume",
+    to: "/resume",
     description: "기술 역량과 프로젝트 경험을 정리했습니다.",
   },
 ];
