@@ -23,6 +23,25 @@
     padding-bottom: space(18) *2 !important;
   }
 
+  .seoul-youth-center__preview-outro {
+    @include responsive-space(padding-inline, $page-paddings);
+
+    display: flex;
+    justify-content: flex-end;
+    width: min(100%, 1440px);
+    min-height: 180px;
+    padding-block: space(8) space(18);
+    margin-inline: auto;
+  }
+
+  .seoul-youth-center__preview-cta--outro {
+    position: static;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    align-self: start;
+  }
+
   :where(
     .syc-page > header:not(.seoul-youth-center__ui-design-header)
   ) {

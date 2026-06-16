@@ -113,7 +113,7 @@
 .seoul-youth-center__iframe-wrap {
   position: relative;
   overflow: hidden;
-  background: var(--color-bg-primary);
+  background: var(--color-white);
 
   &::after {
     position: absolute;
@@ -376,7 +376,7 @@
     height: auto;
     min-height: initial;
     margin: space(8) auto 0;
-    background: var(--color-bg-primary);
+    background: var(--color-white);
     box-shadow: var(--shadow-md);
 
     .seoul-youth-center__iframe-wrap {
@@ -384,6 +384,7 @@
       height: 100%;
       box-shadow: none;
     }
+
   }
 
   .seoul-youth-center__preview-controls {
@@ -434,4 +435,13 @@
   .seoul-youth-center__external-text:focus-visible {
     color: var(--color-text-secondary);
   }
+}
+
+@include respond-down(mobile) {
+  .ppt-page.seoul-youth-center__cover {
+    height: 68svh;
+  }
+   .seoul-youth-center__cover-image {
+    display: none;
+   }
 }

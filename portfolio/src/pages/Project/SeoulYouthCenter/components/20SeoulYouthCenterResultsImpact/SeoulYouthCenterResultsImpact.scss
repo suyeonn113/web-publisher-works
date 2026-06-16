@@ -2,8 +2,8 @@
 
 .seoul-youth-center__results-impact {
   display: grid;
-  grid-template-rows: auto 176px 142px minmax(0, 1fr);
-  row-gap: space(4);
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  row-gap: space(5);
   align-content: stretch;
 }
 
@@ -14,23 +14,21 @@
   display: grid;
 }
 
-.seoul-youth-center__results-impact-comparison,
-.seoul-youth-center__results-impact-flow {
+.seoul-youth-center__results-impact-layout {
   display: grid;
-  gap: space(3);
+  grid-template-columns: minmax(0, 0.72fr) minmax(260px, 0.28fr)!important;
   min-height: 0;
+  align-items: center;
 }
 
 .seoul-youth-center__results-impact-comparison {
+  display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: space(4);
+  min-height: 0;
 }
 
-.seoul-youth-center__results-impact-flow {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.seoul-youth-center__results-impact-comparison figure,
-.seoul-youth-center__results-impact-flow figure {
+.seoul-youth-center__results-impact-comparison figure {
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
   gap: space(2);
@@ -41,8 +39,7 @@
   border: stroke(thin) solid var(--syc-rule-color);
 }
 
-.seoul-youth-center__results-impact-comparison img,
-.seoul-youth-center__results-impact-flow img {
+.seoul-youth-center__results-impact-comparison img {
   display: block;
   width: 100%;
   height: 100%;
@@ -54,13 +51,39 @@
   background: var(--color-white);
 }
 
-.seoul-youth-center__results-impact-comparison figcaption,
-.seoul-youth-center__results-impact-flow figcaption {
+.seoul-youth-center__results-impact-comparison figcaption {
   @include typography(meta);
 
   color: var(--color-text-primary);
   font-weight: font-weight(bold);
   text-transform: uppercase;
+}
+
+.seoul-youth-center__results-impact-summary-card {
+  display: grid;
+  gap: space(4);
+  align-content: center;
+  min-width: 0;
+  min-height: 0;
+  padding: space(5);
+  background: var(--syc-soft-surface);
+  border-left: stroke(medium) solid var(--color-text-primary);
+
+  p {
+    @include typography(meta);
+
+    color: var(--color-point-2);
+    font-weight: font-weight(bold);
+    text-transform: uppercase;
+  }
+
+  strong {
+    @include typography(body-lg);
+
+    color: var(--color-text-primary);
+    font-weight: font-weight(bold);
+    line-height: line-height(heading);
+  }
 }
 
 .seoul-youth-center__results-impact-list {
@@ -102,30 +125,32 @@
 
 @include respond-down(wide) {
   .seoul-youth-center__results-impact {
-    grid-template-rows: auto auto auto auto;
+    grid-template-rows: auto auto auto;
     row-gap: var(--syc-content-gap);
     align-content: start;
   }
 
-  .seoul-youth-center__results-impact-comparison figure {
-    min-height: 180px;
+  .seoul-youth-center__results-impact-layout {
+    grid-template-columns: minmax(0, 0.68fr) minmax(240px, 0.32fr);
   }
 
-  .seoul-youth-center__results-impact-flow figure {
-    min-height: 150px;
+  .seoul-youth-center__results-impact-comparison figure {
+    min-height: 260px;
   }
 }
 
 @include respond-down(laptop) {
-  .seoul-youth-center__results-impact-comparison,
-  .seoul-youth-center__results-impact-flow,
-  .seoul-youth-center__results-impact-list {
+  .seoul-youth-center__results-impact-layout,
+  .seoul-youth-center__results-impact-comparison {
     grid-template-columns: 1fr;
   }
 
-  .seoul-youth-center__results-impact-comparison figure,
-  .seoul-youth-center__results-impact-flow figure {
+  .seoul-youth-center__results-impact-comparison figure {
     aspect-ratio: 16 / 9;
+  }
+
+  .seoul-youth-center__results-impact-summary-card {
+    align-content: start;
   }
 
   .seoul-youth-center__results-impact-list {
@@ -138,14 +163,14 @@
     row-gap: space(6);
   }
 
+  .seoul-youth-center__results-impact-layout,
   .seoul-youth-center__results-impact-comparison,
-  .seoul-youth-center__results-impact-flow,
   .seoul-youth-center__results-impact-list {
     gap: space(3);
   }
 
   .seoul-youth-center__results-impact-comparison figure,
-  .seoul-youth-center__results-impact-flow figure,
+  .seoul-youth-center__results-impact-summary-card,
   .seoul-youth-center__results-impact-list li {
     padding: space(4);
   }

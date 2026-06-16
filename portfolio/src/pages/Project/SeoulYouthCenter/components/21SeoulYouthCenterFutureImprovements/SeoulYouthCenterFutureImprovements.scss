@@ -2,8 +2,8 @@
 
 .seoul-youth-center__future-improvements {
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
-  row-gap: space(4);
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  row-gap: space(5);
   align-content: stretch;
 }
 
@@ -14,39 +14,58 @@
   display: grid;
 }
 
-.seoul-youth-center__future-improvements-list {
+.seoul-youth-center__future-improvements-roadmap {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: space(4);
-  height: 100%;
   min-height: 0;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  align-items: stretch;
 }
 
-.seoul-youth-center__future-improvements-list li {
+.seoul-youth-center__future-improvements-roadmap > li {
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
+  grid-template-rows: auto auto minmax(0, 1fr);
   gap: space(4);
+  min-width: 0;
   min-height: 0;
-  padding-top: space(4);
-  border-top: stroke(medium) solid var(--color-text-primary);
+  padding: space(5);
+  background: var(--color-white);
+  border: stroke(thin) solid var(--syc-rule-color);
+  box-shadow: 0 space(2) space(7) rgb(var(--color-black-rgb) / 3%);
+}
 
-  span {
+.seoul-youth-center__future-improvements-card-header {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: space(3);
+  align-items: start;
+  min-width: 0;
+
+  > span {
+    @include typography(meta);
+
+    display: inline-grid;
+    place-items: center;
+    width: space(8);
+    height: space(8);
+    color: var(--color-point-2);
+    font-weight: font-weight(bold);
+    font-variant-numeric: tabular-nums;
+    background: var(--syc-soft-surface);
+    border: stroke(thin) solid var(--syc-element-border);
+  }
+
+  > div {
+    display: grid;
+    gap: space(1);
+    min-width: 0;
+  }
+
+  p {
     @include typography(meta);
 
     color: var(--color-point-2);
     font-weight: font-weight(bold);
-    font-variant-numeric: tabular-nums;
-  }
-
-  div {
-    display: grid;
-    align-content: center;
-    gap: space(3);
-    min-width: 0;
+    text-transform: uppercase;
   }
 
   h3 {
@@ -54,38 +73,114 @@
 
     color: var(--color-text-primary);
     font-weight: font-weight(bold);
-    word-break: keep-all;
+    line-height: line-height(heading);
   }
+}
+
+.seoul-youth-center__future-improvements-card-description {
+  @include typography(body);
+
+  color: var(--color-text-primary);
+  line-height: line-height(base);
+}
+
+.seoul-youth-center__future-improvements-roadmap ul {
+  display: grid;
+  gap: space(2);
+  align-content: end;
+  min-height: 0;
+}
+
+.seoul-youth-center__future-improvements-roadmap ul li {
+  @include typography(meta);
+
+  position: relative;
+  min-width: 0;
+  padding-block: space(2);
+  padding-left: space(4);
+  color: var(--syc-muted-color);
+  line-height: line-height(base);
+  border-top: stroke(thin) solid var(--syc-rule-color);
+
+  &::before {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: space(1);
+    height: space(1);
+    content: "";
+    background: var(--color-point-2);
+    transform: translateY(-50%);
+  }
+}
+
+.seoul-youth-center__future-improvements-next {
+  display: grid;
+  grid-template-columns: minmax(160px, 0.18fr) minmax(0, 1fr);
+  gap: space(5);
+  align-items: center;
+  min-width: 0;
+  padding: space(5);
+  background: var(--syc-soft-surface);
+  border-left: stroke(medium) solid var(--color-text-primary);
 
   p {
-    @include typography(body);
+    @include typography(meta);
 
-    line-height: line-height(base);
+    color: var(--color-point-2);
+    font-weight: font-weight(bold);
+    text-transform: uppercase;
+  }
+
+  strong {
+    @include typography(body-lg);
+
+    min-width: 0;
+    color: var(--color-text-primary);
+    font-weight: font-weight(bold);
+    line-height: line-height(heading);
   }
 }
 
 @include respond-down(wide) {
   .seoul-youth-center__future-improvements {
-    grid-template-rows: auto auto;
+    grid-template-rows: auto auto auto;
     row-gap: var(--syc-content-gap);
     align-content: start;
   }
 
-  .seoul-youth-center__future-improvements-list {
-    height: auto;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+  .seoul-youth-center__future-improvements-roadmap > li {
+    min-height: 300px;
   }
 }
 
 @include respond-down(laptop) {
-  .seoul-youth-center__future-improvements-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .seoul-youth-center__future-improvements-roadmap {
+    grid-template-columns: 1fr;
   }
 
+  .seoul-youth-center__future-improvements-roadmap > li {
+    min-height: auto;
+  }
+
+  .seoul-youth-center__future-improvements-next {
+    grid-template-columns: 1fr;
+    gap: space(2);
+    align-items: start;
+  }
 }
 
 @include respond-down(tablet) {
-  .seoul-youth-center__future-improvements-list {
-    grid-template-columns: 1fr;
+  .seoul-youth-center__future-improvements {
+    row-gap: space(6);
+  }
+
+  .seoul-youth-center__future-improvements-roadmap {
+    gap: space(3);
+  }
+
+  .seoul-youth-center__future-improvements-roadmap > li,
+  .seoul-youth-center__future-improvements-next {
+    padding: space(4);
   }
 }

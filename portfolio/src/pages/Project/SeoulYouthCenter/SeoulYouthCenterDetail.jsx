@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
 import { getProjectBySlug } from "../../../data/projects";
 import useResponsiveSectionScrollRestore from "../../../hooks/useResponsiveSectionScrollRestore";
 import ProjectSectionNav from "../../../components/project-detail/ProjectSectionNav/ProjectSectionNav";
+import ArrowIcon from "../../../components/icons/ArrowIcon";
 
 import { seoulYouthCenterSections } from "./sections";
 
@@ -198,6 +200,16 @@ const SeoulYouthCenterDetail = () => {
         className="project-section-group"
       >
         <SeoulYouthCenterFutureImprovements />
+      </div>
+
+      <div className="seoul-youth-center__preview-outro no-print">
+        <Link
+          className="seoul-youth-center__preview-cta seoul-youth-center__preview-cta--outro hover-lift"
+          to={`/projects/${project.slug}/preview`}
+        >
+          <span>Responsive Preview</span>
+          <ArrowIcon direction="right" />
+        </Link>
       </div>
     </main>
   );

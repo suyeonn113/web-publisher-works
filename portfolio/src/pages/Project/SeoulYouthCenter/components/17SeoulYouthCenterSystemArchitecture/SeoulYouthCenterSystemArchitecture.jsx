@@ -8,30 +8,30 @@ const systemFlow = [
   },
   {
     title: "PHP Pages",
-    description: "프로그램 · 게시판 · 신청 페이지 처리",
+    description: "프로그램 · 상세 · 신청 페이지 처리",
   },
   {
     title: "MySQL DB",
-    description: "프로그램 · 신청 · 게시글 데이터 저장 및 조회",
+    description: "프로그램 신청 데이터 저장 및 조회",
   },
 ];
 
 const dataGroups = [
   {
-    title: "Programs",
-    description: "프로그램명, 모집 상태, 대상, 기간, 분류, 상세 정보",
+    title: "프로그램 참조 정보",
+    description: "프로그램 ID, 프로그램명 등 신청 프로그램을 식별하기 위한 정보",
   },
   {
-    title: "Applications",
-    description: "신청자 정보, 신청 프로그램, 신청 상태, 신청 일시",
+    title: "신청자 정보",
+    description: "신청자 이름, 생년월일, 연락처, 이메일, 학교 정보",
   },
   {
-    title: "Boards",
-    description: "공지사항, 보도자료, 공유자료, 활동사진 게시글",
+    title: "신청 기록",
+    description: "신청 프로그램, 신청자 정보, 생성일, 수정일 등 신청 데이터",
   },
   {
-    title: "Users / Applicants",
-    description: "신청자 식별 정보와 신청 내역 확인에 필요한 기본 정보",
+    title: "제출 및 확인 정보",
+    description: "제출 파일 정보와 신청 내역 확인을 위한 인증 정보",
   },
 ];
 
@@ -52,9 +52,8 @@ const SeoulYouthCenterSystemArchitecture = () => {
           </h2>
 
           <p className="seoul-youth-center__system-architecture-summary">
-            프로그램 탐색과 신청 흐름이 실제 데이터와 연결될 수 있도록
-            화면, PHP 페이지, MySQL 데이터베이스의 역할을 나누어
-            구성했습니다.
+            프로그램 목록, 상세 확인, 신청 제출 흐름이 실제 데이터와 연결될 수 있도록 <br />
+            프론트 화면, PHP 페이지, MySQL 데이터베이스의 역할을 나누어 구성했습니다.
           </p>
         </header>
 

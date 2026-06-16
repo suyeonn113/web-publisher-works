@@ -45,10 +45,6 @@ const implementationPoints = [
     title: "터치 영역 최적화",
     description: "버튼, 필터, 슬라이더 조작 요소를 터치 환경에 맞게 구성",
   },
-  {
-    title: "신청 폼 접근성",
-    description: "신청 폼의 라벨, 입력 순서, 확인 흐름을 모바일에서도 유지",
-  },
 ];
 
 const SeoulYouthCenterResponsiveAccessibility = () => {

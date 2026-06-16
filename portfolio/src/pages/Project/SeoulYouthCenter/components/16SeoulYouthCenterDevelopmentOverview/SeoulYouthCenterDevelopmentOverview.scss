@@ -172,7 +172,7 @@
   h4 {
     @include typography(body);
 
-    color: var(--color-point-2);
+    color: var(--color-text-primary);
     font-weight: font-weight(bold);
     line-height: line-height(heading);
   }

@@ -129,7 +129,7 @@
 }
 
 .seoul-youth-center__positioning-swot-position strong {
-  @include typography(heading-sm);
+  @include typography(title);
 
   color: var(--color-text-primary);
   font-weight: font-weight(bold);

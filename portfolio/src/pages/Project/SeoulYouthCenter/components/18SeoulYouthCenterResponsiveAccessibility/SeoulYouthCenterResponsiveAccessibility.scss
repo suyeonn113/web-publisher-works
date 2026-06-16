@@ -17,7 +17,6 @@
 .seoul-youth-center__responsive-accessibility-layout {
   display: grid;
   grid-template-columns: minmax(0, 0.6fr) minmax(0, 0.4fr)!important;
-  gap: space(6);
   min-height: 0;
   align-items: stretch;
 }
@@ -115,7 +114,7 @@
 
 .seoul-youth-center__responsive-accessibility-points {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: space(3);
   min-height: 0;
 }

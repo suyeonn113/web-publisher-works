@@ -19,7 +19,6 @@
 .seoul-youth-center__project-schedule-board {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
-  gap: space(4);
   min-height: 0;
   height: 125%;
   @include respond-down(wide) {

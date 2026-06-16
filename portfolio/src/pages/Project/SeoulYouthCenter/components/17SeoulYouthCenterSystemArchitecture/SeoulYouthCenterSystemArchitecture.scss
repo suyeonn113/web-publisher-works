@@ -18,11 +18,12 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) !important;
   grid-template-rows: auto minmax(0, 1fr);
-  gap: space(5);
+  gap: space(6)!important;
   min-height: 0;
   height: 125%;
   @include respond-down(wide) {
     height: auto;
+    gap: space(12)!important;
   }
 }
 
@@ -119,7 +120,7 @@
 
 .seoul-youth-center__system-architecture-content {
   display: grid;
-  grid-template-columns: minmax(300px, 0.32fr) minmax(0, 0.68fr);
+  grid-template-columns: minmax(300px, 0.4fr) minmax(0, 0.6fr);
   gap: space(6);
   min-height: 0;
   align-items: stretch;
