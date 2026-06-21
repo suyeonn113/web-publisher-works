@@ -99,14 +99,14 @@
   border-bottom: var(--line-thin) solid var(--color-border-primary);
 
   h2 {
-    @include text-size(heading-md);
+    @include text-size(title);
 
     color: var(--color-text-primary);
     font-weight: 700;
   }
 
   p {
-    @include text-size(body-lg);
+    @include text-size(body);
 
     max-width: 760px;
     margin-top: get-space(sm);
