@@ -589,15 +589,10 @@
   }
 
   .flight-schedule-detail__tabs {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
 
     button {
       min-height: 48px;
-
-      & + button {
-        border-top: var(--line-thin) solid var(--color-border-primary);
-        border-left: 0;
-      }
     }
   }
 

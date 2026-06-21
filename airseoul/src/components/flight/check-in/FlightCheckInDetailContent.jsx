@@ -1,23 +1,40 @@
 import { useState } from 'react';
-import ArmchairIcon from '../../icons/ArmchairIcon';
 import ClockIcon from '../../icons/ClockIcon';
 import ChevronRightIcon from '../../icons/ChevronRightIcon';
 import GlobeIcon from '../../icons/GlobeIcon';
 import LuggageIcon from '../../icons/LuggageIcon';
-import QrCodeIcon from '../../icons/QrCodeIcon';
 import SmartPhoneIcon from '../../icons/SmartPhoneIcon';
-import TicketIcon from '../../icons/TicketIcon';
 import FlightCheckInPanel from './FlightCheckInPanel';
 import AirportCheckInGuide from './guides/AirportCheckInGuide';
 import CityTerminalGuide from './guides/CityTerminalGuide';
 import SelfBagDropGuide from './guides/SelfBagDropGuide';
+import CheckInProcessFlow from './guides/CheckInProcessFlow';
+import BoardingPassSamples from './guides/BoardingPassSamples';
 import { CHECK_IN_TABS } from './guides/checkInGuideData';
 
+const ONLINE_CHECK_IN_IMAGE_PATH = `${import.meta.env.BASE_URL}images/check-in/online`;
+
 const CHECK_IN_STEPS = [
-  { id: 'lookup', label: '예약 조회', description: '예약번호와 탑승객 정보를 입력합니다.', icon: TicketIcon },
-  { id: 'seat', label: '탑승객 · 좌석 선택', description: '탑승객과 원하는 좌석을 확인합니다.', icon: ArmchairIcon },
-  { id: 'pass', label: '탑승권 발급', description: '모바일 탑승권을 발급하고 저장합니다.', icon: QrCodeIcon },
-  { id: 'airport', label: '공항 수속', description: '수하물 위탁 후 보안 검색대로 이동합니다.', icon: LuggageIcon },
+  {
+    label: '예약 조회',
+    description: '예약번호와 탑승객 정보를 입력합니다.',
+    image: `${ONLINE_CHECK_IN_IMAGE_PATH}/step-01.png`,
+  },
+  {
+    label: '탑승객 · 좌석 선택',
+    description: '탑승객과 원하는 좌석을 확인합니다.',
+    image: `${ONLINE_CHECK_IN_IMAGE_PATH}/step-02.png`,
+  },
+  {
+    label: '탑승권 발급',
+    description: '모바일 탑승권을 발급하고 저장합니다.',
+    image: `${ONLINE_CHECK_IN_IMAGE_PATH}/step-03.png`,
+  },
+  {
+    label: '공항 수속',
+    description: '수하물 위탁 후 보안 검색대로 이동합니다.',
+    image: `${ONLINE_CHECK_IN_IMAGE_PATH}/step-04.png`,
+  },
 ];
 
 const AIRPORT_GUIDES = [
@@ -60,122 +77,133 @@ function FlightCheckInDetailContent() {
   return (
     <div className="flight-check-in-detail">
       <div className="information-tabs" role="tablist" aria-label="체크인 안내">
-        {CHECK_IN_TABS.map((tab) => <button type="button" role="tab" aria-selected={activeTab === tab.id} className={activeTab === tab.id ? 'is-active' : ''} key={tab.id} onClick={() => setActiveTab(tab.id)}>{tab.label}</button>)}
+        {CHECK_IN_TABS.map((tab) => (
+          <button
+            type="button"
+            role="tab"
+            aria-selected={activeTab === tab.id}
+            className={activeTab === tab.id ? 'is-active' : ''}
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+          >
+            {tab.label}
+          </button>
+        ))}
       </div>
+
       {activeTab === 'airport' && <AirportCheckInGuide />}
       {activeTab === 'city' && <CityTerminalGuide />}
       {activeTab === 'bag-drop' && <SelfBagDropGuide />}
       {activeTab === 'online' && (
-      <>
-      <div className="flight-check-in-detail__lookup">
-        <div className="flight-check-in-detail__intro">
-          <h2>온라인 체크인</h2>
-          <p>탑승권을 미리 발급받고 공항에서의 수속 시간을 줄여보세요.</p>
-        </div>
-
-        <FlightCheckInPanel />
-      </div>
-
-      <section className="flight-check-in-detail__times" aria-labelledby="check-in-time-title">
-        <h2 id="check-in-time-title">이용 가능 시간</h2>
-        <div>
-          <article>
-            <ClockIcon size={32} />
-            <div>
-              <h3>국내선</h3>
-              <p>
-                <span>출발 24시간 전부터</span>
-                <strong>30분 전까지</strong>
-              </p>
+        <>
+          <div className="flight-check-in-detail__lookup">
+            <div className="flight-check-in-detail__intro">
+              <h2>온라인 체크인</h2>
+              <p>탑승권을 미리 발급받고 공항에서의 수속 시간을 줄여보세요.</p>
             </div>
-          </article>
-          <article>
-            <ClockIcon size={32} />
+
+            <FlightCheckInPanel />
+          </div>
+
+          <section
+            className="flight-check-in-detail__times"
+            aria-labelledby="check-in-time-title"
+          >
+            <h2 id="check-in-time-title">이용 가능 시간</h2>
             <div>
-              <h3>국제선</h3>
-              <p>
-                <span>출발 24시간 전부터</span>
-                <strong>1시간 30분 전까지</strong>
-              </p>
-            </div>
-          </article>
-        </div>
-        <p>노선과 공항 운영 상황에 따라 이용 시간이 달라질 수 있습니다.</p>
-      </section>
-
-      <section className="flight-check-in-detail__steps" aria-labelledby="check-in-steps-title">
-        <h2 id="check-in-steps-title">이용 절차</h2>
-        <ol>
-          {CHECK_IN_STEPS.map((step, index) => {
-            const StepIcon = step.icon;
-
-            return (
-              <li key={step.id}>
-                <span className="flight-check-in-detail__step-number">{index + 1}</span>
-                <StepIcon size={28} />
+              <article>
+                <ClockIcon size={32} />
                 <div>
-                  <h3>{step.label}</h3>
-                  <p>{step.description}</p>
-                </div>
-              </li>
-            );
-          })}
-        </ol>
-      </section>
-
-      <section className="flight-check-in-detail__airport" aria-labelledby="check-in-airport-title">
-        <div className="flight-check-in-detail__section-header">
-          <h2 id="check-in-airport-title">탑승권 발급 후 공항에서</h2>
-          <button type="button" onClick={() => setActiveTab('airport')}>
-            <span>공항 체크인 자세히 보기</span>
-            <ChevronRightIcon size={16} />
-          </button>
-        </div>
-        <div>
-          {AIRPORT_GUIDES.map((guide) => {
-            const GuideIcon = guide.icon;
-
-            return (
-              <article key={guide.id}>
-                <GuideIcon size={24} />
-                <div>
-                  <h3>{guide.title}</h3>
-                  <p>{guide.description}</p>
+                  <h3>국내선</h3>
+                  <p>
+                    <span>출발 24시간 전부터</span>
+                    <strong>30분 전까지</strong>
+                  </p>
                 </div>
               </article>
-            );
-          })}
-        </div>
-      </section>
+              <article>
+                <ClockIcon size={32} />
+                <div>
+                  <h3>국제선</h3>
+                  <p>
+                    <span>출발 24시간 전부터</span>
+                    <strong>1시간 30분 전까지</strong>
+                  </p>
+                </div>
+              </article>
+            </div>
+            <p>노선과 공항 운영 상황에 따라 이용 시간이 달라질 수 있습니다.</p>
+          </section>
 
-      <section className="flight-check-in-detail__confirm" aria-labelledby="check-in-confirm-title">
-        <h2 id="check-in-confirm-title">체크인 전 확인해 주세요</h2>
-        <div>
-          <div>
-            <div className="flight-check-in-detail__confirm-heading">
-              <h3>온라인 체크인이 제한될 수 있는 경우</h3>
+          <section
+            className="flight-check-in-detail__steps"
+            aria-labelledby="check-in-steps-title"
+          >
+            <h2 id="check-in-steps-title">이용 절차</h2>
+            <CheckInProcessFlow items={CHECK_IN_STEPS} />
+          </section>
+
+          <BoardingPassSamples />
+
+          <section
+            className="flight-check-in-detail__airport"
+            aria-labelledby="check-in-airport-title"
+          >
+            <div className="flight-check-in-detail__section-header">
+              <h2 id="check-in-airport-title">탑승권 발급 후 공항에서</h2>
               <button type="button" onClick={() => setActiveTab('airport')}>
-                <span>제한 대상 안내 보기</span>
-                <ChevronRightIcon size={14} />
+                <span>공항 체크인 자세히 보기</span>
+                <ChevronRightIcon size={16} />
               </button>
             </div>
-            <ul>
-              {RESTRICTED_GROUPS.map((group) => (
-                <li key={group}>{group}</li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h3>유의사항</h3>
-            <ul>
-              <li>공항과 노선에 따라 모바일 탑승권 사용이 제한될 수 있습니다.</li>
-              <li>탑승권 정보와 여권의 영문 이름이 일치하는지 확인해 주세요.</li>
-              <li>탑승구 변경 여부를 공항 안내 화면과 방송에서 확인해 주세요.</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-      </>
+            <div>
+              {AIRPORT_GUIDES.map((guide) => {
+                const GuideIcon = guide.icon;
+
+                return (
+                  <article key={guide.id}>
+                    <GuideIcon size={24} />
+                    <div>
+                      <h3>{guide.title}</h3>
+                      <p>{guide.description}</p>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+
+          <section
+            className="flight-check-in-detail__confirm"
+            aria-labelledby="check-in-confirm-title"
+          >
+            <h2 id="check-in-confirm-title">체크인 전 확인해 주세요</h2>
+            <div>
+              <div>
+                <div className="flight-check-in-detail__confirm-heading">
+                  <h3>온라인 체크인이 제한될 수 있는 경우</h3>
+                  <button type="button" onClick={() => setActiveTab('airport')}>
+                    <span>제한 대상 안내 보기</span>
+                    <ChevronRightIcon size={14} />
+                  </button>
+                </div>
+                <ul>
+                  {RESTRICTED_GROUPS.map((group) => (
+                    <li key={group}>{group}</li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h3>유의사항</h3>
+                <ul>
+                  <li>공항과 노선에 따라 모바일 탑승권 사용이 제한될 수 있습니다.</li>
+                  <li>탑승권 정보와 여권의 영문 이름이 일치하는지 확인해 주세요.</li>
+                  <li>탑승구 변경 여부를 공항 안내 화면과 방송에서 확인해 주세요.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        </>
       )}
     </div>
   );

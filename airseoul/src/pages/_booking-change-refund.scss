@@ -9,14 +9,14 @@
 }
 
 .booking-guide-page__inner {
-  --booking-guide-inline-padding: #{get-space(xl)};
+  --booking-guide-inline-padding: 0px;
 
   width: min(100%, var(--container-width));
   margin: 0 auto;
 }
 
 .booking-guide-page__header {
-  margin-bottom: get-space(xl);
+  margin-bottom: calc(#{get-space(xl)} + #{get-space(xl)});
 
   h1 {
     @include text-size(heading-md);
@@ -244,6 +244,10 @@
     padding-top: calc(var(--header-main-height-mobile) + #{get-space(xl)});
   }
 
+  .booking-guide-page__header {
+    margin-bottom: get-space(lg);
+  }
+
   .booking-guide-summary {
     align-items: stretch;
     flex-direction: column;
@@ -259,20 +263,11 @@
 }
 
 @include respond-down(mobile-sm) {
-  .booking-guide-page__inner {
-    --booking-guide-inline-padding: #{get-space(lg)};
-  }
-
   .booking-guide-tabs {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 
     button {
       min-height: 48px;
-
-      & + button {
-        border-top: var(--line-thin) solid var(--color-border-primary);
-        border-left: 0;
-      }
     }
   }
 

@@ -7,10 +7,10 @@
 }
 
 .flight-check-in-detail > .information-tabs {
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
 
   button {
-    @include text-size(body);
+    @include text-size(body-lg);
     @include transition(all, fast, standard);
 
     min-height: 64px;
@@ -28,7 +28,9 @@
   }
 }
 
-.airport-check-in-guide {
+.airport-check-in-guide,
+.city-terminal-guide,
+.self-bag-drop-guide {
   > header {
     padding-bottom: get-space(lg);
     border-bottom: var(--line-thin) solid var(--color-border-primary);
@@ -46,48 +48,120 @@
   }
 }
 
-.airport-check-in-guide__process {
+.airport-check-in-guide__process,
+.city-terminal-guide__process,
+.self-bag-drop-guide__process,
+.flight-check-in-detail__steps {
   > h3 {
     @include text-size(title);
 
     color: var(--color-text-primary);
     font-weight: 700;
   }
+}
 
-  ol {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: get-space(md);
-  }
+.check-in-process-flow {
+  --check-in-process-media-size: 128px;
+
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: get-space(xl);
 
   li {
+    position: relative;
     display: grid;
-    grid-template-columns: 36px minmax(0, 1fr);
     gap: get-space(md);
-    align-items: center;
-    min-height: 88px;
-    padding: get-space(md);
-    color: var(--color-text-primary);
-    border: var(--line-thin) solid var(--color-border-primary);
-    border-radius: var(--radius-sm);
+    align-content: start;
+    justify-items: center;
+    text-align: center;
+
+    &:not(:last-child)::after {
+      position: absolute;
+      top: calc(var(--check-in-process-media-size) / 2);
+      left: calc(50% + (var(--check-in-process-media-size) / 2) + #{get-space(sm)});
+      width: calc(100% - var(--check-in-process-media-size) - #{get-space(md)});
+      height: var(--line-thin);
+      content: '';
+      background: var(--color-border-primary);
+    }
+
+    &:not(:last-child)::before {
+      position: absolute;
+      z-index: 1;
+      top: calc((var(--check-in-process-media-size) / 2) - 4px);
+      right: -#{get-space(md)};
+      width: 8px;
+      height: 8px;
+      content: '';
+      border-top: var(--line-thin) solid var(--color-border-primary);
+      border-right: var(--line-thin) solid var(--color-border-primary);
+      transform: rotate(45deg);
+    }
   }
 
-  strong {
-    @include flex-center;
-
-    width: 36px;
-    height: 36px;
-    color: var(--color-text-inverse);
-    background: var(--color-point-primary);
-    border-radius: var(--radius-full);
+  &--5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
-  li > span {
-    @include text-size(body);
+  &--6 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    li:nth-child(3)::before,
+    li:nth-child(3)::after {
+      display: none;
+    }
+  }
+}
+
+.check-in-process-flow__image {
+  @include flex-center;
+
+  position: relative;
+  width: var(--check-in-process-media-size);
+  height: var(--check-in-process-media-size);
+  overflow: hidden;
+  color: var(--color-text-tertiary);
+  background: var(--color-bg-sub);
+  border-radius: var(--radius-full);
+
+  span {
+    @include text-size(title);
+
+    font-weight: 700;
+  }
+
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: get-space(lg);
+    object-fit: contain;
+  }
+}
+
+.check-in-process-flow li > div:last-child {
+  display: grid;
+  gap: get-space(xs);
+
+  small {
+    @include text-size(caption);
+
+    color: var(--color-point-primary);
+    font-weight: 700;
+  }
+
+  h4 {
+    @include text-size(body-lg);
 
     color: var(--color-text-primary);
     font-weight: 700;
-    line-height: 1.5;
+  }
+
+  p {
+    @include text-size(caption);
+
+    color: var(--color-text-secondary);
   }
 }
 
@@ -150,6 +224,7 @@
 .flight-check-in-detail__intro,
 .flight-check-in-detail__times,
 .flight-check-in-detail__steps,
+.flight-check-in-detail__boarding-samples,
 .flight-check-in-detail__airport,
 .flight-check-in-detail__confirm {
   margin-inline: var(--flight-detail-inline-padding);
@@ -306,32 +381,68 @@
   color: var(--color-text-tertiary);
 }
 
-.flight-check-in-detail__steps ol {
-  position: relative;
+.flight-check-in-detail__boarding-samples {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: get-space(md);
+  gap: get-space(lg);
+
+  > h2 {
+    @include text-size(title);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
+
+  > div {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: get-space(lg);
+  }
+
+  figure {
+    display: grid;
+    gap: get-space(sm);
+  }
+
+  figcaption {
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
+
+  figure > div {
+    @include flex-center;
+
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--color-bg-sub);
+    border: var(--line-thin) solid var(--color-border-primary);
+    border-radius: var(--radius-sm);
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    padding: get-space(lg);
+    padding-bottom: 0;
+    object-fit: contain;
+  }
+
+  span {
+    @include text-size(caption);
+
+    position: absolute;
+    color: var(--color-text-tertiary);
+  }
 }
 
-.flight-check-in-detail__steps li {
-  position: relative;
+.check-in-guide__info-grid {
   display: grid;
-  align-content: start;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: get-space(md);
-  min-height: 184px;
-  padding: get-space(lg);
-  color: var(--color-point-primary);
-  border: var(--line-thin) solid var(--color-border-primary);
-  border-radius: var(--radius-sm);
 
-  &:not(:last-child)::after {
-    position: absolute;
-    top: 50%;
-    left: 100%;
-    width: get-space(md);
-    height: var(--line-thin);
-    content: '';
-    background: var(--color-border-primary);
+  section {
+    padding: get-space(lg);
+    border: var(--line-thin) solid var(--color-border-primary);
+    border-radius: var(--radius-sm);
   }
 
   h3 {
@@ -339,26 +450,30 @@
     font-weight: 700;
   }
 
-  p {
-    @include text-size(caption);
+  li {
+    position: relative;
+    padding-left: get-space(md);
 
-    margin-top: get-space(xs);
-    color: var(--color-text-secondary);
+    &::before {
+      position: absolute;
+      top: 0.7em;
+      left: 0;
+      width: 4px;
+      height: 4px;
+      content: '';
+      background: var(--color-point-primary);
+    }
   }
 }
 
-.flight-check-in-detail__step-number {
-  @include flex-center;
+.check-in-guide__notice {
+  padding: get-space(lg);
+  border-left: var(--line-bold) solid var(--color-point-primary);
 
-  position: absolute;
-  top: get-space(md);
-  right: get-space(md);
-  width: 28px;
-  height: 28px;
-  color: var(--color-text-inverse);
-  font-weight: 700;
-  background: var(--color-point-primary);
-  border-radius: var(--radius-full);
+  h3 {
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
 }
 
 .flight-check-in-detail__confirm > div {
@@ -430,21 +545,21 @@
 }
 
 @include respond-down(tablet) {
-  .airport-check-in-guide__process ol {
+  .check-in-process-flow,
+  .check-in-process-flow--5,
+  .check-in-process-flow--6 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    li::before,
+    li::after {
+      display: none;
+    }
   }
 
   .airport-check-in-guide__key-info {
     grid-template-columns: 1fr;
   }
 
-  .flight-check-in-detail__steps ol {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .flight-check-in-detail__steps li::after {
-    display: none;
-  }
 }
 
 @include respond-down(mobile) {
@@ -453,8 +568,10 @@
   }
 
   .flight-check-in-detail__times > div,
+  .flight-check-in-detail__boarding-samples > div,
   .flight-check-in-detail__airport > div,
-  .flight-check-in-detail__confirm > div {
+  .flight-check-in-detail__confirm > div,
+  .check-in-guide__info-grid {
     grid-template-columns: 1fr;
   }
 
@@ -479,10 +596,6 @@
     min-height: 52px;
   }
 
-  .airport-check-in-guide__process ol {
-    grid-template-columns: 1fr;
-  }
-
   .airport-check-in-guide__documents li,
   .airport-check-in-guide__deadline li {
     grid-template-columns: 1fr;
@@ -493,11 +606,9 @@
     padding: get-space(md);
   }
 
-  .flight-check-in-detail__steps ol {
+  .check-in-process-flow,
+  .check-in-process-flow--5,
+  .check-in-process-flow--6 {
     grid-template-columns: 1fr;
-  }
-
-  .flight-check-in-detail__steps li {
-    min-height: auto;
   }
 }

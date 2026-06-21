@@ -10,6 +10,8 @@
 @use '../components/layout/header/header-mobile';
 @use '../components/layout/footer';
 @use '../components/login/login-panel';
+@use '../components/baggage/baggage-guide';
+@use '../components/baggage/baggage-tables';
 
 @use '../components/home/hero/hero';
 @use '../components/home/info/home-info';
@@ -31,4 +33,5 @@
 @use '../pages/flight-service-detail';
 @use '../pages/flight-search-results';
 @use '../pages/information-pages';
+@use '../pages/seat-guide';
 @use '../pages/travel-guide';

@@ -26,13 +26,17 @@
 }
 
 .flight-service-detail__content {
-  --flight-detail-inline-padding: #{get-space(xl)};
+  --flight-detail-inline-padding: 0px;
 
   overflow: visible;
   box-shadow: none;
 
   .flight-service-shell__body {
     padding-top: get-space(xl);
+  }
+
+  .flight-service-panel {
+    padding-inline: 0;
   }
 }
 
@@ -57,11 +61,5 @@
     .flight-service-shell__body {
       padding-top: 0;
     }
-  }
-}
-
-@include respond-down(mobile-sm) {
-  .flight-service-detail__content {
-    --flight-detail-inline-padding: #{get-space(lg)};
   }
 }

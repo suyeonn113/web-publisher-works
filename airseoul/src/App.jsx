@@ -10,6 +10,7 @@ import FlightServiceDetail from './pages/FlightServiceDetail';
 import NotFound from './pages/NotFound';
 import AirportService from './pages/AirportService';
 import BaggageGuide from './pages/BaggageGuide';
+import SeatGuide from './pages/SeatGuide';
 import { FLIGHT_SERVICE_TAB_IDS } from './components/flight/flight-service/flightServiceTabsData';
 import { createFixedRoundTripSearchParams } from './utils/searchParams';
 
@@ -62,6 +63,7 @@ function App() {
           path={ROUTES.travel.baggage}
           element={<BaggageGuide />}
         />
+        <Route path={ROUTES.travel.seat} element={<SeatGuide />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

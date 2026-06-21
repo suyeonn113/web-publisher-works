@@ -16,7 +16,7 @@ export const ROUTES = {
   travel: {
     root: '#',
 
-    seat: '#',
+    seat: '/travel/seat',
     baggage: '/travel/baggage',
     meal: '#',
     insurance: '#',
