@@ -430,10 +430,21 @@
     padding: get-space(sm) get-space(md);
 
     > span {
-      grid-template-columns: minmax(0, 1fr) auto auto;
+      grid-template-columns: minmax(0, 1fr) auto;
       align-items: center;
-      justify-items: start;
       column-gap: get-space(sm);
+      row-gap: get-space(xs);
+      width: 100%;
+    }
+
+    strong {
+      grid-column: 1 / -1;
+      justify-self: start;
+      text-align: left;
+    }
+
+    em {
+      justify-self: start;
     }
 
     small {
