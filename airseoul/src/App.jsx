@@ -4,8 +4,11 @@ import { ROUTES } from './constants/routes';
 import MainLayout from './layouts/MainLayout';
 import Booking from './pages/Booking';
 import BookingChangeRefund from './pages/BookingChangeRefund';
+import BrandStory from './pages/BrandStory';
 import Home from './pages/Home';
 import FlightSearchResults from './pages/FlightSearchResults';
+import EventDetail from './pages/EventDetail';
+import EventList from './pages/EventList';
 import FlightServiceDetail from './pages/FlightServiceDetail';
 import NotFound from './pages/NotFound';
 import AirportService from './pages/AirportService';
@@ -25,6 +28,9 @@ function App() {
     <Routes>
       <Route element={<MainLayout />}>
         <Route path={ROUTES.home} element={<Home defaultSearchParams={defaultSearchParams} />} />
+        <Route path={ROUTES.company.brandStory} element={<BrandStory />} />
+        <Route path={ROUTES.benefit.event} element={<EventList />} />
+        <Route path={ROUTES.benefit.eventDetail(':eventId')} element={<EventDetail />} />
         <Route path={ROUTES.booking.root} element={<Booking />} />
         <Route path={ROUTES.booking.flight} element={<FlightSearchResults />} />
         <Route path={ROUTES.booking.refund} element={<BookingChangeRefund />} />

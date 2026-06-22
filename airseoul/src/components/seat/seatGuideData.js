@@ -12,6 +12,47 @@ export const SEAT_ZONES = [
   { name: 'B구역', detail: '후방 일반 좌석', description: '합리적인 가격으로 선택할 수 있는 일반 좌석' },
 ];
 
+export const SEAT_GRADE_GROUPS = [
+  {
+    id: '195',
+    aircraft: '195석',
+    zones: [
+      { grade: 'MINT ZONE', detail: '1열 및 비상구', seats: '1열, 10열, 22열, 23F' },
+      { grade: 'MINT ZONE', detail: '2~3열', seats: '2~3열' },
+      { grade: 'A구역', detail: '', seats: '4~9열' },
+      { grade: 'B구역', detail: '', seats: '11~21열, 23ABCDE, 24~34열' },
+    ],
+  },
+  {
+    id: '220a',
+    aircraft: '220석(A)',
+    zones: [
+      { grade: 'MINT ZONE', detail: '1열 및 비상구', seats: '1열, 11열, 12AF, 27열' },
+      { grade: 'MINT ZONE', detail: '2~3열', seats: '2~3열' },
+      { grade: 'A구역', detail: '', seats: '4~10열' },
+      { grade: 'B구역', detail: '', seats: '12BCDE, 14~26열, 28~39열' },
+    ],
+  },
+  {
+    id: '220b',
+    aircraft: '220석(B)',
+    zones: [
+      {
+        grade: 'MINT ZONE',
+        detail: '1열 및 비상구',
+        seats: '1열, 2ABC, 11열, 12F, 26BC, 27ADE, 28F',
+      },
+      { grade: 'MINT ZONE', detail: '2~3열', seats: '2~3열(2ABC 제외)' },
+      { grade: 'A구역', detail: '', seats: '4~10열' },
+      {
+        grade: 'B구역',
+        detail: '',
+        seats: '12ABCDE, 14~25열, 26DE, 27BC, 28ABCDE, 29~39열',
+      },
+    ],
+  },
+];
+
 export const SEAT_MAPS = [
   {
     id: '195',

@@ -1,8 +1,13 @@
+import { useState } from 'react';
 import { ADVANCE_SEAT_PRICES } from './seatGuideData';
 
 const PRICE_COLUMNS = ['노선', 'MINT 1열·비상구', 'MINT 2~3열', 'A구역', 'B구역'];
 
 export default function SeatPriceGuide() {
+  const [activeRoute, setActiveRoute] = useState(ADVANCE_SEAT_PRICES[0][0]);
+  const activePrice = ADVANCE_SEAT_PRICES.find((row) => row[0] === activeRoute);
+  const activeRouteIndex = ADVANCE_SEAT_PRICES.findIndex((row) => row[0] === activeRoute);
+
   return (
     <section className="seat-guide-panel">
       <header>
@@ -29,6 +34,45 @@ export default function SeatPriceGuide() {
             ))}
           </tbody>
         </table>
+      </div>
+
+      <div className="seat-price-mobile">
+        <div className="seat-price-mobile__tabs" role="tablist" aria-label="좌석 요금 노선 선택">
+          {ADVANCE_SEAT_PRICES.map((row, index) => (
+            <button
+              type="button"
+              role="tab"
+              id={`seat-price-tab-${index}`}
+              aria-controls="seat-price-mobile-panel"
+              aria-selected={activeRoute === row[0]}
+              className={activeRoute === row[0] ? 'is-active' : ''}
+              key={row[0]}
+              onClick={() => setActiveRoute(row[0])}
+            >
+              {row[0]}
+            </button>
+          ))}
+        </div>
+
+        <div
+          className="seat-price-mobile__panel"
+          id="seat-price-mobile-panel"
+          role="tabpanel"
+          aria-labelledby={`seat-price-tab-${activeRouteIndex}`}
+        >
+          <dl>
+            <div className="is-heading">
+              <dt>노선</dt>
+              <dd>{activePrice[0]}</dd>
+            </div>
+            {PRICE_COLUMNS.slice(1).map((column, index) => (
+              <div key={column}>
+                <dt>{column}</dt>
+                <dd>{activePrice[index + 1]}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
       </div>
 
       <p className="seat-guide-caption">

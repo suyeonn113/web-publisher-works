@@ -4,7 +4,6 @@ export default function CheckInProcessFlow({ items }) {
       {items.map((item, index) => (
         <li key={item.label}>
           <div className="check-in-process-flow__image">
-            <span>{index + 1}</span>
             <img
               src={item.image}
               alt=""

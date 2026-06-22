@@ -205,6 +205,42 @@
   }
 }
 
+.prepaid-baggage-guide {
+  padding: get-space(xl);
+  border: var(--line-thin) solid var(--color-border-primary);
+  border-top: var(--line-bold) solid var(--color-point-primary);
+  border-radius: var(--radius-sm);
+
+  > header p {
+    margin-top: get-space(sm);
+    color: var(--color-text-secondary);
+  }
+
+  &__benefits {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: get-space(md);
+
+    article {
+      padding: get-space(lg);
+      background: var(--color-bg-mint-soft);
+      border-radius: var(--radius-sm);
+    }
+
+    p {
+      margin-top: get-space(sm);
+      color: var(--color-text-secondary);
+    }
+  }
+
+  &__notices {
+    display: grid;
+    gap: get-space(md);
+    padding-top: get-space(lg);
+    border-top: var(--line-thin) solid var(--color-border-primary);
+  }
+}
+
 .baggage-guide-link {
   @include transition(all, fast, standard);
 
@@ -221,11 +257,30 @@
   }
 }
 
-.baggage-guide-liquid-image {
-  width: min(100%, 720px);
-  height: auto;
-  margin-inline: auto;
+.baggage-guide-liquid-images {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: get-space(xl);
+  padding: get-space(xl);
   border: var(--line-thin) solid var(--color-border-primary);
+
+  figure {
+    display: grid;
+    gap: get-space(sm);
+    justify-items: center;
+  }
+
+  img {
+    width: 100%;
+    max-height: 320px;
+    object-fit: contain;
+  }
+
+  figcaption {
+    @include text-size(body);
+
+    color: var(--color-text-primary);
+  }
 }
 
 @include respond-down(tablet) {
@@ -248,11 +303,19 @@
       grid-column: 1 / -1;
     }
   }
+
+  .prepaid-baggage-guide__benefits {
+    grid-template-columns: 1fr;
+  }
 }
 
 @include respond-down(mobile) {
   .baggage-guide-tabs button {
     min-height: 48px;
+  }
+
+  .prepaid-baggage-guide {
+    padding: get-space(lg);
   }
 
   .baggage-guide-intro {
@@ -272,6 +335,19 @@
   .baggage-guide-highlight--with-image img {
     max-width: 240px;
     margin-inline: auto;
+  }
+
+  .baggage-guide-liquid-images {
+    gap: get-space(sm);
+    padding: get-space(md);
+
+    img {
+      max-height: 220px;
+    }
+
+    figcaption {
+      @include text-size(caption);
+    }
   }
 }
 

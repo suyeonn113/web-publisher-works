@@ -1,0 +1,239 @@
+@use '../styles/foundation/functions' as *;
+@use '../styles/foundation/mixins' as *;
+
+.seat-grade-table {
+  overflow: hidden;
+  border: var(--line-thin) solid var(--color-border-primary);
+  border-radius: var(--radius-sm);
+
+  table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+  }
+
+  caption {
+    @include text-size(caption);
+
+    padding: get-space(sm) get-space(md);
+    color: var(--color-text-secondary);
+    text-align: left;
+    caption-side: top;
+  }
+
+  th,
+  td {
+    @include text-size(caption);
+
+    padding: get-space(md) get-space(sm);
+    color: var(--color-text-primary);
+    text-align: center;
+    word-break: keep-all;
+    border-top: var(--line-thin) solid var(--color-border-primary);
+  }
+
+  th + th,
+  td + td {
+    border-left: var(--line-thin) solid var(--color-border-primary);
+  }
+
+  thead th {
+    font-weight: 700;
+    background: var(--color-bg-mint-soft);
+  }
+
+  thead tr:first-child th {
+    @include text-size(body);
+  }
+
+  thead tr:nth-child(2) th {
+    vertical-align: top;
+  }
+
+  th strong,
+  th span {
+    display: block;
+  }
+
+  th span {
+    margin-top: get-space(xs);
+    font-weight: 400;
+  }
+
+  td {
+    vertical-align: middle;
+    white-space: normal;
+  }
+}
+
+.seat-grade-cards {
+  display: none;
+}
+
+.seat-grade-mobile {
+  display: none;
+}
+
+@include respond-down(tablet) {
+  .seat-grade-table {
+    display: none;
+  }
+
+  .seat-grade-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: get-space(md);
+
+    article {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      overflow: hidden;
+      border: var(--line-thin) solid var(--color-border-primary);
+      border-radius: var(--radius-sm);
+    }
+
+    h3 {
+      padding: get-space(md);
+      text-align: center;
+      background: var(--color-bg-mint-soft);
+    }
+
+    dl {
+      display: grid;
+      grid-template-rows: repeat(4, 1fr);
+    }
+
+    dl > div {
+      display: grid;
+      grid-template-columns: 44% 56%;
+
+      & + div {
+        border-top: var(--line-thin) solid var(--color-border-primary);
+      }
+    }
+
+    dt,
+    dd {
+      @include text-size(caption);
+
+      padding: get-space(md);
+      color: var(--color-text-primary);
+      word-break: keep-all;
+    }
+
+    dt {
+      font-weight: 700;
+      background: var(--color-bg-sub);
+
+      span {
+        display: block;
+        margin-top: get-space(xs);
+        font-weight: 400;
+      }
+    }
+
+    dd {
+      border-left: var(--line-thin) solid var(--color-border-primary);
+    }
+  }
+}
+
+@include respond-down(mobile) {
+  .seat-grade-cards {
+    display: none;
+  }
+
+  .seat-grade-mobile {
+    display: grid;
+    gap: get-space(sm);
+  }
+
+  .seat-grade-mobile__tabs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    overflow: hidden;
+    border: var(--line-thin) solid var(--color-border-primary);
+    border-radius: var(--radius-sm);
+
+    button {
+      @include text-size(body);
+      @include transition(all, fast, standard);
+
+      min-height: 48px;
+      padding: get-space(sm);
+      color: var(--color-text-primary);
+      font-weight: 700;
+      word-break: keep-all;
+
+      & + button {
+        border-left: var(--line-thin) solid var(--color-border-primary);
+      }
+
+      &:hover,
+      &:focus-visible {
+        color: var(--color-point-primary);
+        background: var(--color-bg-mint-soft);
+      }
+
+      &.is-active {
+        color: var(--color-text-inverse);
+        background: var(--color-point-primary);
+      }
+    }
+  }
+
+  .seat-grade-mobile__panel {
+    overflow: hidden;
+    border: var(--line-thin) solid var(--color-border-primary);
+    border-radius: var(--radius-sm);
+
+    dl {
+      display: grid;
+    }
+
+    dl > div {
+      display: grid;
+      grid-template-columns: 44% 56%;
+
+      & + div {
+        border-top: var(--line-thin) solid var(--color-border-primary);
+      }
+    }
+
+    dt,
+    dd {
+      @include text-size(body);
+
+      padding: get-space(md);
+      color: var(--color-text-primary);
+      word-break: keep-all;
+    }
+
+    dt {
+      font-weight: 700;
+      background: var(--color-bg-sub);
+
+      span {
+        display: block;
+        margin-top: get-space(xs);
+        font-weight: 400;
+      }
+    }
+
+    dd {
+      border-left: var(--line-thin) solid var(--color-border-primary);
+    }
+  }
+}
+
+@include respond-down(mobile-sm) {
+  .seat-grade-mobile__panel {
+    dl > div {
+      grid-template-columns: 1fr;
+    }
+
+    dd {
+      border-left: 0;
+    }
+  }
+}

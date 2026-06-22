@@ -1,6 +1,6 @@
 import BaggageIntro from '../BaggageIntro';
 import BaggageTable from '../BaggageTable';
-import { BAGGAGE_IMAGE_PATH } from '../baggageGuideData';
+import LiquidCarryOnGuide from '../LiquidCarryOnGuide';
 
 const BATTERY_ROWS = [
   ['100Wh 이하 리튬 배터리', '휴대 가능', '기기 장착 시 가능', '최대 5개', '불가', '최대 15개'],
@@ -36,20 +36,28 @@ export default function RestrictedBaggagePanel() {
           <li>비행 중 필요한 의약품과 유아용 음식은 필요한 양에 한해 허용되며 증빙을 요구할 수 있습니다.</li>
           <li>면세점 액체류는 영수증과 함께 훼손되지 않은 보안봉투(STEB)에 밀봉된 경우 허용됩니다.</li>
         </ul>
-        <img
-          className="baggage-guide-liquid-image"
-          src={`${BAGGAGE_IMAGE_PATH}/restricted-liquids-guide.png`}
-          alt="국제선 액체류 기내 반입 포장 기준"
-        />
+        <LiquidCarryOnGuide />
       </section>
 
       <section>
         <h3>조건부 운송 물품</h3>
         <div className="baggage-guide-card-grid">
-          <article><h4>무기·스포츠 장비</h4><p>총기류, 도검류, 활, 창과 호신용품 등은 관계 기관 허가와 안전한 포장을 거쳐 위탁해야 하며 객실 반입은 금지됩니다.</p></article>
-          <article><h4>드라이아이스</h4><p>승객 1명당 2.5kg 이하만 항공사 승인 후 운송할 수 있으며, 포장에는 이산화탄소가 배출될 수 있는 통풍구가 있어야 합니다.</p></article>
-          <article><h4>전자담배·라이터</h4><p>전자담배와 여분 배터리는 객실에만 휴대하고 개별 보호해야 합니다. 기내 사용과 충전은 금지되며 라이터·성냥은 국가별 규정이 적용됩니다.</p></article>
-          <article><h4>발열·가열 식품</h4><p>발열체가 포함된 도시락과 즉석식품 등 화재 위험이 있는 제품은 운송이 제한될 수 있습니다.</p></article>
+          <article>
+            <h4>무기·스포츠 장비</h4>
+            <p>총기류, 도검류, 활, 창과 호신용품 등은 관계 기관 허가와 안전한 포장을 거쳐 위탁해야 하며 객실 반입은 금지됩니다.</p>
+          </article>
+          <article>
+            <h4>드라이아이스</h4>
+            <p>승객 1명당 2.5kg 이하만 항공사 승인 후 운송할 수 있으며, 포장에는 이산화탄소가 배출될 수 있는 통풍구가 있어야 합니다.</p>
+          </article>
+          <article>
+            <h4>전자담배·라이터</h4>
+            <p>전자담배와 여분 배터리는 객실에만 휴대하고 개별 보호해야 합니다. 기내 사용과 충전은 금지되며 라이터·성냥은 국가별 규정이 적용됩니다.</p>
+          </article>
+          <article>
+            <h4>발열·가열 식품</h4>
+            <p>발열체가 포함된 도시락과 즉석식품 등 화재 위험이 있는 제품은 운송이 제한될 수 있습니다.</p>
+          </article>
         </div>
       </section>
 

@@ -13,9 +13,18 @@ export default function CarryOnBaggagePanel() {
         <div>
           <h3>무료 허용 기준</h3>
           <dl className="baggage-guide-metrics">
-            <div><dt>개수</dt><dd>1개</dd></div>
-            <div><dt>무게</dt><dd>10kg 이하</dd></div>
-            <div><dt>크기</dt><dd>세 변의 합 115cm 이하</dd></div>
+            <div>
+              <dt>개수</dt>
+              <dd>1개</dd>
+            </div>
+            <div>
+              <dt>무게</dt>
+              <dd>10kg 이하</dd>
+            </div>
+            <div>
+              <dt>크기</dt>
+              <dd>세 변의 합 115cm 이하</dd>
+            </div>
           </dl>
           <p>가로 55cm, 세로 40cm, 높이 20cm 이내이며 손잡이와 바퀴를 포함합니다.</p>
         </div>

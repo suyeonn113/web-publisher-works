@@ -177,6 +177,10 @@
   table-layout: fixed;
 }
 
+.seat-price-mobile {
+  display: none;
+}
+
 .seat-guide-caption { @include text-size(caption); }
 
 @include respond-down(tablet) {
@@ -194,60 +198,89 @@
   .seat-guide-page__content { padding-block: get-space(lg); }
 
   .seat-price-table:not(.seat-price-table--preserve-table) {
-    overflow: visible;
-    border: 0;
-    border-radius: 0;
+    display: none;
+  }
 
-    table,
-    tbody,
-    tr {
-      display: grid;
-      width: 100%;
-    }
+  .seat-price-mobile {
+    display: grid;
+    gap: get-space(sm);
+  }
 
-    thead {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-    }
+  .seat-price-mobile__tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    overflow: hidden;
+    border: var(--line-thin) solid var(--color-border-primary);
+    border-radius: var(--radius-sm);
 
-    tbody {
-      gap: get-space(sm);
-    }
+    button {
+      @include text-size(body);
+      @include transition(all, fast, standard);
 
-    tr {
-      overflow: hidden;
-      border: var(--line-thin) solid var(--color-border-primary);
-      border-radius: var(--radius-sm);
-    }
+      min-height: 48px;
+      padding: get-space(sm);
+      color: var(--color-text-primary);
+      font-weight: 700;
+      word-break: keep-all;
 
-    tbody th:nth-child(n),
-    tbody td:nth-child(n) {
-      display: grid;
-      grid-template-columns: 44% 56%;
-      width: 100%;
-      padding: get-space(md);
-      text-align: left;
-      border: 0;
-
-      &::before {
-        color: var(--color-text-secondary);
-        font-weight: 400;
-        word-break: keep-all;
-        content: attr(data-label);
+      &:nth-child(even) {
+        border-left: var(--line-thin) solid var(--color-border-primary);
       }
 
-      & + th,
-      & + td {
+      &:nth-child(n + 3) {
         border-top: var(--line-thin) solid var(--color-border-primary);
       }
+
+      &:hover,
+      &:focus-visible {
+        color: var(--color-point-primary);
+        background: var(--color-bg-mint-soft);
+      }
+
+      &.is-active {
+        color: var(--color-text-inverse);
+        background: var(--color-point-primary);
+      }
+    }
+  }
+
+  .seat-price-mobile__panel {
+    overflow: hidden;
+    border: var(--line-thin) solid var(--color-border-primary);
+    border-radius: var(--radius-sm);
+
+    dl > div {
+      display: grid;
+      grid-template-columns: 44% 56%;
+
+      & + div {
+        border-top: var(--line-thin) solid var(--color-border-primary);
+      }
+
+      &.is-heading {
+        background: var(--color-bg-mint-soft);
+      }
     }
 
-    tbody th {
-      background: var(--color-bg-mint-soft);
+    dt,
+    dd {
+      @include text-size(body);
+
+      padding: get-space(md);
+      color: var(--color-text-primary);
+      word-break: keep-all;
+    }
+
+    dt {
+      color: var(--color-text-secondary);
+    }
+
+    dd {
+      border-left: var(--line-thin) solid var(--color-border-primary);
+    }
+
+    .is-heading dd {
+      font-weight: 700;
     }
   }
 }
@@ -263,11 +296,13 @@
     }
   }
 
-  .seat-price-table:not(.seat-price-table--preserve-table) {
-    tbody th:nth-child(n),
-    tbody td:nth-child(n) {
+  .seat-price-mobile__panel {
+    dl > div {
       grid-template-columns: 1fr;
-      gap: get-space(xs);
+    }
+
+    dd {
+      border-left: 0;
     }
   }
 }

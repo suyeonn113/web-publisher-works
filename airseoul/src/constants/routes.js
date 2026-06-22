@@ -3,6 +3,10 @@
 export const ROUTES = {
   home: '/',
 
+  company: {
+    brandStory: '/company/brand-story',
+  },
+
   booking: {
     root: '/booking',
 
@@ -40,7 +44,8 @@ export const ROUTES = {
   benefit: {
     root: '#',
 
-    event: '#',
+    event: '/events',
+    eventDetail: (eventId) => `/events/${eventId}`,
     partnership: '#',
     membership: '#',
   },

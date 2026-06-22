@@ -1,4 +1,5 @@
 import BaggageIntro from '../BaggageIntro';
+import PrepaidBaggageGuide from '../PrepaidBaggageGuide';
 import BaggageTable from '../BaggageTable';
 
 const PREPAID_ROWS = [
@@ -27,6 +28,8 @@ export default function ExcessBaggagePanel() {
     <article className="baggage-guide-panel" role="tabpanel">
       <BaggageIntro title="초과 수하물" description="무료 허용량을 초과하면 노선, 구매 시점, 무게와 개수에 따라 요금이 부과됩니다." />
 
+      <PrepaidBaggageGuide />
+
       <section>
         <h3>사전 구매 요금</h3>
         <p>국제선은 출발 48시간 전을 기준으로 요금이 달라집니다.</p>
@@ -37,7 +40,7 @@ export default function ExcessBaggagePanel() {
         />
         <ul>
           <li>국제선 사전 구매는 1회당 15kg 단위이며, 미주 노선은 23kg 수하물 1개 단위입니다.</li>
-          <li>사전 구매 수하물은 출발 24시간 전까지 구매·변경·취소할 수 있습니다.</li>
+          <li>구매 가능 시간과 환불 조건은 위의 구매 전 확인사항을 확인해 주세요.</li>
         </ul>
       </section>
 

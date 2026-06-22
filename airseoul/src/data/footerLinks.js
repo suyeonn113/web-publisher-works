@@ -5,7 +5,7 @@ export const footerLinkGroups = [
     id: 'company',
     title: '회사소개',
     links: [
-      { label: '회사소개', to: ROUTES.service.root },
+      { label: '회사소개', to: ROUTES.company.brandStory },
       { label: '홍보센터(미디어룸)', to: ROUTES.service.root },
     ],
   },

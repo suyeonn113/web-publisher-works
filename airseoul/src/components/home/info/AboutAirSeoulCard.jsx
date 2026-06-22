@@ -19,7 +19,7 @@ function AboutAirSeoulCard() {
           <br />
           여행을 더 쉽게 완성합니다.
         </p>
-        <AppLink className="home-info-about__button" to={ROUTES.service.root}>
+        <AppLink className="home-info-about__button" to={ROUTES.company.brandStory}>
           <span>에어서울 소개</span>
           <ChevronRightIcon size={iconSize.sm} />
         </AppLink>
