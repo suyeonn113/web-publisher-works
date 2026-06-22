@@ -78,10 +78,27 @@
 
 @include respond-down(mobile) {
   .booking-step-nav__list {
-    gap: get-space(lg);
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: get-space(xs);
+    width: 100%;
+  }
+
+  .booking-step-nav__item,
+  .booking-step-nav__link {
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: get-space(xs);
+    min-width: 0;
+    width: 100%;
   }
 
   .booking-step-nav__label {
     @include text-size(caption);
+
+    width: 100%;
+    text-align: center;
+    white-space: normal;
+    word-break: keep-all;
   }
 }

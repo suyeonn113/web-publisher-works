@@ -48,7 +48,7 @@
 }
 
 .fare-notice__header {
-  padding: get-space(lg) get-space(xl) get-space(md);
+  padding: get-space(md) get-space(lg) get-space(sm);
 
   h2 {
     @include text-size(body-lg);
@@ -88,7 +88,7 @@
 }
 
 .fare-notice__details {
-  padding: 0 get-space(xl) get-space(lg);
+  padding: 0 get-space(lg) get-space(md);
 }
 
 .fare-notice__detail {
@@ -102,8 +102,8 @@
     position: relative;
     display: flex;
     align-items: center;
-    min-height: rem(56px);
-    padding: get-space(sm) rem(32px) get-space(sm) 0;
+    min-height: rem(48px);
+    padding: get-space(sm) get-space(md) get-space(sm) 0;
     color: var(--color-text-primary);
     font-weight: 700;
     cursor: pointer;
@@ -126,7 +126,7 @@
   }
 
   ul {
-    padding: get-space(xs) rem(32px) get-space(lg) 0;
+    padding: get-space(xs) 0 get-space(md);
   }
 }
 
@@ -138,10 +138,10 @@
 
 @include respond-down(mobile) {
   .fare-notice__header {
-    padding: get-space(lg) get-space(md) get-space(md);
+    padding: get-space(md) get-space(sm) get-space(sm);
   }
 
   .fare-notice__details {
-    padding-inline: get-space(md);
+    padding-inline: get-space(sm);
   }
 }
