@@ -31,21 +31,27 @@
 .airport-check-in-guide,
 .city-terminal-guide,
 .self-bag-drop-guide {
+  margin-top: 0;
+
   > header {
     padding-bottom: get-space(lg);
     border-bottom: var(--line-thin) solid var(--color-border-primary);
 
     h2 {
-      @include text-size(heading-md);
+      @include text-size(title);
 
       color: var(--color-text-primary);
       font-weight: 700;
     }
 
     p {
-      @include text-size(body-lg);
+      @include text-size(body);
     }
   }
+}
+
+.flight-check-in-detail > .information-sections {
+  margin-top: 0;
 }
 
 .airport-check-in-guide__process,
