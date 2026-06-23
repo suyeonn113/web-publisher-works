@@ -196,6 +196,140 @@ h1 {
   font-size: 14px;
 }
 
+.library-page {
+  max-width: 880px;
+}
+
+.library-heading {
+  margin-bottom: 32px;
+}
+
+.book-search-form {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.book-search-label {
+  color: #111111;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.book-search-row {
+  display: flex;
+  gap: 8px;
+}
+
+.book-search-row input {
+  min-width: 0;
+  flex: 1;
+  height: 44px;
+  border: 1px solid #111111;
+  border-radius: 0;
+  padding: 0 12px;
+  color: #111111;
+  background: #ffffff;
+}
+
+.book-search-row button,
+.book-result-body button {
+  border: 1px solid #111111;
+  border-radius: 0;
+  color: #ffffff;
+  background: #111111;
+  font-weight: 700;
+}
+
+.book-search-row button {
+  min-width: 96px;
+  height: 44px;
+  padding: 0 16px;
+}
+
+.library-message {
+  margin: 0 0 20px;
+  color: #111111;
+}
+
+.book-result-list {
+  display: grid;
+  gap: 12px;
+}
+
+.book-result-card {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid #111111;
+  background: #ffffff;
+}
+
+.book-cover {
+  display: grid;
+  width: 96px;
+  min-height: 140px;
+  place-items: center;
+  border: 1px solid #111111;
+  color: #111111;
+  background: #ffffff;
+  font-size: 13px;
+  text-align: center;
+}
+
+.book-cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.book-result-body {
+  min-width: 0;
+}
+
+.book-result-body h2 {
+  margin: 0 0 12px;
+  color: #111111;
+  font-size: 22px;
+  line-height: 1.25;
+}
+
+.book-result-body dl {
+  display: grid;
+  gap: 4px;
+  margin: 0 0 12px;
+}
+
+.book-result-body dl div {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 8px;
+}
+
+.book-result-body dt {
+  color: #111111;
+  font-weight: 700;
+}
+
+.book-result-body dd {
+  min-width: 0;
+  margin: 0;
+  color: #111111;
+}
+
+.book-result-body p {
+  margin: 0 0 16px;
+  color: #111111;
+  line-height: 1.6;
+}
+
+.book-result-body button {
+  min-height: 40px;
+  padding: 0 14px;
+}
+
 @media (max-width: 640px) {
   .site-header {
     align-items: flex-start;
@@ -223,5 +357,27 @@ h1 {
 
   .login-panel {
     padding: 32px 24px;
+  }
+
+  .book-search-row,
+  .book-result-card {
+    grid-template-columns: 1fr;
+  }
+
+  .book-search-row {
+    display: grid;
+  }
+
+  .book-search-row button {
+    width: 100%;
+  }
+
+  .book-result-card {
+    display: grid;
+  }
+
+  .book-cover {
+    width: 100%;
+    max-width: 160px;
   }
 }

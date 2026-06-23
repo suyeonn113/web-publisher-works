@@ -8,7 +8,7 @@ function AppRoutes({ user }) {
     <Routes>
       <Route element={<MainLayout user={user} />}>
         <Route index element={<Home user={user} />} />
-        <Route path="library" element={<Library />} />
+        <Route path="library" element={<Library user={user} />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>
