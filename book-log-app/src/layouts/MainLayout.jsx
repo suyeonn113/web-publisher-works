@@ -1,7 +1,29 @@
+import { useEffect, useState } from 'react'
 import { Icon } from '@iconify/react'
 import { NavLink, Outlet } from 'react-router-dom'
+import { getPinnedReadingGroupId } from '../services/readingGroupService'
 
-function MainLayout() {
+function MainLayout({ user }) {
+  const [pinnedGroupId, setPinnedGroupId] = useState('')
+
+  useEffect(() => {
+    async function loadPinnedGroup() {
+      const groupId = await getPinnedReadingGroupId(user).catch(() => '')
+      setPinnedGroupId(groupId)
+    }
+
+    const handlePinnedGroupChange = (event) => {
+      setPinnedGroupId(event.detail || '')
+    }
+
+    loadPinnedGroup()
+    window.addEventListener('reading-group-pin-change', handlePinnedGroupChange)
+
+    return () => {
+      window.removeEventListener('reading-group-pin-change', handlePinnedGroupChange)
+    }
+  }, [user])
+
   return (
     <div className="app-shell">
       <header className="site-header">
@@ -11,7 +33,10 @@ function MainLayout() {
             <span>My page</span>
           </NavLink>
 
-          <NavLink className="app-nav-link" to="/reading-groups">
+          <NavLink
+            className="app-nav-link"
+            to={pinnedGroupId ? `/reading-groups/${pinnedGroupId}` : '/reading-groups'}
+          >
             <Icon icon="fluent:people-community-24-regular" width="20" height="20" />
             <span>Groups</span>
           </NavLink>
