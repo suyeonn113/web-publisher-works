@@ -4,6 +4,46 @@ import { Link } from 'react-router-dom'
 import { getMyLibraryBooks } from '../services/libraryService'
 import { getReadingLog } from '../services/readingLogService'
 
+function collectContentText(node) {
+  if (!node) {
+    return ''
+  }
+
+  if (typeof node === 'string') {
+    return node
+  }
+
+  if (Array.isArray(node)) {
+    return node.map(collectContentText).join(' ')
+  }
+
+  if (typeof node !== 'object') {
+    return ''
+  }
+
+  const ownText = [
+    node.text,
+    ...Object.values(node.attrs?.fields || {}),
+    collectContentText(node.content),
+  ]
+
+  return ownText.filter(Boolean).join(' ')
+}
+
+function getLibraryBookSearchText(item) {
+  return [
+    item.book?.title,
+    item.book?.author,
+    item.book?.publisher,
+    item.book?.description,
+    item.log?.body,
+    collectContentText(item.log?.contentJson),
+  ]
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase()
+}
+
 function Home({ user }) {
   const [libraryBooks, setLibraryBooks] = useState([])
   const [isLoading, setIsLoading] = useState(true)
@@ -46,10 +86,7 @@ function Home({ user }) {
   const normalizedSearchQuery = searchQuery.trim().toLowerCase()
   const filteredLibraryBooks = normalizedSearchQuery
     ? libraryBooks.filter((item) => {
-        const title = item.book?.title || ''
-        const body = item.log?.body || ''
-
-        return `${title} ${body}`.toLowerCase().includes(normalizedSearchQuery)
+        return getLibraryBookSearchText(item).includes(normalizedSearchQuery)
       })
     : libraryBooks
 
@@ -57,7 +94,7 @@ function Home({ user }) {
     <section className="home-page">
       <div className="home-toolbar">
         <label className="home-search">
-          <Icon icon="fluent:search-24-regular" width="18" height="18" />
+          <Icon className="app-icon--inline" icon="fluent:search-24-regular" />
           <input
             type="search"
             value={searchQuery}
@@ -74,13 +111,12 @@ function Home({ user }) {
           onClick={() => setViewType(isTextView ? 'thumbnail' : 'text')}
         >
           <Icon
+            className="app-icon--standalone"
             icon={
               isTextView
                 ? 'fluent:grid-24-regular'
                 : 'fluent:text-bullet-list-square-24-regular'
             }
-            width="22"
-            height="22"
           />
         </button>
       </div>

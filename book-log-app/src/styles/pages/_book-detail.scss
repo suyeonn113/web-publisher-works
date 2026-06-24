@@ -1,0 +1,620 @@
+@use '../settings/tools' as *;
+
+/* Book Detail */
+$book-detail-cover-inline-size: 7rem;
+$book-detail-compact-action-block-size: 28px;
+$log-block-padding-block-start: closest;
+$log-block-padding-block-end: compact-control-inline;
+$log-spacer-block-size: 4.5em;
+$block-picker-offset-block-end: 13rem;
+$book-log-primary-action-min-block-size: 48px;
+$book-log-secondary-action-min-block-size: 44px;
+
+.book-detail-page {
+  display: grid;
+  @include gap(page-stack);
+}
+
+.book-log-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @include gap(group);
+}
+
+.book-log-actions {
+  display: inline-flex;
+  align-items: center;
+  @include gap(field);
+}
+
+.back-link {
+  width: fit-content;
+  color: var(--color-text-primary);
+  text-decoration: underline;
+}
+
+.book-detail-header {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  @include gap(section);
+  @include padding(card-compact);
+  align-items: start;
+}
+
+.book-detail-cover {
+  width: $book-detail-cover-inline-size;
+}
+
+.book-detail-info {
+  h1 {
+    margin: 0;
+    @include margin-block-end(heading-after);
+    @include typography(book-detail-title);
+  }
+
+  p {
+    margin: 0;
+    @include margin-block-end(text-after);
+  }
+}
+
+.read-date-text {
+  display: inline-flex;
+  align-items: center;
+  @include gap(icon-label);
+  color: var(--color-text-primary);
+
+  span {
+    @include typography(caption-label);
+  }
+
+  input {
+    position: relative;
+    width: 10.5ch;
+    min-width: 10.5ch;
+    min-height: $book-detail-compact-action-block-size;
+    appearance: none;
+    -webkit-appearance: none;
+    border: 0;
+    @include padding(none);
+    color: var(--color-text-primary);
+    background: transparent;
+    @include typography(helper);
+    cursor: pointer;
+
+    &::-webkit-calendar-picker-indicator {
+      display: none;
+      -webkit-appearance: none;
+    }
+
+    &::-webkit-clear-button,
+    &::-webkit-inner-spin-button {
+      display: none;
+    }
+
+    &::-webkit-datetime-edit {
+      padding: 0;
+    }
+
+    &::-webkit-date-and-time-value {
+      text-align: left;
+    }
+  }
+}
+
+.status-icon-button,
+.read-count-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: $book-detail-compact-action-block-size;
+  border: space(hairline) solid var(--color-border-primary);
+  @include radius(control);
+  padding-block: 0;
+  @include padding-inline(compact-control-inline);
+  color: var(--color-text-primary);
+  background: transparent;
+  @include typography(navigation);
+}
+
+.status-icon-button[disabled],
+.read-count-button[disabled] {
+  opacity: 0.55;
+}
+
+.status-icon-button {
+  aspect-ratio: 1;
+  padding-inline: 0;
+}
+
+.read-count-button {
+  position: relative;
+  @include gap(icon-label);
+  aspect-ratio: 1;
+  padding-inline: 0;
+
+  span {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-size: 8px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0;
+  }
+}
+
+.writing-editor {
+  display: grid;
+  position: relative;
+  @include gap(field);
+  @include radius(card);
+  @include padding(card-compact);
+  background: transparent;
+
+  &:focus-within {
+    background: var(--color-action-subtle);
+  }
+}
+
+.log-field textarea,
+.log-field input {
+  @include padding(card-compact);
+}
+
+.log-field textarea {
+  overflow: hidden;
+  resize: none;
+}
+
+.tiptap-editor {
+  width: 100%;
+  border: 0;
+  padding-block: 0 padding-space(card);
+  padding-inline: 0;
+  background: transparent;
+
+  p {
+    margin: 0;
+    @include margin-block-end(heading-after);
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  > [data-log-block] + [data-log-block],
+  > p + [data-log-block],
+  > [data-log-block] + p:not(:last-child) {
+    margin-block-start: margin-space(heading-after);
+  }
+
+  > p:last-child:empty,
+  > p:last-child:has(> br:only-child) {
+    margin-block: 0;
+    min-height: 1lh;
+  }
+
+  .log-block {
+    margin-block: 0;
+    margin-inline: 0;
+  }
+}
+
+.block-picker {
+  position: fixed;
+  right: space(closest);
+  bottom: max(#{$block-picker-offset-block-end}, env(safe-area-inset-bottom));
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  @include gap(icon-label);
+  width: fit-content;
+  max-width: calc(100vw - #{padding-space(card-compact)} * 2);
+  border: space(hairline) solid var(--color-border-primary);
+  @include radius(floating);
+  padding: space(closest);
+  background: var(--color-surface-background);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+
+  button {
+    display: inline-grid;
+    @include icon-size(tool);
+    place-items: center;
+    border: space(hairline) solid var(--color-border-primary);
+    @include radius(card);
+    @include padding(none);
+  }
+}
+
+.writing-editor:focus-within .block-picker {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+
+.log-block-list {
+  display: grid;
+  @include gap(group);
+}
+
+.log-block {
+  display: grid;
+  @include gap(group);
+  border: space(hairline) solid var(--color-border-primary);
+  @include radius(card);
+  padding-block-start: space($log-block-padding-block-start);
+  padding-block-end: padding-space($log-block-padding-block-end);
+  padding-inline: padding-space(card);
+  background: transparent;
+}
+
+[data-log-block] {
+  position: relative;
+  background: transparent;
+  transition: padding-inline-end 160ms ease;
+
+  .log-block-delete {
+    position: absolute;
+    top: gap-space(field);
+    right: gap-space(field);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &:focus-within,
+  &.ProseMirror-selectednode,
+  &.is-selected {
+    padding-inline-end: padding-space(panel);
+  }
+
+  &:focus-within .log-block-delete,
+  &.ProseMirror-selectednode .log-block-delete,
+  &.is-selected .log-block-delete {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.log-block-delete {
+  display: inline-grid;
+  @include icon-size(compact-action);
+  place-items: center;
+  border: 0;
+  @include radius(editable);
+  color: var(--color-text-primary);
+  background: transparent;
+}
+
+.log-headline {
+  display: grid;
+  margin-block: 0;
+  margin-inline: 0;
+  padding-block-start: space($log-block-padding-block-start);
+  padding-block-end: padding-space($log-block-padding-block-end);
+}
+
+.log-headline-title {
+  overflow: hidden;
+  border: 0;
+  @include radius(editable);
+  padding-block: 0;
+  padding-inline: gap-space(icon-label);
+  resize: none;
+  color: var(--color-text-primary);
+  background: transparent;
+  @include typography(heading);
+}
+
+.log-clip {
+  display: grid;
+  @include gap(field);
+  margin-block: 0;
+  margin-inline: 0;
+  border: 0;
+  @include radius(card);
+  padding-block-start: space($log-block-padding-block-start);
+  padding-block-end: padding-space($log-block-padding-block-end);
+  padding-inline: 0;
+  background: transparent;
+}
+
+.log-clip-mark {
+  display: inline-flex;
+  align-items: center;
+  @include gap(icon-label);
+  width: fit-content;
+  color: var(--color-text-primary);
+  @include typography(caption-label);
+}
+
+.log-clip-quote {
+  overflow: hidden;
+  border: 0;
+  border-left: space(closest) solid var(--color-border-primary);
+  @include radius(editable);
+  padding-block: 0;
+  padding-inline: padding-space(text-inline) 0;
+  resize: none;
+  background: transparent;
+  @include typography(paragraph);
+
+  &:focus {
+    background: var(--color-action-subtle);
+  }
+}
+
+.log-clip-location-field {
+  justify-self: end;
+  display: inline-grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  @include gap(field);
+  width: fit-content;
+  max-width: 100%;
+
+  &::before {
+    content: '\3134';
+    color: var(--color-text-tertiary);
+    @include typography(caption);
+  }
+}
+
+.log-clip-location {
+  width: auto;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: content-box;
+  border: 0;
+  @include radius(editable);
+  padding-block: 0;
+  padding-inline: 0;
+  color: var(--color-text-tertiary);
+  background: transparent;
+  @include typography(navigation);
+  text-align: right;
+
+  &::placeholder {
+    color: var(--color-text-placeholder);
+  }
+
+  &:focus {
+    background: var(--color-action-subtle);
+  }
+}
+
+.log-clip-memo-label,
+.log-topic-answer-label {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  color: var(--color-text-tertiary);
+  @include typography(caption);
+}
+
+.log-clip-memo {
+  overflow: hidden;
+  border: 0;
+  @include radius(card);
+  padding-block: 0;
+  padding-inline: padding-space(text-inline) 0;
+  resize: none;
+  background: transparent;
+  @include typography(metadata);
+
+  &:focus {
+    background: var(--color-action-subtle);
+  }
+}
+
+.log-topic {
+  display: grid;
+  @include gap(field);
+  margin-block: 0;
+  margin-inline: 0;
+  border: 0;
+  @include radius(card);
+  padding-block-start: space($log-block-padding-block-start);
+  padding-block-end: padding-space($log-block-padding-block-end);
+  padding-inline: 0;
+  background: transparent;
+}
+
+.log-topic-mark {
+  display: inline-flex;
+  align-items: center;
+  @include gap(icon-label);
+  width: fit-content;
+  color: var(--color-text-primary);
+  @include typography(caption-label);
+}
+
+.log-topic-question,
+.log-topic-answer {
+  overflow: hidden;
+  border: 0;
+  @include radius(card);
+  resize: none;
+  background: transparent;
+
+  &:focus {
+    background: var(--color-action-subtle);
+  }
+}
+
+.log-topic-question {
+  padding-block: 0;
+  padding-inline: padding-space(text-inline) 0;
+  @include typography(question);
+}
+
+.log-topic-answer {
+  padding-block: 0;
+  padding-inline: padding-space(text-inline) 0;
+  @include typography(metadata);
+}
+
+.log-spacer {
+  display: grid;
+  align-items: stretch;
+  min-height: $log-spacer-block-size;
+  margin-block: 0;
+  margin-inline: 0;
+  padding-block-start: space($log-block-padding-block-start);
+  padding-block-end: padding-space($log-block-padding-block-end);
+  background: transparent;
+
+  &::before {
+    content: '';
+    display: block;
+    min-height: 100%;
+    border: space(hairline) dashed transparent;
+    @include radius(card);
+    background: transparent;
+    transition:
+      background-color 160ms ease,
+      border-color 160ms ease,
+      opacity 160ms ease;
+  }
+
+  &:focus,
+  &:focus-within {
+    background: transparent;
+  }
+
+  &:focus::before,
+  &:focus-within::before,
+  &.ProseMirror-selectednode::before,
+  &.is-selected::before {
+    border-color: transparent;
+    background: var(--color-action-spacer-active);
+  }
+}
+
+.writing-editor:focus-within .log-spacer::before,
+.writing-editor.is-dirty .log-spacer::before {
+  border-color: var(--color-border-primary);
+  opacity: 0.35;
+}
+
+.writing-editor:focus-within .log-spacer:focus::before,
+.writing-editor:focus-within .log-spacer:focus-within::before,
+.writing-editor:focus-within .log-spacer.ProseMirror-selectednode::before,
+.writing-editor:focus-within .log-spacer.is-selected::before,
+.writing-editor.is-dirty .log-spacer:focus::before,
+.writing-editor.is-dirty .log-spacer:focus-within::before,
+.writing-editor.is-dirty .log-spacer.ProseMirror-selectednode::before,
+.writing-editor.is-dirty .log-spacer.is-selected::before {
+  border-color: transparent;
+  opacity: 1;
+  background: var(--color-action-spacer-active);
+}
+
+.log-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @include gap(group);
+
+  button {
+    display: inline-grid;
+    @include icon-size(standalone);
+    place-items: center;
+    border: 0;
+    background: transparent;
+  }
+}
+
+.log-block-fields {
+  display: grid;
+  @include gap(group);
+}
+
+.log-field {
+  display: grid;
+  @include gap(icon-label);
+
+  span {
+    @include typography(label);
+  }
+}
+
+.writing-editor input:focus,
+.writing-editor textarea:focus,
+.writing-editor button:focus,
+.writing-editor [tabindex]:focus,
+.writing-editor [contenteditable='true']:focus {
+  background: transparent;
+}
+
+.save-log-button {
+  min-height: $book-log-primary-action-min-block-size;
+  border: space(hairline) solid var(--color-border-primary);
+  @include radius(control);
+  color: var(--color-action-inverse);
+  background: var(--color-action-primary);
+  @include typography(action);
+}
+
+.delete-book-button {
+  min-height: $book-log-secondary-action-min-block-size;
+  border: space(hairline) solid var(--color-border-primary);
+  @include radius(control);
+  background: var(--color-surface-background);
+  @include typography(action);
+}
+
+.delete-confirm-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  @include padding(card);
+  background: rgb(255 255 255 / 0.58);
+}
+
+.delete-confirm-dialog {
+  display: grid;
+  @include gap(group);
+  width: min(100%, 18rem);
+  border: space(hairline) solid var(--color-border-primary);
+  @include radius(card);
+  @include padding(card);
+  background: var(--color-surface-background);
+
+  h2,
+  p {
+    margin: 0;
+  }
+
+  h2 {
+    @include typography(title);
+  }
+
+  p {
+    color: var(--color-text-secondary);
+    @include typography(metadata);
+  }
+}
+
+.delete-confirm-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  @include gap(field);
+
+  button {
+    min-height: $book-log-secondary-action-min-block-size;
+    border: space(hairline) solid var(--color-border-primary);
+    @include radius(control);
+    background: var(--color-surface-background);
+    @include typography(action);
+  }
+}

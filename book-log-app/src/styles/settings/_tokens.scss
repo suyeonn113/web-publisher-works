@@ -1,0 +1,458 @@
+/* Colors */
+$colors: (
+  page-background: #ffffff,
+  surface-background: #ffffff,
+  text-primary: #111111,
+  text-secondary: #555555,
+  text-tertiary: #777777,
+  text-placeholder: #999999,
+  border-primary: #111111,
+  action-primary: #111111,
+  action-subtle: #f2f2f2,
+  action-spacer-active: #e4e4e4,
+  action-inverse: #ffffff,
+  feedback-danger: #b42318,
+);
+
+/* Font families */
+$font-families: (
+  body: (
+    Pretendard,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif,
+  ),
+  calm: (
+    Pretendard,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif,
+  ),
+  playful: (
+    Pretendard,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif,
+  ),
+  literary: (
+    Pretendard,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif,
+  ),
+  editorial: (
+    Pretendard,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif,
+  ),
+  technical: (
+    Pretendard,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif,
+  ),
+  dramatic: (
+    Pretendard,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif,
+  ),
+  eerie: (
+    Pretendard,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif,
+  ),
+);
+
+/* Font primitives */
+$font-sizes: (
+  body: (
+    mobile: 15px,
+    tablet: 15px,
+    wide: 15px,
+  ),
+  cover-placeholder: (
+    mobile: 10px,
+    tablet: 10px,
+    wide: 10px,
+  ),
+  caption: (
+    mobile: 11px,
+    tablet: 11px,
+    wide: 11px,
+  ),
+  helper: (
+    mobile: 12px,
+    tablet: 12px,
+    wide: 12px,
+  ),
+  metadata: (
+    mobile: 13px,
+    tablet: 13px,
+    wide: 13px,
+  ),
+  book-title: (
+    mobile: 14px,
+    tablet: 14px,
+    wide: 15px,
+  ),
+  book-list-title: (
+    mobile: 16px,
+    tablet: 17px,
+    wide: 18px,
+  ),
+  label: (
+    mobile: 13px,
+    tablet: 13px,
+    wide: 13px,
+  ),
+  control: (
+    mobile: 14px,
+    tablet: 14px,
+    wide: 14px,
+  ),
+  paragraph: (
+    mobile: 14px,
+    tablet: 15px,
+    wide: 15px,
+  ),
+  question: (
+    mobile: 15px,
+    tablet: 16px,
+    wide: 16px,
+  ),
+  title: (
+    mobile: 16px,
+    tablet: 17px,
+    wide: 18px,
+  ),
+  lead: (
+    mobile: 16px,
+    tablet: 17px,
+    wide: 18px,
+  ),
+  content-title: (
+    mobile: 17px,
+    tablet: 18px,
+    wide: 19px,
+  ),
+  book-detail-title: (
+    mobile: 18px,
+    tablet: 20px,
+    wide: 22px,
+  ),
+  heading: (
+    mobile: 20px,
+    tablet: 22px,
+    wide: 24px,
+  ),
+  page-title: (
+    mobile: 22px,
+    tablet: 24px,
+    wide: 26px,
+  ),
+  display: (
+    mobile: 28px,
+    tablet: 34px,
+    wide: 40px,
+  ),
+);
+
+$font-weights: (
+  regular: 400,
+  medium: 500,
+  bold: 700,
+  extra-bold: 800,
+);
+
+$line-heights: (
+  tight: 1,
+  compact: 1.2,
+  normal: 1.35,
+  relaxed: 1.5,
+  loose: 1.6,
+);
+
+$letter-spacings: (
+  normal: 0,
+  narrow: -0.01em,
+  wide: 0.04em,
+);
+
+/* Typography sets */
+$typography: (
+  body: (
+    size: body,
+    weight: regular,
+    line-height: normal,
+    letter-spacing: normal,
+  ),
+  cover-placeholder: (
+    size: cover-placeholder,
+    weight: regular,
+    line-height: normal,
+    letter-spacing: normal,
+  ),
+  caption: (
+    size: caption,
+    weight: regular,
+    line-height: normal,
+    letter-spacing: normal,
+  ),
+  caption-label: (
+    size: caption,
+    weight: bold,
+    line-height: normal,
+    letter-spacing: normal,
+  ),
+  helper: (
+    size: helper,
+    weight: regular,
+    line-height: normal,
+    letter-spacing: normal,
+  ),
+  metadata: (
+    size: metadata,
+    weight: regular,
+    line-height: normal,
+    letter-spacing: normal,
+  ),
+  book-title: (
+    size: book-title,
+    weight: bold,
+    line-height: normal,
+    letter-spacing: normal,
+  ),
+  book-list-title: (
+    size: book-list-title,
+    weight: bold,
+    line-height: compact,
+    letter-spacing: normal,
+  ),
+  label: (
+    size: label,
+    weight: bold,
+    line-height: normal,
+    letter-spacing: normal,
+  ),
+  navigation: (
+    size: helper,
+    weight: bold,
+    line-height: normal,
+    letter-spacing: normal,
+  ),
+  control: (
+    size: control,
+    weight: bold,
+    line-height: normal,
+    letter-spacing: normal,
+  ),
+  action: (
+    size: body,
+    weight: bold,
+    line-height: normal,
+    letter-spacing: normal,
+  ),
+  mark: (
+    size: body,
+    weight: extra-bold,
+    line-height: tight,
+    letter-spacing: normal,
+  ),
+  paragraph: (
+    size: paragraph,
+    weight: regular,
+    line-height: loose,
+    letter-spacing: normal,
+  ),
+  question: (
+    size: question,
+    weight: bold,
+    line-height: relaxed,
+    letter-spacing: normal,
+  ),
+  title: (
+    size: title,
+    weight: bold,
+    line-height: compact,
+    letter-spacing: normal,
+  ),
+  lead: (
+    size: lead,
+    weight: regular,
+    line-height: loose,
+    letter-spacing: normal,
+  ),
+  content-title: (
+    size: content-title,
+    weight: bold,
+    line-height: compact,
+    letter-spacing: normal,
+  ),
+  book-detail-title: (
+    size: book-detail-title,
+    weight: extra-bold,
+    line-height: compact,
+    letter-spacing: normal,
+  ),
+  heading: (
+    size: heading,
+    weight: extra-bold,
+    line-height: compact,
+    letter-spacing: normal,
+  ),
+  page-title: (
+    size: page-title,
+    weight: extra-bold,
+    line-height: compact,
+    letter-spacing: normal,
+  ),
+  display: (
+    size: display,
+    weight: extra-bold,
+    line-height: tight,
+    letter-spacing: normal,
+  ),
+);
+
+/* Spacing primitives */
+$spaces: (
+  none: 0,
+  hairline: 1px,
+  closest: 4px,
+  compact: 6px,
+  related: 8px,
+  familiar: 10px,
+  grouped: 12px,
+  inset: 14px,
+  section: 16px,
+  comfortable: 20px,
+  relaxed: 24px,
+  page: 28px,
+  roomy: 32px,
+  panel: 40px,
+  bottom-safe: 48px,
+);
+
+/* Spacing usage maps */
+$gap-spaces: (
+  icon-label: compact, // Between an icon and its text label.
+  field: related, // Between label, input, helper, and error text.
+  group: grouped, // Between grouped controls, buttons, or card items.
+  section: section, // Between small sections inside one view.
+  page-stack: comfortable, // Between large page-level blocks.
+);
+
+$padding-spaces: (
+  none: none, // Removes padding from icon-only or text-reset controls.
+  navigation-inline: closest, // Slim side padding for the top navigation bar.
+  control-inline: grouped, // Horizontal padding inside buttons and compact controls.
+  compact-control-inline: familiar, // Horizontal padding inside small utility controls.
+  field-inline: grouped, // Horizontal padding inside inputs and text fields.
+  text-inline: familiar, // Inline padding for editable text surfaces.
+  text-block: related, // Block padding for editable text surfaces.
+  card: section, // Inner padding for repeated cards or list items.
+  card-compact: grouped, // Inner padding for compact repeated items.
+  card-loose: relaxed, // Inner padding for comfortable repeated items.
+  panel: panel, // Inner padding for large standalone panels.
+  panel-compact: roomy, // Inner padding for panels on compact screens.
+  page-block-start: page, // Page top padding.
+  page-inline: comfortable, // Page left and right padding.
+  page-block-end: bottom-safe, // Page bottom padding.
+);
+
+$margin-spaces: (
+  text-after: related, // Space after short text or metadata.
+  heading-after: grouped, // Space after a heading before body content.
+  section-before: section, // Space before a new section begins.
+  page-section: comfortable, // Space between major page sections.
+);
+
+/* Radius primitives and usage maps */
+$radii: (
+  none: 0,
+  subtle: 6px,
+  soft: 8px,
+  pill: 999px,
+  circle: 50%,
+);
+
+$radius-sets: (
+  control: none, // Inputs, buttons, and controls with a squared app style.
+  editable: subtle, // Inline editable fields that need a softer focus area.
+  card: soft, // Repeated cards, panels, and editor blocks.
+  panel: soft, // Larger standalone surfaces.
+  floating: pill, // Toasts, badges, and floating messages.
+  mark: circle, // Circular marks and avatars.
+);
+
+/* Icon sizes */
+$icon-sizes: (
+  inline: (
+    mobile: 16px,
+    tablet: 18px,
+    wide: 18px,
+  ), // Small icons used next to text.
+  compact-action: (
+    mobile: 20px,
+    tablet: 20px,
+    wide: 22px,
+  ), // Compact icon-only actions.
+  standalone: (
+    mobile: 28px,
+    tablet: 30px,
+    wide: 32px,
+  ), // Clear icon-only buttons.
+  tool: (
+    mobile: 34px,
+    tablet: 36px,
+    wide: 36px,
+  ), // Editor tools and dense toolbar buttons.
+  mark: (
+    mobile: 24px,
+    tablet: 24px,
+    wide: 24px,
+  ), // Brand marks, avatars, and small badges.
+);
+
+/* Breakpoints */
+$breakpoints: (
+  mobile-compact: 320px,
+  mobile-base: 360px,
+  mobile-comfortable: 390px,
+  mobile-expanded: 420px,
+  portable-compact: 500px,
+  portable-expanded: 640px,
+  tablet-base: 768px,
+  desktop-compact: 1024px,
+  desktop-base: 1280px,
+  desktop-comfortable: 1440px,
+  desktop-expanded: 1600px,
+  desktop-wide: 1920px,
+);

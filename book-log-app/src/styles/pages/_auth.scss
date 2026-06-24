@@ -1,0 +1,95 @@
+@use '../settings/tools' as *;
+
+/* Auth */
+$login-panel-max-inline-size: 440px;
+$google-login-min-block-size: 52px;
+
+.auth-page {
+  display: grid;
+  min-height: 100svh;
+  place-items: center;
+  padding: padding-space(panel-compact) padding-space(page-inline);
+  background: var(--color-page-background);
+}
+
+.login-panel {
+  width: min($login-panel-max-inline-size, 100%);
+  @include padding(panel);
+  border: space(hairline) solid var(--color-border-primary);
+  @include radius(card);
+  background: var(--color-surface-background);
+}
+
+.google-login-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  @include gap(field);
+  width: 100%;
+  min-height: $google-login-min-block-size;
+  @include margin-block-start(page-section);
+  border: space(hairline) solid var(--color-border-primary);
+  @include radius(card);
+  color: var(--color-text-primary);
+  background: var(--color-surface-background);
+  @include typography(action);
+
+  &:hover {
+    border-color: var(--color-action-primary);
+  }
+}
+
+.google-mark {
+  display: inline-grid;
+  @include icon-size(mark);
+  place-items: center;
+  @include radius(mark);
+  color: var(--color-action-inverse);
+  background: var(--color-action-primary);
+  @include typography(mark);
+}
+
+.error-message,
+.status-message {
+  color: var(--color-text-secondary);
+}
+
+.error-message {
+  margin: 0;
+  @include margin-block-start(section-before);
+  color: var(--color-feedback-danger);
+}
+
+.status-message {
+  margin: 0;
+}
+
+.toast-message {
+  position: fixed;
+  left: 50%;
+  bottom: space(relaxed);
+  z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  @include gap(field);
+  max-width: calc(100vw - #{space(panel)});
+  border: space(hairline) solid var(--color-border-primary);
+  @include radius(floating);
+  padding-block: padding-space(text-inline);
+  padding-inline: padding-space(card);
+  color: var(--color-action-inverse);
+  background: var(--color-action-primary);
+  @include typography(label);
+  text-align: center;
+  transform: translateX(-50%);
+}
+
+.toast-action-button {
+  display: inline-grid;
+  @include icon-size(inline);
+  place-items: center;
+  border: 0;
+  @include radius(mark);
+  color: var(--color-action-primary);
+  background: var(--color-action-inverse);
+}

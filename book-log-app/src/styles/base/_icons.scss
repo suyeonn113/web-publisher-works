@@ -1,0 +1,22 @@
+@use '../settings/tools' as *;
+
+/* Icons */
+.app-icon--inline {
+  @include icon-size(inline);
+}
+
+.app-icon--compact-action {
+  @include icon-size(compact-action);
+}
+
+.app-icon--standalone {
+  @include icon-size(standalone);
+}
+
+.app-icon--tool {
+  @include icon-size(tool);
+}
+
+.app-icon--mark {
+  @include icon-size(mark);
+}

@@ -1,0 +1,99 @@
+@use '../settings/tools' as *;
+
+/* Responsive */
+@include screen-down(mobile-compact) {
+  // 320px and below
+}
+
+@include screen-down(mobile-base) {
+  // 360px and below
+}
+
+@include screen-down(mobile-comfortable) {
+  // 390px and below
+}
+
+@include screen-down(mobile-expanded) {
+  // 420px and below
+}
+
+@include screen-up(portable-compact) {
+  // 500px and up
+}
+
+@include screen-up(portable-expanded) {
+  // 640px and up
+}
+
+@include screen-up(tablet-base) {
+  // 768px and up
+}
+
+@include screen-up(desktop-compact) {
+  // 1024px and up
+}
+
+@include screen-up(desktop-base) {
+  // 1280px and up
+}
+
+@include screen-up(desktop-comfortable) {
+  // 1440px and up
+}
+
+@include screen-up(desktop-expanded) {
+  // 1600px and up
+}
+
+@include screen-up(desktop-wide) {
+  // 1920px and up
+}
+
+@include screen-down(portable-expanded) {
+  .site-header {
+    @include padding-inline(card-compact);
+  }
+
+  .page {
+    @include page-padding;
+  }
+
+  .lead {
+    @include typography(title);
+  }
+
+  .login-panel {
+    @include padding(panel-compact);
+  }
+
+  .book-search-row {
+    display: grid;
+    grid-template-columns: 1fr;
+
+    button {
+      width: 100%;
+    }
+  }
+
+  .book-result-card {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .book-result-list {
+    grid-template-columns: 1fr;
+  }
+
+  .book-log-header {
+    align-items: flex-start;
+  }
+
+  .book-log-actions {
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .book-detail-header {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,119 @@
+@use '../settings/tools' as *;
+
+/* Book Search */
+$book-search-control-block-size: 44px;
+$book-search-action-min-inline-size: 96px;
+$book-result-cover-inline-size: 7rem;
+$book-result-meta-label-column: 80px;
+$book-result-action-min-block-size: 40px;
+
+.book-search-form {
+  display: grid;
+  @include gap(field);
+  @include margin-block-end(page-section);
+}
+
+.book-search-label {
+  color: var(--color-text-primary);
+  @include typography(control);
+}
+
+.book-search-row {
+  display: flex;
+  @include gap(field);
+
+  input {
+    min-width: 0;
+    flex: 1;
+    height: $book-search-control-block-size;
+  }
+
+  button {
+    min-width: $book-search-action-min-inline-size;
+    height: $book-search-control-block-size;
+    border: space(hairline) solid var(--color-border-primary);
+    @include radius(control);
+    padding-block: 0;
+    @include padding-inline(control-inline);
+    color: var(--color-action-inverse);
+    background: var(--color-action-primary);
+    @include typography(action);
+  }
+}
+
+.book-result-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  @include gap(group);
+}
+
+.book-result-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  @include gap(section);
+  @include padding(card);
+  border: space(hairline) solid var(--color-border-primary);
+}
+
+.book-cover {
+  width: $book-result-cover-inline-size;
+  @include typography(metadata);
+}
+
+.book-result-body {
+  min-width: 0;
+
+  h2 {
+    margin: 0;
+    @include margin-block-end(heading-after);
+    color: var(--color-text-primary);
+    @include typography(book-title);
+  }
+
+  dl {
+    display: grid;
+    @include gap(icon-label);
+    margin: 0;
+    @include margin-block-end(heading-after);
+
+    div {
+      display: grid;
+      grid-template-columns: $book-result-meta-label-column 1fr;
+      @include gap(field);
+    }
+  }
+
+  dt {
+    color: var(--color-text-primary);
+    @include typography(action);
+  }
+
+  dd {
+    min-width: 0;
+    margin: 0;
+    color: var(--color-text-primary);
+  }
+
+  .book-result-isbn {
+    overflow-wrap: anywhere;
+    word-break: break-all;
+  }
+
+  p {
+    margin: 0;
+    @include margin-block-end(section-before);
+    color: var(--color-text-primary);
+    @include typography(paragraph);
+  }
+
+  button {
+    min-height: $book-result-action-min-block-size;
+    border: space(hairline) solid var(--color-border-primary);
+    @include radius(control);
+    padding-block: 0;
+    @include padding-inline(compact-control-inline);
+    color: var(--color-action-inverse);
+    background: var(--color-action-primary);
+    @include typography(action);
+  }
+}

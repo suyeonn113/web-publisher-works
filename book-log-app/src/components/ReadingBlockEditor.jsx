@@ -13,7 +13,7 @@ function ReadingBlockEditor({ block, onChange, onDelete }) {
       <div className="log-block-header">
         <strong>{blockType.label}</strong>
         <button type="button" onClick={() => onDelete(block)}>
-          <Icon icon="fluent:dismiss-24-regular" width="18" height="18" />
+          <Icon className="app-icon--compact-action" icon="fluent:dismiss-24-regular" />
         </button>
       </div>
 

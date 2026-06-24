@@ -1,0 +1,196 @@
+@use '../settings/tools' as *;
+
+/* Home */
+$home-search-block-size: 36px;
+$saved-book-summary-row: 6.2rem;
+
+.home-page {
+  display: grid;
+  @include gap(section);
+}
+
+.home-toolbar {
+  display: flex;
+  align-items: center;
+  @include gap(field);
+  justify-content: flex-end;
+}
+
+.home-search {
+  display: flex;
+  align-items: center;
+  @include gap(icon-label);
+  flex: 1 1 auto;
+  min-width: 0;
+  height: $home-search-block-size;
+  border: space(hairline) solid var(--color-border-primary);
+  padding-block: 0;
+  @include padding-inline(compact-control-inline);
+  color: var(--color-text-primary);
+  background: var(--color-surface-background);
+
+  input {
+    min-width: 0;
+    border: 0;
+    @include padding(none);
+    background: transparent;
+  }
+}
+
+.view-toggle-button {
+  display: inline-grid;
+  @include icon-size(tool);
+  place-items: center;
+  border: space(hairline) solid var(--color-border-primary);
+  @include radius(control);
+  @include padding(none);
+  color: var(--color-text-primary);
+  background: var(--color-surface-background);
+}
+
+.saved-book-list {
+  display: grid;
+  @include gap(icon-label);
+}
+
+.saved-book-list--thumbnail {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.saved-book-list--thumbnail .saved-book-card {
+  display: grid;
+  grid-template-rows: auto $saved-book-summary-row;
+  @include gap(field);
+  min-width: 0;
+  overflow: hidden;
+}
+
+.saved-book-list--thumbnail .saved-book-info {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.saved-book-list--thumbnail .saved-book-info h3,
+.saved-book-list--thumbnail .saved-book-info p {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+}
+
+.saved-book-list--thumbnail .saved-book-info h3 {
+  -webkit-line-clamp: 2;
+}
+
+.saved-book-list--thumbnail .saved-book-info p {
+  -webkit-line-clamp: 2;
+}
+
+.saved-book-list--text {
+  grid-template-columns: 1fr;
+}
+
+.saved-book-card {
+  display: grid;
+  @include gap(field);
+  background: var(--color-surface-background);
+  text-decoration: none;
+
+  h3 {
+    margin: 0;
+    margin-block-end: space(closest);
+    color: var(--color-text-primary);
+    @include typography(book-title);
+  }
+
+  p {
+    margin: 0;
+    margin-block-end: space(closest);
+    color: var(--color-text-primary);
+    @include typography(caption);
+  }
+}
+
+.saved-book-list--text .saved-book-card {
+  border-bottom: space(hairline) solid var(--color-border-primary);
+  padding-block: padding-space(card-compact);
+  padding-inline: 0;
+}
+
+.saved-book-list--text .saved-book-card h3 {
+  @include typography(book-list-title);
+}
+
+.saved-book-cover,
+.book-cover,
+.book-detail-cover {
+  display: grid;
+  aspect-ratio: 2 / 3;
+  justify-self: center;
+  place-items: center;
+  border: space(hairline) solid var(--color-border-primary);
+  color: var(--color-text-primary);
+  background: var(--color-surface-background);
+  @include typography(cover-placeholder);
+  text-align: center;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.saved-book-cover,
+.book-detail-cover {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+}
+
+@include container-up(mobile-expanded) {
+  .saved-book-list--thumbnail {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@include container-up(portable-expanded) {
+  .saved-book-list--thumbnail {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+@include container-up(tablet-base) {
+  .saved-book-list--thumbnail {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+@include container-up(desktop-compact) {
+  .saved-book-list--thumbnail {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+}
+
+@include container-up(desktop-base) {
+  .saved-book-list--thumbnail {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+}
+
+@include container-up(desktop-comfortable) {
+  .saved-book-list--thumbnail {
+    grid-template-columns: repeat(9, minmax(0, 1fr));
+  }
+}
+
+@include container-up(desktop-expanded) {
+  .saved-book-list--thumbnail {
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+  }
+}
+
+@include container-up(desktop-wide) {
+  .saved-book-list--thumbnail {
+    grid-template-columns: repeat(11, minmax(0, 1fr));
+  }
+}

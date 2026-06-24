@@ -1,0 +1,48 @@
+@use '../settings/tools' as *;
+
+/* Navigation */
+$navigation-block-size: 56px;
+$navigation-island-max-inline-size: 34rem;
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  min-height: $navigation-block-size;
+  padding-block: space(closest);
+  @include padding-inline(card);
+  background: transparent;
+}
+
+.app-nav {
+  display: flex;
+  width: min(100%, $navigation-island-max-inline-size);
+  min-height: calc(#{$navigation-block-size} - #{space(related)});
+  border: space(hairline) solid var(--color-border-primary);
+  @include radius(floating);
+  overflow: hidden;
+  background: rgb(255 255 255 / 0.68);
+  backdrop-filter: blur(10px);
+}
+
+.app-nav-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  @include gap(icon-label);
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: calc(#{$navigation-block-size} - #{space(related)});
+  color: var(--color-text-primary);
+  background: transparent;
+  @include typography(navigation);
+
+  &.active {
+    background: var(--color-action-subtle);
+    text-decoration: none;
+  }
+}
+

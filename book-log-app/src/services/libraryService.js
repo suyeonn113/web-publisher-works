@@ -15,9 +15,14 @@ function getBookDocumentId(book) {
   return String(book.isbn13 || book.isbn || book.id).replace(/[/.#[\]]/g, '-')
 }
 
+function getTodayDateInputValue() {
+  return new Date().toISOString().slice(0, 10)
+}
+
 export async function saveBookToMyLibrary(user, book) {
   const bookId = getBookDocumentId(book)
   const personalBookId = `${user.uid}_${bookId}`
+  const addedDate = getTodayDateInputValue()
 
   await setDoc(
     doc(db, 'books', bookId),
@@ -46,11 +51,13 @@ export async function saveBookToMyLibrary(user, book) {
       userId: user.uid,
       bookId,
       status: 'unfinished',
+      readCount: 1,
       rating: 0,
       syncEnabled: false,
       source: 'personal',
       viewType: 'cover',
-      readDate: new Date().toISOString().slice(0, 10),
+      addedDate,
+      readDate: addedDate,
       deletedAt: null,
       updatedAt: serverTimestamp(),
       createdAt: serverTimestamp(),
@@ -92,6 +99,13 @@ export async function updateLibraryBookMeta(personalBookId, meta) {
 export async function deleteLibraryBook(personalBookId) {
   await updateDoc(doc(db, 'personalBooks', personalBookId), {
     deletedAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+  })
+}
+
+export async function restoreLibraryBook(personalBookId) {
+  await updateDoc(doc(db, 'personalBooks', personalBookId), {
+    deletedAt: null,
     updatedAt: serverTimestamp(),
   })
 }

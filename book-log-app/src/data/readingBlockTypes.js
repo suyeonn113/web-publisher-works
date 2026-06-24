@@ -27,6 +27,12 @@ export const readingBlockTypes = [
       { name: 'answer', label: 'Answer', input: 'textarea' },
     ],
   },
+  {
+    type: 'spacer',
+    label: 'Space',
+    icon: 'fluent:resize-large-24-regular',
+    fields: [],
+  },
 ]
 
 export function createReadingBlock(type) {

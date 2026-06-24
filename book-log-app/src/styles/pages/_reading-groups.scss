@@ -1,0 +1,132 @@
+@use '../settings/tools' as *;
+
+/* Reading Groups */
+$group-form-control-min-block-size: 44px;
+$group-card-action-column: 40px;
+
+.reading-groups-page {
+  display: grid;
+  @include gap(page-stack);
+
+  h1 {
+    @include typography(page-title);
+  }
+}
+
+.group-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  @include gap(field);
+
+  input {
+    min-width: 0;
+    min-height: $group-form-control-min-block-size;
+  }
+
+  button {
+    min-height: $group-form-control-min-block-size;
+    border: space(hairline) solid var(--color-border-primary);
+    @include radius(control);
+    background: var(--color-surface-background);
+    @include typography(action);
+  }
+}
+
+.group-list {
+  display: grid;
+  @include gap(field);
+}
+
+.group-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) $group-card-action-column;
+  align-items: stretch;
+  border: space(hairline) solid var(--color-border-primary);
+  background: var(--color-surface-background);
+
+  a {
+    display: grid;
+    @include gap(icon-label);
+    min-width: 0;
+    @include padding(card-compact);
+  }
+
+  strong,
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  span {
+    color: var(--color-text-secondary);
+    @include typography(helper);
+  }
+
+  button {
+    display: inline-grid;
+    place-items: center;
+    border: 0;
+    border-left: space(hairline) solid var(--color-border-primary);
+  }
+}
+
+.reading-group-detail-page {
+  display: grid;
+  @include gap(page-stack);
+}
+
+.group-detail-header {
+  display: grid;
+  @include gap(field);
+
+  h1 {
+    @include typography(page-title);
+  }
+
+  p {
+    margin: 0;
+    color: var(--color-text-secondary);
+    @include typography(label);
+  }
+}
+
+.group-detail-section {
+  display: grid;
+  @include gap(field);
+  border-top: space(hairline) solid var(--color-border-primary);
+  padding-block-start: padding-space(card);
+
+  h2 {
+    margin: 0;
+    @include typography(title);
+  }
+
+  p {
+    margin: 0;
+    color: var(--color-text-secondary);
+  }
+}
+
+.group-leave-actions {
+  display: grid;
+  @include gap(field);
+
+  button {
+    min-height: $group-form-control-min-block-size;
+    border: space(hairline) solid var(--color-border-primary);
+    @include radius(control);
+    background: var(--color-surface-background);
+    @include typography(action);
+  }
+}
+
+.empty-panel {
+  border-top: space(hairline) solid var(--color-border-primary);
+  padding-block-start: padding-space(card);
+
+  p {
+    margin: 0;
+    color: var(--color-text-secondary);
+  }
+}

@@ -1,4 +1,5 @@
 import { createContext, useContext, useMemo, useState } from 'react'
+import { Icon } from '@iconify/react'
 
 const ToastContext = createContext(null)
 
@@ -7,12 +8,15 @@ function ToastProvider({ children }) {
 
   const value = useMemo(
     () => ({
-      showToast(message) {
-        setToast(message)
+      showToast(message, options = {}) {
+        setToast({
+          message,
+          action: options.action || null,
+        })
         window.clearTimeout(ToastProvider.timeoutId)
         ToastProvider.timeoutId = window.setTimeout(() => {
           setToast(null)
-        }, 1800)
+        }, options.duration || 1800)
       },
     }),
     [],
@@ -21,7 +25,25 @@ function ToastProvider({ children }) {
   return (
     <ToastContext.Provider value={value}>
       {children}
-      {toast && <div className="toast-message">{toast}</div>}
+      {toast && (
+        <div className="toast-message" role="status">
+          <span>{toast.message}</span>
+          {toast.action && (
+            <button
+              type="button"
+              className="toast-action-button"
+              onClick={async () => {
+                window.clearTimeout(ToastProvider.timeoutId)
+                setToast(null)
+                await toast.action.onClick()
+              }}
+              aria-label={toast.action.label}
+            >
+              <Icon className="app-icon--inline" icon={toast.action.icon} />
+            </button>
+          )}
+        </div>
+      )}
     </ToastContext.Provider>
   )
 }

@@ -1,0 +1,27 @@
+@use './tokens' as token;
+@use './tools' as *;
+
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+:root {
+  --color-page-background: #{color(page-background)};
+  --color-surface-background: #{color(surface-background)};
+  --color-text-primary: #{color(text-primary)};
+  --color-text-secondary: #{color(text-secondary)};
+  --color-text-tertiary: #{color(text-tertiary)};
+  --color-text-placeholder: #{color(text-placeholder)};
+  --color-border-primary: #{color(border-primary)};
+  --color-action-primary: #{color(action-primary)};
+  --color-action-subtle: #{color(action-subtle)};
+  --color-action-spacer-active: #{color(action-spacer-active)};
+  --color-action-inverse: #{color(action-inverse)};
+  --color-feedback-danger: #{color(feedback-danger)};
+
+  @include typography(body);
+  color: var(--color-text-primary);
+  background: var(--color-page-background);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

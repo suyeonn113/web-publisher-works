@@ -1,0 +1,161 @@
+@use 'sass:map';
+@use './tokens' as token;
+
+@function color($name) {
+  @return map.get(token.$colors, $name);
+}
+
+@function font-family($name) {
+  @return map.get(token.$font-families, $name);
+}
+
+@function font-size($name, $screen: mobile) {
+  @return map.get(map.get(token.$font-sizes, $name), $screen);
+}
+
+@function font-weight($name) {
+  @return map.get(token.$font-weights, $name);
+}
+
+@function line-height($name) {
+  @return map.get(token.$line-heights, $name);
+}
+
+@function letter-spacing($name) {
+  @return map.get(token.$letter-spacings, $name);
+}
+
+@function typography-set($name) {
+  @return map.get(token.$typography, $name);
+}
+
+@function space($name) {
+  @return map.get(token.$spaces, $name);
+}
+
+@function gap-space($name) {
+  @return space(map.get(token.$gap-spaces, $name));
+}
+
+@function padding-space($name) {
+  @return space(map.get(token.$padding-spaces, $name));
+}
+
+@function margin-space($name) {
+  @return space(map.get(token.$margin-spaces, $name));
+}
+
+@function radius($name) {
+  @return map.get(token.$radii, map.get(token.$radius-sets, $name));
+}
+
+@function icon-size($name, $screen: mobile) {
+  @return map.get(map.get(token.$icon-sizes, $name), $screen);
+}
+
+@function breakpoint($name) {
+  @return map.get(token.$breakpoints, $name);
+}
+
+@mixin typography($name, $family: body) {
+  $set: typography-set($name);
+  $size: map.get($set, size);
+
+  font-family: font-family($family);
+  font-size: font-size($size, mobile);
+  font-weight: font-weight(map.get($set, weight));
+  line-height: line-height(map.get($set, line-height));
+  letter-spacing: letter-spacing(map.get($set, letter-spacing));
+
+  @container app-screen (min-width: #{breakpoint(tablet-base)}) {
+    font-size: font-size($size, tablet);
+  }
+
+  @container app-screen (min-width: #{breakpoint(desktop-compact)}) {
+    font-size: font-size($size, wide);
+  }
+}
+
+@mixin gap($name) {
+  gap: gap-space($name);
+}
+
+@mixin row-gap($name) {
+  row-gap: gap-space($name);
+}
+
+@mixin column-gap($name) {
+  column-gap: gap-space($name);
+}
+
+@mixin padding($name) {
+  padding: padding-space($name);
+}
+
+@mixin padding-inline($name) {
+  padding-inline: padding-space($name);
+}
+
+@mixin padding-block($name) {
+  padding-block: padding-space($name);
+}
+
+@mixin margin($name) {
+  margin: margin-space($name);
+}
+
+@mixin margin-block-start($name) {
+  margin-block-start: margin-space($name);
+}
+
+@mixin margin-block-end($name) {
+  margin-block-end: margin-space($name);
+}
+
+@mixin page-padding {
+  padding: padding-space(page-block-start) padding-space(page-inline)
+    padding-space(page-block-end);
+}
+
+@mixin radius($name) {
+  border-radius: radius($name);
+}
+
+@mixin icon-size($name) {
+  width: icon-size($name, mobile);
+  height: icon-size($name, mobile);
+
+  @container app-screen (min-width: #{breakpoint(tablet-base)}) {
+    width: icon-size($name, tablet);
+    height: icon-size($name, tablet);
+  }
+
+  @container app-screen (min-width: #{breakpoint(desktop-compact)}) {
+    width: icon-size($name, wide);
+    height: icon-size($name, wide);
+  }
+}
+
+@mixin screen-down($name) {
+  @media (max-width: breakpoint($name)) {
+    @content;
+  }
+}
+
+@mixin screen-up($name) {
+  @media (min-width: breakpoint($name)) {
+    @content;
+  }
+}
+
+@mixin container-down($name) {
+  @container app-screen (max-width: #{breakpoint($name)}) {
+    @content;
+  }
+}
+
+@mixin container-up($name) {
+  @container app-screen (min-width: #{breakpoint($name)}) {
+    @content;
+  }
+}

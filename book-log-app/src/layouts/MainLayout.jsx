@@ -28,27 +28,27 @@ function MainLayout({ user }) {
     <div className="app-shell">
       <header className="site-header">
         <nav className="app-nav" aria-label="App navigation">
-          <NavLink className="app-nav-link" to="/my-page">
-            <Icon icon="fluent:person-24-regular" width="22" height="22" />
-            <span>My page</span>
+          <NavLink className="app-nav-link" to="/">
+            <Icon className="app-icon--inline" icon="fluent:home-24-regular" />
+            <span>Home</span>
+          </NavLink>
+
+          <NavLink className="app-nav-link" to="/library">
+            <Icon className="app-icon--inline" icon="fluent:building-bank-24-regular" />
+            <span>Library</span>
           </NavLink>
 
           <NavLink
             className="app-nav-link"
             to={pinnedGroupId ? `/reading-groups/${pinnedGroupId}` : '/reading-groups'}
           >
-            <Icon icon="fluent:people-community-24-regular" width="20" height="20" />
+            <Icon className="app-icon--inline" icon="fluent:people-community-24-regular" />
             <span>Groups</span>
           </NavLink>
 
-          <NavLink className="app-nav-link" to="/">
-            <Icon icon="fluent:home-24-regular" width="20" height="20" />
-            <span>Home</span>
-          </NavLink>
-
-          <NavLink className="app-nav-link" to="/library">
-            <Icon icon="fluent:library-24-regular" width="20" height="20" />
-            <span>Library</span>
+          <NavLink className="app-nav-link" to="/my-page">
+            <Icon className="app-icon--inline" icon="fluent:person-24-regular" />
+            <span>My page</span>
           </NavLink>
         </nav>
       </header>

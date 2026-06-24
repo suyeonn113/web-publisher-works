@@ -1,0 +1,48 @@
+@use '../settings/tools' as *;
+
+/* My Page */
+$profile-control-min-block-size: 44px;
+
+.my-page {
+  display: grid;
+  @include gap(page-stack);
+
+  h1 {
+    @include typography(page-title);
+  }
+}
+
+.profile-form {
+  display: grid;
+  @include gap(group);
+
+  label {
+    display: grid;
+    @include gap(icon-label);
+  }
+
+  span {
+    @include typography(label);
+  }
+
+  input {
+    min-height: $profile-control-min-block-size;
+  }
+
+  button {
+    min-height: $profile-control-min-block-size;
+    border: space(hairline) solid var(--color-border-primary);
+    @include radius(control);
+    color: var(--color-action-inverse);
+    background: var(--color-action-primary);
+    @include typography(action);
+  }
+}
+
+.logout-button {
+  min-height: $profile-control-min-block-size;
+  border: space(hairline) solid var(--color-border-primary);
+  @include radius(control);
+  background: var(--color-surface-background);
+  @include typography(action);
+}

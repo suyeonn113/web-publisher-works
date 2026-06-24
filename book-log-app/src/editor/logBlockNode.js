@@ -49,8 +49,8 @@ export const LogBlockNode = Node.create({
     return {
       insertLogBlock:
         (blockType) =>
-        ({ commands }) =>
-          commands.insertContent([
+        ({ commands, state }) => {
+          const content = [
             {
               type: this.name,
               attrs: {
@@ -61,7 +61,16 @@ export const LogBlockNode = Node.create({
             {
               type: 'paragraph',
             },
-          ]),
+          ]
+          const insertPosition =
+            state.selection.node?.type.name === this.name
+              ? state.selection.to
+              : null
+
+          return insertPosition
+            ? commands.insertContentAt(insertPosition, content)
+            : commands.insertContent(content)
+        },
     }
   },
 

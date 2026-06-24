@@ -22,12 +22,12 @@ function BookResultCard({ book, isSaving, onSave }) {
           </div>
           <div>
             <dt>ISBN</dt>
-            <dd>{book.isbn13 || book.isbn || '-'}</dd>
+            <dd className="book-result-isbn">{book.isbn13 || book.isbn || '-'}</dd>
           </div>
         </dl>
         {book.description && <p>{book.description}</p>}
         <button type="button" onClick={() => onSave(book)} disabled={isSaving}>
-          {isSaving ? 'Saving' : 'Save to library'}
+          {isSaving ? 'Saving' : 'Add'}
         </button>
       </div>
     </article>

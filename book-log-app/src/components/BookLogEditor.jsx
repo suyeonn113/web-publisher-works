@@ -4,6 +4,75 @@ import { Icon } from '@iconify/react'
 import { readingBlockTypes } from '../data/readingBlockTypes'
 import { LogBlockNode } from '../editor/logBlockNode'
 
+function isBlankParagraph(node) {
+  return node?.type === 'paragraph' && !(node.content || [])
+    .map((child) => child.text || '')
+    .join('')
+    .trim()
+}
+
+function sanitizeContentNode(node) {
+  if (!node || typeof node !== 'object') {
+    return node
+  }
+
+  if (isBlankParagraph(node)) {
+    return null
+  }
+
+  const content = (node.content || [])
+    .map(sanitizeContentNode)
+    .filter(Boolean)
+
+  return {
+    ...node,
+    ...(node.content ? { content } : {}),
+  }
+}
+
+function sanitizeContentJson(contentJson) {
+  const content = (contentJson?.content || [])
+    .map(sanitizeContentNode)
+    .filter(Boolean)
+
+  return {
+    type: 'doc',
+    content: content.length
+      ? content
+      : [
+          {
+            type: 'paragraph',
+          },
+        ],
+  }
+}
+
+function collectContentText(node) {
+  if (!node) {
+    return ''
+  }
+
+  if (typeof node === 'string') {
+    return node
+  }
+
+  if (Array.isArray(node)) {
+    return node.map(collectContentText).join(' ')
+  }
+
+  if (typeof node !== 'object') {
+    return ''
+  }
+
+  return [
+    node.text,
+    ...Object.values(node.attrs?.fields || {}),
+    collectContentText(node.content),
+  ]
+    .filter(Boolean)
+    .join(' ')
+}
+
 function createInitialContent(log) {
   if (log?.contentJson) {
     return log.contentJson
@@ -33,11 +102,33 @@ function BookLogEditor({ log, onChange }) {
       attributes: {
         class: 'tiptap-editor',
       },
+      handleTextInput(view, from, to, text) {
+        const parent = view.state.selection.$from.parent
+        const isBlankCurrentParagraph =
+          parent.type.name === 'paragraph' && !parent.textContent.trim()
+
+        return isBlankCurrentParagraph && !text.trim()
+      },
     },
     onUpdate({ editor }) {
+      const contentJson = sanitizeContentJson(editor.getJSON())
+
       onChange({
-        body: editor.getText(),
-        contentJson: editor.getJSON(),
+        body: collectContentText(contentJson),
+        contentJson,
+      })
+    },
+    onBlur({ editor }) {
+      const currentContentJson = editor.getJSON()
+      const contentJson = sanitizeContentJson(currentContentJson)
+
+      if (JSON.stringify(contentJson) !== JSON.stringify(currentContentJson)) {
+        editor.commands.setContent(contentJson, false)
+      }
+
+      onChange({
+        body: collectContentText(contentJson),
+        contentJson,
       })
     },
   })
@@ -55,9 +146,10 @@ function BookLogEditor({ log, onChange }) {
           <button
             type="button"
             key={blockType.type}
+            onMouseDown={(event) => event.preventDefault()}
             onClick={() => handleInsertBlock(blockType.type)}
           >
-            <Icon icon={blockType.icon} width="18" height="18" />
+            <Icon className="app-icon--tool" icon={blockType.icon} />
             <span className="sr-only">{blockType.label}</span>
           </button>
         ))}

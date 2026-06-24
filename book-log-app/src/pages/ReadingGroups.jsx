@@ -145,13 +145,12 @@ function ReadingGroups({ user }) {
               onClick={() => handleTogglePin(group.id)}
             >
               <Icon
+                className="app-icon--compact-action"
                 icon={
                   pinnedGroupId === group.id
                     ? 'fluent:pin-24-filled'
                     : 'fluent:pin-24-regular'
                 }
-                width="18"
-                height="18"
               />
             </button>
           </article>

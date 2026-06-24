@@ -1,0 +1,16 @@
+@use '../settings/tools' as *;
+
+/* Library */
+.library-page {
+  width: 100%;
+}
+
+.library-heading {
+  @include margin-block-end(page-section);
+}
+
+.library-message {
+  margin: 0;
+  @include margin-block-end(page-section);
+  color: var(--color-text-primary);
+}
