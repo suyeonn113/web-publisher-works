@@ -1,4 +1,4 @@
-function BookResultCard({ book, isSaving, onSave }) {
+function BookResultCard({ book, isAdded, isSaving, onSave }) {
   return (
     <article className="book-result-card">
       <div className="book-cover">
@@ -26,8 +26,8 @@ function BookResultCard({ book, isSaving, onSave }) {
           </div>
         </dl>
         {book.description && <p>{book.description}</p>}
-        <button type="button" onClick={() => onSave(book)} disabled={isSaving}>
-          {isSaving ? 'Saving' : 'Add'}
+        <button type="button" onClick={() => onSave(book)} disabled={isSaving || isAdded}>
+          {isAdded ? 'Added' : isSaving ? 'Saving' : 'Add'}
         </button>
       </div>
     </article>

@@ -120,6 +120,7 @@ function BookDetail({ user }) {
         }),
       ])
       setIsLogDirty(false)
+      document.activeElement?.blur()
       showToast('Saved')
     } catch (error) {
       showToast(error.message)

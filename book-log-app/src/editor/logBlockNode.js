@@ -13,6 +13,22 @@ function getDefaultFields(blockType) {
   return Object.fromEntries(typeConfig.fields.map((field) => [field.name, '']))
 }
 
+function getInsertPosition(state, nodeTypeName) {
+  const { selection } = state
+
+  if (selection.node?.type.name === nodeTypeName) {
+    return selection.to
+  }
+
+  for (let depth = selection.$from.depth; depth > 0; depth -= 1) {
+    if (selection.$from.node(depth).isBlock) {
+      return selection.$from.after(depth)
+    }
+  }
+
+  return selection.to
+}
+
 export const LogBlockNode = Node.create({
   name: 'logBlock',
 
@@ -62,14 +78,10 @@ export const LogBlockNode = Node.create({
               type: 'paragraph',
             },
           ]
-          const insertPosition =
-            state.selection.node?.type.name === this.name
-              ? state.selection.to
-              : null
-
-          return insertPosition
-            ? commands.insertContentAt(insertPosition, content)
-            : commands.insertContent(content)
+          return commands.insertContentAt(
+            getInsertPosition(state, this.name),
+            content,
+          )
         },
     }
   },

@@ -11,6 +11,59 @@ function isBlankParagraph(node) {
     .trim()
 }
 
+function getBlockTypeConfig(blockType) {
+  return readingBlockTypes.find((item) => item.type === blockType)
+}
+
+function getDefaultFields(blockType) {
+  const blockTypeConfig = getBlockTypeConfig(blockType)
+
+  if (!blockTypeConfig) {
+    return {}
+  }
+
+  return Object.fromEntries(
+    blockTypeConfig.fields.map((field) => [field.name, '']),
+  )
+}
+
+function normalizeLogBlockNode(node) {
+  const blockType = getBlockTypeConfig(node.attrs?.blockType)
+    ? node.attrs.blockType
+    : 'headline'
+  const fields =
+    node.attrs?.fields && typeof node.attrs.fields === 'object'
+      ? node.attrs.fields
+      : {}
+
+  return {
+    ...node,
+    attrs: {
+      ...node.attrs,
+      blockType,
+      fields: {
+        ...getDefaultFields(blockType),
+        ...fields,
+      },
+    },
+  }
+}
+
+function createLogBlockContent(blockType) {
+  return [
+    {
+      type: 'logBlock',
+      attrs: {
+        blockType,
+        fields: getDefaultFields(blockType),
+      },
+    },
+    {
+      type: 'paragraph',
+    },
+  ]
+}
+
 function sanitizeContentNode(node) {
   if (!node || typeof node !== 'object') {
     return node
@@ -20,14 +73,18 @@ function sanitizeContentNode(node) {
     return null
   }
 
-  const content = (node.content || [])
-    .map(sanitizeContentNode)
-    .filter(Boolean)
-
-  return {
+  const sanitizedNode = {
     ...node,
-    ...(node.content ? { content } : {}),
+    ...(node.content
+      ? {
+          content: node.content
+            .map(sanitizeContentNode)
+            .filter(Boolean),
+        }
+      : {}),
   }
+
+  return node.type === 'logBlock' ? normalizeLogBlockNode(sanitizedNode) : sanitizedNode
 }
 
 function sanitizeContentJson(contentJson) {
@@ -64,18 +121,32 @@ function collectContentText(node) {
     return ''
   }
 
+  const fields =
+    node.attrs?.fields && typeof node.attrs.fields === 'object'
+      ? node.attrs.fields
+      : {}
+
   return [
     node.text,
-    ...Object.values(node.attrs?.fields || {}),
+    ...Object.values(fields),
     collectContentText(node.content),
   ]
     .filter(Boolean)
     .join(' ')
 }
 
+function getLogFromEditor(editor) {
+  const contentJson = sanitizeContentJson(editor.getJSON())
+
+  return {
+    body: collectContentText(contentJson),
+    contentJson,
+  }
+}
+
 function createInitialContent(log) {
   if (log?.contentJson) {
-    return log.contentJson
+    return sanitizeContentJson(log.contentJson)
   }
 
   return {
@@ -89,6 +160,39 @@ function createInitialContent(log) {
   }
 }
 
+function scrollSelectionIntoEditorView(editor) {
+  if (!editor || editor.isDestroyed) {
+    return
+  }
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      const scrollArea = editor.view.dom.closest('.editor-scroll-area')
+
+      if (!scrollArea) {
+        return
+      }
+
+      let selectionRect
+
+      try {
+        selectionRect = editor.view.coordsAtPos(editor.state.selection.from)
+      } catch {
+        return
+      }
+
+      const scrollAreaRect = scrollArea.getBoundingClientRect()
+      const scrollPadding = 48
+
+      if (selectionRect.top < scrollAreaRect.top + scrollPadding) {
+        scrollArea.scrollTop -= scrollAreaRect.top + scrollPadding - selectionRect.top
+      } else if (selectionRect.bottom > scrollAreaRect.bottom - scrollPadding) {
+        scrollArea.scrollTop += selectionRect.bottom - (scrollAreaRect.bottom - scrollPadding)
+      }
+    })
+  })
+}
+
 function BookLogEditor({ log, onChange }) {
   const editor = useEditor({
     extensions: [
@@ -97,6 +201,7 @@ function BookLogEditor({ log, onChange }) {
       }),
       LogBlockNode,
     ],
+    shouldRerenderOnTransaction: true,
     content: createInitialContent(log),
     editorProps: {
       attributes: {
@@ -111,49 +216,69 @@ function BookLogEditor({ log, onChange }) {
       },
     },
     onUpdate({ editor }) {
-      const contentJson = sanitizeContentJson(editor.getJSON())
-
-      onChange({
-        body: collectContentText(contentJson),
-        contentJson,
-      })
+      onChange(getLogFromEditor(editor))
     },
     onBlur({ editor }) {
-      const currentContentJson = editor.getJSON()
-      const contentJson = sanitizeContentJson(currentContentJson)
-
-      if (JSON.stringify(contentJson) !== JSON.stringify(currentContentJson)) {
-        editor.commands.setContent(contentJson, false)
-      }
-
-      onChange({
-        body: collectContentText(contentJson),
-        contentJson,
-      })
+      onChange(getLogFromEditor(editor))
     },
   })
 
   const handleInsertBlock = (type) => {
-    editor?.chain().focus().insertLogBlock(type).run()
+    if (!editor || editor.isDestroyed || !getBlockTypeConfig(type)) {
+      return
+    }
+
+    try {
+      const didInsert = editor.chain().focus().insertLogBlock(type).run()
+
+      if (!didInsert) {
+        editor.commands.insertContentAt(
+          editor.state.doc.content.size,
+          createLogBlockContent(type),
+        )
+      }
+
+      scrollSelectionIntoEditorView(editor)
+      onChange(getLogFromEditor(editor))
+    } catch (error) {
+      console.error(error)
+      editor.commands.insertContentAt(
+        editor.state.doc.content.size,
+        createLogBlockContent(type),
+      )
+
+      scrollSelectionIntoEditorView(editor)
+      onChange(getLogFromEditor(editor))
+    }
   }
 
   return (
     <>
-      <EditorContent editor={editor} />
+      <div className="writing-editor-toolbar">
+        <h2 className="writing-editor-label">Note</h2>
 
-      <div className="block-picker">
-        {readingBlockTypes.map((blockType) => (
-          <button
-            type="button"
-            key={blockType.type}
-            onMouseDown={(event) => event.preventDefault()}
-            onClick={() => handleInsertBlock(blockType.type)}
-          >
-            <Icon className="app-icon--tool" icon={blockType.icon} />
-            <span className="sr-only">{blockType.label}</span>
-          </button>
-        ))}
+        <div className="block-picker">
+          {readingBlockTypes.map((blockType) => (
+            <button
+              type="button"
+              key={blockType.type}
+              onMouseDown={(event) => event.preventDefault()}
+              onClick={() => handleInsertBlock(blockType.type)}
+            >
+              <Icon className="app-icon--tool" icon={blockType.icon} />
+              <span className="sr-only">{blockType.label}</span>
+            </button>
+          ))}
+        </div>
       </div>
+
+      <EditorContent
+        className="editor-scroll-area"
+        editor={editor}
+        onClick={() => scrollSelectionIntoEditorView(editor)}
+        onFocusCapture={() => scrollSelectionIntoEditorView(editor)}
+        onMouseUp={() => scrollSelectionIntoEditorView(editor)}
+      />
     </>
   )
 }

@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import BookResultCard from '../components/BookResultCard'
 import BookSearchForm from '../components/BookSearchForm'
 import { useToast } from '../components/ToastProvider'
 import { searchBooks } from '../services/bookSearchService'
-import { saveBookToMyLibrary } from '../services/libraryService'
+import { getBookDocumentId, getMyLibraryBooks, saveBookToMyLibrary } from '../services/libraryService'
 
 function Library({ user }) {
   const { showToast } = useToast()
@@ -11,7 +11,38 @@ function Library({ user }) {
   const [books, setBooks] = useState([])
   const [isSearching, setIsSearching] = useState(false)
   const [savingBookId, setSavingBookId] = useState('')
+  const [savedBookIds, setSavedBookIds] = useState([])
   const [message, setMessage] = useState('')
+  const savedBookIdSet = useMemo(() => new Set(savedBookIds), [savedBookIds])
+
+  useEffect(() => {
+    if (!user) {
+      setSavedBookIds([])
+      return undefined
+    }
+
+    let ignore = false
+
+    async function loadSavedBookIds() {
+      try {
+        const libraryBooks = await getMyLibraryBooks(user)
+
+        if (!ignore) {
+          setSavedBookIds(libraryBooks.map((item) => item.bookId))
+        }
+      } catch (error) {
+        if (!ignore) {
+          showToast(error.message)
+        }
+      }
+    }
+
+    loadSavedBookIds()
+
+    return () => {
+      ignore = true
+    }
+  }, [showToast, user])
 
   const handleSearch = async (event) => {
     event.preventDefault()
@@ -34,7 +65,8 @@ function Library({ user }) {
     setSavingBookId(book.id)
 
     try {
-      await saveBookToMyLibrary(user, book)
+      const bookId = await saveBookToMyLibrary(user, book)
+      setSavedBookIds((current) => (current.includes(bookId) ? current : [...current, bookId]))
       showToast('Added')
     } catch (error) {
       showToast(error.message)
@@ -64,6 +96,7 @@ function Library({ user }) {
           <BookResultCard
             key={book.id}
             book={book}
+            isAdded={savedBookIdSet.has(getBookDocumentId(book))}
             isSaving={savingBookId === book.id}
             onSave={handleSave}
           />

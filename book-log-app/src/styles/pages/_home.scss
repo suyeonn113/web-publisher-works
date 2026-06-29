@@ -147,50 +147,50 @@ $saved-book-summary-row: 6.2rem;
   aspect-ratio: 2 / 3;
 }
 
-@include container-up(mobile-expanded) {
-  .saved-book-list--thumbnail {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
+// @include container-up(mobile-expanded) {
+//   .saved-book-list--thumbnail {
+//     grid-template-columns: repeat(4, minmax(0, 1fr));
+//   }
+// }
 
-@include container-up(portable-expanded) {
-  .saved-book-list--thumbnail {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-  }
-}
+// @include container-up(portable-expanded) {
+//   .saved-book-list--thumbnail {
+//     grid-template-columns: repeat(5, minmax(0, 1fr));
+//   }
+// }
 
-@include container-up(tablet-base) {
-  .saved-book-list--thumbnail {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-  }
-}
+// @include container-up(tablet-base) {
+//   .saved-book-list--thumbnail {
+//     grid-template-columns: repeat(6, minmax(0, 1fr));
+//   }
+// }
 
-@include container-up(desktop-compact) {
-  .saved-book-list--thumbnail {
-    grid-template-columns: repeat(7, minmax(0, 1fr));
-  }
-}
+// @include container-up(desktop-compact) {
+//   .saved-book-list--thumbnail {
+//     grid-template-columns: repeat(7, minmax(0, 1fr));
+//   }
+// }
 
-@include container-up(desktop-base) {
-  .saved-book-list--thumbnail {
-    grid-template-columns: repeat(8, minmax(0, 1fr));
-  }
-}
+// @include container-up(desktop-base) {
+//   .saved-book-list--thumbnail {
+//     grid-template-columns: repeat(8, minmax(0, 1fr));
+//   }
+// }
 
-@include container-up(desktop-comfortable) {
-  .saved-book-list--thumbnail {
-    grid-template-columns: repeat(9, minmax(0, 1fr));
-  }
-}
+// @include container-up(desktop-comfortable) {
+//   .saved-book-list--thumbnail {
+//     grid-template-columns: repeat(9, minmax(0, 1fr));
+//   }
+// }
 
-@include container-up(desktop-expanded) {
-  .saved-book-list--thumbnail {
-    grid-template-columns: repeat(10, minmax(0, 1fr));
-  }
-}
+// @include container-up(desktop-expanded) {
+//   .saved-book-list--thumbnail {
+//     grid-template-columns: repeat(10, minmax(0, 1fr));
+//   }
+// }
 
-@include container-up(desktop-wide) {
-  .saved-book-list--thumbnail {
-    grid-template-columns: repeat(11, minmax(0, 1fr));
-  }
-}
+// @include container-up(desktop-wide) {
+//   .saved-book-list--thumbnail {
+//     grid-template-columns: repeat(11, minmax(0, 1fr));
+//   }
+// }

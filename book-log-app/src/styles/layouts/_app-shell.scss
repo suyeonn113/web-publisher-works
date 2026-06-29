@@ -1,6 +1,8 @@
 @use '../settings/tools' as *;
 
 /* App Layout */
+$app-content-max-inline-size: 500px;
+
 .app-shell {
   container: app-screen / inline-size;
   width: 100%;
@@ -9,6 +11,8 @@
 }
 
 .page {
+  width: min(100%, $app-content-max-inline-size);
+  margin-inline: auto;
   @include page-padding;
 }
 

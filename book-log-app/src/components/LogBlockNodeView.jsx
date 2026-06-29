@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useLayoutEffect, useRef } from 'react'
 import { Icon } from '@iconify/react'
 import { NodeViewWrapper } from '@tiptap/react'
 import { readingBlockTypes } from '../data/readingBlockTypes'
@@ -13,11 +13,17 @@ function AutoResizeTextarea({ value, onChange, ...props }) {
       return
     }
 
+    const style = window.getComputedStyle(textarea)
+    const lineHeight = Number.parseFloat(style.lineHeight) || 20
+    const paddingBlock =
+      Number.parseFloat(style.paddingTop) + Number.parseFloat(style.paddingBottom)
+    const minHeight = lineHeight + paddingBlock
+
     textarea.style.height = 'auto'
-    textarea.style.height = `${textarea.scrollHeight}px`
+    textarea.style.height = `${Math.max(textarea.scrollHeight, minHeight)}px`
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     resizeTextarea()
   }, [value])
 
@@ -37,18 +43,20 @@ function AutoResizeTextarea({ value, onChange, ...props }) {
   )
 }
 
-function AutoResizeInput({ value, onChange, ...props }) {
+function AutoResizeInput({ value, onChange, placeholder = '', ...props }) {
   const inputRef = useRef(null)
+  const mirrorRef = useRef(null)
 
   const resizeInput = () => {
     const input = inputRef.current
+    const mirror = mirrorRef.current
 
-    if (!input) {
+    if (!input || !mirror) {
       return
     }
 
-    input.style.width = '0px'
-    input.style.width = `${input.scrollWidth}px`
+    mirror.textContent = value || placeholder
+    input.style.width = `${mirror.offsetWidth}px`
   }
 
   useEffect(() => {
@@ -61,12 +69,16 @@ function AutoResizeInput({ value, onChange, ...props }) {
   }
 
   return (
-    <input
-      {...props}
-      ref={inputRef}
-      value={value}
-      onChange={handleChange}
-    />
+    <>
+      <input
+        {...props}
+        ref={inputRef}
+        value={value}
+        placeholder={placeholder}
+        onChange={handleChange}
+      />
+      <span ref={mirrorRef} className="auto-size-input-mirror" aria-hidden="true" />
+    </>
   )
 }
 
@@ -79,7 +91,10 @@ function LogBlockNodeView({ node, updateAttributes, deleteNode, selected }) {
     return null
   }
 
-  const fields = node.attrs.fields || {}
+  const fields =
+    node.attrs.fields && typeof node.attrs.fields === 'object'
+      ? node.attrs.fields
+      : {}
   const getBlockClassName = (className) =>
     selected ? `${className} is-selected` : className
 

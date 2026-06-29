@@ -2,7 +2,7 @@
 
 /* Navigation */
 $navigation-block-size: 56px;
-$navigation-island-max-inline-size: 34rem;
+$navigation-island-max-inline-size: 500px;
 
 .site-header {
   display: flex;
@@ -45,4 +45,3 @@ $navigation-island-max-inline-size: 34rem;
     text-decoration: none;
   }
 }
-

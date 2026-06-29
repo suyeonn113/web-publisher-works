@@ -68,7 +68,7 @@
 
   .book-search-row {
     display: grid;
-    grid-template-columns: 1fr;
+    // grid-template-columns: 1fr;
 
     button {
       width: 100%;
@@ -77,11 +77,11 @@
 
   .book-result-card {
     display: grid;
-    grid-template-columns: 1fr;
+    // grid-template-columns: 1fr;
   }
 
   .book-result-list {
-    grid-template-columns: 1fr;
+    // grid-template-columns: 1fr;
   }
 
   .book-log-header {
@@ -93,7 +93,7 @@
     flex-wrap: wrap;
   }
 
-  .book-detail-header {
-    grid-template-columns: 1fr;
-  }
+  // .book-detail-header {
+  //   grid-template-columns: 1fr;
+  // }
 }

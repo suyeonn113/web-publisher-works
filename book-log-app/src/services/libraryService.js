@@ -11,7 +11,7 @@ import {
 } from 'firebase/firestore'
 import { db } from '../firebase/firebase'
 
-function getBookDocumentId(book) {
+export function getBookDocumentId(book) {
   return String(book.isbn13 || book.isbn || book.id).replace(/[/.#[\]]/g, '-')
 }
 

@@ -6,13 +6,18 @@ $book-detail-compact-action-block-size: 28px;
 $log-block-padding-block-start: closest;
 $log-block-padding-block-end: compact-control-inline;
 $log-spacer-block-size: 4.5em;
-$block-picker-offset-block-end: 13rem;
 $book-log-primary-action-min-block-size: 48px;
 $book-log-secondary-action-min-block-size: 44px;
 
 .book-detail-page {
   display: grid;
   @include gap(page-stack);
+}
+
+.book-detail-page:has(.writing-editor:focus-within) {
+  grid-template-rows: auto auto minmax(0, 1fr) auto auto;
+  height: calc(100svh - 132px);
+  overflow: hidden;
 }
 
 .book-log-header {
@@ -148,6 +153,7 @@ $book-log-secondary-action-min-block-size: 44px;
 
 .writing-editor {
   display: grid;
+  grid-template-rows: auto auto;
   position: relative;
   @include gap(field);
   @include radius(card);
@@ -155,8 +161,35 @@ $book-log-secondary-action-min-block-size: 44px;
   background: transparent;
 
   &:focus-within {
+    grid-template-rows: auto minmax(0, 1fr);
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
     background: var(--color-action-subtle);
   }
+}
+
+.editor-scroll-area {
+  overflow: visible;
+}
+
+.writing-editor:focus-within .editor-scroll-area {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.writing-editor-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @include gap(group);
+}
+
+.writing-editor-label {
+  margin: 0;
+  color: var(--color-text-tertiary);
+  @include typography(caption-label);
 }
 
 .log-field textarea,
@@ -166,7 +199,18 @@ $book-log-secondary-action-min-block-size: 44px;
 
 .log-field textarea {
   overflow: hidden;
+  min-height: 1lh;
   resize: none;
+}
+
+.log-headline-title::placeholder,
+.log-clip-quote::placeholder,
+.log-clip-memo::placeholder,
+.log-topic-question::placeholder,
+.log-topic-answer::placeholder,
+.log-field textarea::placeholder {
+  color: var(--color-text-placeholder);
+  opacity: 1;
 }
 
 .tiptap-editor {
@@ -203,13 +247,16 @@ $book-log-secondary-action-min-block-size: 44px;
   }
 }
 
+.writing-editor:focus-within .tiptap-editor {
+  min-height: 100%;
+}
+
 .block-picker {
-  position: fixed;
-  right: space(closest);
-  bottom: max(#{$block-picker-offset-block-end}, env(safe-area-inset-bottom));
+  position: sticky;
+  top: space(related);
   z-index: 20;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: wrap;
   @include gap(icon-label);
   width: fit-content;
@@ -237,7 +284,7 @@ $book-log-secondary-action-min-block-size: 44px;
 .writing-editor:focus-within .block-picker {
   opacity: 1;
   pointer-events: auto;
-  transform: translate(-50%, 0);
+  transform: none;
 }
 
 .log-block-list {
@@ -303,6 +350,7 @@ $book-log-secondary-action-min-block-size: 44px;
 
 .log-headline-title {
   overflow: hidden;
+  min-height: 1lh;
   border: 0;
   @include radius(editable);
   padding-block: 0;
@@ -337,6 +385,7 @@ $book-log-secondary-action-min-block-size: 44px;
 
 .log-clip-quote {
   overflow: hidden;
+  min-height: 1lh;
   border: 0;
   border-left: space(closest) solid var(--color-border-primary);
   @include radius(editable);
@@ -352,9 +401,9 @@ $book-log-secondary-action-min-block-size: 44px;
 }
 
 .log-clip-location-field {
+  position: relative;
   justify-self: end;
-  display: inline-grid;
-  grid-template-columns: auto auto;
+  display: inline-flex;
   align-items: center;
   @include gap(field);
   width: fit-content;
@@ -365,6 +414,17 @@ $book-log-secondary-action-min-block-size: 44px;
     color: var(--color-text-tertiary);
     @include typography(caption);
   }
+}
+
+.auto-size-input-mirror {
+  position: absolute;
+  visibility: hidden;
+  white-space: pre;
+}
+
+.auto-size-input-mirror,
+.log-clip-location {
+  @include typography(navigation);
 }
 
 .log-clip-location {
@@ -378,11 +438,11 @@ $book-log-secondary-action-min-block-size: 44px;
   padding-inline: 0;
   color: var(--color-text-tertiary);
   background: transparent;
-  @include typography(navigation);
   text-align: right;
 
   &::placeholder {
     color: var(--color-text-placeholder);
+    opacity: 1;
   }
 
   &:focus {
@@ -401,6 +461,7 @@ $book-log-secondary-action-min-block-size: 44px;
 
 .log-clip-memo {
   overflow: hidden;
+  min-height: 1lh;
   border: 0;
   @include radius(card);
   padding-block: 0;
@@ -439,6 +500,7 @@ $book-log-secondary-action-min-block-size: 44px;
 .log-topic-question,
 .log-topic-answer {
   overflow: hidden;
+  min-height: 1lh;
   border: 0;
   @include radius(card);
   resize: none;
@@ -564,11 +626,15 @@ $book-log-secondary-action-min-block-size: 44px;
 }
 
 .delete-book-button {
-  min-height: $book-log-secondary-action-min-block-size;
-  border: space(hairline) solid var(--color-border-primary);
-  @include radius(control);
-  background: var(--color-surface-background);
-  @include typography(action);
+  justify-self: end;
+  min-height: 0;
+  border: 0;
+  @include radius(editable);
+  padding-block: space(closest);
+  padding-inline: space(related);
+  color: var(--color-text-tertiary);
+  background: transparent;
+  @include typography(caption);
 }
 
 .delete-confirm-backdrop {
