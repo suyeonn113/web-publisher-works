@@ -45,7 +45,7 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: var(--space-2);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-card);
   background: var(--color-white);
   padding: var(--space-3);
 
@@ -174,5 +174,31 @@
     .product-card__image-wrap {
       width: 150px;
     }
+  }
+}
+
+@include respond-up(tablet) {
+  .search-results-view > .product-card-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-6) var(--space-4);
+
+    .product-card {
+      display: block;
+    }
+
+    .product-card__image-wrap {
+      width: 100%;
+    }
+
+    .product-card__info {
+      padding-top: var(--space-2);
+    }
+  }
+}
+
+@include respond-up(laptop) {
+  .search-results-view > .product-card-list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-7) var(--space-5);
   }
 }

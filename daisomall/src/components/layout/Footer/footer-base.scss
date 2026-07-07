@@ -6,7 +6,7 @@
   flex-direction: column;
   @include responsive-space(
     padding,
-    var(--space-8) var(--space-5) calc(var(--bottom-tab-height) + var(--space-10)),
+    var(--space-4) var(--space-5) calc(var(--bottom-tab-height) + var(--space-10)),
     var(--space-10) var(--space-6) calc(var(--bottom-tab-height) + var(--space-12))
   );
   
@@ -15,7 +15,6 @@
 
   @include respond-up(tablet) {
     padding-top: var(--space-12);
-    box-shadow: 0 calc(-1 * var(--space-1)) var(--space-3) rgb(var(--color-black-rgb) / 0.025);
   }
 
   @include respond-up(laptop) {

@@ -1,15 +1,13 @@
-import { Link } from 'react-router-dom'
-
 function InactiveFooterLink({ children, className = '', ...props }) {
   return (
-    <Link
-      to="#"
+    <button
+      type="button"
       className={className}
-      onClick={(event) => event.preventDefault()}
+      aria-label={typeof children === 'string' ? `${children} 준비 중` : undefined}
       {...props}
     >
       {children}
-    </Link>
+    </button>
   )
 }
 

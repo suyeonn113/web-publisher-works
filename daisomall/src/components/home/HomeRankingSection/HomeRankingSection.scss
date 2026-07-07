@@ -3,8 +3,8 @@
 .ranking-tab-list {
   @include scroll-row(max-content, 2);
 
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-2);
   overflow-y: visible;
-  padding: 4px 4px var(--space-4) 4px;
+  padding: var(--space-1) var(--space-1) var(--space-2);
   margin: -4px -4px 0 -4px;
 }

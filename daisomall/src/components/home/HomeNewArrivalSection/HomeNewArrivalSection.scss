@@ -30,6 +30,7 @@
   position: relative;
   aspect-ratio: var(--new-arrival-card-aspect-ratio);
   overflow: hidden;
+  border-radius: var(--radius-media);
   background: var(--color-border-secondary);
 }
 
@@ -100,7 +101,7 @@
   @include interactive-hover-icon;
 
   &:focus-within {
-    outline-offset: -3px;
+    outline-offset: calc(var(--focus-ring-width) * -1);
   }
 
   @include text-size(caption);
@@ -149,7 +150,7 @@
   box-shadow: 0 2px 8px rgb(var(--color-black-rgb) / 0.04);
 
   &:focus-visible {
-    outline-offset: -3px;
+    outline-offset: calc(var(--focus-ring-width) * -1);
   }
 }
 

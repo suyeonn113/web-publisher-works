@@ -9,6 +9,7 @@ function HomePromotionSection() {
   const [activeTabId, setActiveTabId] = useState(promotionTabs[0].id)
   const activePromotions = promotionGroups[activeTabId]
   const cardVariant = activeTabId === 'category' ? 'horizontal' : 'vertical'
+  const promotionPanelId = 'promotion-card-panel'
 
   return (
     <section className="home-section">
@@ -16,9 +17,16 @@ function HomePromotionSection() {
       <PromotionTabList
         tabs={promotionTabs}
         activeTabId={activeTabId}
+        panelId={promotionPanelId}
         onChangeTab={setActiveTabId}
       />
-      <PromotionCardList promotions={activePromotions} variant={cardVariant} />
+      <div
+        id={promotionPanelId}
+        role="tabpanel"
+        aria-labelledby={`promotion-tab-${activeTabId}`}
+      >
+        <PromotionCardList promotions={activePromotions} variant={cardVariant} />
+      </div>
     </section>
   )
 }

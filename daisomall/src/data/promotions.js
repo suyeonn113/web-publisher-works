@@ -8,14 +8,16 @@ const promotionImageFolders = {
 // - 카테고리별 폴더 안에서 탭 id + 두 자리 번호 사용: popular-01.webp, purchase-01.webp
 // - category 탭도 이미지가 늘어나면 /home-promotion/category/category-01.webp 구조 권장
 // - id는 상세 주소가 되므로 영문 소문자와 하이픈만 사용: popular-new-item
-const createPromotion = (groupId, promotion) => ({
+const createPromotion = (groupId, promotion, index) => ({
   ...promotion,
+  sourceId: promotion.id,
+  id: `${promotion.id}-${String(index + 1).padStart(2, '0')}`,
   image: `${promotionImageFolders[groupId]}/${promotion.imageFile}`,
-  path: `/promotion/${promotion.id}`,
+  path: `/promotion/${promotion.id}-${String(index + 1).padStart(2, '0')}`,
 })
 
 const createPromotionGroup = (groupId, promotions) =>
-  promotions.map((promotion) => createPromotion(groupId, promotion))
+  promotions.map((promotion, index) => createPromotion(groupId, promotion, index))
 
 export const promotionTabs = [
   { id: 'category', label: '카테고리' },

@@ -1,9 +1,13 @@
 import ProductCard from '../ProductCard/ProductCard'
 import './ProductCardList.scss'
 
-function ProductCardList({ products, ranked = false }) {
+function ProductCardList({ products, ranked = false, ariaLabel = '상품 목록' }) {
   return (
-    <div className={ranked ? 'product-card-list is-ranked' : 'product-card-list'}>
+    <div
+      className={ranked ? 'product-card-list is-ranked' : 'product-card-list'}
+      role="list"
+      aria-label={ariaLabel}
+    >
       {products.map((product, index) => (
         <ProductCard
           key={product.id}

@@ -1,12 +1,15 @@
-import { Link } from 'react-router-dom'
 import { getPublicAssetPath } from '../../../utils/getPublicAssetPath'
 
 function CategoryMenuButton({ category }) {
   return (
-    <Link className="category-menu-button" to="#">
-      <img src={getPublicAssetPath(category.image)} alt="" />
+    <button
+      type="button"
+      className="category-menu-button"
+      aria-label={`${category.label} 카테고리 준비 중`}
+    >
+      <img src={getPublicAssetPath(category.image)} alt="" aria-hidden="true" />
       <span>{category.label}</span>
-    </Link>
+    </button>
   )
 }
 

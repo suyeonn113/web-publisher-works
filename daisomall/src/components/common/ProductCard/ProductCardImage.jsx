@@ -4,12 +4,12 @@ import { iconSize } from '../../../tokens/size'
 import { getPublicAssetPath } from '../../../utils/getPublicAssetPath'
 import ProductCardLabel from './ProductCardLabel'
 
-function ProductCardImage({ product, showWish = true }) {
+function ProductCardImage({ product, showWish = true, imageAlt = product.name }) {
   const [isWished, setIsWished] = useState(false)
 
   return (
     <div className="product-card__image-wrap">
-      <img src={getPublicAssetPath(product.image)} alt="" className="product-card__image" />
+      <img src={getPublicAssetPath(product.image)} alt={imageAlt} className="product-card__image" />
       {product.label ? <ProductCardLabel label={product.label} /> : null}
       {showWish ? (
         <button

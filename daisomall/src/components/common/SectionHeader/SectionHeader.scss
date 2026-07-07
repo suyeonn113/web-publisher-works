@@ -3,20 +3,21 @@
 .section-header {
   @include flex-between;
 
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-3);
 }
 
 .section-header h2 {
   @include text-size(title);
 }
 
-.section-header a {
+.section-header button {
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
+  border: 0;
+  background: transparent;
   color: var(--color-muted);
 
   @include text-size(caption);
   @include interactive-hover-text;
 }
-

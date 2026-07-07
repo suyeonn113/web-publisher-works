@@ -28,6 +28,9 @@
 
   @include interactive-hover-icon;
 
+  &:focus-visible {
+    outline-offset: var(--focus-ring-width);
+  }
 }
 
 .floating-action-button--top svg {

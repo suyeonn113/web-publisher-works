@@ -196,12 +196,25 @@
   }
 }
 
+.category-drawer__sidebar button:focus-visible,
+.category-drawer__links a:focus-visible {
+  outline-offset: calc(var(--focus-ring-width) * -1);
+}
+
+.category-drawer__section:focus {
+  outline: none;
+}
+
+.category-drawer__section-group:focus {
+  outline: none;
+}
+
 .category-drawer__sidebar .is-active {
   background: var(--color-bg);
 }
 
 .category-drawer__section-list {
-  padding: var(--space-5) var(--space-4) var(--space-8);
+  padding: var(--space-5) var(--space-5) var(--space-8);
   overflow-y: auto;
   overscroll-behavior: contain;
   scroll-behavior: smooth;

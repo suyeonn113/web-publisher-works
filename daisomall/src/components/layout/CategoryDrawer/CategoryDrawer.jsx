@@ -12,6 +12,7 @@ function CategoryDrawer({ isOpen, onClose }) {
   const [activeCategoryIndex, setActiveCategoryIndex] = useState(0)
   const scrollContainerRef = useRef(null)
   const sectionRefs = useRef([])
+  const panelRefs = useRef([])
   const isAutoScrollingRef = useRef(false)
 
   const drawerSections = useMemo(() => {
@@ -42,6 +43,22 @@ function CategoryDrawer({ isOpen, onClose }) {
       }))
     })
   }, [])
+
+  const panelIdByCategoryIndex = useMemo(
+    () =>
+      categoryDrawerData.mainCategories.map(
+        (_, categoryIndex) => `category-drawer-panel-${categoryIndex}`,
+      ),
+    [],
+  )
+
+  const categoryButtonIdByCategoryIndex = useMemo(
+    () =>
+      categoryDrawerData.mainCategories.map(
+        (_, categoryIndex) => `category-drawer-category-${categoryIndex}`,
+      ),
+    [],
+  )
 
   useEffect(() => {
     if (!isOpen) {
@@ -86,12 +103,18 @@ function CategoryDrawer({ isOpen, onClose }) {
     sectionRefs.current[index] = node
   }
 
-  const handleSidebarChange = (categoryIndex) => {
+  const handlePanelRef = (categoryIndex, node) => {
+    panelRefs.current[categoryIndex] = node
+  }
+
+  const handleSidebarChange = (categoryIndex, options = {}) => {
+    const { focusSection = true } = options
     const sectionIndex = drawerSections.findIndex(
       (section) => section.categoryIndex === categoryIndex,
     )
     const scrollContainer = scrollContainerRef.current
     const targetSection = sectionRefs.current[sectionIndex]
+    const targetPanel = panelRefs.current[categoryIndex]
     const targetTop =
       scrollContainer && targetSection
         ? targetSection.getBoundingClientRect().top -
@@ -106,6 +129,15 @@ function CategoryDrawer({ isOpen, onClose }) {
       top: targetTop,
       behavior: 'smooth',
     })
+
+    if (focusSection) {
+      window.setTimeout(() => {
+        const firstSubCategoryLink = targetPanel?.querySelector('a')
+        const focusTarget = firstSubCategoryLink ?? targetPanel
+
+        focusTarget?.focus({ preventScroll: true })
+      }, 120)
+    }
 
     window.setTimeout(() => {
       isAutoScrollingRef.current = false
@@ -163,12 +195,17 @@ function CategoryDrawer({ isOpen, onClose }) {
           <CategoryDrawerSidebar
             activeCategoryIndex={activeCategoryIndex}
             categories={categoryDrawerData.mainCategories}
+            panelIdByCategoryIndex={panelIdByCategoryIndex}
+            categoryButtonIdByCategoryIndex={categoryButtonIdByCategoryIndex}
             onChange={handleSidebarChange}
           />
           <CategoryDrawerPanel
             sections={drawerSections}
+            panelIdByCategoryIndex={panelIdByCategoryIndex}
+            categoryButtonIdByCategoryIndex={categoryButtonIdByCategoryIndex}
             scrollContainerRef={scrollContainerRef}
             onScroll={handlePanelScroll}
+            onPanelRef={handlePanelRef}
             onSectionRef={handleSectionRef}
           />
         </div>

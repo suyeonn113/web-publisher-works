@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { getPublicAssetPath } from '../../../utils/getPublicAssetPath'
 
 const deliveryServiceImages = {
@@ -24,9 +23,10 @@ function DeliveryServiceCard({ service }) {
     : { style: { color: 'var(--color-text-inverse)' } }
 
   return (
-    <Link
+    <button
+      type="button"
       className={`delivery-service-card delivery-service-card--${service.id}`}
-      to="#"
+      aria-label={`${service.title} 준비 중`}
       style={{ '--delivery-service-image': `url(${backgroundImage})` }}
     >
       <div className="delivery-service-card__copy">
@@ -43,7 +43,7 @@ function DeliveryServiceCard({ service }) {
         size={deliveryServiceIconSize}
         className="delivery-service-card__icon"
       />
-    </Link>
+    </button>
   )
 }
 

@@ -19,13 +19,11 @@ function BottomTabBar({ onCategoryClick }) {
       <BottomTabBarItem
         icon={<ShortsIcon size={iconSize.md} />}
         label="발견"
-        to="#"
       />
-      <BottomTabBarItem icon={<UserIcon size={iconSize.md} />} label="마이" to="#" />
+      <BottomTabBarItem icon={<UserIcon size={iconSize.md} />} label="마이" />
       <BottomTabBarItem
         icon={<BagIcon size={iconSize.md} />}
         label="장바구니"
-        to="#"
       />
     </nav>
   )

@@ -18,6 +18,9 @@
 }
 
 .badge-button:focus-visible {
-  box-shadow: 0 0 0 2px var(--color-bg-chip), 0 0 0 4px var(--color-focus-ring);
   outline: none;
+  border-radius: var(--radius-pill);
+  box-shadow:
+    0 0 0 var(--focus-ring-width) var(--color-bg-chip),
+    0 0 0 calc(var(--focus-ring-width) * 2) var(--color-focus-ring);
 }

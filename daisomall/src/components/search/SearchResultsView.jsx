@@ -16,12 +16,12 @@ function SearchResultsView({
   return (
     <div className="search-results-view">
       <nav className="search-tabs" aria-label="검색 결과 유형">
-        <button type="button" className="is-active">상품</button>
-        <button type="button">쇼츠</button>
-        <button type="button">매장상품찾기</button>
+        <button type="button" className="is-active" aria-current="page">상품</button>
+        <button type="button" disabled>쇼츠</button>
+        <button type="button" disabled>매장상품찾기</button>
       </nav>
 
-      <div className="search-result-summary">
+      <div className="search-result-summary" role="status" aria-live="polite">
         <div>
           <span>검색 결과</span>
           <strong>{searchQuery} 상품 {filteredProducts.length}개</strong>
@@ -35,6 +35,7 @@ function SearchResultsView({
             type="button"
             key={badge}
             className={activeBadge === badge ? 'is-active' : ''}
+            aria-pressed={activeBadge === badge}
             onClick={() => onBadgeChange(badge)}
           >
             {label}
@@ -50,6 +51,7 @@ function SearchResultsView({
               type="button"
               key={type}
               className={sortType === type ? 'is-active' : ''}
+              aria-pressed={sortType === type}
               onClick={() => onSortChange(type)}
             >
               {label}
@@ -58,7 +60,7 @@ function SearchResultsView({
         </div>
       </div>
 
-      <ProductCardList products={resultProducts} />
+      <ProductCardList products={resultProducts} ariaLabel={`${searchQuery} 검색 결과 상품 목록`} />
     </div>
   )
 }

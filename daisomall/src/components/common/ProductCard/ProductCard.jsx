@@ -1,22 +1,30 @@
-import { Link } from 'react-router-dom'
 import ProductCardImage from './ProductCardImage'
 import ProductCardInfo from './ProductCardInfo'
 import './ProductCard.scss'
 
 function ProductCard({ product, rank }) {
+  const cardLabel = rank
+    ? `${rank}위 ${product.name}, ${product.price.toLocaleString()}원`
+    : `${product.name}, ${product.price.toLocaleString()}원`
+
   if (rank) {
     return (
-      <Link to="#" className="product-card">
+      <article
+        className="product-card"
+        role="listitem"
+        tabIndex="0"
+        aria-label={cardLabel}
+      >
         <strong className="product-card__rank">{rank}</strong>
-        <ProductCardImage product={product} showWish={false} />
+        <ProductCardImage product={product} showWish={false} imageAlt="" />
         <ProductCardInfo product={product} />
-      </Link>
+      </article>
     )
   }
 
   return (
-    <article className="product-card">
-      <ProductCardImage product={product} />
+    <article className="product-card" role="listitem" tabIndex="0" aria-label={cardLabel}>
+      <ProductCardImage product={product} imageAlt="" />
       <ProductCardInfo product={product} />
     </article>
   )

@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { iconSize } from '../../../tokens/size'
 import { getPublicAssetPath } from '../../../utils/getPublicAssetPath'
 import ScrollNavigator from '../../common/ScrollNavigator/ScrollNavigator'
@@ -24,13 +23,13 @@ function PromotionCardList({ promotions, variant }) {
           const isActive = index === activePromotionIndex
 
           return (
-            <Link
+            <button
               key={`${promotion.id}-${index}`}
-              to="#"
+              type="button"
               className={isActive ? 'promotion-card is-active' : 'promotion-card'}
-              onClick={(event) => {
-                event.preventDefault()
-
+              aria-pressed={isActive}
+              aria-label={`${promotion.title} 기획전 보기`}
+              onClick={() => {
                 if (isActive) return
 
                 setActivePromotionIndex(index)
@@ -77,7 +76,7 @@ function PromotionCardList({ promotions, variant }) {
                   />
                 )}
               </div>
-            </Link>
+            </button>
           )
         })}
       </div>

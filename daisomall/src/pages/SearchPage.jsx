@@ -39,6 +39,7 @@ function SearchPage() {
 
   return (
     <section className="search-page-placeholder">
+      <h1 className="sr-only">상품 검색</h1>
       <SearchHeader searchQuery={searchQuery} onInputChange={handleInputChange} onBack={handleBack} />
 
       <div className="search-result">

@@ -2,11 +2,6 @@ import { Link } from 'react-router-dom'
 
 function BottomTabBarItem({ icon, label, to, onClick }) {
   const handleLinkClick = (event) => {
-    if (to === '#') {
-      event.preventDefault()
-      return
-    }
-
     window.scrollTo(0, 0)
   }
 
@@ -29,8 +24,16 @@ function BottomTabBarItem({ icon, label, to, onClick }) {
     )
   }
 
+  const isDisabled = !onClick
+
   return (
-    <button type="button" className="bottom-tab-bar__item" onClick={onClick}>
+    <button
+      type="button"
+      className="bottom-tab-bar__item"
+      onClick={onClick}
+      disabled={isDisabled}
+      aria-label={isDisabled ? `${label} 준비 중` : undefined}
+    >
       {content}
     </button>
   )

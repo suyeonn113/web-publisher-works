@@ -9,6 +9,14 @@
   @include interactive-hover-light;
 }
 
+.product-card:focus-visible {
+  outline: none;
+  border-radius: var(--radius-card);
+  box-shadow:
+    0 0 0 var(--focus-ring-width) var(--color-bg-main),
+    0 0 0 calc(var(--focus-ring-width) * 2) var(--color-focus-ring);
+}
+
 @media (hover: hover) and (pointer: fine) {
   .product-card:hover {
     transform: none;
@@ -39,6 +47,7 @@
   position: relative;
   aspect-ratio: 3 / 4;
   overflow: hidden;
+  border-radius: var(--radius-media);
   background: var(--color-bg-sub);
 }
 
@@ -127,8 +136,17 @@
   display: grid;
   grid-template-columns: var(--ranking-number-width) var(--ranking-image-size) minmax(0, 1fr);
   align-items: start;
-  column-gap: clamp(var(--space-2), 2vw, var(--space-5));
+  column-gap: clamp(var(--space-3), 2vw, var(--space-5));
   min-width: 0;
+  padding: var(--space-2);
+  border-radius: var(--radius-card);
+  background: var(--color-bg-main);
+}
+
+.product-card-list.is-ranked .product-card:focus-visible {
+  box-shadow:
+    inset 0 0 0 var(--focus-ring-width) var(--color-bg-main),
+    inset 0 0 0 calc(var(--focus-ring-width) * 2) var(--color-focus-ring);
 }
 
 .product-card-list.is-ranked .product-card__rank {
@@ -140,6 +158,9 @@
   line-height: 1;
   text-align: left;
   font-variant-numeric: tabular-nums;
+  justify-self: start;
+  align-self: start;
+  padding-top: var(--space-1);
 }
 
 .product-card-list.is-ranked .product-card__rank::after {
@@ -168,7 +189,7 @@
 
 .product-card-list.is-ranked .product-card__info {
   min-width: 0;
-  @include responsive-space(padding-top, var(--space-2), var(--space-4));
+  padding-top: 0;
 }
 
 .product-card-list.is-ranked .product-card__info strong {

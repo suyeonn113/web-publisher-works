@@ -19,7 +19,7 @@ const desktopDeliveryLinks = [
   { id: 'bulk', label: '대량주문', path: '#', Icon: DaisoBulkOrderIcon },
 ]
 
-function PlaceholderNavLink({ to, className, children }) {
+function PlaceholderNavLink({ to, className, children, label }) {
   const handlePlaceholderClick = (event) => {
     event.preventDefault()
     window.scrollTo(0, 0)
@@ -27,9 +27,15 @@ function PlaceholderNavLink({ to, className, children }) {
 
   if (to === '#') {
     return (
-      <Link to="#" className={className} onClick={handlePlaceholderClick}>
+      <button
+        type="button"
+        className={`${className} is-disabled`}
+        aria-disabled="true"
+        aria-label={`${label} 준비 중`}
+        onClick={handlePlaceholderClick}
+      >
         {children}
-      </Link>
+      </button>
     )
   }
 
@@ -45,7 +51,7 @@ function PlaceholderNavLink({ to, className, children }) {
 
 function MainCategoryNav({ onCategoryClick }) {
   return (
-    <nav className="main-category-nav" aria-label="주요 카테고리">
+    <nav id="primary-navigation" className="main-category-nav" aria-label="주요 카테고리">
       <button
         type="button"
         className="main-category-nav__link main-category-nav__link--category-action"
@@ -58,6 +64,7 @@ function MainCategoryNav({ onCategoryClick }) {
         <PlaceholderNavLink
           key={category.id}
           to={category.path}
+          label={category.label}
           className={`main-category-nav__link main-category-nav__link--${category.id}`}
         >
           <MainCategoryNavItem label={category.label} />
@@ -67,6 +74,7 @@ function MainCategoryNav({ onCategoryClick }) {
         <PlaceholderNavLink
           key={shortcut.id}
           to={shortcut.path}
+          label={shortcut.label}
           className="main-category-nav__link main-category-nav__link--desktop-shortcut"
         >
           <MainCategoryNavItem label={shortcut.label} />
@@ -77,6 +85,7 @@ function MainCategoryNav({ onCategoryClick }) {
           <PlaceholderNavLink
             key={id}
             to={path}
+            label={label}
             className={`main-category-nav__link main-category-nav__link--delivery-service main-category-nav__link--delivery-service-${id}`}
           >
             <Icon size={iconSize.sm} />

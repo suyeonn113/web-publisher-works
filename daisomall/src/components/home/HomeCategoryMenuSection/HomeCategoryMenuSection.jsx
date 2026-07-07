@@ -1,4 +1,4 @@
-import CategoryMenuGrid from './CategoryMenuGrid'
+import CategoryMenuButton from './CategoryMenuButton'
 import './HomeCategoryMenuSection.scss'
 
 const categoryMenus = [
@@ -19,7 +19,11 @@ const categoryMenus = [
 function HomeCategoryMenuSection() {
   return (
     <section className="home-section home-category-menu-section">
-      <CategoryMenuGrid categories={categoryMenus} />
+      <div className="category-menu-grid">
+        {categoryMenus.map((category) => (
+          <CategoryMenuButton key={category.id} category={category} />
+        ))}
+      </div>
     </section>
   )
 }

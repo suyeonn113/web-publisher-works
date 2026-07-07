@@ -22,12 +22,16 @@ function MainLayout() {
 
   return (
     <div className={`app-shell ${pathname === PATHS.search ? 'is-search-route' : ''}`}>
+      <nav className="skip-links" aria-label="건너뛰기 링크">
+        <a href="#main-content">본문 바로가기</a>
+        <a href="#primary-navigation">주요 메뉴 바로가기</a>
+      </nav>
       <Header onMenuClick={handleCategoryDrawerToggle} />
       <CategoryDrawer
         isOpen={isCategoryDrawerOpen}
         onClose={() => setIsCategoryDrawerOpen(false)}
       />
-      <main className="app-shell__main">
+      <main id="main-content" className="app-shell__main" tabIndex="-1">
         <Outlet />
       </main>
       <Footer />

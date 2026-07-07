@@ -1,11 +1,15 @@
 import { featureShortcuts } from '../../../data/featureShortcuts'
-import FeatureShortcutList from './FeatureShortcutList'
+import FeatureShortcutButton from './FeatureShortcutButton'
 import './HomeFeatureShortcutSection.scss'
 
 function HomeFeatureShortcutSection() {
   return (
     <section className="home-section home-feature-shortcut-section">
-      <FeatureShortcutList shortcuts={featureShortcuts} />
+      <div className="feature-shortcut-list">
+        {featureShortcuts.map((shortcut) => (
+          <FeatureShortcutButton key={shortcut.id} shortcut={shortcut} />
+        ))}
+      </div>
     </section>
   )
 }

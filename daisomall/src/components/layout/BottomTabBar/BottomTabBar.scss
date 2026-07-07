@@ -28,4 +28,8 @@
 
   @include text-size(micro);
   @include interactive-hover-text;
+
+  &:focus-visible {
+    outline-offset: calc(var(--focus-ring-width) * -2);
+  }
 }

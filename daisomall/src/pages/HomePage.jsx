@@ -11,6 +11,7 @@ import './HomePage.scss'
 function HomePage() {
   return (
     <div className="home-page">
+      <h1 className="sr-only">다이소몰 홈</h1>
       <HomeHeroSection />
       <HomeFeatureShortcutSection />
       <HomeCategoryMenuSection />

@@ -2,7 +2,7 @@
 @use '../../../styles/foundation/mixins' as *;
 
 .home-category-menu-section {
-  margin-top: calc(var(--space-8) * -1);
+  margin-top: calc(var(--space-6) * -1);
   padding-top: 0;
 
   @include respond-up(laptop) {
@@ -55,6 +55,10 @@
   transition: transform var(--duration-fast) var(--ease-standard);
 
   @include text-size(caption);
+
+  &:focus-visible {
+    outline-offset: calc(var(--focus-ring-width) * -1);
+  }
 
   @media (hover: hover) and (pointer: fine) {
     &:hover,
