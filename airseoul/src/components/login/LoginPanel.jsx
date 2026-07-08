@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ROUTES } from '../../constants/routes';
 import { usePanelTransition } from '../../hooks/usePanelTransition';
 import { iconSize } from '../../tokens/size';
+import { getRovingTabNextIndex } from '../../utils/rovingTab';
 import AppLink from '../common/AppLink';
 import SearchIcon from '../icons/SearchIcon';
 import SquarePenIcon from '../icons/SquarePenIcon';
@@ -18,7 +19,17 @@ const loginTabs = [
 export default function LoginPanel({ isOpen, onClose }) {
   const [activeTabId, setActiveTabId] = useState(loginTabs[0].id);
   const closeButtonRef = useRef(null);
+  const tabRefs = useRef([]);
   const { shouldRender, transitionState } = usePanelTransition(isOpen);
+
+  const handleTabKeyDown = (event, currentIndex) => {
+    const nextIndex = getRovingTabNextIndex(event, currentIndex, loginTabs.length);
+    if (nextIndex === null) return;
+
+    event.preventDefault();
+    setActiveTabId(loginTabs[nextIndex].id);
+    tabRefs.current[nextIndex]?.focus();
+  };
 
   useEffect(() => {
     if (!isOpen || !shouldRender) return undefined;
@@ -79,7 +90,7 @@ export default function LoginPanel({ isOpen, onClose }) {
         </div>
 
         <div className="login-panel__tabs" role="tablist" aria-label="로그인 유형">
-          {loginTabs.map((tab) => (
+          {loginTabs.map((tab, index) => (
             <button
               className={`login-panel__tab${
                 activeTabId === tab.id ? ' login-panel__tab--active' : ''
@@ -87,15 +98,28 @@ export default function LoginPanel({ isOpen, onClose }) {
               key={tab.id}
               type="button"
               role="tab"
+              id={`login-panel-tab-${tab.id}`}
+              aria-controls={`login-panel-panel-${tab.id}`}
               aria-selected={activeTabId === tab.id}
+              tabIndex={activeTabId === tab.id ? 0 : -1}
               onClick={() => setActiveTabId(tab.id)}
+              onKeyDown={(event) => handleTabKeyDown(event, index)}
+              ref={(element) => {
+                tabRefs.current[index] = element;
+              }}
             >
               {tab.label}
             </button>
           ))}
         </div>
 
-        <form className="login-panel__form" onSubmit={handleSubmit}>
+        <form
+          className="login-panel__form"
+          id={`login-panel-panel-${activeTabId}`}
+          role="tabpanel"
+          aria-labelledby={`login-panel-tab-${activeTabId}`}
+          onSubmit={handleSubmit}
+        >
           {isMemberLogin ? (
             <>
               <input

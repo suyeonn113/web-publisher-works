@@ -14,9 +14,9 @@ const DAMAGE_CONTACT_ROWS = [
   ['국제선 파손 문의', 'rsbagintl@flyairseoul.com'],
 ];
 
-export default function LostBaggagePanel() {
+export default function LostBaggagePanel(props) {
   return (
-    <article className="baggage-guide-panel" role="tabpanel">
+    <article className="baggage-guide-panel" role="tabpanel" {...props}>
       <BaggageIntro title="수하물 분실 및 보상" description="수하물 분실·지연·파손 발생 시 신고 방법과 항공사의 배상 책임을 안내합니다." />
 
       <section>
@@ -27,7 +27,7 @@ export default function LostBaggagePanel() {
           <li>출발지 또는 도착지에서 습득한 물품은 해당 공항 유실물 센터로 인계됩니다.</li>
           <li>여권, 신분증, 현금 등 개인 신상과 관련된 물품이나 귀중품은 공항 경찰대 또는 세관으로 인계됩니다.</li>
         </ul>
-        <a className="baggage-guide-link" href="#">기내 물품 분실 신고 양식</a>
+        <button className="baggage-guide-link" type="button">기내 물품 분실 신고 양식</button>
         <BaggageTable
           caption="유실물 문의처"
           columns={['구분', '연락처']}
@@ -43,7 +43,7 @@ export default function LostBaggagePanel() {
           <li>수하물 지연 또는 분실은 수하물을 위탁한 날부터 21일 이내에 항공사에 서면으로 신고해야 합니다.</li>
           <li>사전에 고가품을 신고하고 종가 요금을 지불하지 않은 경우 배상은 관련 국제협약과 운송약관의 책임 한도 내에서 이루어집니다.</li>
         </ul>
-        <a className="baggage-guide-link" href="#">수하물 파손 접수 양식</a>
+        <button className="baggage-guide-link" type="button">수하물 파손 접수 양식</button>
         <BaggageTable
           caption="파손 수하물 문의처"
           columns={['구분', '연락처']}

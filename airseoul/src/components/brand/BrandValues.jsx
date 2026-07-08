@@ -45,8 +45,8 @@ export default function BrandValues() {
             <li key={value.id}>
               <div className="brand-values__icon">
                 <ValueIcon size={30} />
+                <small>{value.number}</small>
               </div>
-              <small>{value.number}</small>
               <h3>{value.title}</h3>
               <p>{value.description}</p>
               <div className="brand-values__tags">

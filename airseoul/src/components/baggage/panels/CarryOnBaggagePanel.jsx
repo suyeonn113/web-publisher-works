@@ -1,9 +1,9 @@
 import BaggageIntro from '../BaggageIntro';
 import { BAGGAGE_IMAGE_PATH } from '../baggageGuideData';
 
-export default function CarryOnBaggagePanel() {
+export default function CarryOnBaggagePanel(props) {
   return (
-    <article className="baggage-guide-panel" role="tabpanel">
+    <article className="baggage-guide-panel" role="tabpanel" {...props}>
       <BaggageIntro
         title="기내 휴대 수하물"
         description="고객이 직접 기내에 휴대하여 전적으로 보관하고 책임지는 수하물입니다."

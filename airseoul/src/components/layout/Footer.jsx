@@ -1,5 +1,6 @@
 import { footerCompanyInfo, footerLinkGroups } from '../../data/footerLinks';
-import AppLink, { PLACEHOLDER_LINK } from '../common/AppLink';
+import { PLACEHOLDER_LINK } from '../../utils/link';
+import AppLink from '../common/AppLink';
 import Logo from '../common/Logo';
 import FacebookIcon from '../icons/FacebookIcon';
 import InstagramIcon from '../icons/InstagramIcon';
@@ -15,7 +16,7 @@ const footerSocialLinks = [
 
 function Footer() {
   return (
-    <footer className="site-footer">
+    <footer className="site-footer" id="site-footer" tabIndex={-1}>
       <div className="site-footer__inner">
         <div className="site-footer__main">
           <div className="site-footer__brand">

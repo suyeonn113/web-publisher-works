@@ -14,5 +14,10 @@ const PANELS = {
 
 export default function BaggageTabPanel({ activeTab }) {
   const ActivePanel = PANELS[activeTab];
-  return <ActivePanel />;
+  return (
+    <ActivePanel
+      id={`baggage-panel-${activeTab}`}
+      aria-labelledby={`baggage-tab-${activeTab}`}
+    />
+  );
 }

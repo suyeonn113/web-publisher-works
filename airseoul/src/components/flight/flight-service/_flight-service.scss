@@ -98,10 +98,24 @@
     @include transition(all, fast, standard);
 
     gap: get-space(xs);
+    border-radius: 0;
     color: var(--color-text-primary);
+
+    &:first-child {
+      border-top-left-radius: var(--radius-md);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--radius-md);
+    }
 
     &:hover {
       background: rgba(0, 0, 0, 0.02);
+    }
+
+    &:focus-visible {
+      outline: 0;
+      box-shadow: inset 0 0 0 var(--focus-ring-width) var(--color-focus-ring);
     }
 
     &.is-active {
@@ -112,6 +126,12 @@
       color: var(--color-point-primary);
       background: var(--color-bg-main);
       box-shadow: inset 0 -3px 0 var(--color-point-primary);
+    }
+
+    &.is-active:focus-visible {
+      box-shadow:
+        inset 0 0 0 var(--focus-ring-width) var(--color-focus-ring),
+        inset 0 -3px 0 var(--color-point-primary);
     }
   }
 }
@@ -161,8 +181,24 @@
           max-width: 100%;
         }
 
+        &:first-child {
+          border-top-left-radius: 0;
+          border-top-right-radius: var(--radius-md);
+        }
+
+        &:last-child {
+          border-top-right-radius: 0;
+          border-bottom-right-radius: var(--radius-md);
+        }
+
         &.is-active {
           box-shadow: inset 2px 0 0 var(--color-point-primary);
+        }
+
+        &.is-active:focus-visible {
+          box-shadow:
+            inset 0 0 0 var(--focus-ring-width) var(--color-focus-ring),
+            inset 2px 0 0 var(--color-point-primary);
         }
       }
     }

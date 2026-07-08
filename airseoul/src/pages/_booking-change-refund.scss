@@ -16,7 +16,7 @@
 }
 
 .booking-guide-page__header {
-  margin-bottom: calc(#{get-space(xl)} + #{get-space(xl)});
+  margin-bottom: get-space(xxl);
 
   h1 {
     @include text-size(heading-md);
@@ -37,6 +37,7 @@
   button {
     @include text-size(body-lg);
     @include transition(all, fast, standard);
+    @include clipped-focus-ring;
 
     min-height: 64px;
     padding: get-space(md);
@@ -49,8 +50,8 @@
 
     &:hover,
     &:focus-visible {
-      color: var(--color-point-primary);
-      background: var(--color-bg-mint-soft);
+      color: var(--color-text-interactive-hover);
+      background: var(--color-bg-interactive-hover);
     }
 
     &.is-active {
@@ -198,7 +199,7 @@
 
     &:hover,
     &:focus-visible {
-      color: var(--color-point-primary);
+      color: var(--color-text-interactive-hover);
     }
 
     svg {

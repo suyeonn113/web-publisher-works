@@ -1,3 +1,6 @@
+@use './functions' as *;
+@use './mixins' as *;
+
 /* ================================
    RESET
 ================================ */
@@ -149,4 +152,47 @@ i {
   white-space: nowrap;
 
   border: 0;
+}
+
+.accessibility-quick-menu {
+  position: fixed;
+  top: get-space(sm);
+  left: get-space(sm);
+  z-index: get-z(toast);
+  display: flex;
+  gap: get-space(xs);
+  pointer-events: none;
+
+  a {
+    @include text-size(caption);
+
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    border-radius: var(--radius-sm);
+    color: var(--color-white);
+    background: var(--color-text-primary);
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  a:focus,
+  a:focus-visible {
+    position: static;
+    overflow: visible;
+    clip: auto;
+    width: auto;
+    height: auto;
+    padding: get-space(sm) get-space(md);
+    outline: var(--focus-ring-width) solid var(--color-focus-ring);
+    outline-offset: 2px;
+    pointer-events: auto;
+  }
+
+  &:focus-within {
+    pointer-events: auto;
+  }
 }

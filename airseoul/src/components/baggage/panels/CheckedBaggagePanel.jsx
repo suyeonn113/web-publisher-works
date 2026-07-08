@@ -17,9 +17,9 @@ const PRIORITY_ROWS = [
   ['국제선', '5,000원 · JPY 500 · CNY 35 · USD 5 / 1개'],
 ];
 
-export default function CheckedBaggagePanel() {
+export default function CheckedBaggagePanel(props) {
   return (
-    <article className="baggage-guide-panel" role="tabpanel">
+    <article className="baggage-guide-panel" role="tabpanel" {...props}>
       <BaggageIntro title="위탁 수하물" description="항공사에 운송을 의뢰하고 수하물표를 발급받아 맡기는 수하물입니다." />
 
       <section className="baggage-guide-highlight">

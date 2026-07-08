@@ -24,6 +24,8 @@
 
   button {
     @include text-size(body-lg);
+    @include transition(all, fast, standard);
+    @include clipped-focus-ring;
 
     min-height: 56px;
     padding: get-space(md);
@@ -31,6 +33,11 @@
     white-space: nowrap;
   }
   button + button { border-left: var(--line-thin) solid var(--color-border-primary); }
+  button:hover,
+  button:focus-visible {
+    color: var(--color-text-interactive-hover);
+    background: var(--color-bg-interactive-hover);
+  }
   button.is-active { color: var(--color-text-inverse); background: var(--color-point-primary); }
 }
 
@@ -47,7 +54,9 @@
 }
 
 .information-subtabs { display: flex; gap: get-space(sm); }
-.information-subtabs button { padding: get-space(sm) get-space(md); border: var(--line-thin) solid var(--color-border-primary); border-radius: var(--radius-full); }
+.information-subtabs button { @include transition(all, fast, standard); @include clipped-focus-ring; padding: get-space(sm) get-space(md); border: var(--line-thin) solid var(--color-border-primary); border-radius: var(--radius-full); }
+.information-subtabs button:hover,
+.information-subtabs button:focus-visible { color: var(--color-text-interactive-hover); background: var(--color-bg-interactive-hover); border-color: var(--color-border-interactive-hover); }
 .information-subtabs button.is-active { color: var(--color-text-inverse); background: var(--color-point-primary); }
 
 .information-table { border-top: var(--line-thin) solid var(--color-border-primary); }

@@ -5,7 +5,6 @@ import ArrowRightLeftIcon from '../../icons/ArrowRightLeftIcon';
 function FlightRouteSelector({
 
   className = 'flight-route-selector',
-  variant = 'default',
   fromAirport,
   fromCode,
   fromLabel = '출발지',
@@ -24,7 +23,6 @@ function FlightRouteSelector({
   toPlaceholderCode = 'To',
 }) {
   const canSwapRoute = Boolean(fromAirport && toAirport);
-  const isPlaceholderVariant = variant === 'placeholder';
 
   const resolvedFromCode = fromCode ?? fromAirport?.code;
   const resolvedToCode = toCode ?? toAirport?.code;

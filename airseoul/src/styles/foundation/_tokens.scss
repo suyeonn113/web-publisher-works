@@ -51,7 +51,7 @@
   --color-bg-backdrop: rgb(var(--color-black-rgb) / 0.42);
 
   --color-bg-mint: var(--color-mint-light-2);
-  --color-bg-mint-soft: rgba(196, 228, 201, 0.35);
+  --color-bg-mint-soft: #f5f8f7;
   --color-bg-green: var(--color-green-2);
 
   /* Border */
@@ -80,6 +80,9 @@
 
   --color-bg-hover: #2a2a2a;
   --color-text-hover: #f7f7f7;
+  --color-bg-interactive-hover: #f6f8f8;
+  --color-border-interactive-hover: #cbd3d2;
+  --color-text-interactive-hover: #005f56;
 
   /* =========================
      TYPOGRAPHY

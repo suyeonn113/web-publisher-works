@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import ClockIcon from '../../icons/ClockIcon';
 import ChevronRightIcon from '../../icons/ChevronRightIcon';
 import GlobeIcon from '../../icons/GlobeIcon';
@@ -11,6 +11,7 @@ import SelfBagDropGuide from './guides/SelfBagDropGuide';
 import CheckInProcessFlow from './guides/CheckInProcessFlow';
 import BoardingPassSamples from './guides/BoardingPassSamples';
 import { CHECK_IN_TABS } from './guides/checkInGuideData';
+import { getRovingTabNextIndex } from '../../../utils/rovingTab';
 
 const ONLINE_CHECK_IN_IMAGE_PATH = `${import.meta.env.BASE_URL}images/check-in/online`;
 
@@ -73,29 +74,51 @@ const RESTRICTED_GROUPS = [
 
 function FlightCheckInDetailContent() {
   const [activeTab, setActiveTab] = useState('online');
+  const tabRefs = useRef([]);
+
+  const handleTabKeyDown = (event, currentIndex) => {
+    const nextIndex = getRovingTabNextIndex(event, currentIndex, CHECK_IN_TABS.length);
+    if (nextIndex === null) return;
+
+    event.preventDefault();
+    setActiveTab(CHECK_IN_TABS[nextIndex].id);
+    tabRefs.current[nextIndex]?.focus();
+  };
 
   return (
     <div className="flight-check-in-detail">
       <div className="information-tabs" role="tablist" aria-label="체크인 안내">
-        {CHECK_IN_TABS.map((tab) => (
+        {CHECK_IN_TABS.map((tab, index) => (
           <button
             type="button"
             role="tab"
+            id={`check-in-tab-${tab.id}`}
+            aria-controls={`check-in-panel-${tab.id}`}
             aria-selected={activeTab === tab.id}
+            tabIndex={activeTab === tab.id ? 0 : -1}
             className={activeTab === tab.id ? 'is-active' : ''}
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
+            onKeyDown={(event) => handleTabKeyDown(event, index)}
+            ref={(element) => {
+              tabRefs.current[index] = element;
+            }}
           >
             {tab.label}
           </button>
         ))}
       </div>
 
-      {activeTab === 'airport' && <AirportCheckInGuide />}
-      {activeTab === 'city' && <CityTerminalGuide />}
-      {activeTab === 'bag-drop' && <SelfBagDropGuide />}
-      {activeTab === 'online' && (
-        <>
+      <div
+        id={`check-in-panel-${activeTab}`}
+        role="tabpanel"
+        aria-labelledby={`check-in-tab-${activeTab}`}
+      >
+        {activeTab === 'airport' && <AirportCheckInGuide />}
+        {activeTab === 'city' && <CityTerminalGuide />}
+        {activeTab === 'bag-drop' && <SelfBagDropGuide />}
+        {activeTab === 'online' && (
+          <>
           <div className="flight-check-in-detail__lookup">
             <div className="flight-check-in-detail__intro">
               <h2>온라인 체크인</h2>
@@ -203,8 +226,9 @@ function FlightCheckInDetailContent() {
               </div>
             </div>
           </section>
-        </>
-      )}
+          </>
+        )}
+      </div>
     </div>
   );
 }

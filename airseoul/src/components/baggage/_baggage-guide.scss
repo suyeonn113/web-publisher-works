@@ -11,6 +11,7 @@
   button {
     @include text-size(body-lg);
     @include transition(all, fast, standard);
+    @include clipped-focus-ring;
 
     min-height: 64px;
     padding: get-space(md);
@@ -23,8 +24,8 @@
 
     &:hover,
     &:focus-visible {
-      color: var(--color-point-primary);
-      background: var(--color-bg-mint-soft);
+      color: var(--color-text-interactive-hover);
+      background: var(--color-bg-interactive-hover);
     }
 
     &.is-active {

@@ -1,10 +1,5 @@
 import { Link } from 'react-router-dom';
-
-export const PLACEHOLDER_LINK = '#';
-
-export function isPlaceholderLink(to) {
-  return to === PLACEHOLDER_LINK;
-}
+import { isPlaceholderLink } from '../../utils/link';
 
 export default function AppLink({ onClick, to, ...props }) {
   const handleClick = (event) => {

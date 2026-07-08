@@ -16,6 +16,7 @@ export default function Home({ defaultSearchParams }) {
 
   return (
     <main className="home">
+      <h1 className="sr-only">에어서울 홈</h1>
       <HeroSection />
       <FlightBookingSection defaultValues={defaultSearchParams} onSearch={handleSearch} />
       <ServiceShortcutSection />

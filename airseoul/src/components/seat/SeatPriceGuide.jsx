@@ -1,12 +1,23 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { getRovingTabNextIndex } from '../../utils/rovingTab';
 import { ADVANCE_SEAT_PRICES } from './seatGuideData';
 
 const PRICE_COLUMNS = ['노선', 'MINT 1열·비상구', 'MINT 2~3열', 'A구역', 'B구역'];
 
 export default function SeatPriceGuide() {
   const [activeRoute, setActiveRoute] = useState(ADVANCE_SEAT_PRICES[0][0]);
+  const tabRefs = useRef([]);
   const activePrice = ADVANCE_SEAT_PRICES.find((row) => row[0] === activeRoute);
   const activeRouteIndex = ADVANCE_SEAT_PRICES.findIndex((row) => row[0] === activeRoute);
+
+  const handleTabKeyDown = (event, currentIndex) => {
+    const nextIndex = getRovingTabNextIndex(event, currentIndex, ADVANCE_SEAT_PRICES.length);
+    if (nextIndex === null) return;
+
+    event.preventDefault();
+    setActiveRoute(ADVANCE_SEAT_PRICES[nextIndex][0]);
+    tabRefs.current[nextIndex]?.focus();
+  };
 
   return (
     <section className="seat-guide-panel">
@@ -45,9 +56,14 @@ export default function SeatPriceGuide() {
               id={`seat-price-tab-${index}`}
               aria-controls="seat-price-mobile-panel"
               aria-selected={activeRoute === row[0]}
+              tabIndex={activeRoute === row[0] ? 0 : -1}
               className={activeRoute === row[0] ? 'is-active' : ''}
               key={row[0]}
               onClick={() => setActiveRoute(row[0])}
+              onKeyDown={(event) => handleTabKeyDown(event, index)}
+              ref={(element) => {
+                tabRefs.current[index] = element;
+              }}
             >
               {row[0]}
             </button>

@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import AppLink, { PLACEHOLDER_LINK } from '../../common/AppLink';
 import { ROUTES } from '../../../constants/routes';
+import { PLACEHOLDER_LINK } from '../../../utils/link';
 import { createOneWaySearchParams } from '../../../utils/searchParams';
+import AppLink from '../../common/AppLink';
 
 function formatPrice(price) {
   if (typeof price !== 'number') return '';

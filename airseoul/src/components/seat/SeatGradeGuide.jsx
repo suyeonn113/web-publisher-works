@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { getRovingTabNextIndex } from '../../utils/rovingTab';
 import { SEAT_GRADE_GROUPS } from './seatGuideData';
 
 function ZoneTitle({ zone }) {
@@ -25,7 +26,17 @@ function SeatGradeDetails({ group }) {
 
 export default function SeatGradeGuide() {
   const [activeGroupId, setActiveGroupId] = useState(SEAT_GRADE_GROUPS[0].id);
+  const tabRefs = useRef([]);
   const activeGroup = SEAT_GRADE_GROUPS.find((group) => group.id === activeGroupId);
+
+  const handleTabKeyDown = (event, currentIndex) => {
+    const nextIndex = getRovingTabNextIndex(event, currentIndex, SEAT_GRADE_GROUPS.length);
+    if (nextIndex === null) return;
+
+    event.preventDefault();
+    setActiveGroupId(SEAT_GRADE_GROUPS[nextIndex].id);
+    tabRefs.current[nextIndex]?.focus();
+  };
 
   return (
     <section className="seat-guide-panel seat-grade-guide">
@@ -76,16 +87,21 @@ export default function SeatGradeGuide() {
 
       <div className="seat-grade-mobile">
         <div className="seat-grade-mobile__tabs" role="tablist" aria-label="항공기 좌석 수 선택">
-          {SEAT_GRADE_GROUPS.map((group) => (
+          {SEAT_GRADE_GROUPS.map((group, index) => (
             <button
               type="button"
               role="tab"
               id={`seat-grade-tab-${group.id}`}
               aria-controls="seat-grade-mobile-panel"
               aria-selected={activeGroupId === group.id}
+              tabIndex={activeGroupId === group.id ? 0 : -1}
               className={activeGroupId === group.id ? 'is-active' : ''}
               key={group.id}
               onClick={() => setActiveGroupId(group.id)}
+              onKeyDown={(event) => handleTabKeyDown(event, index)}
+              ref={(element) => {
+                tabRefs.current[index] = element;
+              }}
             >
               {group.aircraft}
             </button>

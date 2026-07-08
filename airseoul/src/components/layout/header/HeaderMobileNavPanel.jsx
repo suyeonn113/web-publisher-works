@@ -1,4 +1,5 @@
-import AppLink, { isPlaceholderLink } from '../../common/AppLink';
+import { isPlaceholderLink } from '../../../utils/link';
+import AppLink from '../../common/AppLink';
 
 export default function HeaderMobileNavPanel({ menus, onNavigate, sectionRefs }) {
   return (

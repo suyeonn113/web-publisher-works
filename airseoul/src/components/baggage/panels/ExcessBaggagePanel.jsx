@@ -23,9 +23,9 @@ const SPORTS_ROWS = [
   ['그 외 스포츠 장비(골프채 포함)', '별도 취급 수수료 없음 · 무료 허용량 초과 시 초과 요금 부과'],
 ];
 
-export default function ExcessBaggagePanel() {
+export default function ExcessBaggagePanel(props) {
   return (
-    <article className="baggage-guide-panel" role="tabpanel">
+    <article className="baggage-guide-panel" role="tabpanel" {...props}>
       <BaggageIntro title="초과 수하물" description="무료 허용량을 초과하면 노선, 구매 시점, 무게와 개수에 따라 요금이 부과됩니다." />
 
       <PrepaidBaggageGuide />

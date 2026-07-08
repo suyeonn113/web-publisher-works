@@ -15,7 +15,7 @@
 }
 
 .flight-service-detail__header {
-  margin-bottom: get-space(xl);
+  margin-bottom: get-space(lg);
 
   h1 {
     @include text-size(heading-md);
@@ -32,7 +32,7 @@
   box-shadow: none;
 
   .flight-service-shell__body {
-    padding-top: get-space(xl);
+    padding-top: get-space(lg);
   }
 
   .flight-service-panel {

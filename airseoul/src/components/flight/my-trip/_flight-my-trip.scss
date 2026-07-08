@@ -17,6 +17,7 @@
   button {
     @include text-size(body-lg);
     @include transition(all, fast, standard);
+    @include clipped-focus-ring;
 
     min-height: 64px;
     padding: get-space(md);
@@ -30,8 +31,8 @@
 
     &:hover,
     &:focus-visible {
-      color: var(--color-point-primary);
-      background: var(--color-bg-mint-soft);
+      color: var(--color-text-interactive-hover);
+      background: var(--color-bg-interactive-hover);
     }
 
     &.is-active {
@@ -100,6 +101,10 @@
 @include respond-down(mobile-sm) {
   .flight-my-trip-detail {
     gap: get-space(lg);
+  }
+
+  .flight-my-trip-detail__body {
+    gap: get-space(md);
   }
 
   .flight-my-trip-detail__tabs {

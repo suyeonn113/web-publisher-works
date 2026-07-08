@@ -1357,7 +1357,12 @@ const flightRecords = [
   ...TOKYO_EXTRA_FLIGHTS.map(createTokyoFlight),
 ];
 
-export const flightRows = flightRecords.map(({ fares, ...flight }) => flight);
+export const flightRows = flightRecords.map((flight) => {
+  const flightRow = { ...flight };
+  delete flightRow.fares;
+
+  return flightRow;
+});
 
 export const flightFareRows = flightRecords.flatMap((flight) => {
   const { currency, ...fares } = flight.fares;

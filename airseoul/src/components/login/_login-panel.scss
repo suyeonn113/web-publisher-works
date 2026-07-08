@@ -80,6 +80,7 @@
   @include text-size(body);
   @include flex-center;
   @include button-hover-subtle;
+  @include clipped-focus-ring;
 
   min-height: 58px;
   padding: get-space(md) get-space(sm);

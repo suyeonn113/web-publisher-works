@@ -27,7 +27,7 @@ export const mainNav = [
       { id: 'baggage', label: '수하물', href: ROUTES.travel.baggage },
       { id: 'meal', label: '기내식', href: ROUTES.travel.meal },
       { id: 'insurance', label: '여행 보험', href: ROUTES.travel.insurance },
-      { id: 'airport-service', label: '공항 서비스', href: '#' },
+      { id: 'airport-service', label: '공항 서비스', href: ROUTES.travel.airportService },
       { id: 'travel-support', label: '여행 지원 안내', href: ROUTES.travel.travelSupport },
     ],
   },

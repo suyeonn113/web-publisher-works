@@ -8,9 +8,9 @@ const BATTERY_ROWS = [
   ['160Wh 초과', '운송 불가', '운송 불가', '운송 불가', '운송 불가', '운송 불가'],
 ];
 
-export default function RestrictedBaggagePanel() {
+export default function RestrictedBaggagePanel(props) {
   return (
-    <article className="baggage-guide-panel" role="tabpanel">
+    <article className="baggage-guide-panel" role="tabpanel" {...props}>
       <BaggageIntro title="운송 제한 물품" description="항공기와 승객의 안전을 위해 일부 물품은 객실 반입 또는 위탁이 제한됩니다." />
 
       <section className="baggage-guide-warning">

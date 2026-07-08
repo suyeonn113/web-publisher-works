@@ -160,8 +160,8 @@
 
     &:hover,
     &:focus-visible {
-      color: var(--color-point-primary);
-      background: var(--color-bg-sub);
+      color: var(--color-text-interactive-hover);
+      background: var(--color-bg-interactive-hover);
     }
   }
 }

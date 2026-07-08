@@ -21,7 +21,12 @@ export default function SeatGuide() {
         </header>
 
         <SeatGuideTabs activeTab={activeTab} onChange={setActiveTab} tabs={SEAT_TABS} />
-        <div className="seat-guide-page__content" role="tabpanel">
+        <div
+          className="seat-guide-page__content"
+          id={`seat-guide-panel-${activeTab}`}
+          role="tabpanel"
+          aria-labelledby={`seat-guide-tab-${activeTab}`}
+        >
           {activeTab === 'guide' && <AdvanceSeatGuide />}
           {activeTab === 'adjacent' && <AdjacentSeatGuide />}
         </div>

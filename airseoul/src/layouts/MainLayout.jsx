@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
+import AccessibilityQuickMenu from '../components/common/AccessibilityQuickMenu';
 import Footer from '../components/layout/Footer';
 import Header from '../components/layout/header/Header';
 import { ROUTES } from '../constants/routes';
@@ -11,7 +12,10 @@ function MainLayout() {
   useEffect(() => {
     if (location.hash) {
       const frameId = window.requestAnimationFrame(() => {
-        document.querySelector(location.hash)?.scrollIntoView({ block: 'start' });
+        const target = document.querySelector(location.hash);
+
+        target?.scrollIntoView({ block: 'start' });
+        target?.focus?.({ preventScroll: true });
       });
 
       return () => window.cancelAnimationFrame(frameId);
@@ -23,8 +27,11 @@ function MainLayout() {
 
   return (
     <>
+      <AccessibilityQuickMenu />
       <Header hasHero={hasHero} />
-      <Outlet />
+      <div id="main-content" tabIndex={-1}>
+        <Outlet />
+      </div>
       <Footer />
     </>
   );
