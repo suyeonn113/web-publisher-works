@@ -119,26 +119,26 @@ $pageCss = 'mypage.css';
             </section>
 
             <nav class="mypage-menu" aria-label="마이페이지 메뉴">
-                <a class="mypage-menu__link" href="#">
+                <a class="mypage-menu__link" href="<?= BASE_URL ?>/pages/orders.php">
                     <?= mypage_icon('order') ?>
                     <span>주문 조회</span>
                 </a>
-                <a class="mypage-menu__link" href="#">
+                <button class="mypage-menu__link" type="button" data-global-placeholder data-placeholder-message="게시글 관리 기능은 준비 중입니다.">
                     <?= mypage_icon('post') ?>
                     <span>내가 쓴 게시글</span>
-                </a>
-                <a class="mypage-menu__link" href="#">
+                </button>
+                <button class="mypage-menu__link" type="button" data-global-placeholder data-placeholder-message="쿠폰 기능은 준비 중입니다.">
                     <?= mypage_icon('coupon') ?>
                     <span>쿠폰</span>
-                </a>
-                <a class="mypage-menu__link" href="#">
+                </button>
+                <button class="mypage-menu__link" type="button" data-global-placeholder data-placeholder-message="적립금 기능은 준비 중입니다.">
                     <?= mypage_icon('point') ?>
                     <span>적립금</span>
-                </a>
-                <a class="mypage-menu__link" href="#">
+                </button>
+                <button class="mypage-menu__link" type="button" data-global-placeholder data-placeholder-message="배송 주소록 기능은 준비 중입니다.">
                     <?= mypage_icon('address') ?>
                     <span>배송 주소록</span>
-                </a>
+                </button>
                 <a class="mypage-menu__link" href="<?= BASE_URL ?>/pages/member_edit.php">
                     <?= mypage_icon('account') ?>
                     <span>회원정보</span>

@@ -46,7 +46,9 @@
 }
 
 .review__card--compact .review__link{
-    display: block; 
+    display: block;
+    width: 100%;
+    text-align: inherit;
 }
 
 .review__link {

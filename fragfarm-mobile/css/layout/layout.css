@@ -7,6 +7,8 @@ body {
 
 :root {
     --shell-width: 480px;
+    --page-gutter: 1rem;
+    --section-space: 4rem;
 }
 
 body {

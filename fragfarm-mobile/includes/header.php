@@ -15,7 +15,11 @@ $loginLabel = $isLoggedIn ? '마이페이지' : '로그인';
 <!-- Header -->
 <header>
     <!-- Logo -->
-    <h1 class="logo font-brand"><a href="<?= BASE_URL ?>/index.php">FRAGFARM</a></h1>
+    <h1 class="logo">
+        <a href="<?= BASE_URL ?>/index.php" aria-label="FRAGFARM 홈">
+            <img src="<?= BASE_URL ?>/assets/images/logo-fragfarm.png" alt="FRAGFARM">
+        </a>
+    </h1>
     <!-- Main Menu -->
     <button id="header-menu" class="header__menu" 
             aria-label="메뉴 열기" aria-expanded="false">
@@ -44,7 +48,7 @@ $loginLabel = $isLoggedIn ? '마이페이지' : '로그인';
                 <a class="gnb__link" href="<?= BASE_URL ?>/pages/product.php">SHOP</a>
             </li>
             <li class="gnb__item">
-                <a class="gnb__link" href="#">review</a>
+                <a class="gnb__link" href="<?= BASE_URL ?>/pages/review.php">review</a>
             </li>
             <li class="gnb__item gnb__item--has-sub">
                 <button class="gnb__toggle" 
@@ -56,7 +60,7 @@ $loginLabel = $isLoggedIn ? '마이페이지' : '로그인';
                 </button>
                 <ul id="submenu-season" class="gnb__sublist" hidden>
                     <li class="gnb__subitem">
-                        <a class="gnb__link gnb__sublink" href="#">
+                        <a class="gnb__link gnb__sublink" href="<?= BASE_URL ?>/pages/lookbook.php">
                             2025 S/S Sentimental Rose
                         </a>
                     </li>
@@ -72,7 +76,7 @@ $loginLabel = $isLoggedIn ? '마이페이지' : '로그인';
                 </button>
                 <ul id="submenu-cs" class="gnb__sublist" hidden>
                     <li class="gnb__subitem">
-                        <a class="gnb__link gnb__sublink" href="#">
+                        <a class="gnb__link gnb__sublink" href="<?= BASE_URL ?>/pages/qna.php">
                             QnA
                         </a>
                     </li>
@@ -132,7 +136,7 @@ $loginLabel = $isLoggedIn ? '마이페이지' : '로그인';
                 </g>
             </svg>
         </a>
-        <a class="cart" aria-label="장바구니" href="#" >
+        <a class="cart" href="<?= BASE_URL ?>/pages/cart.php" aria-label="장바구니">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                 <g transform="translate(0 4)">
                     <path d="M19.1433 0.5H15.5719L14.329 12.8571C14.2773 13.1978 14.1043 13.5083 13.8418 13.7314C13.5793 13.9546 13.2449 14.0753 12.9004 14.0714H3.90043C3.5889 14.0877 3.28062 14.0015 3.02266 13.8261C2.76471 13.6507 2.57125 13.3957 2.47186 13.1L0.571856 7.38571C0.501015 7.17088 0.482206 6.94229 0.516977 6.71876C0.551747 6.49524 0.639104 6.28317 0.771856 6.1C0.910153 5.90526 1.09507 5.7483 1.3097 5.64348C1.52433 5.53866 1.76181 5.48933 2.00043 5.5H15.0719" 

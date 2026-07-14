@@ -1,21 +1,48 @@
 @charset "utf-8";
-[hidden] {
-    display: none !important;
+
+.search-result__header {
+    padding-inline: var(--page-gutter);
+}
+
+.search-result__form {
+    margin-bottom: 1.25rem;
+}
+
+.search-result__summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+
+    padding: .875rem 0 1rem;
+
+    border-top: 1px solid var(--color-line);
+    border-bottom: 1px solid var(--color-line);
 }
 
 .search-result__text,
 .search-result__count {
     font-size: .875rem;
     line-height: 1.5;
-    padding-inline: 1rem;
+}
+
+.search-result__text strong {
+    font-weight: 700;
 }
 
 .search-result__count {
-    margin-top: .25rem;
+    flex: 0 0 auto;
+    padding: .25rem .625rem;
+
+    border: 1px solid var(--color-line);
+    border-radius: 999px;
+
+    font-size: .75rem;
+    color: rgb(14 14 14 / 72%);
 }
 
 .search-empty {
-    padding: 4rem 1rem 6rem;
+    padding: 4rem var(--page-gutter) 6rem;
     text-align: center;
 }
 
@@ -30,77 +57,104 @@
     color: rgb(14 14 14 / 70%);
 }
 
-
-
-.catalog__list {
-    display: grid;
-    grid-template-columns: 1fr;
-    justify-items: start;
-    gap: .25rem;
-
-    padding-inline: 1rem;
-}
-
-.catalog__list :is(
-    ol, 
-    .product__price,
-    .product__rating,
-    .product__actions-icon
-    ) {
-    display: none;
-}
-
-/* 문제 찾아보기 */
-.product__badge {
-    display: none!important;
-}
-
-.product__link {
-    grid-template-columns: auto 1fr;
-    text-align: start;
-}
-
-.product__gallery-item {
+.search-empty__links {
+    display: flex;
     justify-content: center;
-    height: 12rem;
+    gap: .5rem;
+
+    margin-top: 1.25rem;
 }
 
-.product__gallery-item:not(:first-child) {
-    display: none;
-}
-
-.product__gallery-image {
-    width: auto;
-    height: auto;
-}
-
-.product__name {
-    font-size: 0.875rem;
-}
-
-.product__meta {
+.search-empty__links a {
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
-}
 
-.button--more {
-    display: block;
-    margin: 1.5rem auto 2.5rem;
-
-    padding: 0.75rem 1.5rem;
-
-    font-size: 0.875rem;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-
-    color: var(--color-text-default);
-    background: transparent;
+    min-height: 2rem;
+    padding: .25rem .875rem;
 
     border: 1px solid var(--color-line);
     border-radius: 999px;
 
-    transition: all 0.3s ease;
+    font-size: .8125rem;
 }
 
-.search {
-    padding-inline: 1rem;
+.search-result__list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: .25rem;
+
+    padding-inline: var(--page-gutter);
+}
+
+.search-card__link {
+    display: grid;
+    grid-template-columns: 6.5rem minmax(0, 1fr);
+    gap: .875rem;
+    align-items: center;
+
+    min-height: 8rem;
+    padding: .75rem;
+
+    border: 1px solid var(--color-line);
+}
+
+.search-card__thumb {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+
+    background: #f8f7f5;
+}
+
+.search-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.search-card__body {
+    display: grid;
+    gap: .375rem;
+    min-width: 0;
+}
+
+.search-card__meta {
+    font-size: .6875rem;
+    letter-spacing: .04em;
+    color: #9b8d7b;
+}
+
+.search-card__name {
+    overflow: hidden;
+
+    font-size: .9375rem;
+    line-height: 1.35;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.search-card__price {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: .375rem;
+
+    font-size: .875rem;
+}
+
+.search-card__discount {
+    color: #F25C74;
+    font-weight: 700;
+}
+
+.search-card__original {
+    color: rgb(14 14 14 / 45%);
+    text-decoration: line-through;
+}
+
+.search-card__sale {
+    font-weight: 700;
 }

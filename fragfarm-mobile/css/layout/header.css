@@ -21,7 +21,7 @@ main {
 }
 
 header.is-menu-open {
-    background: rgba(255,255,255,0.92);
+    background: rgba(255,255,255,0.96);
 }
 
 /* Logo */
@@ -30,13 +30,17 @@ header.is-menu-open {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-
-    font-size: clamp(0.5rem, 1.5rem, 1.75rem);
-
 }
 
 .logo a {
+    display: block;
     padding: 0.25rem;
+}
+
+.logo img {
+    display: block;
+    width: auto;
+    height: 1.75rem;
 }
 
 /* Menu */
@@ -93,6 +97,11 @@ header.is-menu-open {
     flex: 0 0 auto;
     
     padding: 0.5rem;
+}
+
+.gnb__link[type="button"] {
+    width: 100%;
+    text-align: inherit;
 }
 
 .cart__badge {

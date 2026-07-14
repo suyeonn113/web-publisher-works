@@ -13,7 +13,7 @@
 }
 
 .join__note {
-    padding: 1rem 1rem 0 1rem;
+    padding: 1rem var(--page-gutter) 0;
 
     font-size: .75rem;
     font-weight: 500;
@@ -21,7 +21,7 @@
 
 /* Account */
 form {
-    padding: 0 1rem 2.5rem 1rem;
+    padding: 0 var(--page-gutter) 2.5rem;
 }
 
 .form-group, .address-group{
@@ -128,7 +128,9 @@ form {
     padding: 1rem;
 }
 
-.agreement__scroll h3, h4, p {
+.agreement__scroll h3,
+.agreement__scroll h4,
+.agreement__scroll p {
     font-size: .625rem;
 }
 

@@ -75,14 +75,14 @@ $pageCss = 'join.css';
                         placeholder="실명 입력"
                         required>
                 </div>
-                <!-- Adress -->
+                <!-- Address -->
                 <fieldset class="address">
                     <legend class="visually-hidden">주소 정보</legend>
 
                     <p class="field-title is-required">ADDRESS</p>  
                     <div class="address-group">
                     <div class="address-post">
-                        <label class="visually-hidden" for="postcode"></label>
+                        <label class="visually-hidden" for="postcode">우편번호</label>
                         <input 
                             id="postcode"
                             name="postcode"
@@ -138,7 +138,7 @@ $pageCss = 'join.css';
                         name="email"
                         type="email"
                         autocomplete="email"
-                        placeholder="farfram@fragfram.com"
+                        placeholder="fragfarm@fragfarm.com"
                         required
                         >
                 </div>

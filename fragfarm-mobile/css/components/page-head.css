@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 .page-title {
-    padding: 1.5rem 1rem;
+    padding: 1.75rem var(--page-gutter) 1.25rem;
 
     font-size: 1rem;
     font-weight: 400;

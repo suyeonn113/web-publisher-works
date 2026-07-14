@@ -44,7 +44,7 @@ html {
   scrollbar-width: none;     /* Firefox */
 }
 
-.html::-webkit-scrollbar {
+html::-webkit-scrollbar {
     display: none;
 }
 
@@ -110,4 +110,28 @@ body.no-scroll {
 
 .popup {
   position: fixed;
+}
+
+.global-toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(1rem + env(safe-area-inset-bottom));
+  z-index: 20000;
+
+  width: calc(100% - 2rem);
+  max-width: calc(var(--shell-width, 480px) - 2rem);
+  padding: .75rem 1rem;
+
+  color: #fff;
+  text-align: center;
+  font-size: .8125rem;
+  line-height: 1.4;
+
+  background: rgba(17, 17, 17, .86);
+  border-radius: 3px;
+  transform: translateX(-50%);
+}
+
+.global-toast[hidden] {
+  display: none;
 }

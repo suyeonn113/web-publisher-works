@@ -23,7 +23,7 @@ fieldset {
   margin: 0;
   padding: 0;
   border: 0;
-  min-width: 0; /* flex/grid 안에서 튀는 거 방지 */
+  min-width: 0; 
 }
 
 legend {

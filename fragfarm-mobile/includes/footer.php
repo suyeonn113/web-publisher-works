@@ -2,9 +2,9 @@
 <footer>
     <nav>
         <ul class="footer__nav">
-            <li><a href="#">Terms of Use</a></li>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Confirm Entrepreneur Information</a></li>
+            <li><button type="button" data-global-placeholder data-placeholder-message="이용약관 페이지는 준비 중입니다.">Terms of Use</button></li>
+            <li><button type="button" data-global-placeholder data-placeholder-message="개인정보처리방침 페이지는 준비 중입니다.">Privacy Policy</button></li>
+            <li><button type="button" data-global-placeholder data-placeholder-message="사업자 정보 확인 페이지는 준비 중입니다.">Confirm Entrepreneur Information</button></li>
         </ul>
     </nav>
     <address class="footer__info">
@@ -18,9 +18,9 @@
         <p><strong>Business Licence</strong> : 2021-와부조안-0061</p>
     </address>
     <div class="footer__escrow">
-        <a href="#" aria-label="에스크로 서비스 안내 페이지로 이동">
+        <button type="button" aria-label="에스크로 서비스 안내" data-global-placeholder data-placeholder-message="에스크로 서비스 안내 페이지는 준비 중입니다.">
             <img class="payments-logo" src="<?= BASE_URL ?>/assets/icons/escrow-payments.svg" alt="에스크로 결제 로고">
-        </a>
+        </button>
         <p>안전구매(에스크로) 서비스 가맹점</p>
     </div>
     <p class="footer__copyright">

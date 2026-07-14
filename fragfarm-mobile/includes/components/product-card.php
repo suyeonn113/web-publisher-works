@@ -18,6 +18,21 @@ $reviewCount = (int) ($product['reviewCount'] ?? 0);
 $createdAt = htmlspecialchars($product['createdAt'] ?? '', ENT_QUOTES, 'UTF-8');
 
 $stateAttr = htmlspecialchars(implode(' ', $state), ENT_QUOTES, 'UTF-8');
+$shopItem = function_exists('shop_item_from_product')
+    ? shop_item_from_product($product)
+    : [
+        'id' => $product['id'] ?? '',
+        'name' => $product['name'] ?? '',
+        'price' => $price,
+        'originalPrice' => $originalPrice,
+        'discount' => $discount,
+        'image' => $images[0]['src'] ?? '',
+        'size' => 'S',
+        'quantity' => 1,
+    ];
+$shopItemAttr = function_exists('shop_item_json')
+    ? shop_item_json($shopItem)
+    : htmlspecialchars(json_encode($shopItem, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES), ENT_QUOTES, 'UTF-8');
 
 $badgeText = '';
 $badgeLabel = '';
@@ -114,6 +129,7 @@ if (in_array('soldout', $state, true)) {
                 class="product__btn product__btn--cart"
                 type="button"
                 data-action="add-to-cart"
+                data-shop-item="<?= $shopItemAttr ?>"
                 aria-label="장바구니에 담기">
                 <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                     <path d="M19.1433 0.5H15.5719L14.329 12.8571C14.2773 13.1978 14.1043 13.5083 13.8418 13.7314C13.5793 13.9546 13.2449 14.0753 12.9004 14.0714H3.90043C3.5889 14.0877 3.28062 14.0015 3.02266 13.8261C2.76471 13.6507 2.57125 13.3957 2.47186 13.1L0.571856 7.38571C0.501015 7.17088 0.482206 6.94229 0.516977 6.71876C0.551747 6.49524 0.639104 6.28317 0.771856 6.1C0.910153 5.90526 1.09507 5.7483 1.3097 5.64348C1.52433 5.53866 1.76181 5.48933 2.00043 5.5H15.0719"/>
@@ -125,6 +141,7 @@ if (in_array('soldout', $state, true)) {
                 class="product__btn product__btn--wish"
                 type="button"
                 data-action="toggle-wish"
+                data-shop-item="<?= $shopItemAttr ?>"
                 aria-pressed="false"
                 aria-label="위시리스트에 추가">
                 <svg viewBox="0 0 14 12" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">

@@ -13,8 +13,8 @@
             header?.classList.toggle('is-menu-open', isOpen);
             mobileMenu.dataset.state = isOpen ? 'open' : '';
 
-            iconOpen.hidden = isOpen;
-            iconClosed.hidden = !isOpen;
+            iconOpen.hidden = !isOpen;
+            iconClosed.hidden = isOpen;
         }
 
         setMenuState(false);
@@ -55,5 +55,34 @@
             toggleButton.setAttribute('aria-expanded', String(nextState));
             toggleIcon?.classList.toggle('is-sub-open', nextState);
             subMenu.hidden = !nextState;
+        });
+    });
+
+    const placeholderButtons = document.querySelectorAll('[data-global-placeholder]');
+    let placeholderToast;
+    let placeholderTimer;
+
+    const showPlaceholderToast = (message) => {
+        if (!placeholderToast) {
+            placeholderToast = document.createElement('p');
+            placeholderToast.className = 'global-toast';
+            placeholderToast.setAttribute('role', 'status');
+            placeholderToast.setAttribute('aria-live', 'polite');
+            document.body.appendChild(placeholderToast);
+        }
+
+        window.clearTimeout(placeholderTimer);
+        placeholderToast.textContent = message || '준비 중입니다.';
+        placeholderToast.hidden = false;
+
+        placeholderTimer = window.setTimeout(() => {
+            placeholderToast.hidden = true;
+        }, 1800);
+    };
+
+    placeholderButtons.forEach((button) => {
+        button.addEventListener('click', (event) => {
+            event.preventDefault();
+            showPlaceholderToast(button.dataset.placeholderMessage);
         });
     });

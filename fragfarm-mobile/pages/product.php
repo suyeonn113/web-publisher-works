@@ -2,6 +2,7 @@
 include __DIR__ . '/../includes/config.php';
 include __DIR__ . '/../includes/data/products.php';
 include __DIR__ . '/../includes/services/product-list-state.php';
+require_once __DIR__ . '/../includes/services/shop-state.php';
 
 $pageTitle = 'Fragfarm';
 $pageCss = 'product.css';
@@ -17,6 +18,7 @@ $currentPage = $productList['currentPage'];
 $totalProducts = $productList['totalProducts'];
 $totalPages = $productList['totalPages'];
 $visibleProducts = $productList['items'];
+$sampleItems = shop_sample_items($products);
 ?>
 
 <!DOCTYPE html>
@@ -121,51 +123,6 @@ $visibleProducts = $productList['items'];
         </section>
         <section class="catalog">
             <p class="product-toast" data-product-toast role="status" aria-live="polite" hidden></p>
-            <!-- Product Actions Form -->
-            <form id="product-form" class="product-form" data-module="product">
-                <!-- Product Name -->
-                <p 
-                    class="product-form__name"
-                    data-role="product-name">
-                    [ SET 1 ] - Peony Flower Wrap T-Shirt + Floral Lace Wrap Skirt
-                </p>
-                <input type="hidden" name="product_id" value="set-001">
-                <!-- Size Selector -->
-                <fieldset class="product-form__size">
-                    <legend>사이즈</legend>
-                    <label class="product-form__size-option">
-                        <input type="radio" name="size" value="S" required>
-                        <span>S</span>
-                    </label>
-                    <label class="product-form__size-option">
-                        <input type="radio" name="size" value="M">
-                        <span>M</span>
-                    </label>
-                    <label class="product-form__size-option">
-                        <input type="radio" name="size" value="L">
-                        <span>L</span>
-                    </label>
-                    <label class="product-form__size-option">
-                        <input type="radio" name="size" value="XL">
-                        <span>XL</span>
-                    </label>
-                </fieldset>
-                <!-- Quantity -->
-                <input type="hidden" name="qty" value="1">
-                <!-- Cart Feedback -->
-                <p  
-                    id="product-feedback"
-                    class="product-form__feedback" 
-                    role="status" 
-                    aria-live="polite" 
-                    aria-atomic="true"
-                    data-role="product-feedback">
-                </p>
-                <div class="product-form__btn">
-                    <button class="product-form__btn--buy" type="submit">구매하기</button>
-                    <button class="product-form__btn--cart" type="button">장바구니 담기</button>
-                </div>
-            </form>
             <!-- Product Card -->
             <ul id="product-list" class="catalog__list" data-view="<?= htmlspecialchars($currentView, ENT_QUOTES, 'UTF-8') ?>">
                 <?php foreach ($visibleProducts as $product): ?>
@@ -216,11 +173,9 @@ $visibleProducts = $productList['items'];
 
 </div>
 
-<!-- JS -->
-
-<!-- <script src="<?= BASE_URL ?>/js/jquery-1.11.2.min.js"></script>
-<script src="<?= BASE_URL ?>/js/product-filter.js"></script> -->
 <script src="<?= BASE_URL ?>/js/header.js"></script>
+<script type="application/json" id="shop-sample-data"><?= json_encode($sampleItems, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?></script>
 <script src="<?= BASE_URL ?>/js/product-page.js"></script>
+<script src="<?= BASE_URL ?>/js/shop-storage.js"></script>
 </body>
 </html>

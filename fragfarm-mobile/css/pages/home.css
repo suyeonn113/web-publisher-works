@@ -1,110 +1,103 @@
 @charset "utf-8";
 
+#main {
+    transform: translateY(-3.5rem);
+}
+
 /* ===== Hero ===== */
 .hero {
     position: relative;
 
     width: 100%;
+    height: 100svh;
+    min-height: 610px;
+    max-height: 900px;
+
+    overflow: hidden;
+    background-color: #e8e3df;
 }
 
 .hero__img {
-    display: block;
+    position: relative;
     z-index: 1;
 
-    width: 100%;
-    height: 58vh;
-    object-fit: cover; 
-    object-position: center 30%;
-
-    filter: blur(.3px) brightness(1.13) contrast(1);
-}
-
-/* Wings */
-.hero::after {
-    content: "";
     display: block;
-    position: absolute;
-    left: -5%;
-    top: 25%;
-    z-index: 3;
+    width: 100%;
+    height: 100%;
 
-    width: 35%;
-    height: auto;
-    aspect-ratio: 200 / 180;
-    
-    background-image: url(../../assets/images/wing.svg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
+    object-fit: cover;
+    object-position: center 32%;
 
-    opacity: .9;
-    filter: 
-        blur(.8px) 
-        brightness(1.0) 
-        contrast(1.1)
-        drop-shadow(0 0 12px rgba(255,245,200,0.8));
+    filter:
+        brightness(.96)
+        contrast(.95)
+        saturate(.82);
 
-    animation: wingFlap 2.8s ease-in-out infinite;
-    transform-origin: 100% 0%;
+    transform: scale(1.01);
 }
 
 .hero::before {
     content: "";
-    display: block;
+
     position: absolute;
-    left: 90%;
-    top: 24%;
-    z-index: 3;
+    inset: 0;
+    z-index: 2;
 
-    width: 35%;
-    height: auto;
-    aspect-ratio: 200 / 180;
-    
-    transform: scaleX(-1);
-    background-image: url(../../assets/images/wing.svg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
+    pointer-events: none;
 
-    opacity: .9;
-    filter: 
-        blur(.8px) 
-        brightness(1.0) 
-        contrast(1.1)
-        drop-shadow(0 0 12px rgba(255,245,200,0.8));
-        
-    animation: wingFlapLeft 2.8s ease-in-out infinite;
-    transform-origin: 0% 0%;
+    background: linear-gradient(
+        to bottom,
+        rgba(15, 12, 10, 0) 45%,
+        rgba(15, 12, 10, .08) 65%,
+        rgba(15, 12, 10, .55) 100%
+    );
 }
 
+
+/* Hero Text */
 .hero__title-group {
+    position: absolute;
+    left: 1.25rem;
+    right: 1.25rem;
+    bottom: 2.25rem;
+    z-index: 4;
+
     display: flex;
     flex-direction: column;
-    padding: 4rem 1rem 1rem 1rem;
-}
+    align-items: flex-start;
 
+    padding: 0;
+
+    color: #fff;
+}
 
 .hero__title {
-    font-size: 1.5rem;
+    max-width: 90%;
+    margin: 0;
+
+    font-size: clamp(2rem, 9vw, 3.75rem);
+    font-weight: 400;
+    line-height: .94;
+    letter-spacing: -.03em;
+
+    text-shadow: 0 2px 14px rgba(0, 0, 0, .22);
 }
- 
+
 .hero__subtitle {
-    font-size: .75rem;
-}
+    order: -1;
 
-.hero__title-group::after {
-    content: "";
+    margin-bottom: .65rem;
 
-    display: block;
-    width: 80%;
+    font-size: .875rem;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: .15em;
 
-    margin-top: 2rem;
-
-    border-bottom: 1px solid #d8d5d2;
+    opacity: .9;
 }
 
 /* ===== Section ===== */
-.new, 
+.new,
 .sale,
 .review,
 .about {
@@ -120,9 +113,12 @@
 /* Section Title */
 .section__title,
 .section__title--about {
-    grid-column:  1;
+    grid-column: 1;
+
+    margin: 0;
 
     font-size: 1.25rem;
+    font-weight: inherit;
 }
 
 /* View all, Read more */
@@ -134,13 +130,17 @@
     font-size: .75rem;
 }
 
+.section__view-all--label {
+    color: #8f8274;
+}
+
 .product__list,
 .review__list,
 .about__link {
-    grid-column:  1 / -1;
+    grid-column: 1 / -1;
 }
 
-/* Card Layout */
+/* ===== Product / Review Layout ===== */
 .product__list,
 .review__list {
     display: grid;
@@ -149,16 +149,101 @@
     gap: 1rem .5rem;
 }
 
-.review__list{
-    gap: .25rem .25rem;
+.review__list {
+    gap: .25rem;
 }
 
 /* product 2개 이하 */
-.product__list:not(:has(> :nth-child(3))){
-    grid-template-columns:repeat(2,1fr);
+.product__list:not(:has(> :nth-child(3))) {
+    grid-template-columns: repeat(2, 1fr);
 }
 
-/* About */
+/* ===== Sale Card ===== */
+.sale {
+    row-gap: 1.75rem;
+}
+
+.sale__card {
+    grid-column: 1 / -1;
+
+    display: block;
+    width: 100%;
+
+    color: inherit;
+    text-decoration: none;
+}
+
+.sale__media {
+    width: 100%;
+    overflow: hidden;
+
+    background-color: #f4f2ee;
+}
+
+.sale__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+
+    object-fit: cover;
+    object-position: center;
+
+    filter:
+        brightness(1.01)
+        contrast(.97)
+        saturate(.88);
+
+    transition:
+        transform .8s cubic-bezier(.22, 1, .36, 1),
+        filter .8s ease;
+}
+
+.sale__info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    padding-top: .9rem;
+
+    border-bottom: 1px solid #d8d5d2;
+    padding-bottom: .85rem;
+}
+
+.sale__period {
+    color: #8f8274;
+
+    font-size: .7rem;
+    letter-spacing: .04em;
+}
+
+.sale__link-text {
+    display: flex;
+    align-items: center;
+    gap: .35rem;
+
+    font-size: .75rem;
+}
+
+.sale__link-text span {
+    transition: transform .3s ease;
+}
+
+.sale__card:hover .sale__image {
+    transform: scale(1.015);
+
+    filter:
+        brightness(1.02)
+        contrast(1)
+        saturate(.95);
+}
+
+.sale__card:hover .sale__link-text span {
+    transform: translateX(.2rem);
+}
+
+/* ===== About ===== */
 .about {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -169,37 +254,44 @@
 }
 
 .section__title--about {
-    grid-column:  1 / -1;
+    grid-column: 1 / -1;
 }
 
 .about__title {
-    grid-column:  1;
+    grid-column: 1;
 
     font-size: 1.25rem;
 }
 
 .about__link {
-    grid-column:  2;
+    grid-column: 2;
     justify-self: end;
 }
 
 .about__image {
-    grid-column:  1 / -1;
+    grid-column: 1 / -1;
+    justify-self: center;
 
     display: block;
     width: 35%;
-    justify-self: center;
 
     margin: 2rem 0;
 
     border-radius: 7px;
-    box-shadow:
-        0 10px 24px rgba(0,0,0,0.08),
-        0 4px 10px rgba(0,0,0,0.05);
 
-    filter: 
-        brightness(1.0) 
+    box-shadow:
+        0 10px 24px rgba(0, 0, 0, .08),
+        0 4px 10px rgba(0, 0, 0, .05);
+
+    filter:
+        brightness(1)
         contrast(1.1)
-        drop-shadow(0 0 12px rgba(255,245,200,0.2));
+        drop-shadow(0 0 12px rgba(255, 245, 200, .2));
 }
 
+@media (prefers-reduced-motion: reduce) {
+    .sale__image,
+    .sale__link-text span {
+        transition: none;
+    }
+}
