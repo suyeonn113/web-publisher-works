@@ -4,7 +4,7 @@ include __DIR__ . '/../includes/data/products.php';
 require_once __DIR__ . '/../includes/services/shop-state.php';
 
 $pageTitle = 'Wishlist | Fragfarm';
-$pageCss = 'shop-pages.css';
+$pageCss = 'bag.css';
 $page = max(1, min(2, (int) ($_GET['page'] ?? 1)));
 $sampleItems = shop_sample_items($products);
 ?>

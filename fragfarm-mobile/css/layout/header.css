@@ -21,7 +21,7 @@ main {
 }
 
 header.is-menu-open {
-    background: rgba(255,255,255,0.96);
+    background: var(--color-white-96);
 }
 
 /* Logo */
@@ -62,11 +62,17 @@ header.is-menu-open {
     stroke-linejoin: round;
 }
 
-.header__menu [data-state="open"] { display:none; }
+.header__menu [data-state="open"] {
+    display:none;
+}
 
-.header__menu[aria-expanded="true"] [data-state="closed"] { display:none; }
-.header__menu[aria-expanded="true"] [data-state="open"] { display:block; }
+.header__menu[aria-expanded="true"] [data-state="closed"] {
+    display:none;
+}
 
+.header__menu[aria-expanded="true"] [data-state="open"] {
+    display:block;
+}
 
 /* Action Nav */
 /* Login */
@@ -86,8 +92,14 @@ header.is-menu-open {
 .login svg g {
     display: none;
 }
-.login[data-state="logged-out"] g[data-icon="logged-out"] { display: block; }
-.login[data-state="logged-in"]  g[data-icon="logged-in"]  { display: block; }
+
+.login[data-state="logged-out"] g[data-icon="logged-out"] {
+    display: block;
+}
+
+.login[data-state="logged-in"]  g[data-icon="logged-in"] {
+    display: block;
+}
 
 /* Cart */
 .cart {
@@ -112,7 +124,7 @@ header.is-menu-open {
     position: absolute;
     top: 0.8rem;
     right: 0.2rem;
-    font-size: 0.7rem;
+    font-size: var(--font-size-caption);
     color: currentColor;
 }
 
@@ -126,7 +138,7 @@ header.is-menu-open {
     height: 100dvh;
     width: min(80vw, 320px);
 
-    background: rgba(255,255,255,0.92);
+    background: var(--color-white-92);
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
@@ -169,6 +181,7 @@ header.is-menu-open {
 .gnb__link, .gnb__sublink {
     padding: 0.5rem;
 }
+
 .gnb__item--has-sub {
     padding: 0 0.5rem;
 }
@@ -214,7 +227,6 @@ header.is-menu-open {
     padding: 0.5rem;
 }
 
-
 /* 검색바 한 줄 정렬 */
 .search__bar {
     display: flex;
@@ -232,9 +244,10 @@ header.is-menu-open {
     min-width: 0;
     max-width: 20rem;
 
-    border-bottom: 1px solid #888;
+    border-bottom: 1px solid var(--color-text-muted);
     text-align: center;
 }
+
 .search__input::placeholder {
-    color: #cccccc;
+    color: var(--color-line-disabled);
 }

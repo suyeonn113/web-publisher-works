@@ -38,7 +38,7 @@
     align-items: center;
     gap: .5rem;
 
-    font-size: .75rem;
+    font-size: var(--font-size-small);
 }
 
 .view-toggle__btn {
@@ -53,20 +53,25 @@
 
 /* Catalog Sort*/
 .catalog-sort {
-    padding: 0rem 2rem 0rem .65rem;
+    padding: 0 var(--space-8) 0 var(--space-3);
     
-    font-size: .75rem;
+    font-size: var(--font-size-small);
     
-    background-image: url("data:image/svg+xml;utf8,\<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 12 12'>\<path d='M2 4 L6 8 L10 4' stroke='black' stroke-width='1' fill='none' stroke-linecap='round'/>\</svg>");
+    background-image:
+        linear-gradient(45deg, transparent 50%, var(--color-text) 50%),
+        linear-gradient(135deg, var(--color-text) 50%, transparent 50%);
     background-repeat: no-repeat;
-    background-position: right .65rem center;
+    background-position:
+        calc(100% - .9rem) center,
+        calc(100% - .65rem) center;
+    background-size: .25rem .25rem;
 }
 
 /* Catalog */
 .catalog__list {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 3rem .25rem;
+    gap: 3rem var(--media-grid-column-gap);
 }
 
 .catalog__list[data-view="1col"] {
@@ -89,13 +94,13 @@
     max-width: calc(var(--shell-width) - 2rem);
     padding: .85rem 1rem;
 
-    color: #fff;
+    color: var(--color-white);
     text-align: center;
-    font-size: .8125rem;
+    font-size: var(--font-size-body);
     line-height: 1.4;
 
-    background: rgba(17, 17, 17, .86);
-    border-radius: 3px;
+    background: var(--color-overlay-ink-86);
+    border-radius: var(--radius-control);
 
     transform: translateX(-50%);
 }

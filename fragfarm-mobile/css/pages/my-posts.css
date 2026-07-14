@@ -1,0 +1,192 @@
+@charset "utf-8";
+
+.my-posts {
+    min-height: 34rem;
+    padding-inline: var(--page-gutter);
+}
+
+.my-posts__error {
+    margin-bottom: .75rem;
+    padding: .75rem;
+    color: var(--color-accent-strong);
+    background: var(--color-surface-error);
+    font-size: var(--font-size-small);
+}
+
+.my-posts__tabs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-bottom: var(--divider-rule);
+}
+
+.my-posts__tabs a {
+    padding: .75rem .5rem;
+    color: var(--color-text-muted);
+    text-align: center;
+    font-size: var(--font-size-body);
+}
+
+.my-posts__tabs a[aria-current="page"] {
+    color: var(--color-text-strong);
+    border-bottom: 1px solid var(--color-text-strong);
+    font-weight: 600;
+}
+
+.my-posts__tabs span {
+    margin-left: .2rem;
+    color: var(--color-accent);
+}
+
+.my-posts__panel[hidden],
+.my-posts__empty[hidden],
+.my-post__edit[hidden] {
+    display: none;
+}
+
+.my-posts__list {
+    display: grid;
+}
+
+.my-post {
+    padding: var(--list-row-padding-default) 0;
+    border-bottom: var(--divider-rule);
+}
+
+.my-post__head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: .75rem;
+}
+
+.my-post__head a {
+    font-size: var(--font-size-body);
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.my-post__head time,
+.my-post__answer time {
+    flex: 0 0 auto;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-caption);
+}
+
+.my-post__rating {
+    margin-top: .5rem;
+    color: var(--color-accent);
+    font-size: var(--font-size-small);
+}
+
+.my-post__content {
+    margin-top: .75rem;
+    font-size: var(--font-size-body);
+    line-height: 1.6;
+    white-space: pre-line;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+}
+
+.my-post__secret {
+    margin-top: .5rem;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-caption);
+}
+
+.my-post__answer {
+    margin-top: 1rem;
+    padding: .75rem;
+    background: var(--color-surface-muted);
+    font-size: var(--font-size-small);
+    line-height: 1.6;
+}
+
+.my-post__answer strong {
+    display: block;
+    color: var(--color-text-muted);
+    font-weight: 500;
+}
+
+.my-post__answer.is-complete strong {
+    color: var(--color-accent);
+}
+
+.my-post__answer p {
+    margin-top: .5rem;
+    white-space: pre-line;
+}
+
+.my-post__answer time {
+    display: block;
+    margin-top: .5rem;
+    text-align: right;
+}
+
+.my-post__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: .5rem;
+    margin-top: 1rem;
+}
+
+.my-post__actions a,
+.my-post__actions button,
+.my-post__edit > button {
+    min-height: var(--button-height-default);
+    padding: 0 var(--control-padding-compact);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-control);
+    font-size: var(--font-size-caption);
+}
+
+.my-post__actions a {
+    display: inline-flex;
+    align-items: center;
+}
+
+.my-post__edit {
+    display: grid;
+    gap: .75rem;
+    margin-top: 1rem;
+    padding: .75rem;
+    border: 1px solid var(--color-line-soft);
+}
+
+.my-post__edit label {
+    display: grid;
+    gap: var(--space-1);
+    font-size: var(--font-size-caption);
+}
+
+.my-post__edit select {
+    width: 100%;
+    padding: var(--space-2);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-control);
+    background: var(--color-white);
+    font-size: var(--font-size-small);
+}
+
+.my-post__secret-check {
+    display: flex !important;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+}
+
+.my-post__secret-check input {
+    width: auto;
+}
+
+.my-post__edit > button {
+    justify-self: end;
+    color: var(--color-white);
+    border-color: var(--color-accent);
+    background: var(--color-accent);
+}
+
+.my-posts__empty {
+    padding: 4rem 0;
+    border-bottom: var(--divider-rule);
+    text-align: center;
+    font-size: var(--font-size-small);
+}

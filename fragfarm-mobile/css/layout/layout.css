@@ -13,7 +13,7 @@ body {
 
 body {
     margin: 0;
-    background: #fff;
+    background: var(--color-white);
 }
 
 .mobile-shell {
@@ -21,6 +21,6 @@ body {
     max-width: var(--shell-width);
     min-height: 100vh;
     margin-inline: auto;
-    background: #fff;   /* 실제 페이지 배경 */
+    background: var(--color-white);   /* 실제 페이지 배경 */
     overflow: hidden;
 }

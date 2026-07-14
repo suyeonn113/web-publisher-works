@@ -16,3 +16,4 @@ if ($isLocal) {
 }
 
 define('BASE_URL', $baseUrl);
+define('FRAGFARM_DEMO_MODE', $isLocal);

@@ -5,17 +5,17 @@
     justify-content: center;
     align-items: center;
 
-    padding-top: 2rem;
+    padding-top: 0;
     padding-bottom: 1rem;
     
-    font-size: .875rem;
+    font-size: var(--font-size-body);
     font-style: italic;
 }
 
 .join__note {
     padding: 1rem var(--page-gutter) 0;
 
-    font-size: .75rem;
+    font-size: var(--font-size-small);
     font-weight: 500;
 }
 
@@ -24,24 +24,25 @@ form {
     padding: 0 var(--page-gutter) 2.5rem;
 }
 
-.form-group, .address-group{
+.form-group,
+.address-group {
     display: flex;
     flex-direction: column;
     justify-content: start;
-    gap: .5rem; 
+    gap: var(--space-2);
 
-    border-bottom: 1px solid #888;
+    border-bottom: 1px solid var(--color-text-muted);
 }
 
 .form-group {
-    padding-top: 1.5rem;
+    padding-top: var(--space-6);
 }
 
 .form-label.is-required::after,
 .field-title.is-required::after {
     content: "*";
     padding-left: 4px;
-    color: #F25C74;
+    color: var(--color-accent);
 }
 
 /* Address */
@@ -51,19 +52,36 @@ form {
 
 .address-post {
     display: flex;
+    align-items: center;
     justify-content: space-between;
+    gap: var(--space-3);
 }
-.btn-address {
-    padding: 0 1.5rem;
 
-    border: 1px solid #141414;
-    border-radius: 5px;
+.address-post input {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.address-line1,
+.address-line2,
+.address-line1 input,
+.address-line2 input {
+    width: 100%;
+}
+
+.btn-address {
+    flex: 0 0 auto;
+    min-height: var(--button-height-default);
+    padding: 0 var(--space-6);
+
+    border: 1px solid var(--color-text-deep);
+    border-radius: var(--radius-control);
 }
 
 /* Birth */
 .field-title {
     padding-top: 2rem;
-    font-size: .875rem;
+    font-size: var(--font-size-body);
 }
 
 .birth-group {
@@ -82,12 +100,12 @@ form {
     padding: 0 .625rem;
 
     text-align: center;
-    color: #0E0E0E;
+    color: var(--color-text);
 }
 
 .birth select:focus-visible {
-    outline: 2px dashed #1F2937;
-    outline-offset: 2px;
+    outline: 2px dashed var(--color-focus);
+    outline-offset: -2px;
 }
 
 .calendar-type {
@@ -99,18 +117,18 @@ form {
 .agreement {
     display: flex;
     flex-direction: column;
-    gap: .5rem;
+    gap: var(--space-2);
 
-    margin-top: 2rem;
-    padding: 1.5rem .75rem;
+    margin-top: var(--space-8);
+    padding: var(--space-6) var(--space-3);
 
-    border-radius: 5px;
-    background: #F5F5F5;
+    border-radius: var(--radius-panel);
+    background: var(--color-surface-muted);
 }
 
 .agreement__label {
     cursor: pointer;
-    font-size: .75rem;
+    font-size: var(--font-size-small);
 }
 
 .agreement__item {
@@ -131,9 +149,9 @@ form {
 .agreement__scroll h3,
 .agreement__scroll h4,
 .agreement__scroll p {
-    font-size: .625rem;
+    font-size: var(--font-size-caption);
 }
 
 .agreement__label.all {
-    font-size: .875rem;
+    font-size: var(--font-size-body);
 }

@@ -2,6 +2,8 @@ const popup = document.querySelector('.popup');
 const dim = document.querySelector('.popup__dim');
 const dismiss = document.querySelector('.popup__dismiss');
 const menuBtn = document.querySelector('#header-menu');
+const popupDialog = popup?.querySelector('[role="dialog"]');
+let popupLastFocused = null;
 
 console.log('js 연결됨');
 
@@ -30,9 +32,11 @@ function getCookie(name) {
 
 // Popup Open
 function openPopup() {
+    popupLastFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     popup.hidden = false;
     document.body.classList.add('no-scroll');
     menuBtn?.setAttribute('disabled', '');
+    window.requestAnimationFrame(() => dismiss?.focus());
 }
 
 // Popup Closed
@@ -40,6 +44,7 @@ function closePopup() {
     popup.hidden = true;
     document.body.classList.remove('no-scroll');
     menuBtn?.removeAttribute('disabled');
+    popupLastFocused?.focus();
 }
 
 if (!getCookie('popupClosed')) {
@@ -59,5 +64,8 @@ dismiss?.addEventListener('click', () => {
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && !popup.hidden) {
         closePopup();
+        return;
     }
+
+    if (!popup.hidden) window.FragfarmA11y?.trapFocus(popupDialog, e);
 });

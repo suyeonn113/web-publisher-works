@@ -5,33 +5,27 @@
 }
 
 .mypage__inner {
-    padding: 1.75rem var(--page-gutter) 0;
-}
-
-.mypage__title {
-    margin-bottom: 1.5rem;
-
-    font-size: 1rem;
-    font-weight: 500;
+    padding-inline: var(--page-gutter);
+    padding-bottom: 0;
 }
 
 .order-status__title {
     margin-bottom: .5rem;
 
-    font-size: .75rem;
+    font-size: var(--font-size-small);
     font-weight: 400;
 }
 
 .order-status__title span {
-    font-size: .6875rem;
+    font-size: var(--font-size-caption);
 }
 
 .order-status__list {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
 
-    border-top: 1px solid #bfbfbf;
-    border-bottom: 1px solid #bfbfbf;
+    border-top: var(--divider-rule);
+    border-bottom: var(--divider-rule);
 }
 
 .order-status__item {
@@ -39,18 +33,18 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: .25rem;
+    gap: var(--space-1);
 
     min-height: 3.5rem;
 }
 
 .order-status__item:nth-child(n + 5) {
-    border-top: 1px solid #bfbfbf;
+    border-top: var(--divider-rule);
 }
 
 .order-status__item dt,
 .order-status__item dd {
-    font-size: .75rem;
+    font-size: var(--font-size-small);
     font-weight: 400;
 }
 
@@ -75,7 +69,7 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: .5rem;
 
-    margin-top: 3.25rem;
+    margin-top: var(--section-gap);
 }
 
 .mypage-menu__link {
@@ -88,8 +82,8 @@
     min-height: 3.75rem;
     padding: .75rem .5rem;
 
-    border: 1px solid #bfbfbf;
-    border-radius: 3px;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-control);
 
     text-align: center;
 }
@@ -111,7 +105,7 @@
 }
 
 .mypage-menu__link span {
-    font-size: .75rem;
+    font-size: var(--font-size-small);
 }
 
 .mypage__logout {
@@ -120,12 +114,12 @@
     justify-content: center;
 
     width: 100%;
-    min-height: 2.5rem;
+    min-height: var(--button-height-default);
     margin-top: .5rem;
 
-    border: 1px solid #bfbfbf;
-    border-radius: 3px;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-control);
 
-    font-size: .75rem;
+    font-size: var(--font-size-small);
     font-weight: 400;
 }

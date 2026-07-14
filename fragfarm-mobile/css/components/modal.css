@@ -15,7 +15,7 @@
 .popup__dim {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: var(--color-overlay-50);
 }
 
 .popup__dialog {
@@ -40,8 +40,13 @@
     right: .75rem;
     bottom: .75rem;
 
-    font-size: .625rem;
+    font-size: var(--font-size-caption);
     text-decoration: underline;
 
-    color: #fff;
+    color: var(--color-white);
+}
+
+.popup__dismiss:focus-visible {
+    outline-color: var(--color-white);
+    background: var(--color-overlay-72);
 }

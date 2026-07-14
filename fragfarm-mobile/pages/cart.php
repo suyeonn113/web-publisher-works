@@ -4,7 +4,7 @@ include __DIR__ . '/../includes/data/products.php';
 require_once __DIR__ . '/../includes/services/shop-state.php';
 
 $pageTitle = 'Cart | Fragfarm';
-$pageCss = 'shop-pages.css';
+$pageCss = 'bag.css';
 $sampleItems = shop_sample_items($products);
 ?>
 
@@ -42,7 +42,16 @@ $sampleItems = shop_sample_items($products);
                     <dd data-cart-discount>0원</dd>
                 </div>
                 <div>
-                    <dt>배송비 <span aria-label="무료 배송 기준 안내">ⓘ</span></dt>
+                    <dt>
+                        배송비
+                        <span class="shipping-info">
+                            <button type="button" aria-label="지역별 추가 배송비 안내" aria-expanded="false" aria-controls="shipping-info-tooltip" data-shipping-info>ⓘ</button>
+                            <span class="shipping-info__tooltip" id="shipping-info-tooltip" role="tooltip" data-shipping-tooltip hidden>
+                                <strong>지역별 추가 배송비</strong>
+                                제주 및 도서 산간 3,000원 추가
+                            </span>
+                        </span>
+                    </dt>
                     <dd data-cart-shipping>0원</dd>
                 </div>
             </dl>
@@ -50,7 +59,7 @@ $sampleItems = shop_sample_items($products);
         </section>
 
         <div class="cart-actions">
-            <button class="cart-actions__buy" type="button" data-global-placeholder data-placeholder-message="결제 기능은 준비 중입니다.">구매하기</button>
+            <button class="cart-actions__buy" type="button" data-checkout-cart>구매하기</button>
             <button class="cart-actions__pay cart-actions__pay--naver" type="button" data-global-placeholder data-placeholder-message="네이버페이는 준비 중입니다." aria-label="네이버페이 연결 준비중">
                 <svg viewBox="0 0 45 15" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                     <path d="M7.09972 14.1656C3.17937 14.1656 0 10.9938 0 7.08279C0 3.17179 3.17937 0 7.09972 0C11.0201 0 14.1994 3.17179 14.1994 7.08279C14.1994 10.9938 11.0201 14.1656 7.09972 14.1656ZM8.4707 3.53977V7.43449L5.72547 3.53977H3.54823V10.6226H5.72874V6.72783L8.47396 10.6226H10.6512V3.53977H8.4707Z"/>

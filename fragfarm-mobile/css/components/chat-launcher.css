@@ -26,9 +26,9 @@
 
     width: 55%;
     height: 5%;
-    border-radius: 70%;
+    border-radius: var(--radius-round);
 
-    background: rgba(0, 0, 0, 0.2);
+    background: var(--color-overlay-20);
     filter: blur(4px);
     pointer-events: none;
 }

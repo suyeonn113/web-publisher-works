@@ -24,6 +24,36 @@
             setMenuState(!isOpen);
         });
 
+        const getMenuItems = () => Array.from(mobileMenu.querySelectorAll('a[href], button:not([disabled]), input:not([disabled])'))
+            .filter((item) => !item.closest('[hidden]') && item.getClientRects().length > 0);
+
+        menuButton.addEventListener('keydown', (event) => {
+            if (event.key !== 'ArrowDown') return;
+
+            event.preventDefault();
+            setMenuState(true);
+            window.requestAnimationFrame(() => getMenuItems()[0]?.focus());
+        });
+
+        mobileMenu.addEventListener('keydown', (event) => {
+            if (event.target.matches('input, textarea, select')) return;
+            if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return;
+
+            const items = getMenuItems();
+            const currentIndex = items.indexOf(document.activeElement);
+            if (currentIndex < 0 || items.length === 0) return;
+
+            event.preventDefault();
+            let nextIndex = currentIndex;
+
+            if (event.key === 'ArrowDown') nextIndex = (currentIndex + 1) % items.length;
+            if (event.key === 'ArrowUp') nextIndex = (currentIndex - 1 + items.length) % items.length;
+            if (event.key === 'Home') nextIndex = 0;
+            if (event.key === 'End') nextIndex = items.length - 1;
+
+            items[nextIndex].focus();
+        });
+
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
@@ -56,6 +86,24 @@
             toggleIcon?.classList.toggle('is-sub-open', nextState);
             subMenu.hidden = !nextState;
         });
+
+        toggleButton.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowRight') {
+                event.preventDefault();
+                toggleButton.setAttribute('aria-expanded', 'true');
+                toggleIcon?.classList.add('is-sub-open');
+                subMenu.hidden = false;
+                subMenu.querySelector('a[href], button:not([disabled])')?.focus();
+            }
+
+            if (event.key === 'ArrowLeft' && !subMenu.hidden) {
+                event.preventDefault();
+                toggleButton.setAttribute('aria-expanded', 'false');
+                toggleIcon?.classList.remove('is-sub-open');
+                subMenu.hidden = true;
+                toggleButton.focus();
+            }
+        });
     });
 
     const placeholderButtons = document.querySelectorAll('[data-global-placeholder]');
@@ -79,6 +127,8 @@
             placeholderToast.hidden = true;
         }, 1800);
     };
+
+    window.showGlobalToast = showPlaceholderToast;
 
     placeholderButtons.forEach((button) => {
         button.addEventListener('click', (event) => {

@@ -8,6 +8,10 @@ body {
   margin: 0;
 }
 
+button {
+    border-radius: var(--radius-control);
+}
+
 *,
 *::before,
 *::after {
@@ -24,13 +28,13 @@ textarea {
 
 /* Input */
 input::placeholder {
-  color: #CCCCCC;
+  color: var(--color-line-disabled);
 }
 
 /* Keyboard-Focus */
 :focus-visible {
-  outline: 2px dashed #1F2937;
-  outline-offset: 2px;
+  outline: 2px dashed var(--color-focus);
+  outline-offset: -2px;
 }
 
 /* Not Keyboard */
@@ -54,12 +58,12 @@ html::-webkit-scrollbar {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 10px;
+  background: var(--color-line-disabled);
+  border-radius: var(--radius-pill);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #999;
+  background: var(--color-text-disabled);
 }
 
 ::-webkit-scrollbar-track {
@@ -78,9 +82,9 @@ html::-webkit-scrollbar {
 
   padding: .5rem;
 
-  border-radius: .75rem;
-  background: rgba(255,255,255,.95);
-  box-shadow: 0 6px 24px rgba(0,0,0,.12);
+  border-radius: var(--radius-large);
+  background: var(--color-white-95);
+  box-shadow: 0 6px 24px var(--color-shadow);
 }
 
 .skip-links:focus-within{
@@ -93,10 +97,10 @@ html::-webkit-scrollbar {
 
   padding: .5rem .75rem;
 
-  border-radius: .5rem;
+  border-radius: var(--radius-medium);
   text-decoration: none;
 
-  font-size: .875rem;
+  font-size: var(--font-size-body);
   font-weight: 600;
   color: inherit;
 }
@@ -122,13 +126,13 @@ body.no-scroll {
   max-width: calc(var(--shell-width, 480px) - 2rem);
   padding: .75rem 1rem;
 
-  color: #fff;
+  color: var(--color-white);
   text-align: center;
-  font-size: .8125rem;
+  font-size: var(--font-size-body);
   line-height: 1.4;
 
-  background: rgba(17, 17, 17, .86);
-  border-radius: 3px;
+  background: var(--color-overlay-ink-86);
+  border-radius: var(--radius-control);
   transform: translateX(-50%);
 }
 

@@ -5,11 +5,11 @@ footer {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: .625rem;
+    gap: var(--space-2);
 
     padding: var(--section-space) var(--page-gutter) 2rem;
 
-    font-size: .75rem;
+    font-size: var(--font-size-caption);
     font-weight: 300;
 }
 

@@ -8,12 +8,12 @@ $loginLabel = $isLoggedIn ? '마이페이지' : '로그인';
 
 <!-- Skip Link -->
 <div class="skip-links" aria-label="바로가기 링크">
-    <a href="#gnb" class="skip-links__link">메뉴 바로가기</a>
+    <a href="#header-menu" class="skip-links__link">메뉴 바로가기</a>
     <a href="#main" class="skip-links__link">본문 바로가기</a>
 </div>
 
 <!-- Header -->
-<header>
+<header<?= !empty($useHeroHeader) ? ' class="is-over-hero"' : '' ?>>
     <!-- Logo -->
     <h1 class="logo">
         <a href="<?= BASE_URL ?>/index.php" aria-label="FRAGFARM 홈">
@@ -21,8 +21,8 @@ $loginLabel = $isLoggedIn ? '마이페이지' : '로그인';
         </a>
     </h1>
     <!-- Main Menu -->
-    <button id="header-menu" class="header__menu" 
-            aria-label="메뉴 열기" aria-expanded="false">
+    <button id="header-menu" class="header__menu" type="button"
+            aria-label="메뉴 열기" aria-expanded="false" aria-controls="gnb">
         <svg viewBox="0 0 24 20" xmlns="http://www.w3.org/2000/svg" 
              aria-hidden="true" focusable="false">
             <g data-state="closed">
@@ -61,7 +61,12 @@ $loginLabel = $isLoggedIn ? '마이페이지' : '로그인';
                 <ul id="submenu-season" class="gnb__sublist" hidden>
                     <li class="gnb__subitem">
                         <a class="gnb__link gnb__sublink" href="<?= BASE_URL ?>/pages/lookbook.php">
-                            2025 S/S Sentimental Rose
+                            25 SS Collection 1st Sentimental Rose
+                        </a>
+                    </li>
+                    <li class="gnb__subitem">
+                        <a class="gnb__link gnb__sublink" href="<?= BASE_URL ?>/pages/lookbook-flower.php">
+                            26 SS Collection 2nd “花”
                         </a>
                     </li>
                 </ul>
@@ -76,8 +81,8 @@ $loginLabel = $isLoggedIn ? '마이페이지' : '로그인';
                 </button>
                 <ul id="submenu-cs" class="gnb__sublist" hidden>
                     <li class="gnb__subitem">
-                        <a class="gnb__link gnb__sublink" href="<?= BASE_URL ?>/pages/qna.php">
-                            QnA
+                        <a class="gnb__link gnb__sublink" href="<?= BASE_URL ?>/pages/notice.php">
+                            notice
                         </a>
                     </li>
                     <li class="gnb__subitem">
@@ -112,7 +117,7 @@ $loginLabel = $isLoggedIn ? '마이페이지' : '로그인';
     </nav>
     <!-- Avtion Menu -->
     <div class="header__actions">
-        <a class="login" 
+        <a class="login" data-demo-login-link
            data-state="<?= $loginState ?>" 
            aria-label="<?= $loginLabel ?>" 
            href="<?= $loginHref ?>">
@@ -151,3 +156,8 @@ $loginLabel = $isLoggedIn ? '마이페이지' : '로그인';
         </a>
     </div>
 </header>
+<script src="<?= BASE_URL ?>/js/accessibility.js"></script>
+<?php if (FRAGFARM_DEMO_MODE): ?>
+<script>window.FRAGFARM_DEMO_MODE = true; window.FRAGFARM_BASE_URL = <?= json_encode(BASE_URL) ?>;</script>
+<script src="<?= BASE_URL ?>/js/demo-auth.js"></script>
+<?php endif; ?>

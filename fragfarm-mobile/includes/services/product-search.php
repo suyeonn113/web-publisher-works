@@ -10,7 +10,10 @@ function normalizeSearchQuery(array $query): array
 
 function normalizeSearchText($value): string
 {
-    $text = mb_strtolower((string) $value, 'UTF-8');
+    $text = (string) $value;
+    $text = function_exists('mb_strtolower')
+        ? mb_strtolower($text, 'UTF-8')
+        : strtolower($text);
     $text = preg_replace('/\s+/u', ' ', $text);
 
     return trim($text);

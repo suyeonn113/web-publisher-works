@@ -26,7 +26,9 @@ $escapedKeyword = htmlspecialchars($keyword, ENT_QUOTES, 'UTF-8');
     <main class="search-page" id="main">
         <section class="search-result">
             <div class="search-result__header">
-                <h1 class="search-result__title page-title">Search</h1>
+                <div class="page-heading page-heading--plain page-heading--contained">
+                    <h1 class="page-heading__title">SEARCH</h1>
+                </div>
                 <form class="search search-result__form" role="search" action="<?= BASE_URL ?>/pages/search.php" method="get">
                     <label class="search__label visually-hidden" for="search-page-query">검색어 입력</label>
                     <div class="search__bar">

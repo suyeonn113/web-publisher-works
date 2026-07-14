@@ -24,7 +24,9 @@ $pageCss = 'account-help.css';
 
     <main id="main" class="account-help">
         <section class="account-help__inner" aria-labelledby="find-id-result-title">
-            <h2 id="find-id-result-title" class="account-help__title">FIND ID</h2>
+            <div class="page-heading page-heading--plain">
+                <h2 id="find-id-result-title" class="page-heading__title">FIND ID</h2>
+            </div>
             <p class="account-help__result">회원님의 아이디는 <strong><?= htmlspecialchars($foundUserId, ENT_QUOTES, 'UTF-8') ?></strong> 입니다.</p>
 
             <div class="account-help__actions">

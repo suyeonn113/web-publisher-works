@@ -9,7 +9,7 @@
 }
 
 :root {
-    --font-color-default: #0E0E0E;
+    --font-color-default: var(--color-text);
 }
 
 /* Font Base */
@@ -30,9 +30,9 @@ html {
 }
 
 body {
-    font-size: .875rem;
+    font-size: var(--font-size-body);
     line-height: 1.5;
-    color: #0E0E0E;
+    color: var(--color-text);
 }
 
 /* Heading */
@@ -44,10 +44,15 @@ h1, h2, h3, h4, h5, h6 {
 /* Text Accent */
 .text-accent {
     font-weight: 700;
-    color: #F25C74;
+    color: var(--color-accent);
 }
 
 .font-brand {
     font-family: 'EditorialToday';
+    font-weight: 400;
+}
+
+.font-flower {
+    font-family: 'Shippori Mincho', 'Noto Serif JP', 'Yu Mincho', serif;
     font-weight: 400;
 }

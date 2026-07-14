@@ -70,5 +70,7 @@ $_SESSION['user_name'] = $member['user_name'];
 
 mysqli_close($mysqli);
 
-header('Location: ' . BASE_URL . '/index.php');
+$redirectUrl = $_SESSION['after_login_redirect'] ?? BASE_URL . '/index.php';
+unset($_SESSION['after_login_redirect']);
+header('Location: ' . $redirectUrl);
 exit;

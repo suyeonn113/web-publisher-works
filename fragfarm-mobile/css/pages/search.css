@@ -14,15 +14,15 @@
     justify-content: space-between;
     gap: .75rem;
 
-    padding: .875rem 0 1rem;
+    padding: var(--list-row-padding-default) 0;
 
-    border-top: 1px solid var(--color-line);
-    border-bottom: 1px solid var(--color-line);
+    border-top: var(--divider-rule);
+    border-bottom: var(--divider-rule);
 }
 
 .search-result__text,
 .search-result__count {
-    font-size: .875rem;
+    font-size: var(--font-size-body);
     line-height: 1.5;
 }
 
@@ -35,10 +35,10 @@
     padding: .25rem .625rem;
 
     border: 1px solid var(--color-line);
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
 
-    font-size: .75rem;
-    color: rgb(14 14 14 / 72%);
+    font-size: var(--font-size-small);
+    color: var(--color-text-72);
 }
 
 .search-empty {
@@ -48,13 +48,13 @@
 
 .search-empty__title {
     margin-bottom: .5rem;
-    font-size: 1rem;
+    font-size: var(--font-size-title);
     font-weight: 700;
 }
 
 .search-empty__text {
-    font-size: .875rem;
-    color: rgb(14 14 14 / 70%);
+    font-size: var(--font-size-body);
+    color: var(--color-text-70);
 }
 
 .search-empty__links {
@@ -70,13 +70,13 @@
     align-items: center;
     justify-content: center;
 
-    min-height: 2rem;
+    min-height: var(--icon-control-size);
     padding: .25rem .875rem;
 
     border: 1px solid var(--color-line);
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
 
-    font-size: .8125rem;
+    font-size: var(--font-size-body);
 }
 
 .search-result__list {
@@ -99,13 +99,17 @@
     border: 1px solid var(--color-line);
 }
 
+.search-card:first-child .search-card__link {
+    border-top: 0;
+}
+
 .search-card__thumb {
     display: block;
     width: 100%;
     aspect-ratio: 4 / 5;
     overflow: hidden;
 
-    background: #f8f7f5;
+    background: var(--color-surface-warm);
 }
 
 .search-card__image {
@@ -121,15 +125,15 @@
 }
 
 .search-card__meta {
-    font-size: .6875rem;
+    font-size: var(--font-size-caption);
     letter-spacing: .04em;
-    color: #9b8d7b;
+    color: var(--color-warm-text);
 }
 
 .search-card__name {
     overflow: hidden;
 
-    font-size: .9375rem;
+    font-size: var(--font-size-subtitle);
     line-height: 1.35;
     font-weight: 600;
     text-overflow: ellipsis;
@@ -142,16 +146,16 @@
     flex-wrap: wrap;
     gap: .375rem;
 
-    font-size: .875rem;
+    font-size: var(--font-size-body);
 }
 
 .search-card__discount {
-    color: #F25C74;
+    color: var(--color-accent);
     font-weight: 700;
 }
 
 .search-card__original {
-    color: rgb(14 14 14 / 45%);
+    color: var(--color-text-45);
     text-decoration: line-through;
 }
 

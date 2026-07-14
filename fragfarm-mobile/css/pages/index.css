@@ -42,7 +42,7 @@
         blur(.8px) 
         brightness(1.0) 
         contrast(1.1)
-        drop-shadow(0 0 12px rgba(255,245,200,0.8));
+        drop-shadow(0 0 12px var(--color-glow-warm-80));
 
     animation: wingFlap 2.8s ease-in-out infinite;
     transform-origin: 100% 0%;
@@ -71,7 +71,7 @@
         blur(.8px) 
         brightness(1.0) 
         contrast(1.1)
-        drop-shadow(0 0 12px rgba(255,245,200,0.8));
+        drop-shadow(0 0 12px var(--color-glow-warm-80));
         
     animation: wingFlapLeft 2.8s ease-in-out infinite;
     transform-origin: 0% 0%;
@@ -93,11 +93,11 @@
 }
 
 .hero__title {
-    font-size: 1.5rem;
+    font-size: var(--font-size-display);
 }
  
 .hero__subtitle {
-    font-size: .625rem;
+    font-size: var(--font-size-caption);
 }
 
 .hero__title-group::after {
@@ -108,7 +108,7 @@
 
     margin-top: 2rem;
 
-    border-bottom: 1px solid #d8d5d2;
+    border-bottom: var(--divider-rule);
 }
 
 /* ===== Section ===== */
@@ -130,7 +130,7 @@
 .section__title--about {
     grid-column:  1;
 
-    font-size: 1.25rem;
+    font-size: var(--font-size-title-large);
 }
 
 /* View all, Read more */
@@ -139,7 +139,7 @@
     grid-column: 2;
     justify-self: end;
 
-    font-size: .75rem;
+    font-size: var(--font-size-small);
 }
 
 .product__list,
@@ -154,11 +154,12 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: auto auto;
-    gap: 1rem .5rem;
+    gap: 1rem var(--media-grid-column-gap);
 }
 
 .review__list{
-    gap: .25rem .25rem;
+    row-gap: .25rem;
+    column-gap: var(--media-grid-column-gap);
 }
 
 /* product 2개 이하 */
@@ -183,7 +184,7 @@
 .about__title {
     grid-column:  1;
 
-    font-size: 1.25rem;
+    font-size: var(--font-size-title-large);
 }
 
 .about__link {
@@ -200,14 +201,14 @@
 
     margin: 2rem 0;
 
-    border-radius: 7px;
+    border-radius: var(--radius-card);
     box-shadow:
-        0 10px 24px rgba(0,0,0,0.08),
-        0 4px 10px rgba(0,0,0,0.05);
+        0 10px 24px var(--color-shadow-08),
+        0 4px 10px var(--color-shadow-05);
 
     filter: 
         brightness(1.0) 
         contrast(1.1)
-        drop-shadow(0 0 12px rgba(255,245,200,0.2));
+        drop-shadow(0 0 12px var(--color-glow-warm-20));
 }
 

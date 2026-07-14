@@ -22,6 +22,9 @@ function shop_item_from_product(array $product, array $overrides = []): array
     $image = $images[0]['src'] ?? '';
     $originalPrice = (int) ($product['originalPrice'] ?? $product['price'] ?? 0);
     $price = (int) ($product['price'] ?? 0);
+    $sizeText = (string) ($product['details']['size'] ?? 'One Size');
+    $sizes = array_values(array_filter(array_map('trim', explode(',', $sizeText))));
+    if (empty($sizes)) $sizes = ['One Size'];
 
     return array_merge([
         'id' => (string) ($product['id'] ?? ''),
@@ -30,7 +33,8 @@ function shop_item_from_product(array $product, array $overrides = []): array
         'originalPrice' => $originalPrice,
         'discount' => (int) ($product['discount'] ?? 0),
         'image' => $image,
-        'size' => 'S',
+        'sizes' => $sizes,
+        'size' => $sizes[0],
         'option' => '',
         'quantity' => 1,
     ], $overrides);

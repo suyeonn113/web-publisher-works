@@ -16,7 +16,10 @@ $pageCss = 'account-help.css';
 
     <main id="main" class="account-help">
         <section class="account-help__inner" aria-labelledby="find-password-title">
-            <h2 id="find-password-title" class="account-help__title">FIND PASSWORD</h2>
+            <div class="page-heading page-heading--back">
+                <a class="page-heading__back" href="<?= BASE_URL ?>/pages/login.php" aria-label="로그인으로 돌아가기"><img src="<?= BASE_URL ?>/assets/icons/arrow-left.svg" alt=""></a>
+                <h2 id="find-password-title" class="page-heading__title">FIND PASSWORD</h2>
+            </div>
             <p class="account-help__lead">가입 시 입력한 아이디, 이름, 전화번호를 입력해주세요.</p>
 
             <form class="account-help-form" action="<?= BASE_URL ?>/actions/find_password_process.php" method="post">

@@ -21,7 +21,9 @@ $pageCss = 'account-help.css';
 
     <main id="main" class="account-help">
         <section class="account-help__inner" aria-labelledby="reset-password-title">
-            <h2 id="reset-password-title" class="account-help__title">RESET PASSWORD</h2>
+            <div class="page-heading page-heading--plain">
+                <h2 id="reset-password-title" class="page-heading__title">RESET PASSWORD</h2>
+            </div>
             <p class="account-help__lead">새 비밀번호를 입력해주세요.</p>
 
             <form class="account-help-form" action="<?= BASE_URL ?>/actions/reset_password_process.php" method="post">

@@ -90,12 +90,13 @@ $sampleItems = shop_sample_items($products);
         <!--  -->
         <section class="catalog-toolbar" aria-label="상품 목록 제어">
             <!-- View Toggle -->
-            <div class="view-toggle" role="group" aria-label="표시 제품 수">
-                <span class="view-toggle__label">표시 제품 수</span>
+            <div class="view-toggle" role="group" aria-label="한 줄에 표시할 상품 수">
+                <span class="view-toggle__label">상품 보기</span>
                 <a
                     class="view-toggle__btn"
                     href="<?= buildProductListUrl($state, ['view' => '1col', 'page' => 1]) ?>"
                     <?= $currentView === '1col' ? 'aria-current="true"' : '' ?>
+                    aria-label="한 줄에 상품 1개 보기"
                     data-view="1col">
                     1
                 </a>
@@ -103,6 +104,7 @@ $sampleItems = shop_sample_items($products);
                     class="view-toggle__btn"
                     href="<?= buildProductListUrl($state, ['view' => '2col', 'page' => 1]) ?>"
                     <?= $currentView === '2col' ? 'aria-current="true"' : '' ?>
+                    aria-label="한 줄에 상품 2개 보기"
                     data-view="2col">
                     2
                 </a>
@@ -145,7 +147,7 @@ $sampleItems = shop_sample_items($products);
             <?php if ($currentPage > 1): ?>
                 <a class="pagination__btn pagination__btn--first"
                 href="<?= buildProductListUrl($state, ['page' => 1]) ?>">
-                    &laquo;<span class="visually-hidden">첫 페이지로 이동</span>
+                    <img src="<?= BASE_URL ?>/assets/icons/double-arrow-left.svg" alt=""><span class="visually-hidden">첫 페이지로 이동</span>
                 </a>
             <?php endif; ?>
             <!-- 현재 페이지 -->
@@ -159,7 +161,7 @@ $sampleItems = shop_sample_items($products);
             <?php if ($currentPage < $totalPages): ?>
                 <a class="pagination__btn pagination__btn--last"
                 href="<?= buildProductListUrl($state, ['page' => $totalPages]) ?>">
-                    &raquo;<span class="visually-hidden">마지막 페이지로 이동</span>
+                    <img class="icon-rotate-180" src="<?= BASE_URL ?>/assets/icons/double-arrow-left.svg" alt=""><span class="visually-hidden">마지막 페이지로 이동</span>
                 </a>
             <?php endif; ?>
         </nav>

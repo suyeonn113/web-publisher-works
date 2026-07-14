@@ -1,8 +1,42 @@
 @charset "utf-8";
 
-.page-title {
-    padding: 1.75rem var(--page-gutter) 1.25rem;
+.page-heading {
+    display: flex;
+    align-items: center;
+    padding-block: var(--page-title-padding-block);
+    padding-inline: var(--page-gutter);
+    text-align: left;
+}
 
-    font-size: 1rem;
-    font-weight: 400;
+.page-heading--plain {
+    gap: 0;
+}
+
+.page-heading--back {
+    gap: var(--space-2);
+}
+
+.page-heading--contained {
+    padding-inline: 0;
+}
+
+.page-heading__back {
+    display: grid;
+    flex: 0 0 var(--icon-control-size);
+    place-items: center;
+    width: var(--icon-control-size);
+    height: var(--icon-control-size);
+}
+
+.page-heading__back img {
+    display: block;
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.page-heading__title {
+    min-width: 0;
+    font-size: var(--font-size-title);
+    font-weight: 500;
+    line-height: 1.25;
 }

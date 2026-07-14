@@ -50,8 +50,8 @@ $color = e($product['color'] ?? '');
 $price = (int) ($product['price'] ?? 0);
 $originalPrice = (int) ($product['originalPrice'] ?? 0);
 $discount = (int) ($product['discount'] ?? 0);
-$rating = number_format((float) ($product['rating'] ?? 0), 1);
-$reviewCount = (int) ($product['reviewCount'] ?? 0);
+$catalogRating = (float) ($product['rating'] ?? 0);
+$catalogReviewCount = max(0, (int) ($product['reviewCount'] ?? 0));
 $descriptionLines = array_values(array_filter(
     array_map(
         static function ($line) {
@@ -79,6 +79,7 @@ $shopItem = shop_item_from_product($product, ['size' => $sizes[0] ?? 'S']);
 $shopItemAttr = shop_item_json($shopItem);
 $reviewItems = [
     [
+        'review_key' => 'sample-1',
         'name' => '김**',
         'date' => '2025.06.12 21:07',
         'score' => 5,
@@ -90,10 +91,12 @@ $reviewItems = [
         ],
         'comments' => [
             ['author' => '프래그팜', 'body' => '예쁜 착샷 후기 감사합니다. 앞으로도 오래 입기 좋은 상품 보여드릴게요!', 'own' => false],
-            ['author' => '조**', 'body' => '코디 너무 잘 하셨네요! 사진이 분위기 있어요ㅎㅎ', 'own' => true],
+            ['author' => '윤**', 'body' => '사진 분위기 너무 예뻐요! 촬영 장소가 어디인지 궁금해요.', 'own' => false],
+            ['author' => '박**', 'body' => '혹시 인스타 아이디 알 수 있을까요? 다른 코디도 보고 싶어요.', 'own' => false],
         ],
     ],
     [
+        'review_key' => 'sample-2',
         'name' => '하**',
         'date' => '2025.06.12 14:58',
         'score' => 4,
@@ -102,9 +105,13 @@ $reviewItems = [
         'images' => [
             BASE_URL . '/assets/images/review/review-3.jpeg',
         ],
-        'comments' => [],
+        'comments' => [
+            ['author' => '서**', 'body' => '사진 색감이 너무 좋아요. 혹시 어떤 카메라로 찍으셨나요?', 'own' => false],
+            ['author' => '이**', 'body' => '같이 매치한 가방 정보도 궁금해요!', 'own' => false],
+        ],
     ],
     [
+        'review_key' => 'sample-3',
         'name' => '진**',
         'date' => '2025.03.23 01:23',
         'score' => 5,
@@ -114,9 +121,101 @@ $reviewItems = [
             BASE_URL . '/assets/images/review/review-4.jpeg',
             BASE_URL . '/assets/images/review/review-5.jpg',
         ],
-        'comments' => [],
+        'comments' => [
+            ['author' => '정**', 'body' => '헤어랑 코디 분위기가 정말 잘 어울려요. 인스타 하시면 구경 가고 싶어요!', 'own' => false],
+        ],
     ],
 ];
+
+if (!FRAGFARM_DEMO_MODE) {
+    $reviewItems = [];
+}
+
+if (empty($_SESSION['product_feedback_csrf'])) {
+    $_SESSION['product_feedback_csrf'] = bin2hex(random_bytes(32));
+}
+
+$productQnaItems = [];
+if (!FRAGFARM_DEMO_MODE) {
+    require_once __DIR__ . '/../includes/dbconn.php';
+    require_once __DIR__ . '/../includes/services/product-feedback.php';
+    $memberId = (int) ($_SESSION['member_id'] ?? 0);
+    $databaseReviews = feedback_fetch_reviews($mysqli, (string) ($product['id'] ?? ''), $memberId);
+    foreach (array_reverse($databaseReviews) as $databaseReview) {
+        array_unshift($reviewItems, [
+            'db_id' => (int) $databaseReview['id'],
+            'review_key' => 'db-' . (int) $databaseReview['id'],
+            'own' => (bool) $databaseReview['own'],
+            'name' => $databaseReview['display_name'],
+            'date' => date('Y.m.d H:i', strtotime($databaseReview['created_at'])),
+            'score' => (int) $databaseReview['rating'],
+            'summary' => mb_strimwidth($databaseReview['content'], 0, 60, '…', 'UTF-8'),
+            'content' => $databaseReview['content'],
+            'images' => [],
+            'comments' => [],
+        ]);
+    }
+    $reviewCommentGroups = feedback_fetch_review_comments($mysqli, (string) ($product['id'] ?? ''), $memberId);
+    foreach ($reviewItems as &$reviewItem) {
+        $reviewKey = (string) ($reviewItem['review_key'] ?? '');
+        if (isset($reviewCommentGroups[$reviewKey])) {
+            $reviewItem['comments'] = array_merge($reviewItem['comments'], $reviewCommentGroups[$reviewKey]);
+        }
+    }
+    unset($reviewItem);
+    $productQnaItems = feedback_fetch_qna($mysqli, (string) ($product['id'] ?? ''), $memberId);
+    mysqli_close($mysqli);
+}
+
+if (FRAGFARM_DEMO_MODE) {
+    $reviewItems = array_slice($reviewItems, 0, $catalogReviewCount);
+    $templateAuthors = ['김**', '이**', '박**', '최**', '정**', '한**'];
+    $templateContents = [
+        '소재가 편안하고 실루엣이 자연스러워서 자주 입고 있어요.',
+        '사진으로 본 느낌과 실제 색감이 비슷하고 코디하기도 좋았습니다.',
+        '디테일이 과하지 않으면서 포인트가 되어 만족스러워요.',
+        '사이즈가 편하게 잘 맞고 오래 입어도 부담이 없어요.',
+        '배송도 깔끔했고 제품 상태도 좋아서 만족합니다.',
+        '단독으로 입어도 예쁘고 다른 아이템과 함께 매치하기도 좋아요.',
+    ];
+    $reviewTemplate = [
+        'review_key' => '',
+        'name' => '',
+        'date' => '',
+        'score' => 5,
+        'summary' => '',
+        'content' => '',
+        'images' => [],
+        'comments' => [],
+    ];
+    $missingReviewCount = $catalogReviewCount - count($reviewItems);
+    $targetScoreSum = (int) round($catalogRating * $catalogReviewCount);
+    $remainingScoreSum = $targetScoreSum - array_sum(array_column($reviewItems, 'score'));
+    $remainingScoreSum = max($missingReviewCount, min($missingReviewCount * 5, $remainingScoreSum));
+
+    for ($index = 0; $index < $missingReviewCount; $index++) {
+        $remainingSlots = $missingReviewCount - $index;
+        $score = max(1, min(5, (int) round($remainingScoreSum / $remainingSlots)));
+        $remainingScoreSum -= $score;
+        $templateIndex = count($reviewItems);
+        $content = $templateContents[$templateIndex % count($templateContents)];
+        $reviewItems[] = array_merge($reviewTemplate, [
+            'review_key' => 'demo-template-' . ($templateIndex + 1),
+            'name' => $templateAuthors[$templateIndex % count($templateAuthors)],
+            'date' => date('Y.m.d H:i', strtotime('2025-06-01 12:00') - ($templateIndex * 86400)),
+            'score' => $score,
+            'summary' => $content,
+            'content' => $content,
+        ]);
+    }
+}
+
+$reviewCount = count($reviewItems);
+$reviewScoreSum = array_sum(array_column($reviewItems, 'score'));
+$reviewAverage = $reviewCount > 0
+    ? $reviewScoreSum / $reviewCount
+    : 0;
+$rating = number_format($reviewAverage, 1);
 ?>
 
 <!DOCTYPE html>
@@ -129,6 +228,21 @@ $reviewItems = [
     <?php include __DIR__ . '/../includes/header.php'; ?>
 
     <main id="main" class="product-detail">
+        <?php if (!empty($_SESSION['feedback_error'])): ?>
+            <p class="product-toast product-toast--server" role="alert"><?= e($_SESSION['feedback_error']) ?></p>
+            <?php unset($_SESSION['feedback_error']); ?>
+        <?php endif; ?>
+
+        <div class="page-heading page-heading--back">
+            <a
+                class="page-heading__back"
+                href="<?= BASE_URL ?>/pages/product.php?category=<?= rawurlencode((string) ($product['category'] ?? 'all')) ?>"
+                aria-label="상품 목록으로 돌아가기">
+                <img src="<?= BASE_URL ?>/assets/icons/arrow-left.svg" alt="">
+            </a>
+            <h2 class="page-heading__title">SHOP</h2>
+        </div>
+
         <section class="product-detail__hero" aria-labelledby="product-title">
             <div class="product-detail__media">
                 <img
@@ -180,10 +294,10 @@ $reviewItems = [
                 </button>
             </div>
 
-            <p class="product-detail__rating" aria-label="평점 <?= $rating ?>점, 후기 <?= $reviewCount ?>개">
-                <strong><?= $rating ?></strong>
-                <span>(<?= $reviewCount ?>개의 후기)</span>
-            </p>
+            <a class="product-detail__rating" href="#review-title" data-product-review-summary data-review-summary-link aria-label="평점 <?= $rating ?>점, 후기 <?= $reviewCount ?>개. 리뷰로 이동">
+                <strong data-product-review-average><?= $rating ?></strong>
+                <span data-product-review-count>(<?= $reviewCount ?>개의 후기)</span>
+            </a>
 
             <p class="product-detail__price<?= $discount > 0 ? ' has-discount' : '' ?>">
                 <?php if ($discount > 0): ?>
@@ -296,16 +410,16 @@ $reviewItems = [
                     hidden>
                     <p class="selected-product__name" data-selected-name></p>
                     <div class="selected-product__controls" aria-label="선택 상품 수량">
-                        <button class="selected-product__qty-btn" type="button" data-qty-action="decrease" aria-label="수량 감소">&lt;</button>
+                        <button class="selected-product__qty-btn" type="button" data-qty-action="decrease" aria-label="수량 감소"><img src="<?= BASE_URL ?>/assets/icons/arrow-left.svg" alt=""></button>
                         <span class="selected-product__qty" data-selected-qty>1</span>
-                        <button class="selected-product__qty-btn" type="button" data-qty-action="increase" aria-label="수량 증가">&gt;</button>
+                        <button class="selected-product__qty-btn" type="button" data-qty-action="increase" aria-label="수량 증가"><img class="icon-rotate-180" src="<?= BASE_URL ?>/assets/icons/arrow-left.svg" alt=""></button>
                         <strong class="selected-product__price" data-selected-price><?= number_format($price) ?>원</strong>
-                        <button class="selected-product__remove" type="button" data-selected-remove aria-label="선택 상품 삭제">×</button>
+                        <button class="selected-product__remove" type="button" data-selected-remove aria-label="선택 상품 삭제"><img src="<?= BASE_URL ?>/assets/icons/close.svg" alt=""></button>
                     </div>
                 </div>
 
                 <div class="product-detail__actions">
-                    <button class="product-detail__buy" type="button" data-placeholder="true" <?= $isSoldOut ? 'disabled' : '' ?>>
+                    <button class="product-detail__buy" type="button" data-checkout-product data-shop-item="<?= $shopItemAttr ?>" <?= $isSoldOut ? 'disabled' : '' ?>>
                         <?= $isSoldOut ? 'SOLD OUT' : '구매하기' ?>
                     </button>
 
@@ -349,82 +463,50 @@ $reviewItems = [
         <section class="product-detail__reviews" aria-labelledby="review-title">
             <div class="review-head">
                 <h2 id="review-title">REVIEW</h2>
-                <div class="review-benefit" aria-label="리뷰 적립 혜택">
-                    <p>리뷰 작성 시 <strong>3,000 point</strong></p>
-                    <p>Photo 리뷰 작성 시 <strong>5,000 point</strong></p>
+                <div class="review-benefit">
+                    <img
+                        src="<?= BASE_URL ?>/assets/images/review/review-benefit-banner-curled-v2.png"
+                        alt="리뷰 작성 시 3,000 point, Photo 리뷰 작성 시 5,000 point">
                 </div>
-                <div class="review-score">
-                    <strong>4.8 / 5</strong>
-                    <span>(<?= count($reviewItems) ?>개의 후기)</span>
+                <div class="review-score" data-review-score data-base-count="<?= $reviewCount ?>" data-base-sum="<?= $reviewScoreSum ?>">
+                    <strong><?= number_format($reviewAverage, 1) ?> / 5</strong>
+                    <span>(<?= $reviewCount ?>개의 후기)</span>
                 </div>
             </div>
 
             <div class="review-list">
                 <?php foreach ($reviewItems as $reviewIndex => $review): ?>
-                    <details class="review-item">
-                        <summary class="review-item__summary">
-                            <span class="review-stars" aria-label="<?= (int) $review['score'] ?>점">
-                                <?php for ($star = 1; $star <= 5; $star++): ?>
-                                    <span class="<?= $star <= (int) $review['score'] ? 'is-filled' : '' ?>" aria-hidden="true"></span>
-                                <?php endfor; ?>
-                            </span>
-                            <span class="review-item__meta">
-                                <b><?= e($review['name']) ?></b>
-                                <time><?= e($review['date']) ?></time>
-                            </span>
-                            <button class="review-item__close" type="button" data-review-close aria-label="리뷰 닫기">×</button>
-                            <span class="review-item__text"><?= e($review['summary']) ?></span>
-                            <img class="review-item__thumb" src="<?= e($review['images'][0] ?? '') ?>" alt="">
-                        </summary>
-
-                        <div class="review-item__body">
-                            <p class="review-item__content"><?= nl2br(e($review['content'])) ?></p>
-
-                            <?php foreach ($review['images'] as $image): ?>
-                                <img class="review-item__image" src="<?= e($image) ?>" alt="">
-                            <?php endforeach; ?>
-
-                            <div class="review-comments" aria-label="리뷰 댓글">
-                                <h3>COMMENTS (<?= count($review['comments']) ?>)</h3>
-                                <?php foreach ($review['comments'] as $comment): ?>
-                                    <div class="review-comment">
-                                        <strong><?= e($comment['author']) ?></strong>
-                                        <?php if ($isLoggedIn && !empty($comment['own'])): ?>
-                                            <button type="button" data-comment-delete aria-label="댓글 삭제">×</button>
-                                        <?php endif; ?>
-                                        <p><?= e($comment['body']) ?></p>
-                                    </div>
-                                <?php endforeach; ?>
-
-                                <form class="review-comment-form" method="post">
-                                    <textarea
-                                        rows="4"
-                                        placeholder="<?= $isLoggedIn ? '후기에 관한 의견을 남겨주세요.' : '로그인 후 이용해주세요.' ?>"
-                                        <?= $isLoggedIn ? '' : 'readonly data-login-required' ?>></textarea>
-                                    <button type="button" <?= $isLoggedIn ? 'data-placeholder="true"' : 'data-login-required' ?>>댓글쓰기</button>
-                                </form>
-                            </div>
-                        </div>
-                    </details>
+                    <?php include __DIR__ . '/../includes/components/product-review-item.php'; ?>
                 <?php endforeach; ?>
             </div>
 
-            <form class="review-write" method="post" enctype="multipart/form-data" data-review-write>
-                <div class="review-write__box" data-review-write-panel hidden>
+            <nav class="pagination review-list__pagination" data-product-review-pagination aria-label="상품 후기 페이지 이동" hidden></nav>
+
+            <form class="review-write" action="<?= BASE_URL ?>/actions/review_create.php" method="post" data-review-write data-demo-product-feedback>
+                <input type="hidden" name="csrf_token" value="<?= e($_SESSION['product_feedback_csrf']) ?>">
+                <input type="hidden" name="product_id" value="<?= $id ?>">
+                <div class="review-write__box form-textarea-shell" id="review-write-panel" data-review-write-panel hidden>
                     <textarea
+                        class="form-textarea form-textarea--large form-textarea--embedded"
                         name="review"
                         rows="5"
+                        aria-label="리뷰 내용"
                         placeholder="<?= $isLoggedIn ? '후기를 남겨주세요.' : '로그인 후 이용해주세요.' ?>"
                         <?= $isLoggedIn ? '' : 'readonly data-login-required' ?>></textarea>
 
                     <div class="review-write__tools">
-                        <label class="review-write__photo" aria-label="사진 첨부">
-                            <input type="file" name="review_image" accept="image/*" <?= $isLoggedIn ? '' : 'disabled' ?>>
-                            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                                <path d="M4 8.5A2.5 2.5 0 0 1 6.5 6h1.2l1.1-1.6A2 2 0 0 1 10.45 3.5h3.1a2 2 0 0 1 1.65.9L16.3 6h1.2A2.5 2.5 0 0 1 20 8.5v8A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-8Z"/>
-                                <path d="M12 15.5a3.25 3.25 0 1 0 0-6.5 3.25 3.25 0 0 0 0 6.5Z"/>
-                            </svg>
-                        </label>
+                        <div class="review-write__photo-field">
+                            <button
+                                class="review-write__photo"
+                                type="button"
+                                data-placeholder="true"
+                                data-toast-message="사진 첨부 기능은 데모에서 지원하지 않습니다."
+                                aria-label="사진 첨부 (데모 미지원)">
+                                <img src="<?= BASE_URL ?>/assets/icons/camera.svg" alt="">
+                                <span class="visually-hidden">사진 첨부</span>
+                            </button>
+                            <span class="review-write__photo-toast" role="status" data-photo-review-toast hidden>포토 리뷰 작성 시 5,000 point 적립</span>
+                        </div>
 
                         <fieldset class="review-write__rating" aria-label="별점 선택">
                             <?php for ($star = 5; $star >= 1; $star--): ?>
@@ -444,6 +526,7 @@ $reviewItems = [
                     class="review-write__submit"
                     type="button"
                     aria-expanded="false"
+                    aria-controls="review-write-panel"
                     <?= $isLoggedIn ? 'data-review-write-toggle' : 'data-login-required' ?>>
                     리뷰쓰기
                 </button>
@@ -464,9 +547,9 @@ $reviewItems = [
                         <li>제품 불량의 경우 상품 수령 후 24시간 이내 동일 상품으로 교환해 드리며 배송비는 fragfarm에서 부담합니다.</li>
                         <li>부주의로 인한 제품 오염 및 파손, 사용 흔적이 발견된 경우 교환 및 반품이 어렵습니다.</li>
                         <li>세탁, 향수, 착용 흔적 및 오염이 발견될 경우 반송 처리되며 배송비는 고객 부담입니다.</li>
-                        <li>반품 및 교환 요청은 QnA 게시판을 통해 접수해 주세요.</li>
+                        <li>반품 및 교환 요청은 상품 상세 Q&amp;A 또는 채팅 상담을 통해 접수해 주세요.</li>
                         <li>교환 시 왕복 배송비가 발생하며 제주 및 도서산간 지역은 추가 비용이 발생할 수 있습니다.</li>
-                        <li>사이즈 및 품목 교환은 QnA 게시판에 원하는 옵션을 함께 남겨 주세요.</li>
+                        <li>사이즈 및 품목 교환은 상품 상세 Q&amp;A에 원하는 옵션을 함께 남겨 주세요.</li>
                         <li>반품 시 배송비 3,000원, 무료배송 주문 건은 총 6,000원이 차감 후 환불 처리됩니다.</li>
                         <li>세일 상품은 교환 및 반품이 불가합니다.</li>
                     </ul>
@@ -500,15 +583,42 @@ $reviewItems = [
                     </svg>
                 </summary>
                 <div class="detail-toggle__body">
-                    <form class="qna-form" method="post">
+                    <div class="product-qna-list" data-product-qna-list>
+                        <?php foreach ($productQnaItems as $qnaItem): ?>
+                            <article class="product-qna-item" id="qna-<?= (int) $qnaItem['id'] ?>">
+                                <div><strong><?= e($qnaItem['display_name']) ?></strong><time><?= e(date('Y.m.d', strtotime($qnaItem['created_at']))) ?></time></div>
+                                <p><?= !empty($qnaItem['is_secret']) && empty($qnaItem['own']) ? '비밀글입니다.' : nl2br(e($qnaItem['content'])) ?></p>
+                                <?php if ((empty($qnaItem['is_secret']) || !empty($qnaItem['own'])) && trim((string) ($qnaItem['answer_content'] ?? '')) !== ''): ?>
+                                    <div class="product-qna-answer">
+                                        <strong>답변</strong>
+                                        <p><?= nl2br(e($qnaItem['answer_content'])) ?></p>
+                                        <?php if (!empty($qnaItem['answered_at'])): ?><time><?= e(date('Y.m.d', strtotime($qnaItem['answered_at']))) ?></time><?php endif; ?>
+                                    </div>
+                                <?php endif; ?>
+                                <?php if (!empty($qnaItem['own'])): ?>
+                                    <form action="<?= BASE_URL ?>/actions/product_qna_delete.php" method="post" class="feedback-delete-form">
+                                        <input type="hidden" name="csrf_token" value="<?= e($_SESSION['product_feedback_csrf']) ?>">
+                                        <input type="hidden" name="product_id" value="<?= $id ?>">
+                                        <input type="hidden" name="qna_id" value="<?= (int) $qnaItem['id'] ?>">
+                                        <button type="submit">내 문의 삭제</button>
+                                    </form>
+                                <?php endif; ?>
+                            </article>
+                        <?php endforeach; ?>
+                    </div>
+                    <form class="qna-form" action="<?= BASE_URL ?>/actions/product_qna_create.php" method="post" data-demo-product-qna>
+                        <input type="hidden" name="csrf_token" value="<?= e($_SESSION['product_feedback_csrf']) ?>">
+                        <input type="hidden" name="product_id" value="<?= $id ?>">
                         <label for="qna-content">문의 내용</label>
                         <textarea
+                            class="form-textarea"
                             id="qna-content"
                             name="qna"
                             rows="5"
                             placeholder="<?= $isLoggedIn ? '상품 문의를 남겨주세요.' : '로그인 후 이용해주세요.' ?>"
                             <?= $isLoggedIn ? '' : 'readonly data-login-required' ?>></textarea>
-                        <button type="button" <?= $isLoggedIn ? 'data-placeholder="true"' : 'data-login-required' ?>>작성하기</button>
+                        <label class="qna-secret"><input type="checkbox" name="is_secret" value="1"> 비밀글</label>
+                        <button type="submit" <?= $isLoggedIn ? '' : 'data-login-required' ?>>작성하기</button>
                     </form>
                 </div>
             </details>
@@ -555,5 +665,6 @@ $reviewItems = [
 <script src="<?= BASE_URL ?>/js/product-detail.js"></script>
 <script type="application/json" id="shop-sample-data"><?= json_encode(shop_sample_items($products), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?></script>
 <script src="<?= BASE_URL ?>/js/shop-storage.js"></script>
+<?php if (FRAGFARM_DEMO_MODE): ?><script src="<?= BASE_URL ?>/js/demo-product-feedback.js"></script><?php endif; ?>
 </body>
 </html>

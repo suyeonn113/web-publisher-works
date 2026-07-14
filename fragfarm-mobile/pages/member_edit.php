@@ -1,49 +1,58 @@
 <?php
 include __DIR__ . '/../includes/config.php';
-require_once __DIR__ . '/../includes/dbconn.php';
 
-if (empty($_SESSION['member_id'])) {
-    header('Location: ' . BASE_URL . '/pages/login.php');
-    exit;
-}
+$member = FRAGFARM_DEMO_MODE ? [
+    'user_id' => 'fragfarm',
+    'user_name' => 'Fragfarm Master',
+    'email' => 'fragfarm@example.com',
+    'phone' => '01012345678',
+    'postcode' => '04782',
+    'address_line1' => '서울특별시 성동구 연무장길 00',
+    'address_line2' => '프래그팜 101호',
+    'agree_marketing' => 0,
+] : null;
 
-mysqli_set_charset($mysqli, 'utf8mb4');
+if (!FRAGFARM_DEMO_MODE) {
+    if (empty($_SESSION['member_id'])) {
+        header('Location: ' . BASE_URL . '/pages/login.php');
+        exit;
+    }
 
-$memberId = (int) $_SESSION['member_id'];
-$member = null;
+    require_once __DIR__ . '/../includes/dbconn.php';
+    mysqli_set_charset($mysqli, 'utf8mb4');
+    $memberId = (int) $_SESSION['member_id'];
+    $sql = '
+        SELECT
+            user_id,
+            user_name,
+            email,
+            phone,
+            postcode,
+            address_line1,
+            address_line2,
+            agree_marketing
+        FROM fragfarm_members
+        WHERE id = ?
+        LIMIT 1
+    ';
+    $stmt = mysqli_prepare($mysqli, $sql);
 
-$sql = '
-    SELECT
-        user_id,
-        user_name,
-        email,
-        phone,
-        postcode,
-        address_line1,
-        address_line2,
-        agree_marketing
-    FROM fragfarm_members
-    WHERE id = ?
-    LIMIT 1
-';
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, 'i', $memberId);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $member = mysqli_fetch_assoc($result);
+        mysqli_stmt_close($stmt);
+    }
 
-$stmt = mysqli_prepare($mysqli, $sql);
+    mysqli_close($mysqli);
 
-if ($stmt) {
-    mysqli_stmt_bind_param($stmt, 'i', $memberId);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    $member = mysqli_fetch_assoc($result);
-    mysqli_stmt_close($stmt);
-}
-
-mysqli_close($mysqli);
-
-if (!$member) {
-    session_unset();
-    session_destroy();
-    header('Location: ' . BASE_URL . '/pages/login.php');
-    exit;
+    if (!$member) {
+        session_unset();
+        session_destroy();
+        header('Location: ' . BASE_URL . '/pages/login.php');
+        exit;
+    }
 }
 
 $pageTitle = 'Member Info | Fragfarm';
@@ -63,9 +72,12 @@ $pageCss = 'member-edit.css';
 
     <main id="main" class="member-edit">
         <section class="member-edit__inner" aria-labelledby="member-edit-title">
-            <h2 id="member-edit-title" class="member-edit__title">MEMBER INFO</h2>
+            <div class="page-heading page-heading--back">
+                <a class="page-heading__back" href="<?= BASE_URL ?>/pages/mypage.php" aria-label="마이페이지로 돌아가기"><img src="<?= BASE_URL ?>/assets/icons/arrow-left.svg" alt=""></a>
+                <h2 id="member-edit-title" class="page-heading__title">MEMBER INFO</h2>
+            </div>
 
-            <form class="member-form" action="<?= BASE_URL ?>/actions/member_update.php" method="post">
+            <form class="member-form" action="<?= FRAGFARM_DEMO_MODE ? '#' : BASE_URL . '/actions/member_update.php' ?>" method="post" data-member-form>
                 <div class="member-form__group">
                     <div class="member-form__label-row">
                         <label class="member-form__label" for="user-id">ID</label>
@@ -189,7 +201,7 @@ $pageCss = 'member-edit.css';
             <section class="password-panel" aria-labelledby="password-title">
                 <h3 id="password-title" class="password-panel__title">PASSWORD</h3>
 
-                <form class="member-form" action="<?= BASE_URL ?>/actions/password_update.php" method="post">
+                <form class="member-form" action="<?= FRAGFARM_DEMO_MODE ? '#' : BASE_URL . '/actions/password_update.php' ?>" method="post" data-password-form>
                     <div class="member-form__group">
                         <label class="member-form__label" for="current-password">CURRENT PASSWORD</label>
                         <input
@@ -240,12 +252,19 @@ $pageCss = 'member-edit.css';
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="<?= BASE_URL ?>/js/header.js"></script>
 <script>
+const isDemoMode = <?= FRAGFARM_DEMO_MODE ? 'true' : 'false' ?>;
+const demoSessionKey = 'fragfarm_demo_session';
 const postcodeInput = document.querySelector('#postcode');
 const address1Input = document.querySelector('#address-line1');
 const address2Input = document.querySelector('#address-line2');
 const addressButton = document.querySelector('.member-form__address-btn');
 
 addressButton?.addEventListener('click', () => {
+    if (!window.daum?.Postcode) {
+        window.showGlobalToast?.('주소 검색 서비스를 불러오지 못했습니다.');
+        return;
+    }
+
     new daum.Postcode({
         oncomplete(data) {
             postcodeInput.value = data.zonecode;
@@ -254,6 +273,59 @@ addressButton?.addEventListener('click', () => {
         }
     }).open();
 });
+
+if (isDemoMode) {
+    let demoSession;
+
+    try {
+        demoSession = JSON.parse(window.localStorage.getItem(demoSessionKey) || 'null');
+    } catch (error) {
+        demoSession = null;
+    }
+
+    if (!demoSession) {
+        window.location.href = '<?= BASE_URL ?>/pages/login.php';
+    } else {
+        const fieldMap = {
+            'user-id': 'user_id',
+            'user-name': 'user_name',
+            email: 'email',
+            phone: 'phone',
+            postcode: 'postcode',
+            'address-line1': 'address_line1',
+            'address-line2': 'address_line2'
+        };
+
+        Object.entries(fieldMap).forEach(([id, key]) => {
+            const input = document.getElementById(id);
+            if (input && demoSession[key]) input.value = demoSession[key];
+        });
+
+        document.querySelector('[data-member-form]')?.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const data = new FormData(event.currentTarget);
+            const nextSession = {
+                ...demoSession,
+                user_name: data.get('user_name'),
+                email: data.get('email'),
+                phone: data.get('phone'),
+                postcode: data.get('postcode'),
+                address_line1: data.get('address_line1'),
+                address_line2: data.get('address_line2'),
+                agree_marketing: data.get('agree_marketing') === '1'
+            };
+            window.localStorage.setItem(demoSessionKey, JSON.stringify(nextSession));
+            demoSession = nextSession;
+            window.showGlobalToast?.('회원정보를 저장했습니다.');
+        });
+
+        document.querySelector('[data-password-form]')?.addEventListener('submit', (event) => {
+            event.preventDefault();
+            event.currentTarget.reset();
+            window.showGlobalToast?.('데모 비밀번호를 변경했습니다.');
+        });
+    }
+}
 
 document.querySelectorAll('[data-marketing-toggle]').forEach((button) => {
     button.addEventListener('click', () => {

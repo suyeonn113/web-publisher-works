@@ -4,6 +4,8 @@ include __DIR__ . '/includes/data/products.php';
 
 $pageTitle = 'Fragfarm';
 $pageCss = 'home.css';
+$useFlowerFont = true;
+$useHeroHeader = true;
 
 $newProducts = array_values(array_filter($products, function ($product) {
     $stateTokens = $product['state'] ?? [];
@@ -22,7 +24,7 @@ $saleProducts = array_values(array_filter($products, function ($product) {
 <!------------ Head ------------>
 <?php include __DIR__ . '/includes/head.php'; ?>
 
-<body>
+<body class="home-page">
 <div class="mobile-shell">
     <!-- Header -->
     <?php include __DIR__ . '/includes/header.php'; ?>
@@ -30,16 +32,44 @@ $saleProducts = array_values(array_filter($products, function ($product) {
     <!-- Main -->
     <main id="main">
         <!-- Hero -->
-        <section class="hero">
-            <img class="hero__img" src="<?= BASE_URL ?>/assets/images/hero-2.jpg" alt="메인 이미지">
-            <a class="hero__title-group" href="<?= BASE_URL ?>/pages/product.php?category=new">
+        <section class="hero" data-hero-slider aria-roledescription="carousel" aria-label="26 SS Collection 2nd Release 花 캠페인">
+            <div class="hero__slides" aria-live="off">
+                <?php
+                    $heroImages = [
+                        '/assets/images/products/accessory-005-bk-1.jpg',
+                        '/assets/images/products/accessory-006-na-1.jpg',
+                        '/assets/images/products/accessory-007-bk-1.jpg',
+                        '/assets/images/products/skirt-005-wh-1.jpg',
+                        '/assets/images/products/top-011-bk-2.jpg',
+                    ];
+                ?>
+                <?php foreach ($heroImages as $heroIndex => $heroImage): ?>
+                    <figure class="hero__slide <?= $heroIndex === 0 ? 'is-active' : '' ?>" data-hero-slide aria-hidden="<?= $heroIndex === 0 ? 'false' : 'true' ?>">
+                        <img
+                            class="hero__img"
+                            src="<?= BASE_URL . htmlspecialchars($heroImage, ENT_QUOTES, 'UTF-8') ?>"
+                            alt=""
+                            <?= $heroIndex === 0 ? 'fetchpriority="high"' : 'loading="lazy"' ?>>
+                    </figure>
+                <?php endforeach; ?>
+            </div>
+            <a class="hero__title-group" href="<?= BASE_URL ?>/pages/lookbook-flower.php">
                 <h3 class="hero__subtitle">
-                    26 SS Collection 1st Release
+                    26 SS Collection 2nd Release
                 </h3>
-                <h2 class="hero__title font-brand">
-                SOME NATURE LAYERS
+                <h2 class="hero__title font-flower">
+                    “花”
                 </h2>
-            </a>    
+            </a>
+            <div class="hero__pagination" role="group" aria-label="히어로 이미지 선택">
+                <?php foreach ($heroImages as $heroIndex => $_): ?>
+                    <button
+                        type="button"
+                        data-hero-dot="<?= $heroIndex ?>"
+                        aria-label="<?= $heroIndex + 1 ?>번째 이미지 보기"
+                        <?= $heroIndex === 0 ? 'aria-current="true"' : '' ?>></button>
+                <?php endforeach; ?>
+            </div>
         </section>
         <!-- New -->
         <section class="new">
@@ -79,12 +109,7 @@ $saleProducts = array_values(array_filter($products, function ($product) {
                 <h2 class="section__title font-brand">
                     SALE
                 </h2>
-
-            <a
-                class="section__view-all"
-                href="<?= BASE_URL ?>/pages/product.php?category=sale">
-                view all
-            </a>
+            </div>
 
             <a
                 class="sale__card"
@@ -105,7 +130,7 @@ $saleProducts = array_values(array_filter($products, function ($product) {
 
                     <span class="sale__link-text font-brand">
                         Shop summer sale
-                        <span aria-hidden="true">→</span>
+                        <span aria-hidden="true"><img src="<?= BASE_URL ?>/assets/icons/arrow-right.svg" alt=""></span>
                     </span>
                 </div>
             </a>
@@ -118,7 +143,8 @@ $saleProducts = array_values(array_filter($products, function ($product) {
             <a class="section__view-all" href="<?= BASE_URL ?>/pages/review.php">
                 view all
             </a>
-            <ul class="review__list">
+            <div class="review__rail">
+            <ul class="review__list" aria-label="고객 리뷰 사진. 좌우 방향키로 이동" tabindex="0" data-keyboard-scroll>
                 <li class="review__card review__card--compact">
                     <a class="review__link" href="<?= BASE_URL ?>/pages/review-detail.php?id=moment-001">
                         <img class="review__image" src="<?= BASE_URL ?>/assets/images/review/review-1.jpeg" 
@@ -174,17 +200,21 @@ $saleProducts = array_values(array_filter($products, function ($product) {
                     </a>
                 </li>
             </ul>
+            </div>
         </section>
         <!-- About -->
-        <section class="about">
-            <h2 class="section__title--about font-brand">
-                ABOUT
+        <section class="about" aria-labelledby="home-about-title">
+            <h2 id="home-about-title" class="section__title--about font-brand">
+                ABOUT FRAGFARM
             </h2>
-            <img class="about__image motion-card-spin" src="<?= BASE_URL ?>/assets/images/about-2.png" 
-                alt="여러 스타일링 착용 컷이 배열된 이미지 콜라주">
-            <h3 class="about__title font-brand">About FRAGFARM</h3>
-            <a class="about__link" href="<?= BASE_URL ?>/pages/about.php">
-                <span class="about__read-more">read more</span>
+            <a
+                class="about__card"
+                href="<?= BASE_URL ?>/pages/about.php"
+                aria-label="ABOUT FRAGFARM 페이지 보기">
+                <img
+                    class="about__image motion-card-float"
+                    src="<?= BASE_URL ?>/assets/images/about-2.png"
+                    alt="날개 달린 천사와 FRAGFARM 로고가 그려진 빈티지 카드">
             </a>
         </section>
     </main>
@@ -201,7 +231,8 @@ $saleProducts = array_values(array_filter($products, function ($product) {
         <section
             class="popup__dialog"
             role="dialog"
-            aria-modal="true">
+            aria-modal="true"
+            aria-label="프래그팜 프로모션 안내">
                 <button class="popup__dismiss" type="button">
                     오늘 다시 보지 않기
                 </button>
@@ -211,5 +242,6 @@ $saleProducts = array_values(array_filter($products, function ($product) {
 <!-- Script -->
 <script src="<?= BASE_URL ?>/js/popup.js"></script>
 <script src="<?= BASE_URL ?>/js/header.js"></script>
+<script src="<?= BASE_URL ?>/js/home-hero.js"></script>
 </body>
 </html>

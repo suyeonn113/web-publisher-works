@@ -4,7 +4,16 @@
 
     <title><?= 'Fragfarm' ?></title>
 
+    <?php if (!empty($useFlowerFont)): ?>
+        <!-- Google Fonts: season title glyph -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400&amp;display=swap" rel="stylesheet">
+    <?php endif; ?>
+
     <!-- core -->
+    <link rel="stylesheet" href="<?= BASE_URL ?>/css/core/colors.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/css/core/tokens.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/core/reset.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/core/base.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/core/typography.css">
@@ -21,9 +30,11 @@
 
     <!-- components -->
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/components/button.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/css/components/form-field.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/components/card.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/components/check-box.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/components/modal.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/css/components/cart-option.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/components/motion.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/components/page-head.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/components/chat-launcher.css">
