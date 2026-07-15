@@ -1,0 +1,34 @@
+@use '../styles/foundation/mixins' as *;
+
+.home-page {
+  @include mobile-shell;
+
+  background: var(--color-page);
+}
+
+.home-section {
+  @include responsive-space(
+    padding,
+    var(--space-5) var(--space-4) var(--space-6),
+    var(--space-5) var(--space-5) var(--space-6),
+    var(--space-6) var(--space-6) var(--space-7)
+  );
+
+  background: var(--color-bg);
+}
+
+.home-section + .home-section {
+  padding-top: var(--space-5);
+}
+
+.home-page > .home-section:last-child {
+  padding-bottom: var(--space-4);
+}
+
+.home-category-menu-section {
+  padding-bottom: var(--space-2);
+}
+
+.home-category-menu-section + .home-section {
+  padding-top: var(--space-3);
+}

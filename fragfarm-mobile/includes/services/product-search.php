@@ -22,11 +22,24 @@ function normalizeSearchText($value): string
 function getProductCategorySearchTerms($category): array
 {
     $aliasMap = [
-        'top' => ['top', 'tops', 'shirt', 'shirts', 'tee', 't-shirt', 'blouse'],
-        'bottom' => ['bottom', 'bottoms', 'pants', 'trousers', 'skirt', 'skirts'],
-        'outer' => ['outer', 'outers', 'jacket', 'jackets', 'coat', 'coats', 'cardigan'],
-        'dress' => ['dress', 'dresses', 'onepiece', 'one-piece'],
-        'accessory' => ['accessory', 'accessories', 'acc', 'bag', 'bags', 'hat', 'hats'],
+        'top' => [
+            'top', 'tops', 'shirt', 'shirts', 'tee', 't-shirt', 'blouse',
+            '상의', '티', '티셔츠', '셔츠', '블라우스',
+        ],
+        'bottom' => [
+            'bottom', 'bottoms', 'pants', 'trousers', 'slacks', 'shorts', 'bermuda',
+            '하의', '바지', '팬츠', '슬랙스', '반바지', '쇼츠', '버뮤다',
+        ],
+        'skirt' => ['skirt', 'skirts', '치마', '스커트'],
+        'outer' => [
+            'outer', 'outers', 'jacket', 'jackets', 'coat', 'coats', 'cardigan',
+            '아우터', '재킷', '자켓', '코트', '가디건',
+        ],
+        'dress' => ['dress', 'dresses', 'onepiece', 'one-piece', '드레스', '원피스'],
+        'accessory' => [
+            'accessory', 'accessories', 'acc', 'bag', 'bags', 'hat', 'hats', 'scarf', 'keyring',
+            '액세서리', '악세사리', '악세서리','악세서리', '소품', '가방', '모자', '스카프', '키링',
+        ],
     ];
 
     $normalizedCategory = normalizeSearchText($category);
@@ -66,7 +79,7 @@ function buildProductSearchHaystack(array $product): string
 
 function searchProducts(array $products, array $state): array
 {
-    $itemsPerPage = 8;
+    $itemsPerPage = 10;
     $keyword = normalizeSearchText($state['q']);
 
     if ($keyword === '') {

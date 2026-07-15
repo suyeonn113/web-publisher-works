@@ -1,9 +1,26 @@
 
 document.addEventListener('DOMContentLoaded', () => {
+    restoreCatalogFocus();
     initSortSubmit();
     initProductGalleryIndicators();
     initProductWishButtons();
 });
+
+function restoreCatalogFocus() {
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.get('focus') !== 'catalog') return;
+
+    const focusTarget = document.querySelector('[data-catalog-focus-target]');
+
+    if (!focusTarget) return;
+
+    focusTarget.focus();
+    params.delete('focus');
+
+    const query = params.toString();
+    window.history.replaceState(null, '', `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash}`);
+}
 
 function initSortSubmit() {
     const sortSelect = document.querySelector('#sort');

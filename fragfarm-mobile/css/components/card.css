@@ -149,42 +149,47 @@
 .product__badge {
     display: none;
 
-    position: static;
-    order: -1;
+    position: absolute;
+    top: var(--space-3);
+    left: var(--space-3);
     z-index: 2;
 
-    width: 100%;
-    min-height: 1.5rem;
-    padding: .25rem .5rem;
+    width: auto;
+    min-height: 1.625rem;
+    padding: .35rem .55rem .3rem;
 
     align-items: center;
     justify-content: center;
 
     font-size: var(--font-size-caption);
-    font-weight: 600;
+    font-weight: 500;
     line-height: 1;
-    letter-spacing: .04em;
+    letter-spacing: .12em;
 
-    color: var(--color-text-inverse);
-    background: transparent;
-    text-shadow: 0 1px 3px var(--color-shadow-22);
+    color: var(--color-warm-muted);
+    background: var(--color-white-92);
+    border: 1px solid currentColor;
+    border-radius: 1px;
+    box-shadow: 0 1px 3px var(--color-shadow-08);
+    text-shadow: none;
 }
 
 .product__badge[data-badge="new"] {
-    color: var(--color-status-new-text);
-    background: var(--color-status-new);
-    box-shadow:
-        inset 0 1px color-mix(in srgb, var(--color-white) 58%, transparent),
-        inset 0 -1px color-mix(in srgb, var(--color-text-strong) 12%, transparent);
-    text-shadow: 0 0 .4rem color-mix(in srgb, var(--color-white) 72%, transparent);
+    color: #66705c;
+}
+
+.product__badge.font-brand {
+    font-size: var(--font-size-small);
+    letter-spacing: .06em;
 }
 
 .product__badge[data-badge="sale"] {
-    background: var(--color-status-sale);
+    color: var(--color-accent-strong);
 }
 
 .product__badge[data-badge="soldout"] {
-    background: var(--color-text-strong);
+    color: var(--color-text-mid);
+    background: var(--color-card-muted-92);
 }
 
 .product__card[data-state~="new"] .product__badge,
@@ -194,12 +199,19 @@
 }
 
 /* Name + Price */
+.product__card--detail .product__link {
+    justify-items: stretch;
+    text-align: left;
+}
+
 .product__meta {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     gap: .25rem;
 
-    padding: 0 1rem;
+    width: 100%;
+    padding: 0 0.25rem;
 }
 
 .product__name,
@@ -210,7 +222,7 @@
 
 .product__price {
     display: flex; 
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center; 
     gap: .25rem;
 }
@@ -230,13 +242,24 @@
 
 /* Review Rating */
 .product__rating {
+    margin: 0;
     font-size: var(--font-size-small);
     color: var(--color-accent);
 }
 
+.product__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-2);
+
+    min-height: var(--icon-control-size);
+    padding: 0 var(--space-4) 0 0.25rem;
+}
+
 .product__actions-icon {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
 }
 
 /* Sold out products stay visible in full color; only purchasing is unavailable. */

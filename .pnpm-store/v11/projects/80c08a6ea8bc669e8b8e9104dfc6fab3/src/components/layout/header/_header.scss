@@ -1,0 +1,216 @@
+@use '../../../styles/foundation/functions' as *;
+@use '../../../styles/foundation/mixins' as *;
+
+/* Header shell */
+
+.site-header {
+  position: fixed;
+  top: 0;
+  z-index: get-z(header);
+
+  width: 100%;
+
+  color: var(--color-text-inverse);
+  background: var(--color-white-medium);
+  box-shadow: none;
+  transition:
+    color var(--duration-panel) var(--ease-panel),
+    background-color var(--duration-panel) var(--ease-panel),
+    box-shadow var(--duration-panel) var(--ease-panel);
+}
+
+.site-header.is-solid,
+.site-header:has(.site-header__nav-item--open),
+.site-header:has(.site-header__dropdown-button[aria-expanded='true']),
+.site-header:has(.site-header__mobile-button[aria-expanded='true']) {
+  color: var(--color-text-primary);
+  background: var(--color-bg-main);
+  box-shadow: var(--shadow-sm);
+}
+
+.site-header__main {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-rows: var(--header-utility-height) 1fr;
+  align-items: center;
+
+  column-gap: 0;
+
+  max-width: var(--container-width);
+  min-height: var(--header-main-height);
+  padding: get-space(md) var(--container-padding) 0;
+  margin: 0 auto;
+}
+
+.site-header__logo {
+  grid-column: 1;
+  grid-row: 2;
+  flex-shrink: 0;
+  align-self: center;
+  display: block;
+  line-height: 0;
+  width: var(--logo-width);
+  color: var(--color-mint);
+  overflow: visible;
+
+  @include respond-down(tablet) {
+    width: var(--logo-width-mobile);
+  }
+}
+
+.site-header__logo .logo__svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* Header actions */
+
+.site-header__actions {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
+  align-self: center;
+  display: flex;
+  align-items: center;
+  padding-block: get-space(xs);
+}
+
+.site-header__desktop-actions,
+.site-header__mobile-actions {
+  display: flex;
+  align-items: center;
+  gap: get-space(md);
+}
+
+.site-header__mobile-actions {
+  display: none;
+}
+
+.site-header__login-link,
+.site-header__dropdown-button,
+.site-header__dropdown-link {
+  @include text-size(body);
+}
+
+.site-header__login-link,
+.site-header__dropdown-button,
+.site-header__dropdown-link {
+  @include transition(color, fast, standard);
+  color: inherit;
+  font-weight: 700;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-point-primary);
+  }
+}
+
+.site-header__login-link {
+  display: flex;
+  align-items: center;
+  gap: get-space(xs);
+}
+
+.site-header__action-symbol {
+  flex-shrink: 0;
+}
+
+/* Action dropdown */
+
+.site-header__dropdown {
+  position: relative;
+}
+
+.site-header__dropdown-bridge {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: get-z(dropdown);
+
+  display: block;
+  width: calc(var(--header-utility-submenu-min-width) + #{get-space(md)});
+  height: get-space(sm);
+}
+
+.site-header__dropdown-button {
+  display: flex;
+  align-items: center;
+  gap: get-space(xs);
+
+  &:focus-visible {
+    outline: 0;
+    box-shadow: 0 0 0 var(--focus-ring-width) var(--color-focus-ring);
+  }
+}
+
+.site-header__dropdown-icon {
+  flex-shrink: 0;
+}
+
+.site-header__dropdown-icon {
+  @include transition(transform, fast, standard);
+}
+
+.site-header__dropdown-button[aria-expanded='true'] .site-header__dropdown-icon {
+  transform: rotate(180deg);
+}
+
+.site-header__dropdown-list {
+  position: absolute;
+  top: calc(100% + #{get-space(sm)});
+  right: 0;
+  z-index: get-z(dropdown);
+
+  min-width: calc(var(--header-utility-submenu-min-width) + #{get-space(md)});
+  padding: get-space(sm);
+
+  background: var(--color-bg-main);
+  border: var(--line-thin) solid var(--color-border-primary);
+  border-radius: var(--radius-sm);
+}
+
+.site-header__dropdown-link {
+  @include transition(all, fast, standard);
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 36px;
+  padding: get-space(xs) get-space(sm);
+
+  color: var(--color-text-primary);
+  font-weight: 500;
+  text-align: left;
+  white-space: nowrap;
+  border-radius: var(--radius-sm);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+
+    width: var(--line-bold);
+    height: 0;
+
+    background: var(--color-border-mint);
+    border-radius: var(--radius-full);
+    transform: translateY(-50%);
+    @include transition(height, fast, standard);
+  }
+
+  &:hover,
+  &:focus-visible {
+    padding-left: get-space(md);
+    color: var(--color-point-primary);
+    font-weight: 600;
+    background: var(--color-bg-sub);
+
+    &::before {
+      height: 56%;
+    }
+  }
+}

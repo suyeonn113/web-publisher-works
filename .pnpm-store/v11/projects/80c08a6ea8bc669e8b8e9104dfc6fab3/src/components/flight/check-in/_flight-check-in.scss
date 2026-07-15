@@ -1,0 +1,299 @@
+@use '../../../styles/foundation/functions' as *;
+@use '../../../styles/foundation/mixins' as *;
+@use 'flight-check-in-guides';
+
+.flight-check-in-detail {
+  display: grid;
+  gap: get-space(xl);
+}
+
+.flight-check-in-detail > .information-tabs {
+  border-radius: var(--radius-sm);
+
+  button {
+    @include text-size(body-lg);
+    @include transition(all, fast, standard);
+    @include clipped-focus-ring;
+
+    min-height: 64px;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--color-text-interactive-hover);
+      background: var(--color-bg-interactive-hover);
+    }
+
+    &.is-active {
+      color: var(--color-text-inverse);
+      background: var(--color-point-primary);
+    }
+  }
+}
+
+.flight-check-in-detail__intro,
+.flight-check-in-detail__times,
+.flight-check-in-detail__steps,
+.flight-check-in-detail__boarding-samples,
+.flight-check-in-detail__airport,
+.flight-check-in-detail__confirm {
+  margin-inline: var(--flight-detail-inline-padding);
+}
+
+.flight-check-in-detail__lookup {
+  display: grid;
+  gap: get-space(lg);
+}
+
+.flight-check-in-detail__intro {
+  h2 {
+    @include text-size(title);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
+
+  p {
+    @include text-size(body);
+
+    margin-top: get-space(sm);
+    color: var(--color-text-secondary);
+  }
+}
+
+.flight-check-in-detail .flight-lookup-form {
+  padding: get-space(lg);
+  border: var(--line-thin) solid var(--color-border-primary);
+  border-radius: var(--radius-md);
+}
+
+.flight-check-in-detail__times,
+.flight-check-in-detail__steps,
+.flight-check-in-detail__airport,
+.flight-check-in-detail__confirm {
+  display: grid;
+  gap: get-space(lg);
+
+  > h2 {
+    @include text-size(title);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
+}
+
+.flight-check-in-detail__airport > div {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: get-space(md) get-space(xl);
+}
+
+.flight-check-in-detail__section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: get-space(md);
+
+  h2 {
+    @include text-size(title);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
+
+  button {
+    @include text-size(caption);
+    @include transition(color, fast, standard);
+
+    display: inline-flex;
+    align-items: center;
+    gap: get-space(xs);
+    color: var(--color-point-primary);
+    font-weight: 700;
+
+    &:hover,
+    &:focus-visible {
+      color: color-mix(in srgb, var(--color-point-primary) 72%, var(--color-black));
+    }
+  }
+}
+
+.flight-check-in-detail__airport article {
+  display: flex;
+  align-items: flex-start;
+  gap: get-space(md);
+  padding-block: get-space(md);
+  color: var(--color-point-primary);
+
+  h3 {
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
+
+  p {
+    @include text-size(body);
+
+    margin-top: get-space(xs);
+    color: var(--color-text-secondary);
+  }
+}
+
+.flight-check-in-detail__times > div {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  overflow: hidden;
+  background: var(--color-bg-main);
+  border: var(--line-thin) solid var(--color-border-primary);
+  border-top: var(--line-bold) solid var(--color-point-primary);
+  border-radius: var(--radius-md);
+
+  article {
+    display: flex;
+    align-items: center;
+    gap: get-space(md);
+    min-height: 128px;
+    padding: get-space(xl);
+    color: var(--color-point-primary);
+
+    & + article {
+      border-left: var(--line-thin) solid var(--color-border-primary);
+    }
+  }
+
+  h3 {
+    color: var(--color-point-primary);
+    font-weight: 700;
+  }
+
+  p {
+    display: grid;
+    gap: get-space(xs);
+    margin-top: get-space(xs);
+
+    span {
+      @include text-size(caption);
+
+      color: var(--color-text-tertiary);
+    }
+
+    strong {
+      @include text-size(title);
+
+      color: var(--color-text-primary);
+      font-weight: 800;
+    }
+  }
+}
+
+.flight-check-in-detail__times > p {
+  @include text-size(caption);
+
+  color: var(--color-text-tertiary);
+}
+
+.flight-check-in-detail__confirm > div {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: get-space(xl);
+}
+
+.flight-check-in-detail__confirm > div > div {
+  display: grid;
+  align-content: start;
+  gap: get-space(md);
+
+  h3 {
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
+
+  ul {
+    display: grid;
+    gap: get-space(sm);
+  }
+}
+
+.flight-check-in-detail__confirm-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: get-space(sm);
+
+  button {
+    @include text-size(caption);
+    @include transition(color, fast, standard);
+
+    display: inline-flex;
+    align-items: center;
+    gap: get-space(xs);
+    color: var(--color-point-primary);
+    font-weight: 700;
+    white-space: nowrap;
+
+    &:hover,
+    &:focus-visible {
+      color: color-mix(in srgb, var(--color-point-primary) 72%, var(--color-black));
+    }
+  }
+}
+
+.flight-check-in-detail__confirm li {
+  @include text-size(caption);
+
+  position: relative;
+  padding-left: get-space(md);
+  color: var(--color-text-secondary);
+
+  &::before {
+    position: absolute;
+    top: 0.65em;
+    left: 0;
+    width: 4px;
+    height: 4px;
+    content: '';
+    background: var(--color-border-gray);
+  }
+}
+
+.flight-check-in-detail__confirm {
+  padding-bottom: get-space(xl);
+}
+
+@include respond-down(tablet) {
+}
+
+@include respond-down(mobile) {
+  .flight-check-in-detail {
+    gap: get-space(xl);
+  }
+
+  .flight-check-in-detail__times > div,
+  .flight-check-in-detail__airport > div,
+  .flight-check-in-detail__confirm > div {
+    grid-template-columns: 1fr;
+  }
+
+  .flight-check-in-detail__times > div article + article {
+    border-top: var(--line-thin) solid var(--color-border-primary);
+    border-left: 0;
+  }
+
+  .flight-check-in-detail__section-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .flight-check-in-detail__confirm-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@include respond-down(mobile-sm) {
+  .flight-check-in-detail > .information-tabs button {
+    min-height: 52px;
+  }
+
+  .flight-check-in-detail .flight-lookup-form {
+    padding: get-space(md);
+  }
+}

@@ -1,0 +1,51 @@
+@use '../styles/foundation/functions' as *;
+@use '../styles/foundation/mixins' as *;
+
+.travel-guide-page {
+  min-height: 100vh;
+  padding: calc(var(--header-main-height) + #{get-space(xxl)}) var(--container-padding)
+    get-space(xxl);
+}
+
+.travel-guide-page__inner {
+  width: min(100%, var(--container-width));
+  margin: 0 auto;
+
+  > h1 {
+    @include text-size(heading-md);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
+}
+
+.travel-guide-page__content {
+  display: grid;
+  gap: get-space(xl);
+  margin-top: get-space(xl);
+
+  section {
+    display: grid;
+    gap: get-space(sm);
+    scroll-margin-top: calc(var(--header-main-height) + #{get-space(md)});
+  }
+
+  h2 {
+    @include text-size(title);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
+
+  p {
+    @include text-size(body);
+
+    color: var(--color-text-secondary);
+  }
+}
+
+@include respond-down(mobile) {
+  .travel-guide-page {
+    padding-top: calc(var(--header-main-height-mobile) + #{get-space(xl)});
+  }
+}

@@ -1,0 +1,447 @@
+@use '../../../styles/foundation/functions' as *;
+@use '../../../styles/foundation/mixins' as *;
+
+.flight-service-chips {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: get-space(sm);
+}
+
+.flight-service-chips button,
+.flight-date-picker__trip button {
+  @include button-hover-gray;
+
+  min-height: 40px;
+  padding: 0 get-space(lg);
+  color: var(--color-text-primary);
+  background: var(--color-bg-sub);
+  border-radius: var(--radius-full);
+
+  &.is-active {
+    @include button-hover-primary;
+
+    color: var(--color-text-inverse);
+    background: var(--color-point-primary);
+  }
+}
+
+.flight-route-selector {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 40px minmax(0, 1fr);
+  align-items: center;
+  gap: get-space(sm);
+
+  
+  > button:not(.flight-route-selector__swap) {
+    position: relative;
+    display: grid;
+    gap: 2px;
+    min-width: 0;
+    color: var(--color-text-secondary);
+    text-align: center;
+
+    &.is-selected {
+      color: var(--color-text-primary);
+    }
+  }
+
+  span,
+  em {
+    @include ellipsis;
+  }
+
+  span {
+    @include text-size(caption);
+  }
+
+  strong {
+    min-width: 0;
+    font-size: rem(34px);
+    line-height: 1;
+  }
+
+  em {
+    @include text-size(caption);
+
+    font-style: normal;
+  }
+}
+
+.flight-route-selector__swap {
+  @include flex-center;
+  @include button-hover-subtle;
+
+  width: 40px;
+  aspect-ratio: 1 / 1;
+  color: var(--color-text-primary);
+  border: var(--line-thin) solid var(--color-border-primary);
+  border-radius: var(--radius-full);
+
+  &:disabled {
+    color: var(--color-text-tertiary);
+    cursor: default;
+    pointer-events: none;
+  }
+}
+
+.flight-service-field-button {
+  position: relative;
+  display: grid;
+  gap: get-space(sm);
+  min-height: 64px;
+  min-width: 0;
+  padding-left: get-space(lg);
+  color: var(--color-text-primary);
+  text-align: left;
+  background: transparent;
+  border-left: var(--line-thin) solid var(--color-border-secondary);
+
+  strong {
+    @include text-size(body);
+  }
+}
+
+.flight-date-field__value {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: get-space(sm);
+  min-width: 0;
+  white-space: nowrap;
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+.flight-date-field__start,
+.flight-date-field__end {
+  white-space: nowrap;
+}
+
+.flight-service-popup {
+  width: min(520px, calc(100% - #{get-space(xxl) * 2}));
+  padding: get-space(lg);
+  margin: 0 0 get-space(xl);
+
+  background: var(--color-bg-main);
+  border: var(--line-thin) solid var(--color-border-primary);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  transform: translateX(var(--popup-left, 0));
+}
+
+.flight-service-popup--date {
+  width: min(960px, calc(100% - #{get-space(xxl) * 2}));
+}
+
+.flight-service-popup--passengers {
+  width: min(720px, calc(100% - #{get-space(xxl) * 2}));
+}
+
+.flight-service-popup__header {
+  @include flex-between;
+
+  margin-bottom: get-space(md);
+  color: var(--color-text-primary);
+
+  strong {
+    @include text-size(title);
+  }
+
+  button {
+    @include flex-center;
+
+    width: 40px;
+    height: 40px;
+    color: var(--color-text-primary);
+    border-radius: var(--radius-full);
+
+    &:hover,
+    &:focus-visible {
+      color: var(--color-text-interactive-hover);
+      background: var(--color-bg-interactive-hover);
+    }
+  }
+}
+
+.flight-airport-picker {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: get-space(md);
+  max-height: 320px;
+  overflow-y: auto;
+
+  h3 {
+    margin-bottom: get-space(xs);
+    color: var(--color-text-secondary);
+  }
+
+  section > div {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: get-space(xs);
+  }
+
+  button {
+    @include button-hover-primary;
+
+    display: grid;
+    gap: 2px;
+    min-height: 48px;
+    padding: get-space(sm) get-space(md);
+    text-align: left;
+    border: var(--line-thin) solid var(--color-border-primary);
+    border-radius: var(--radius-sm);
+
+    &.is-active {
+      @include button-hover-gray;
+
+      color: var(--color-text-inverse);
+      background: var(--color-point-primary);
+    }
+
+    &:disabled {
+      color: var(--color-text-tertiary);
+      cursor: not-allowed;
+      background: var(--color-bg-sub);
+    }
+  }
+}
+
+.flight-service-panel {
+  display: grid;
+  gap: get-space(lg);
+  padding: 0 get-space(xl) get-space(xl);
+}
+
+.flight-service-shell__body {
+  --flight-service-search-columns:
+    minmax(210px, 1fr)
+    minmax(230px, 1.06fr)
+    minmax(180px, 0.8fr)
+    auto;
+}
+
+.flight-lookup-form {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) auto;
+  align-items: end;
+  gap: get-space(md);
+  min-height: 112px;
+}
+
+.flight-schedule-search {
+  position: relative;
+}
+
+.flight-lookup-form > .flight-service-popup,
+.flight-schedule-search > .flight-service-popup {
+  position: absolute;
+  top: calc(var(--popup-top, 0) + #{get-space(sm)});
+  left: 0;
+  z-index: get-z(modal);
+  margin: 0;
+}
+
+.flight-lookup-form > .flight-service-popup {
+  grid-column: 1 / -1;
+}
+
+.flight-lookup-field {
+  display: grid;
+  gap: get-space(sm);
+  min-width: 0;
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+.flight-lookup-field__control {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: get-space(sm);
+  min-height: 48px;
+  padding: 0 get-space(md);
+  color: var(--color-point-primary);
+  border: var(--line-thin) solid var(--color-border-primary);
+  border-radius: var(--radius-sm);
+
+  input {
+    min-width: 0;
+    width: 100%;
+    color: var(--color-text-primary);
+    background: transparent;
+    border: 0;
+
+    &::placeholder {
+      color: var(--color-text-secondary);
+    }
+  }
+
+  select {
+    min-width: 0;
+    width: 100%;
+    color: var(--color-text-primary);
+    background: transparent;
+    border: 0;
+    appearance: none;
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+.flight-select-menu {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.flight-select-menu--lookup {
+  position: static;
+}
+
+.flight-select-menu__button {
+  width: 100%;
+  color: var(--color-text-primary);
+  text-align: left;
+}
+
+.flight-select-menu__list {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  z-index: get-z(dropdown);
+  display: grid;
+  gap: get-space(xs);
+  max-height: min(rem(260px), 40vh);
+  overflow-y: auto;
+  padding: get-space(xs);
+  background: var(--color-bg-main);
+  border: var(--line-thin) solid var(--color-border-primary);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+}
+
+.flight-select-menu__option {
+  min-height: 36px;
+  padding: 0 get-space(sm);
+  color: var(--color-text-primary);
+  text-align: left;
+  border-radius: var(--radius-xs);
+
+  &:hover,
+  &:focus-visible,
+  &.is-active {
+    color: var(--color-text-inverse);
+    background: var(--color-point-primary);
+  }
+}
+
+.flight-service-submit {
+  @include button-hover-primary;
+
+  min-width: 112px;
+  min-height: 48px;
+  padding: 0 get-space(lg);
+  color: var(--color-text-inverse);
+  font-weight: 700;
+  background: var(--color-point-primary);
+  border-radius: var(--radius-full);
+}
+
+@include respond-down(laptop) {
+  .flight-service-shell__body {
+    --flight-service-search-columns:
+      minmax(196px, 0.92fr)
+      minmax(210px, 1fr)
+      minmax(166px, 0.76fr)
+      auto;
+  }
+
+  .flight-route-selector {
+    grid-template-columns: minmax(0, 1fr) 36px minmax(0, 1fr);
+
+    strong {
+      font-size: rem(32px);
+    }
+  }
+
+  .flight-route-selector__swap {
+    width: 36px;
+    aspect-ratio: 1 / 1;
+  }
+
+  .flight-date-field__value {
+    font-size: rem(14px);
+  }
+}
+
+@include respond-down(tablet) {
+  .flight-service-shell__body {
+    --flight-service-search-columns: 1fr;
+  }
+
+  .flight-service-panel {
+    padding: get-space(xl);
+  }
+
+  .flight-lookup-form,
+  .flight-schedule-search {
+    grid-template-columns: 1fr;
+  }
+
+  .flight-service-field-button {
+    padding-top: get-space(md);
+    padding-left: 0;
+    border-top: var(--line-thin) solid var(--color-border-secondary);
+    border-left: 0;
+  }
+
+  .flight-service-popup--date,
+  .flight-service-popup--passengers {
+    width: min(100%, calc(100vw - #{get-space(xl) * 2}));
+    transform: none;
+  }
+
+  .flight-airport-picker {
+    grid-template-columns: 1fr;
+    max-height: none;
+  }
+}
+
+@include respond-down(mobile) {
+  .flight-lookup-form > .flight-service-popup,
+  .flight-schedule-search > .flight-service-popup {
+    position: fixed;
+    inset: 0;
+    z-index: get-z(toast);
+  }
+
+  .flight-service-popup {
+    width: 100%;
+    height: 100svh;
+    min-height: 100%;
+
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    margin: 0;
+    padding: get-space(lg);
+
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    transform: none;
+  }
+}
+
+@include respond-down(mobile-sm) {
+  .flight-service-panel {
+    padding: get-space(lg);
+  }
+}

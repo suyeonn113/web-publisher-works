@@ -1,0 +1,12 @@
+import IconBase from './IconBase';
+
+function SmallPlaneIcon(props) {
+  return (
+    <IconBase {...props}>
+      <path d="m22 2-7 20-4-9-9-4 20-7Z" />
+      <path d="M22 2 11 13" />
+    </IconBase>
+  );
+}
+
+export default SmallPlaneIcon;

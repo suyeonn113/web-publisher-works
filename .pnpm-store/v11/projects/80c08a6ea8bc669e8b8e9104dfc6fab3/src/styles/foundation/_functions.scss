@@ -1,0 +1,32 @@
+/* ================================
+   FUNCTIONS
+================================ */
+
+@use 'sass:map';
+@use 'sass:math';
+
+@use './maps';
+
+/* =========================
+   PX to REM
+========================= */
+
+@function rem($px, $base: 16px) {
+  @return math.div($px, $base) * 1rem;
+}
+
+/* =========================
+   Z-INDEX
+========================= */
+
+@function get-z($key) {
+  @return map.get(maps.$z-indexes, $key);
+}
+
+/* =========================
+   SPACING
+========================= */
+
+@function get-space($key) {
+  @return map.get(maps.$spacing, $key);
+}

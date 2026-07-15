@@ -286,6 +286,28 @@
 }
 
 /* ===== Review Horizontal Rail ===== */
+.review__intro {
+    grid-column: 1 / -1;
+    display: grid;
+    gap: var(--space-1);
+}
+
+.review__eyebrow,
+.review__description {
+    margin: 0;
+}
+
+.review__eyebrow {
+    color: var(--color-warm-muted);
+    font-size: var(--font-size-small);
+    letter-spacing: .08em;
+}
+
+.review__description {
+    font-size: var(--font-size-body);
+    line-height: 1.6;
+}
+
 .review__rail {
     position: relative;
     min-width: 0;
@@ -331,6 +353,11 @@
 
 .review__list::-webkit-scrollbar {
     display: none;
+}
+
+.review__list.is-auto-flowing {
+    scroll-snap-type: none;
+    scroll-behavior: auto;
 }
 
 .review__card--compact {
@@ -411,7 +438,7 @@
 }
 
 .sale__link-text span {
-    transition: transform .3s ease;
+    animation: sale-arrow-nudge 1.8s ease-in-out infinite;
 }
 
 .sale__link-text img {
@@ -429,8 +456,14 @@
         saturate(.95);
 }
 
-.sale__card:hover .sale__link-text span {
-    transform: translateX(.2rem);
+@keyframes sale-arrow-nudge {
+    0%, 100% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(.25rem);
+    }
 }
 
 /* ===== About ===== */
@@ -488,8 +521,11 @@
 
 @media (prefers-reduced-motion: reduce) {
     .hero__slide,
-    .sale__image,
-    .sale__link-text span {
+    .sale__image {
         transition: none;
+    }
+
+    .sale__link-text span {
+        animation: none;
     }
 }

@@ -1,0 +1,334 @@
+@use '../../../styles/foundation/functions' as *;
+@use '../../../styles/foundation/mixins' as *;
+
+.airport-check-in-guide,
+.city-terminal-guide,
+.self-bag-drop-guide {
+  margin-top: 0;
+
+  > header {
+    padding-bottom: get-space(lg);
+    border-bottom: var(--line-thin) solid var(--color-border-primary);
+
+    h2 {
+      @include text-size(title);
+
+      color: var(--color-text-primary);
+      font-weight: 700;
+    }
+
+    p {
+      @include text-size(body);
+    }
+  }
+}
+
+.flight-check-in-detail > .information-sections {
+  margin-top: 0;
+}
+
+.airport-check-in-guide__process,
+.city-terminal-guide__process,
+.self-bag-drop-guide__process,
+.flight-check-in-detail__steps {
+  > h3 {
+    @include text-size(title);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
+}
+
+.check-in-process-flow {
+  --check-in-process-media-size: 128px;
+
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: get-space(xl);
+
+  li {
+    position: relative;
+    display: grid;
+    gap: get-space(md);
+    align-content: start;
+    justify-items: center;
+    text-align: center;
+
+    &:not(:last-child)::after {
+      position: absolute;
+      top: calc(var(--check-in-process-media-size) / 2);
+      left: calc(50% + (var(--check-in-process-media-size) / 2) + #{get-space(sm)});
+      width: calc(100% - var(--check-in-process-media-size) - #{get-space(md)});
+      height: var(--line-thin);
+      content: '';
+      background: var(--color-border-primary);
+    }
+
+    &:not(:last-child)::before {
+      position: absolute;
+      z-index: 1;
+      top: calc((var(--check-in-process-media-size) / 2) - 4px);
+      right: -#{get-space(md)};
+      width: 8px;
+      height: 8px;
+      content: '';
+      border-top: var(--line-thin) solid var(--color-border-primary);
+      border-right: var(--line-thin) solid var(--color-border-primary);
+      transform: rotate(45deg);
+    }
+  }
+
+  &--5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  &--6 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    li:nth-child(3)::before,
+    li:nth-child(3)::after {
+      display: none;
+    }
+  }
+}
+
+.check-in-process-flow__image {
+  @include flex-center;
+
+  position: relative;
+  width: var(--check-in-process-media-size);
+  height: var(--check-in-process-media-size);
+  overflow: hidden;
+  color: var(--color-text-tertiary);
+  background: var(--color-bg-sub);
+  border-radius: var(--radius-full);
+
+  span {
+    @include text-size(title);
+
+    font-weight: 700;
+  }
+
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: get-space(lg);
+    object-fit: contain;
+  }
+}
+
+.check-in-process-flow li > div:last-child {
+  display: grid;
+  gap: get-space(xs);
+
+  small {
+    @include text-size(caption);
+
+    color: var(--color-point-primary);
+    font-weight: 700;
+  }
+
+  h4 {
+    @include text-size(body-lg);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
+
+  p {
+    @include text-size(caption);
+
+    color: var(--color-text-secondary);
+  }
+}
+
+.airport-check-in-guide__key-info {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: get-space(md);
+}
+
+.airport-check-in-guide__documents,
+.airport-check-in-guide__deadline {
+  padding: get-space(lg);
+  border: var(--line-thin) solid var(--color-border-primary);
+  border-radius: var(--radius-sm);
+
+  ul {
+    margin-top: get-space(sm);
+  }
+
+  li {
+    display: grid;
+    grid-template-columns: minmax(92px, 0.28fr) minmax(0, 1fr);
+    gap: get-space(md);
+    padding-block: get-space(sm);
+
+    & + li {
+      border-top: var(--line-thin) solid var(--color-border-primary);
+    }
+  }
+
+  strong {
+    color: var(--color-text-primary);
+  }
+}
+
+.airport-check-in-guide__deadline {
+  border-top: var(--line-bold) solid var(--color-point-primary);
+
+  li span {
+    color: var(--color-point-primary);
+    font-weight: 700;
+  }
+}
+
+.airport-check-in-guide__boarding {
+  padding: get-space(lg);
+  border-left: var(--line-bold) solid var(--color-point-primary);
+
+  p {
+    @include text-size(body);
+
+    margin-top: get-space(sm);
+  }
+
+  strong {
+    color: var(--color-text-primary);
+  }
+}
+
+.flight-check-in-detail__boarding-samples {
+  display: grid;
+  gap: get-space(lg);
+
+  > h2 {
+    @include text-size(title);
+
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
+
+  > div {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: get-space(lg);
+  }
+
+  figure {
+    display: grid;
+    gap: get-space(sm);
+  }
+
+  figcaption {
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
+
+  figure > div {
+    @include flex-center;
+
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--color-bg-sub);
+    border: var(--line-thin) solid var(--color-border-primary);
+    border-radius: var(--radius-sm);
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    padding: get-space(lg);
+    padding-bottom: 0;
+    object-fit: contain;
+  }
+
+  span {
+    @include text-size(caption);
+
+    position: absolute;
+    color: var(--color-text-tertiary);
+  }
+}
+
+.check-in-guide__info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: get-space(md);
+
+  section {
+    padding: get-space(lg);
+    border: var(--line-thin) solid var(--color-border-primary);
+    border-radius: var(--radius-sm);
+  }
+
+  h3 {
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
+
+  li {
+    position: relative;
+    padding-left: get-space(md);
+
+    &::before {
+      position: absolute;
+      top: 0.7em;
+      left: 0;
+      width: 4px;
+      height: 4px;
+      content: '';
+      background: var(--color-point-primary);
+    }
+  }
+}
+
+.check-in-guide__notice {
+  padding: get-space(lg);
+  border-left: var(--line-bold) solid var(--color-point-primary);
+
+  h3 {
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
+}
+
+@include respond-down(tablet) {
+  .check-in-process-flow,
+  .check-in-process-flow--5,
+  .check-in-process-flow--6 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    li::before,
+    li::after {
+      display: none;
+    }
+  }
+
+  .airport-check-in-guide__key-info {
+    grid-template-columns: 1fr;
+  }
+}
+
+@include respond-down(mobile) {
+  .flight-check-in-detail__boarding-samples > div,
+  .check-in-guide__info-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@include respond-down(mobile-sm) {
+  .airport-check-in-guide__documents li,
+  .airport-check-in-guide__deadline li {
+    grid-template-columns: 1fr;
+    gap: get-space(xs);
+  }
+
+  .check-in-process-flow,
+  .check-in-process-flow--5,
+  .check-in-process-flow--6 {
+    grid-template-columns: 1fr;
+  }
+}

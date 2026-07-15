@@ -5,8 +5,6 @@ const menuBtn = document.querySelector('#header-menu');
 const popupDialog = popup?.querySelector('[role="dialog"]');
 let popupLastFocused = null;
 
-console.log('js 연결됨');
-
 // 오늘 다시 보지 않기
 function setCookie(name, value, days) {
     const date = new Date();

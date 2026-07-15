@@ -1,0 +1,51 @@
+.panel-motion--fade[data-state='open'],
+[data-state='open'] .panel-motion--fade {
+  animation: panel-fade-enter var(--duration-panel) var(--ease-panel) both;
+}
+
+.panel-motion--slide-right[data-state='open'],
+[data-state='open'] .panel-motion--slide-right {
+  animation: panel-slide-right-enter var(--duration-panel) var(--ease-panel) both;
+}
+
+.panel-motion--slide-down[data-state='open'],
+[data-state='open'] .panel-motion--slide-down {
+  animation: panel-slide-down-enter var(--duration-panel) var(--ease-panel) both;
+}
+
+.panel-motion--slide-right,
+.panel-motion--slide-down {
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+@keyframes panel-fade-enter {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes panel-slide-right-enter {
+  from {
+    transform: translate3d(92%, 0, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes panel-slide-down-enter {
+  from {
+    transform: translate3d(0, -92%, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}

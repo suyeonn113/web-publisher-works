@@ -1,0 +1,173 @@
+/* ================================
+   TOKENS
+================================ */
+
+/* CSS custom properties used directly in rendered styles. */
+
+:root {
+  /* =========================
+     COLOR
+  ========================= */
+
+  --color-white: #ffffff;
+  --color-white-rgb: 255 255 255;
+  --color-black: #111111;
+  --color-black-rgb: 17 17 17;
+
+  --color-white-soft: rgb(var(--color-white-rgb) / 0.08);
+  --color-white-medium: rgb(var(--color-white-rgb) / 0.16);
+  --color-white-hard: rgb(var(--color-white-rgb) / 0.86);
+  --color-black-soft: rgb(var(--color-black-rgb) / 0.08);
+  --color-black-medium: rgb(var(--color-black-rgb) / 0.16);
+  --color-black-hard: rgb(var(--color-black-rgb) / 0.86);
+
+  /* Brand */
+  --color-mint: #1ab899;
+  --color-mint-dark: #008b7c;
+
+  --color-mint-light-1: #9bd3ab;
+  --color-mint-light-2: #c4e4c9;
+
+  --color-green-1: #6ec178;
+  --color-green-2: #b3d175;
+  --color-green-light: #d7ecaa;
+  --color-blue-soft: #dff4ff;
+
+  --color-pink: #ee3c8b;
+  --color-yellow: #ffe800;
+
+  --color-silver: #d1d2d4;
+  --color-gray: #b6bab0;
+
+  /* Text */
+  --color-text-primary: #111111;
+  --color-text-secondary: #666666;
+  --color-text-tertiary: #999999;
+  --color-text-inverse: #ffffff;
+
+  /* Background */
+  --color-bg-main: #ffffff;
+  --color-bg-sub: #f1f3f3;
+  --color-bg-backdrop: rgb(var(--color-black-rgb) / 0.42);
+
+  --color-bg-mint: var(--color-mint-light-2);
+  --color-bg-mint-soft: #f5f8f7;
+  --color-bg-green: var(--color-green-2);
+
+  /* Border */
+  --color-border-primary: #e5e5e5;
+  --color-border-secondary: #d9d9d9;
+
+  --color-border-mint: var(--color-mint);
+  --color-border-gray: var(--color-gray);
+
+  /* Point */
+  --color-point-primary: var(--color-mint-dark);
+  --color-point-secondary: #4a5768;
+  --color-point-pink: var(--color-pink);
+  --color-point-yellow: var(--color-yellow);
+
+  /* Social */
+  --color-social-facebook: #1877f2;
+  --color-social-instagram: #e4405f;
+  --color-social-youtube: #ff0000;
+  --color-social-twitter: #111111;
+
+  /* State */
+  --color-focus-ring: #4f46e5;
+  --radius-focus: 8px;
+  --focus-ring-width: 2px;
+
+  --color-bg-hover: #2a2a2a;
+  --color-text-hover: #f7f7f7;
+  --color-bg-interactive-hover: #f6f8f8;
+  --color-border-interactive-hover: #cbd3d2;
+  --color-text-interactive-hover: #005f56;
+
+  /* =========================
+     TYPOGRAPHY
+  ========================= */
+
+  --font-family-base:
+    'Pretendard',
+    'SUIT',
+    sans-serif;
+
+  --font-size-base: 16px;
+  --line-height-base: 1.5;
+
+  /* =========================
+     LAYOUT
+  ========================= */
+
+  --header-main-height: 112px;
+  --header-main-height-mobile: 48px;
+  --header-utility-height: 24px;
+  --header-utility-submenu-min-width: 140px;
+  --header-submenu-panel-min-height: 88px;
+  --header-mobile-button-size: 40px;
+  --header-mobile-line-width: 20px;
+  --header-mobile-line-height: 2px;
+  --mobile-drawer-width: 520px;
+
+  --logo-width: 180px;
+  --logo-width-mobile: 124px;
+
+  --container-width: 1440px;
+  --container-padding: 24px;
+
+  /* =========================
+     ICON
+  ========================= */
+
+  --icon-size-xs: 14px;
+  --icon-size-sm: 16px;
+  --icon-size-md: 24px;
+  --icon-size-lg: 32px;
+
+  --service-icon-line: #162320;
+  --service-icon-point: #20ad95;
+  --service-icon-point-sub: #b9e3d5;
+  --service-icon-point-warm: #f4d84c;
+  --service-icon-point-cool: #cfe8f3;
+
+  /* =========================
+     RADIUS
+  ========================= */
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 999px;
+
+  /* =========================
+     SHADOW
+  ========================= */
+
+  --shadow-sm:
+    0 2px 8px rgba(0, 0, 0, 0.04);
+
+  --shadow-md:
+    0 8px 24px rgba(0, 0, 0, 0.08);
+
+  /* =========================
+     LINE
+  ========================= */
+
+  --line-thin: 1px;
+  --line-bold: 3px;
+  --line-heavy: 4px;
+
+  /* =========================
+     TRANSITION
+  ========================= */
+
+  --duration-fast: 0.2s;
+  --duration-panel: 0.42s;
+  --duration-base: 0.4s;
+  --duration-slow: 0.8s;
+
+  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-smooth: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-panel: cubic-bezier(0.16, 1, 0.3, 1);
+}

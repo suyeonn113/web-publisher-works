@@ -1,0 +1,243 @@
+@use '../../styles/foundation/functions' as *;
+@use '../../styles/foundation/mixins' as *;
+
+.login-panel {
+  position: fixed;
+  inset: 0;
+  z-index: get-z(overlay);
+}
+
+.login-panel__backdrop {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background: var(--color-bg-backdrop);
+}
+
+.login-panel__dialog {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  display: flex;
+  flex-direction: column;
+  width: min(100%, var(--mobile-drawer-width));
+  min-height: 100svh;
+  padding: calc(#{get-space(xxl)} + #{get-space(md)}) get-space(xl) get-space(xl);
+  overflow-y: auto;
+
+  color: var(--color-text-primary);
+  background: var(--color-bg-main);
+  box-shadow: var(--shadow-md);
+
+  @include respond-down(tablet) {
+    padding-top: get-space(xl);
+  }
+}
+
+.login-panel__header {
+  @include flex-between;
+
+  align-items: flex-start;
+  margin-bottom: get-space(xl);
+}
+
+.login-panel__title {
+  @include text-size(title);
+
+  position: relative;
+  padding-bottom: get-space(sm);
+  font-weight: 800;
+}
+
+.login-panel__close {
+  @include flex-center;
+
+  width: var(--header-mobile-button-size);
+  height: var(--header-mobile-button-size);
+
+  color: var(--color-text-secondary);
+  border-radius: var(--radius-full);
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-point-primary);
+    background: var(--color-bg-sub);
+  }
+}
+
+.login-panel__tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  min-height: 56px;
+  margin-bottom: get-space(md);
+}
+
+.login-panel__tab {
+  @include text-size(body);
+  @include flex-center;
+  @include button-hover-subtle;
+  @include clipped-focus-ring;
+
+  min-height: 58px;
+  padding: get-space(md) get-space(sm);
+
+  color: var(--color-text-primary);
+
+  &--active {
+    @include button-hover-none;
+
+    position: relative;
+    color: var(--color-point-primary);
+    font-weight: 700;
+    background: var(--color-bg-main);
+
+    &::after {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+
+      height: 3px;
+
+      background: var(--color-point-primary);
+      content: '';
+    }
+  }
+}
+
+.login-panel__form {
+  display: flex;
+  flex-direction: column;
+  gap: get-space(md);
+}
+
+.login-panel__input {
+  @include text-size(body);
+  @include transition(border-color, fast, standard);
+
+  width: 100%;
+  min-height: 48px;
+  padding: get-space(sm) get-space(md);
+
+  border: var(--line-thin) solid var(--color-border-secondary);
+  border-radius: var(--radius-sm);
+
+  &::placeholder {
+    color: var(--color-text-tertiary);
+  }
+
+  &:focus {
+    border-color: var(--color-border-mint);
+    outline: 0;
+    box-shadow: 0 0 0 var(--focus-ring-width) color-mix(in srgb, var(--color-border-mint) 18%, transparent);
+  }
+}
+
+.login-panel__email-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: get-space(sm);
+}
+
+.login-panel__email-at {
+  @include text-size(caption);
+
+  color: var(--color-text-primary);
+  line-height: 1.5;
+}
+
+.login-panel__notice {
+  @include text-size(caption);
+
+  margin-block: 0 get-space(xs);
+  color: var(--color-text-primary);
+}
+
+.login-panel__submit {
+  @include flex-center;
+  @include text-size(body);
+  @include button-hover-primary;
+
+  min-height: 48px;
+  padding: get-space(sm) get-space(md);
+  margin-top: get-space(xs);
+
+  color: var(--color-text-inverse);
+  font-weight: 700;
+  background: var(--color-point-primary);
+  border-radius: var(--radius-sm);
+
+}
+
+.login-panel__simple {
+  margin-top: get-space(md);
+}
+
+.login-panel__simple-button {
+  @include flex-center;
+  @include text-size(caption);
+  @include button-hover-subtle;
+
+  position: relative;
+  gap: get-space(xs);
+  
+  width: 100%;
+  min-height: 48px;
+  padding: get-space(sm) get-space(md);
+
+  color: var(--color-text-primary);
+  font-weight: 400;
+  border: var(--line-thin) solid var(--color-border-secondary);
+  border-radius: var(--radius-sm);
+
+}
+
+.login-panel__ad-text {
+  position: absolute;
+  right: get-space(sm);
+  bottom: get-space(xs);
+
+  font-size: rem(11px);
+  color: var(--color-text-tertiary);
+  font-weight: 500;
+}
+
+.login-panel__links {
+  display: flex;
+  align-items: center;
+  gap: get-space(md);
+  margin-top: get-space(lg);
+}
+
+.login-panel__link {
+  @include text-size(caption);
+  @include transition(color, fast, standard);
+
+  display: inline-flex;
+  align-items: center;
+  gap: get-space(xs);
+
+  color: var(--color-text-primary);
+
+  &:not(:last-child)::after {
+    content: '';
+    width: var(--line-thin);
+    height: 14px;
+    margin-left: get-space(md);
+    background: var(--color-border-primary);
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-point-primary);
+  }
+}
+
+.login-panel__link-icon {
+  flex-shrink: 0;
+}

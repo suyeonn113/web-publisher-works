@@ -1,0 +1,250 @@
+/* ================================
+   MIXINS
+================================ */
+
+@use 'sass:map';
+
+@use './maps' as *;
+@use './functions' as *;
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@mixin respond-down($device) {
+  @media (max-width: map.get($breakpoints, $device)) {
+    @content;
+  }
+}
+
+@mixin respond-up($device) {
+  @media (min-width: map.get($breakpoints, $device)) {
+    @content;
+  }
+}
+
+@mixin respond-between($min, $max) {
+  @media (min-width: map.get($breakpoints, $min)) and (max-width: map.get($breakpoints, $max)) {
+    @content;
+  }
+}
+
+@mixin mobile-shell {
+  width: 100%;
+  margin-inline: auto;
+
+  @include respond-up(laptop) {
+    max-width: var(--layout-content-max-width);
+  }
+}
+
+@mixin page-band($background: var(--color-bg-main)) {
+  @include mobile-shell;
+
+  background: $background;
+}
+
+@mixin section-padding($block: 6, $inline: 4) {
+  @include responsive-space(
+    padding,
+    get-space($block) get-space($inline),
+    get-space($block) get-space($inline + 1),
+    get-space($block) get-space($inline + 2)
+  );
+
+  @include respond-down(mobile-xs) {
+    padding-inline: get-space(3);
+  }
+}
+
+@mixin responsive-space($property, $mobile, $tablet: null, $laptop: null, $desktop: null) {
+  #{$property}: $mobile;
+
+  @if $tablet != null {
+    @include respond-up(tablet) {
+      #{$property}: $tablet;
+    }
+  }
+
+  @if $laptop != null {
+    @include respond-up(laptop) {
+      #{$property}: $laptop;
+    }
+  }
+
+  @if $desktop != null {
+    @include respond-up(desktop) {
+      #{$property}: $desktop;
+    }
+  }
+}
+
+/* =========================
+   FLEX / GRID
+========================= */
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin grid-columns($count, $gap: 3) {
+  display: grid;
+  grid-template-columns: repeat($count, minmax(0, 1fr));
+  gap: get-space($gap);
+}
+
+@mixin scroll-row($column-width, $gap: null) {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: $column-width;
+  
+  @if $gap != null {
+    gap: get-space($gap);
+  }
+  
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* =========================
+   UI
+========================= */
+
+@mixin icon-button($size: 28px) {
+  display: grid;
+  width: $size;
+  height: $size;
+  place-items: center;
+  color: inherit;
+}
+
+@mixin chip($background: var(--color-bg-chip), $color: var(--color-text-muted)) {
+  padding: 6px 10px;
+  border-radius: var(--radius-pill);
+  background: $background;
+  color: $color;
+  font-size: get-font-size(caption, mobile-sm);
+  white-space: nowrap;
+}
+
+@mixin image-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@mixin image-readable-overlay {
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gradient-image-readable);
+    pointer-events: none;
+  }
+}
+
+/* =========================
+   TYPOGRAPHY
+========================= */
+
+@mixin text-size($key) {
+  font-size: get-font-size($key, mobile-sm);
+
+  @include respond-up(tablet) {
+    font-size: get-font-size($key, tablet);
+  }
+
+  @include respond-up(laptop) {
+    font-size: get-font-size($key, laptop);
+  }
+
+  @include respond-up(desktop) {
+    font-size: get-font-size($key, desktop);
+  }
+}
+
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin ellipsis-multi($line: 2) {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: $line;
+  -webkit-box-orient: vertical;
+}
+
+/* =========================
+   TRANSITION
+========================= */
+
+@mixin transition($property: all, $duration: base, $easing: standard) {
+  transition:
+    $property
+    var(--duration-#{$duration})
+    var(--ease-#{$easing});
+}
+
+/* =========================
+   INTERACTIVE HOVER
+========================= */
+
+@mixin interactive-hover-light {
+  @media (hover: hover) and (pointer: fine) {
+    transition:
+      transform var(--duration-base) var(--ease-standard),
+      filter var(--duration-base) var(--ease-standard);
+
+    &:hover {
+      transform: scale(1.02);
+      filter: brightness(0.9);
+    }
+  }
+}
+
+@mixin interactive-hover-button {
+  @media (hover: hover) and (pointer: fine) {
+    transition:
+      background-color var(--duration-fast) var(--ease-standard),
+      color var(--duration-fast) var(--ease-standard);
+
+    &:hover {
+      filter: brightness(0.92);
+    }
+  }
+}
+
+@mixin interactive-hover-text {
+  @media (hover: hover) and (pointer: fine) {
+    transition: color var(--duration-fast) var(--ease-standard);
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}
+
+@mixin interactive-hover-icon {
+  @media (hover: hover) and (pointer: fine) {
+    transition: background-color var(--duration-fast) var(--ease-standard);
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}

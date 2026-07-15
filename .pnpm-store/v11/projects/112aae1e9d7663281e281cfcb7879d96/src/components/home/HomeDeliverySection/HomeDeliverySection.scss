@@ -1,0 +1,150 @@
+@use '../../../styles/foundation/mixins' as *;
+
+.delivery-service-grid {
+  @include grid-columns(2);
+  @include responsive-space(gap, var(--space-2), var(--space-3));
+
+  @include respond-up(tablet) {
+    @include grid-columns(4);
+  }
+}
+
+.delivery-service-card {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
+  align-items: stretch;
+  min-height: var(--delivery-card-min-height);
+  border-radius: var(--radius-card);
+  background-color: var(--color-service-delivery);
+  background-image: var(--delivery-service-image);
+  color: var(--color-text-inverse);
+
+  @include responsive-space(gap, var(--space-3), var(--space-4), var(--space-5));
+  @include responsive-space(padding, var(--space-4), var(--space-4), var(--space-5));
+  @include interactive-hover-light;
+
+  &:focus-visible {
+    outline: none;
+    border-radius: var(--radius-card);
+    box-shadow:
+      inset 0 0 0 var(--focus-ring-width) rgb(var(--color-white-rgb) / 0.7),
+      inset 0 0 0 calc(var(--focus-ring-width) * 2) var(--color-focus-ring);
+  }
+
+  @include respond-up(tablet) {
+    min-height: var(--delivery-card-min-height-tablet);
+  }
+
+  @include respond-up(laptop) {
+    min-height: var(--delivery-card-min-height-laptop);
+  }
+}
+
+.delivery-service-card,
+.delivery-service-card--pickup,
+.delivery-service-card--today,
+.delivery-service-card--bulk {
+  background-size: 30% auto;
+  background-position: right 0px bottom 0px;
+  background-repeat: no-repeat;
+
+  @include respond-up(tablet) {
+    background-size: 64% auto;
+  }
+
+  @include respond-up(laptop) {
+    background-size: 70% auto;
+  }
+}
+
+.delivery-service-card--pickup {
+  background-color: var(--color-service-pickup);
+}
+
+.delivery-service-card--today {
+  background-color: var(--color-service-today);
+}
+
+.delivery-service-card--bulk {
+  background-color: var(--color-service-bulk);
+}
+
+.delivery-service-card__icon {
+  position: relative;
+  z-index: get-z(base);
+  --delivery-service-card-icon-size: var(--delivery-card-icon-size-mobile);
+  flex-shrink: 0;
+  align-self: end;
+  justify-self: start;
+  margin-top: var(--space-5);
+
+  @include respond-up(tablet) {
+    --delivery-service-card-icon-size: calc(var(--app-icon-size) + var(--space-2));
+  }
+
+  @include respond-up(laptop) {
+    --delivery-service-card-icon-size: calc(var(--app-icon-size) + var(--space-4));
+  }
+}
+
+.delivery-service-card__copy {
+  position: relative;
+  z-index: get-z(base);
+  display: grid;
+  gap: var(--space-2);
+  align-self: start;
+  max-width: 15em;
+  text-align: left;
+}
+
+.delivery-service-card__eyebrow {
+  display: block;
+  line-height: var(--line-height-tight);
+  color: rgb(var(--color-text-inverse-rgb) / 0.92);
+  font-weight: 600;
+
+  @include text-size(caption);
+
+  @include respond-up(tablet) {
+    @include text-size(body);
+  }
+}
+
+.delivery-service-card strong {
+  display: block;
+  line-height: var(--line-height-tight);
+  font-weight: 800;
+
+  @include text-size(body-lg);
+
+  @include respond-up(tablet) {
+    @include text-size(title-lg);
+  }
+
+  @include respond-up(laptop) {
+    @include text-size(title);
+  }
+}
+
+.delivery-service-card p {
+  color: rgb(var(--color-text-inverse-rgb) / 0.88);
+  line-height: 1.35;
+
+  @include text-size(caption);
+
+  @include respond-up(tablet) {
+    @include text-size(body-sm);
+  }
+
+  @include respond-up(laptop) {
+    @include text-size(caption);
+  }
+}
+
+.delivery-service-card p span {
+  display: block;
+  font-weight: 400;
+}

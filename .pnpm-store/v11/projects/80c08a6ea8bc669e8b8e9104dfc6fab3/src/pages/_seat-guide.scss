@@ -1,0 +1,313 @@
+@use '../styles/foundation/functions' as *;
+@use '../styles/foundation/mixins' as *;
+
+.seat-guide-page {
+  min-height: 100vh;
+  padding: calc(var(--header-main-height) + #{get-space(xxl)}) var(--container-padding) get-space(xxl);
+}
+
+.seat-guide-page__inner {
+  --seat-guide-inline-padding: 0px;
+
+  width: min(100%, var(--container-width));
+  margin: 0 auto;
+}
+
+.seat-guide-page__header {
+  @include flex-between;
+
+  gap: get-space(xl);
+  margin-bottom: get-space(xl);
+
+  h1 { @include text-size(heading-md); color: var(--color-text-primary); font-weight: 700; }
+  p { @include text-size(body); margin-top: get-space(sm); color: var(--color-text-secondary); }
+
+  button {
+    @include button-hover-primary;
+
+    flex-shrink: 0;
+    min-height: rem(48px);
+    padding-inline: get-space(xl);
+    color: var(--color-text-inverse);
+    font-weight: 700;
+    background: var(--color-point-primary);
+    border-radius: var(--radius-full);
+  }
+}
+
+.seat-guide-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  overflow: hidden;
+  margin-inline: var(--seat-guide-inline-padding);
+  border: var(--line-thin) solid var(--color-border-primary);
+  border-radius: var(--radius-sm);
+
+  button {
+    @include text-size(body-lg);
+    @include transition(all, fast, standard);
+    @include clipped-focus-ring;
+
+    min-height: rem(64px);
+    padding: get-space(md);
+    font-weight: 700;
+
+    & + button { border-left: var(--line-thin) solid var(--color-border-primary); }
+    &:hover, &:focus-visible { color: var(--color-text-interactive-hover); background: var(--color-bg-interactive-hover); }
+    &.is-active { color: var(--color-text-inverse); background: var(--color-point-primary); }
+  }
+}
+
+.seat-guide-page__content {
+  padding-block: get-space(xl);
+  padding-inline: var(--seat-guide-inline-padding);
+}
+
+.advance-seat-guide {
+  display: grid;
+  gap: get-space(xxl);
+}
+
+.seat-guide-panel {
+  display: grid;
+  gap: get-space(xl);
+
+  header, section { display: grid; gap: get-space(sm); }
+  h2 { @include text-size(title); color: var(--color-text-primary); font-weight: 700; }
+  h3 { @include text-size(body-lg); color: var(--color-text-primary); font-weight: 700; }
+  p, li { @include text-size(body); color: var(--color-text-secondary); }
+  ul { display: grid; gap: get-space(sm); }
+}
+
+.seat-zone-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: get-space(md);
+  margin-top: get-space(md);
+
+  article {
+    display: grid;
+    align-content: start;
+    gap: get-space(sm);
+    min-height: rem(168px);
+    padding: get-space(lg);
+    border: var(--line-thin) solid var(--color-border-primary);
+    border-top: var(--line-bold) solid var(--color-point-primary);
+    border-radius: var(--radius-sm);
+  }
+
+  strong { color: var(--color-point-primary); font-weight: 800; }
+  span { color: var(--color-text-primary); font-weight: 700; }
+}
+
+.seat-guide-rules {
+  padding-top: get-space(lg);
+  border-top: var(--line-thin) solid var(--color-border-primary);
+}
+
+.seat-map-list { display: grid; gap: get-space(xl); }
+
+.seat-map-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: get-space(sm);
+
+  button {
+    @include transition(all, fast, standard);
+
+    min-height: rem(40px);
+    padding-inline: get-space(md);
+    border: var(--line-thin) solid var(--color-border-primary);
+    border-radius: var(--radius-full);
+
+    &:hover,
+    &:focus-visible {
+      outline: 0;
+      color: var(--color-text-interactive-hover);
+      background: var(--color-bg-interactive-hover);
+      box-shadow: inset 0 0 0 var(--focus-ring-width) var(--color-focus-ring);
+    }
+
+    &.is-active {
+      color: var(--color-text-inverse);
+      background: var(--color-point-primary);
+      border-color: var(--color-point-primary);
+    }
+  }
+}
+
+.seat-map-list figure {
+  display: grid;
+  gap: get-space(md);
+
+  figcaption { @include text-size(body-lg); color: var(--color-text-primary); font-weight: 700; }
+}
+
+.seat-map-image {
+  position: relative;
+  min-width: rem(840px);
+  min-height: rem(180px);
+  overflow: hidden;
+  padding: get-space(sm);
+  border: var(--line-thin) solid var(--color-border-primary);
+  border-radius: var(--radius-sm);
+
+  &::before {
+    @include absolute-center;
+    @include text-size(caption);
+
+    color: var(--color-text-tertiary);
+    content: '좌석 배치도 이미지 영역';
+  }
+
+  img { position: relative; z-index: get-z(base); display: block; width: 100%; height: auto; background: var(--color-bg-main); }
+}
+
+.seat-map-list figure { overflow-x: auto; }
+
+.seat-price-table {
+  overflow: hidden;
+  border: var(--line-thin) solid var(--color-border-primary);
+  border-radius: var(--radius-sm);
+
+  table { width: 100%; min-width: 0; border-collapse: collapse; }
+  th, td { padding: get-space(md); text-align: center; border-bottom: var(--line-thin) solid var(--color-border-primary); }
+  th { color: var(--color-text-primary); font-weight: 700; background: var(--color-bg-mint-soft); }
+  tbody th { color: var(--color-text-primary); font-weight: 700; background: var(--color-bg-sub); }
+  tbody tr:last-child th, tbody tr:last-child td { border-bottom: 0; }
+}
+
+.seat-price-table--preserve-table table {
+  table-layout: fixed;
+}
+
+.seat-price-mobile {
+  display: none;
+}
+
+.seat-guide-caption { @include text-size(caption); }
+
+@include respond-down(tablet) {
+  .seat-zone-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .seat-price-table th,
+  .seat-price-table td {
+    padding: get-space(md) get-space(sm);
+  }
+}
+
+@include respond-down(mobile) {
+  .seat-guide-page { padding-top: calc(var(--header-main-height-mobile) + #{get-space(xl)}); }
+  .seat-guide-page__header { align-items: flex-start; flex-direction: column; }
+  .seat-guide-page__content { padding-block: get-space(lg); }
+
+  .seat-price-table:not(.seat-price-table--preserve-table) {
+    display: none;
+  }
+
+  .seat-price-mobile {
+    display: grid;
+    gap: get-space(sm);
+  }
+
+  .seat-price-mobile__tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    overflow: hidden;
+    border: var(--line-thin) solid var(--color-border-primary);
+    border-radius: var(--radius-sm);
+
+    button {
+      @include text-size(body);
+      @include transition(all, fast, standard);
+      @include clipped-focus-ring;
+
+      min-height: 48px;
+      padding: get-space(sm);
+      color: var(--color-text-primary);
+      font-weight: 700;
+      word-break: keep-all;
+
+      &:nth-child(even) {
+        border-left: var(--line-thin) solid var(--color-border-primary);
+      }
+
+      &:nth-child(n + 3) {
+        border-top: var(--line-thin) solid var(--color-border-primary);
+      }
+
+      &:hover,
+      &:focus-visible {
+        color: var(--color-text-interactive-hover);
+        background: var(--color-bg-interactive-hover);
+      }
+
+      &.is-active {
+        color: var(--color-text-inverse);
+        background: var(--color-point-primary);
+      }
+    }
+  }
+
+  .seat-price-mobile__panel {
+    overflow: hidden;
+    border: var(--line-thin) solid var(--color-border-primary);
+    border-radius: var(--radius-sm);
+
+    dl > div {
+      display: grid;
+      grid-template-columns: 44% 56%;
+
+      & + div {
+        border-top: var(--line-thin) solid var(--color-border-primary);
+      }
+
+      &.is-heading {
+        background: var(--color-bg-mint-soft);
+      }
+    }
+
+    dt,
+    dd {
+      @include text-size(body);
+
+      padding: get-space(md);
+      color: var(--color-text-primary);
+      word-break: keep-all;
+    }
+
+    dt {
+      color: var(--color-text-secondary);
+    }
+
+    dd {
+      border-left: var(--line-thin) solid var(--color-border-primary);
+    }
+
+    .is-heading dd {
+      font-weight: 700;
+    }
+  }
+}
+
+@include respond-down(mobile-sm) {
+  .seat-zone-list { grid-template-columns: 1fr; }
+
+  .seat-guide-tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    button {
+      min-height: rem(48px);
+    }
+  }
+
+  .seat-price-mobile__panel {
+    dl > div {
+      grid-template-columns: 1fr;
+    }
+
+    dd {
+      border-left: 0;
+    }
+  }
+}

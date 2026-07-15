@@ -106,10 +106,11 @@
 .bag-item__price {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     flex-wrap: wrap;
     gap: .375rem;
     min-width: 0;
+    text-align: right;
 }
 
 .bag-item__discount {

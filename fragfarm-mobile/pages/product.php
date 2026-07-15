@@ -37,49 +37,49 @@ $sampleItems = shop_sample_items($products);
         <nav class="category-nav" aria-label="상품 카테고리">
             <ul class="category-nav__list">
                 <li>
-                    <a href="<?= buildProductListUrl($state, ['category' => 'sale', 'page' => 1]) ?>"
+                    <a href="<?= buildProductListUrl($state, ['category' => 'sale', 'page' => 1, 'focus' => 'catalog']) ?>"
                     data-category="sale"
                     <?= $currentCategory === 'sale' ? 'aria-current="page"' : '' ?>>
                         SALE
                     </a>
                 </li>
                 <li>
-                    <a href="<?= buildProductListUrl($state, ['category' => 'all', 'page' => 1]) ?>"
+                    <a href="<?= buildProductListUrl($state, ['category' => 'all', 'page' => 1, 'focus' => 'catalog']) ?>"
                     data-category="all"
                     <?= $currentCategory === 'all' ? 'aria-current="page"' : '' ?>>
                         ALL
                     </a>
                 </li>
                 <li>
-                    <a href="<?= buildProductListUrl($state, ['category' => 'new', 'page' => 1]) ?>"
+                    <a href="<?= buildProductListUrl($state, ['category' => 'new', 'page' => 1, 'focus' => 'catalog']) ?>"
                     data-category="new"
                     <?= $currentCategory === 'new' ? 'aria-current="page"' : '' ?>>
                         NEW
                     </a>
                 </li>
                 <li>
-                    <a href="<?= buildProductListUrl($state, ['category' => 'skirt', 'page' => 1]) ?>"
+                    <a href="<?= buildProductListUrl($state, ['category' => 'skirt', 'page' => 1, 'focus' => 'catalog']) ?>"
                     data-category="skirt"
                     <?= $currentCategory === 'skirt' ? 'aria-current="page"' : '' ?>>
                         Skirts
                     </a>
                 </li>
                 <li>
-                    <a href="<?= buildProductListUrl($state, ['category' => 'bottom', 'page' => 1]) ?>"
+                    <a href="<?= buildProductListUrl($state, ['category' => 'bottom', 'page' => 1, 'focus' => 'catalog']) ?>"
                     data-category="bottom"
                     <?= $currentCategory === 'bottom' ? 'aria-current="page"' : '' ?>>
                         Bottoms
                     </a>
                 </li>
                 <li>
-                    <a href="<?= buildProductListUrl($state, ['category' => 'top', 'page' => 1]) ?>"
+                    <a href="<?= buildProductListUrl($state, ['category' => 'top', 'page' => 1, 'focus' => 'catalog']) ?>"
                     data-category="top"
                     <?= $currentCategory === 'top' ? 'aria-current="page"' : '' ?>>
                         Tops
                     </a>
                 </li>
                 <li>
-                    <a href="<?= buildProductListUrl($state, ['category' => 'accessory', 'page' => 1]) ?>"
+                    <a href="<?= buildProductListUrl($state, ['category' => 'accessory', 'page' => 1, 'focus' => 'catalog']) ?>"
                     data-category="accessory"
                     <?= $currentCategory === 'accessory' ? 'aria-current="page"' : '' ?>>
                         Accessories
@@ -88,7 +88,7 @@ $sampleItems = shop_sample_items($products);
             </ul>
         </nav>
         <!--  -->
-        <section class="catalog-toolbar" aria-label="상품 목록 제어">
+        <section class="catalog-toolbar" aria-label="상품 목록 제어" tabindex="-1" data-catalog-focus-target>
             <!-- View Toggle -->
             <div class="view-toggle" role="group" aria-label="한 줄에 표시할 상품 수">
                 <span class="view-toggle__label">상품 보기</span>

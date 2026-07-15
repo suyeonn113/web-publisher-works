@@ -19,7 +19,7 @@ function normalizeProductListState(array $query): array
 
 function applyProductListState(array $products, array $state): array
 {
-    $itemsPerPage = 8;
+    $itemsPerPage = 10;
 
     // 1. 필터
     $filteredProducts = array_filter($products, function ($product) use ($state) {
@@ -99,6 +99,10 @@ function buildProductListUrl(array $state, array $overrides = []): string
 
     if (($nextState['page'] ?? 1) > 1) {
         $params['page'] = (int) $nextState['page'];
+    }
+
+    if (($nextState['focus'] ?? '') === 'catalog') {
+        $params['focus'] = 'catalog';
     }
 
     return '?' . http_build_query($params);

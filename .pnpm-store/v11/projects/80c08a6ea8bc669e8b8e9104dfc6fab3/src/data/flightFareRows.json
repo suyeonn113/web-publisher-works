@@ -1,0 +1,2486 @@
+[
+  {
+    "flightId": "rs701-icn-nrt-20260514",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 118100,
+    "seatsLeft": 4,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs701-icn-nrt-20260514",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 178100,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs701-icn-nrt-20260514",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 368100,
+    "seatsLeft": 15,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs703-icn-nrt-20260514",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 143500,
+    "seatsLeft": 4,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs703-icn-nrt-20260514",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 203500,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs703-icn-nrt-20260514",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 393500,
+    "seatsLeft": 17,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs715-icn-kix-20260514",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 123500,
+    "seatsLeft": 4,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs715-icn-kix-20260514",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 183500,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs715-icn-kix-20260514",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 373500,
+    "seatsLeft": 19,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs713-icn-kix-20260514",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 134500,
+    "seatsLeft": 4,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs713-icn-kix-20260514",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 194500,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs713-icn-kix-20260514",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 384500,
+    "seatsLeft": 17,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs901-gmp-cju-20260514",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 39900,
+    "seatsLeft": 2,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs901-gmp-cju-20260514",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 69900,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs901-gmp-cju-20260514",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 119900,
+    "seatsLeft": 15,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs905-gmp-cju-20260514",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 49900,
+    "seatsLeft": 2,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs905-gmp-cju-20260514",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 79900,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs905-gmp-cju-20260514",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 129900,
+    "seatsLeft": 19,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs511-icn-dad-20260514",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 159900,
+    "seatsLeft": 2,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs511-icn-dad-20260514",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 219900,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs511-icn-dad-20260514",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 409900,
+    "seatsLeft": 15,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs701-icn-nrt-20260515",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 122600,
+    "seatsLeft": 1,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs701-icn-nrt-20260515",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 182600,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs701-icn-nrt-20260515",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 372600,
+    "seatsLeft": 16,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs703-icn-nrt-20260515",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 148000,
+    "seatsLeft": 1,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs703-icn-nrt-20260515",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 208000,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs703-icn-nrt-20260515",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 398000,
+    "seatsLeft": 18,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs715-icn-kix-20260515",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 127400,
+    "seatsLeft": 1,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs715-icn-kix-20260515",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 187400,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs715-icn-kix-20260515",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 377400,
+    "seatsLeft": 20,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs901-gmp-cju-20260515",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 42400,
+    "seatsLeft": 3,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs901-gmp-cju-20260515",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 72400,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs901-gmp-cju-20260515",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 122400,
+    "seatsLeft": 16,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs905-gmp-cju-20260515",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 52400,
+    "seatsLeft": 3,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs905-gmp-cju-20260515",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 82400,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs905-gmp-cju-20260515",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 132400,
+    "seatsLeft": 20,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs701-icn-nrt-20260516",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 127100,
+    "seatsLeft": 0,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs701-icn-nrt-20260516",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 187100,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs701-icn-nrt-20260516",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 377100,
+    "seatsLeft": 17,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs703-icn-nrt-20260516",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 152500,
+    "seatsLeft": 2,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs703-icn-nrt-20260516",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 212500,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs703-icn-nrt-20260516",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 402500,
+    "seatsLeft": 19,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs715-icn-kix-20260516",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 131300,
+    "seatsLeft": 2,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs715-icn-kix-20260516",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 191300,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs715-icn-kix-20260516",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 381300,
+    "seatsLeft": 21,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs713-icn-kix-20260516",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 142300,
+    "seatsLeft": 2,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs713-icn-kix-20260516",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 202300,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs713-icn-kix-20260516",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 392300,
+    "seatsLeft": 19,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs901-gmp-cju-20260516",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 44900,
+    "seatsLeft": 4,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs901-gmp-cju-20260516",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 74900,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs901-gmp-cju-20260516",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 124900,
+    "seatsLeft": 17,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs905-gmp-cju-20260516",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 54900,
+    "seatsLeft": 4,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs905-gmp-cju-20260516",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 84900,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs905-gmp-cju-20260516",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 134900,
+    "seatsLeft": 21,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs511-icn-dad-20260516",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 173900,
+    "seatsLeft": 4,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs511-icn-dad-20260516",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 233900,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs511-icn-dad-20260516",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 423900,
+    "seatsLeft": 17,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs701-icn-nrt-20260517",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 131600,
+    "seatsLeft": 3,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs701-icn-nrt-20260517",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 191600,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs701-icn-nrt-20260517",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 381600,
+    "seatsLeft": 18,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs703-icn-nrt-20260517",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 157000,
+    "seatsLeft": 3,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs703-icn-nrt-20260517",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 217000,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs703-icn-nrt-20260517",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 407000,
+    "seatsLeft": 20,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs715-icn-kix-20260517",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 135200,
+    "seatsLeft": 3,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs715-icn-kix-20260517",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 195200,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs715-icn-kix-20260517",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 385200,
+    "seatsLeft": 10,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs901-gmp-cju-20260517",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 47400,
+    "seatsLeft": 1,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs901-gmp-cju-20260517",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 77400,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs901-gmp-cju-20260517",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 127400,
+    "seatsLeft": 18,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs905-gmp-cju-20260517",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 57400,
+    "seatsLeft": 1,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs905-gmp-cju-20260517",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 87400,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs905-gmp-cju-20260517",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 137400,
+    "seatsLeft": 10,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs701-icn-nrt-20260518",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 136100,
+    "seatsLeft": 4,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs701-icn-nrt-20260518",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 196100,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs701-icn-nrt-20260518",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 386100,
+    "seatsLeft": 19,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs703-icn-nrt-20260518",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 161500,
+    "seatsLeft": 4,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs703-icn-nrt-20260518",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 221500,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs703-icn-nrt-20260518",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 411500,
+    "seatsLeft": 21,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs715-icn-kix-20260518",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 139100,
+    "seatsLeft": 4,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs715-icn-kix-20260518",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 199100,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs715-icn-kix-20260518",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 389100,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs713-icn-kix-20260518",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 150100,
+    "seatsLeft": 4,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs713-icn-kix-20260518",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 210100,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs713-icn-kix-20260518",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 400100,
+    "seatsLeft": 21,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs901-gmp-cju-20260518",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 49900,
+    "seatsLeft": 0,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs901-gmp-cju-20260518",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 79900,
+    "seatsLeft": 0,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs901-gmp-cju-20260518",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 129900,
+    "seatsLeft": 0,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs905-gmp-cju-20260518",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 59900,
+    "seatsLeft": 2,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs905-gmp-cju-20260518",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 89900,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs905-gmp-cju-20260518",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 139900,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs511-icn-dad-20260518",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 187900,
+    "seatsLeft": 2,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs511-icn-dad-20260518",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 247900,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs511-icn-dad-20260518",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 437900,
+    "seatsLeft": 19,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs701-icn-nrt-20260519",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 140600,
+    "seatsLeft": 1,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs701-icn-nrt-20260519",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 200600,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs701-icn-nrt-20260519",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 390600,
+    "seatsLeft": 20,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs703-icn-nrt-20260519",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 166000,
+    "seatsLeft": 1,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs703-icn-nrt-20260519",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 226000,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs703-icn-nrt-20260519",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 416000,
+    "seatsLeft": 10,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs715-icn-kix-20260519",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 143000,
+    "seatsLeft": 1,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs715-icn-kix-20260519",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 203000,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs715-icn-kix-20260519",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 393000,
+    "seatsLeft": 12,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs901-gmp-cju-20260519",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 52400,
+    "seatsLeft": 3,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs901-gmp-cju-20260519",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 82400,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs901-gmp-cju-20260519",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 132400,
+    "seatsLeft": 20,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs905-gmp-cju-20260519",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 62400,
+    "seatsLeft": 3,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs905-gmp-cju-20260519",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 92400,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs905-gmp-cju-20260519",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 142400,
+    "seatsLeft": 12,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs701-icn-nrt-20260520",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 145100,
+    "seatsLeft": 4,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs701-icn-nrt-20260520",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 205100,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs701-icn-nrt-20260520",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 395100,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs703-icn-nrt-20260520",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 170500,
+    "seatsLeft": 4,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs703-icn-nrt-20260520",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 230500,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs703-icn-nrt-20260520",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 420500,
+    "seatsLeft": 13,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs715-icn-kix-20260520",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 146900,
+    "seatsLeft": 4,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs715-icn-kix-20260520",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 206900,
+    "seatsLeft": 6,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs715-icn-kix-20260520",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 396900,
+    "seatsLeft": 15,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs713-icn-kix-20260520",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 157900,
+    "seatsLeft": 4,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs713-icn-kix-20260520",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 217900,
+    "seatsLeft": 6,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs713-icn-kix-20260520",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 407900,
+    "seatsLeft": 13,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs901-gmp-cju-20260520",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 54900,
+    "seatsLeft": 2,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs901-gmp-cju-20260520",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 84900,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs901-gmp-cju-20260520",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 134900,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs905-gmp-cju-20260520",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 64900,
+    "seatsLeft": 2,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs905-gmp-cju-20260520",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 94900,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs905-gmp-cju-20260520",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 144900,
+    "seatsLeft": 15,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs511-icn-dad-20260520",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 201900,
+    "seatsLeft": 2,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs511-icn-dad-20260520",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 261900,
+    "seatsLeft": 6,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs511-icn-dad-20260520",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 451900,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs701-icn-nrt-20260521",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 149600,
+    "seatsLeft": 1,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs701-icn-nrt-20260521",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 209600,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs701-icn-nrt-20260521",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 399600,
+    "seatsLeft": 12,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs703-icn-nrt-20260521",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 175000,
+    "seatsLeft": 1,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs703-icn-nrt-20260521",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 235000,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs703-icn-nrt-20260521",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 425000,
+    "seatsLeft": 14,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs715-icn-kix-20260521",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 150800,
+    "seatsLeft": 1,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs715-icn-kix-20260521",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 210800,
+    "seatsLeft": 6,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs715-icn-kix-20260521",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 400800,
+    "seatsLeft": 16,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs901-gmp-cju-20260521",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 57400,
+    "seatsLeft": 3,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs901-gmp-cju-20260521",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 87400,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs901-gmp-cju-20260521",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 137400,
+    "seatsLeft": 12,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs905-gmp-cju-20260521",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 67400,
+    "seatsLeft": 3,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs905-gmp-cju-20260521",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 97400,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs905-gmp-cju-20260521",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 147400,
+    "seatsLeft": 16,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs702-nrt-icn-20260518",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 158100,
+    "seatsLeft": 4,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs702-nrt-icn-20260518",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 218100,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs702-nrt-icn-20260518",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 408100,
+    "seatsLeft": 20,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs704-nrt-icn-20260518",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 168100,
+    "seatsLeft": 4,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs704-nrt-icn-20260518",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 228100,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs704-nrt-icn-20260518",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 418100,
+    "seatsLeft": 10,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs716-kix-icn-20260518",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 165700,
+    "seatsLeft": 4,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs716-kix-icn-20260518",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 225700,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs716-kix-icn-20260518",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 415700,
+    "seatsLeft": 12,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs702-nrt-icn-20260519",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 162400,
+    "seatsLeft": 1,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs702-nrt-icn-20260519",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 222400,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs702-nrt-icn-20260519",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 412400,
+    "seatsLeft": 21,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs704-nrt-icn-20260519",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 172400,
+    "seatsLeft": 1,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs704-nrt-icn-20260519",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 232400,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs704-nrt-icn-20260519",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 422400,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs716-kix-icn-20260519",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 169000,
+    "seatsLeft": 1,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs716-kix-icn-20260519",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 229000,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs716-kix-icn-20260519",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 419000,
+    "seatsLeft": 13,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs714-kix-icn-20260519",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 179000,
+    "seatsLeft": 1,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs714-kix-icn-20260519",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 239000,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs714-kix-icn-20260519",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 429000,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs512-dad-icn-20260519",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 211400,
+    "seatsLeft": 3,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs512-dad-icn-20260519",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 271400,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs512-dad-icn-20260519",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 461400,
+    "seatsLeft": 21,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs702-nrt-icn-20260520",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 166700,
+    "seatsLeft": 4,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs702-nrt-icn-20260520",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 226700,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs702-nrt-icn-20260520",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 416700,
+    "seatsLeft": 12,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs704-nrt-icn-20260520",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 176700,
+    "seatsLeft": 4,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs704-nrt-icn-20260520",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 236700,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs704-nrt-icn-20260520",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 426700,
+    "seatsLeft": 14,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs716-kix-icn-20260520",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 172300,
+    "seatsLeft": 4,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs716-kix-icn-20260520",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 232300,
+    "seatsLeft": 6,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs716-kix-icn-20260520",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 422300,
+    "seatsLeft": 16,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs702-nrt-icn-20260521",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 171000,
+    "seatsLeft": 1,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs702-nrt-icn-20260521",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 231000,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs702-nrt-icn-20260521",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 421000,
+    "seatsLeft": 13,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs704-nrt-icn-20260521",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 181000,
+    "seatsLeft": 0,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs704-nrt-icn-20260521",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 241000,
+    "seatsLeft": 0,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs704-nrt-icn-20260521",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 431000,
+    "seatsLeft": 0,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs716-kix-icn-20260521",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 175600,
+    "seatsLeft": 1,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs716-kix-icn-20260521",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 235600,
+    "seatsLeft": 6,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs716-kix-icn-20260521",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 425600,
+    "seatsLeft": 17,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs714-kix-icn-20260521",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 185600,
+    "seatsLeft": 1,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs714-kix-icn-20260521",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 245600,
+    "seatsLeft": 6,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs714-kix-icn-20260521",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 435600,
+    "seatsLeft": 15,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs512-dad-icn-20260521",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 224400,
+    "seatsLeft": 3,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs512-dad-icn-20260521",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 284400,
+    "seatsLeft": 6,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs512-dad-icn-20260521",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 474400,
+    "seatsLeft": 13,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs702-nrt-icn-20260522",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 175300,
+    "seatsLeft": 2,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs702-nrt-icn-20260522",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 235300,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs702-nrt-icn-20260522",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 425300,
+    "seatsLeft": 14,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs704-nrt-icn-20260522",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 185300,
+    "seatsLeft": 2,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs704-nrt-icn-20260522",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 245300,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs704-nrt-icn-20260522",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 435300,
+    "seatsLeft": 16,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs716-kix-icn-20260522",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 178900,
+    "seatsLeft": 2,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs716-kix-icn-20260522",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 238900,
+    "seatsLeft": 6,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs716-kix-icn-20260522",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 428900,
+    "seatsLeft": 18,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs702-nrt-icn-20260523",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 179600,
+    "seatsLeft": 3,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs702-nrt-icn-20260523",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 239600,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs702-nrt-icn-20260523",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 429600,
+    "seatsLeft": 15,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs704-nrt-icn-20260523",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 189600,
+    "seatsLeft": 3,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs704-nrt-icn-20260523",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 249600,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs704-nrt-icn-20260523",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 439600,
+    "seatsLeft": 17,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs716-kix-icn-20260523",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 182200,
+    "seatsLeft": 3,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs716-kix-icn-20260523",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 242200,
+    "seatsLeft": 6,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs716-kix-icn-20260523",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 432200,
+    "seatsLeft": 19,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs714-kix-icn-20260523",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 192200,
+    "seatsLeft": 3,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs714-kix-icn-20260523",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 252200,
+    "seatsLeft": 6,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs714-kix-icn-20260523",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 442200,
+    "seatsLeft": 17,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs512-dad-icn-20260523",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 237400,
+    "seatsLeft": 1,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs512-dad-icn-20260523",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 297400,
+    "seatsLeft": 6,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs512-dad-icn-20260523",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 487400,
+    "seatsLeft": 15,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs702-nrt-icn-20260524",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 183900,
+    "seatsLeft": 4,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs702-nrt-icn-20260524",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 243900,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs702-nrt-icn-20260524",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 433900,
+    "seatsLeft": 16,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs704-nrt-icn-20260524",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 193900,
+    "seatsLeft": 4,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs704-nrt-icn-20260524",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 253900,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs704-nrt-icn-20260524",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 443900,
+    "seatsLeft": 18,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs716-kix-icn-20260524",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 185500,
+    "seatsLeft": 4,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs716-kix-icn-20260524",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 245500,
+    "seatsLeft": 6,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs716-kix-icn-20260524",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 435500,
+    "seatsLeft": 20,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs902-cju-gmp-20260514",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 42900,
+    "seatsLeft": 2,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs902-cju-gmp-20260514",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 72900,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs902-cju-gmp-20260514",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 122900,
+    "seatsLeft": 16,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs906-cju-gmp-20260514",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 52900,
+    "seatsLeft": 2,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs906-cju-gmp-20260514",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 82900,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs906-cju-gmp-20260514",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 132900,
+    "seatsLeft": 20,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs902-cju-gmp-20260515",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 45300,
+    "seatsLeft": 3,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs902-cju-gmp-20260515",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 75300,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs902-cju-gmp-20260515",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 125300,
+    "seatsLeft": 17,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs906-cju-gmp-20260515",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 55300,
+    "seatsLeft": 3,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs906-cju-gmp-20260515",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 85300,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs906-cju-gmp-20260515",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 135300,
+    "seatsLeft": 21,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs902-cju-gmp-20260516",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 47700,
+    "seatsLeft": 4,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs902-cju-gmp-20260516",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 77700,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs902-cju-gmp-20260516",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 127700,
+    "seatsLeft": 18,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs906-cju-gmp-20260516",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 57700,
+    "seatsLeft": 4,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs906-cju-gmp-20260516",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 87700,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs906-cju-gmp-20260516",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 137700,
+    "seatsLeft": 10,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs902-cju-gmp-20260517",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 50100,
+    "seatsLeft": 1,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs902-cju-gmp-20260517",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 80100,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs902-cju-gmp-20260517",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 130100,
+    "seatsLeft": 19,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs906-cju-gmp-20260517",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 60100,
+    "seatsLeft": 1,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs906-cju-gmp-20260517",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 90100,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs906-cju-gmp-20260517",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 140100,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs902-cju-gmp-20260518",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 52500,
+    "seatsLeft": 2,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs902-cju-gmp-20260518",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 82500,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs902-cju-gmp-20260518",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 132500,
+    "seatsLeft": 20,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs906-cju-gmp-20260518",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 62500,
+    "seatsLeft": 2,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs906-cju-gmp-20260518",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 92500,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs906-cju-gmp-20260518",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 142500,
+    "seatsLeft": 12,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs902-cju-gmp-20260519",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 54900,
+    "seatsLeft": 3,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs902-cju-gmp-20260519",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 84900,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs902-cju-gmp-20260519",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 134900,
+    "seatsLeft": 21,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs906-cju-gmp-20260519",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 64900,
+    "seatsLeft": 3,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs906-cju-gmp-20260519",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 94900,
+    "seatsLeft": 11,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs906-cju-gmp-20260519",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 144900,
+    "seatsLeft": 13,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs902-cju-gmp-20260520",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 57300,
+    "seatsLeft": 2,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs902-cju-gmp-20260520",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 87300,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs902-cju-gmp-20260520",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 137300,
+    "seatsLeft": 12,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs906-cju-gmp-20260520",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 67300,
+    "seatsLeft": 0,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs906-cju-gmp-20260520",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 97300,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs906-cju-gmp-20260520",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 147300,
+    "seatsLeft": 16,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs902-cju-gmp-20260521",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 59700,
+    "seatsLeft": 3,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs902-cju-gmp-20260521",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 89700,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs902-cju-gmp-20260521",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 139700,
+    "seatsLeft": 13,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs906-cju-gmp-20260521",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 69700,
+    "seatsLeft": 3,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs906-cju-gmp-20260521",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 99700,
+    "seatsLeft": 5,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs906-cju-gmp-20260521",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 149700,
+    "seatsLeft": 17,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs541-icn-cxr-20260514",
+    "fareType": "special",
+    "currency": "KRW",
+    "label": "특가운임",
+    "price": 149100,
+    "seatsLeft": 4,
+    "baggageIncluded": false
+  },
+  {
+    "flightId": "rs541-icn-cxr-20260514",
+    "fareType": "discount",
+    "currency": "KRW",
+    "label": "할인운임",
+    "price": 219100,
+    "seatsLeft": 8,
+    "baggageIncluded": true
+  },
+  {
+    "flightId": "rs541-icn-cxr-20260514",
+    "fareType": "normal",
+    "currency": "KRW",
+    "label": "스마트운임",
+    "price": 409100,
+    "seatsLeft": 12,
+    "baggageIncluded": true
+  }
+]

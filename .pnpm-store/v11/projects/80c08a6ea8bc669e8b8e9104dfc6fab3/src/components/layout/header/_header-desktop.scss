@@ -1,0 +1,178 @@
+@use '../../../styles/foundation/functions' as *;
+@use '../../../styles/foundation/mixins' as *;
+
+/* Desktop nav */
+
+.site-header__nav {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: stretch;
+  flex: 1;
+  padding-left: get-space(xxl) * 2;
+}
+
+.site-header__nav-list {
+  display: flex;
+  align-items: stretch;
+  gap: get-space(xxl);
+  height: 100%;
+  min-width: 0;
+}
+
+.site-header__nav-item {
+  position: static;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.site-header__nav-link {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding-inline: get-space(md);
+
+  font-weight: 500;
+  white-space: nowrap;
+
+  @include text-size(title);
+  @include transition(color, fast, standard);
+
+  > span {
+    position: relative;
+  }
+
+  > span::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: calc(#{get-space(sm)} * -1);
+
+    height: var(--line-bold);
+
+    background: var(--color-border-mint);
+    border-radius: var(--radius-full);
+    opacity: 0;
+    transform: scaleX(0.4);
+    @include transition(all, fast, standard);
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-point-primary);
+  }
+
+    &:focus-visible {
+      outline: 0;
+      box-shadow: inset 0 0 0 var(--focus-ring-width) var(--color-focus-ring);
+    }
+}
+
+.site-header__nav-item--open .site-header__nav-link {
+  color: var(--color-point-primary);
+
+  > span::after {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+.site-header:not(.is-solid):not(:has(.site-header__nav-item--open)):not(:has(.site-header__dropdown-button[aria-expanded='true']))
+  .site-header__nav-link {
+  font-weight: 700;
+}
+
+.site-header__nav-sublist {
+  position: fixed;
+  top: var(--header-main-height);
+  left: 0;
+  right: 0;
+  z-index: get-z(dropdown);
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: get-space(xs) get-space(xl);
+  align-items: flex-start;
+  width: 100%;
+  min-width: 0;
+  min-height: var(--header-submenu-panel-min-height);
+  padding:
+    get-space(lg)
+    max(var(--container-padding), calc((100vw - var(--container-width)) / 2 + var(--container-padding)));
+  padding-left: max(
+    calc(var(--container-padding) + var(--logo-width) + #{get-space(xxl) * 1.5}),
+    calc((100vw - var(--container-width)) / 2 + var(--container-padding) + var(--logo-width) + #{get-space(xxl) * 1.5})
+  );
+
+  background: var(--color-bg-main);
+}
+
+.site-header__nav-sublink {
+  @include text-size(body);
+  @include transition(all, fast, standard);
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  min-width: var(--header-utility-submenu-min-width);
+  padding: get-space(sm) get-space(xs);
+
+  color: var(--color-text-primary);
+  font-weight: 500;
+  white-space: nowrap;
+  border-bottom: var(--line-thin) solid var(--color-border-primary);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+
+    width: var(--line-bold);
+    height: 0;
+
+    background: var(--color-border-mint);
+    border-radius: var(--radius-full);
+    transform: translateY(-50%);
+    @include transition(height, fast, standard);
+  }
+
+  &:hover,
+  &:focus-visible {
+    padding-left: get-space(md);
+    color: var(--color-point-primary);
+    font-weight: 600;
+    background: var(--color-bg-sub);
+    border-color: var(--color-border-mint);
+
+    &::before {
+      height: 60%;
+    }
+  }
+}
+
+/* Desktop actions */
+
+.site-header__desktop-actions .site-header__login-link {
+  @include button-hover-primary;
+
+  padding: get-space(xs) get-space(md);
+
+  color: var(--color-point-primary);
+  font-weight: 600;
+
+  border: var(--line-thin) solid var(--color-border-mint);
+  border-radius: var(--radius-full);
+}
+
+.site-header:not(.is-solid):not(:has(.site-header__dropdown-button[aria-expanded='true']))
+  .site-header__desktop-actions
+  .site-header__login-link:not(:hover):not(:focus-visible) {
+  color: inherit;
+  font-weight: 700;
+  border-color: color-mix(in srgb, var(--color-text-inverse) 72%, transparent);
+}

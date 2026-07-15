@@ -74,7 +74,9 @@
 
         event.preventDefault();
         const direction = event.key === 'ArrowRight' ? 1 : -1;
-        const controls = Array.from(scroller.querySelectorAll('a[href], button:not([disabled])')).filter(isVisible);
+        const controls = Array.from(scroller.querySelectorAll(
+            'a[href]:not([tabindex="-1"]), button:not([disabled]):not([tabindex="-1"])'
+        )).filter(isVisible);
         const currentIndex = controls.indexOf(document.activeElement);
 
         if (currentIndex >= 0 && controls.length > 0) {

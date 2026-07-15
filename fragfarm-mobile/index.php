@@ -143,6 +143,10 @@ $saleProducts = array_values(array_filter($products, function ($product) {
             <a class="section__view-all" href="<?= BASE_URL ?>/pages/review.php">
                 view all
             </a>
+            <div class="review__intro">
+                <p class="review__eyebrow font-brand">THE FRAGFARM ARCHIVE</p>
+                <p class="review__description">당신만의 프래그팜을 기록해 주세요.</p>
+            </div>
             <div class="review__rail">
             <ul class="review__list" aria-label="고객 리뷰 사진. 좌우 방향키로 이동" tabindex="0" data-keyboard-scroll>
                 <li class="review__card review__card--compact">
@@ -243,5 +247,6 @@ $saleProducts = array_values(array_filter($products, function ($product) {
 <script src="<?= BASE_URL ?>/js/popup.js"></script>
 <script src="<?= BASE_URL ?>/js/header.js"></script>
 <script src="<?= BASE_URL ?>/js/home-hero.js"></script>
+<script src="<?= BASE_URL ?>/js/home-review-flow.js"></script>
 </body>
 </html>
