@@ -106,16 +106,6 @@ $rating = number_format($reviewAverage, 1);
             <?php unset($_SESSION['feedback_error']); ?>
         <?php endif; ?>
 
-        <div class="page-heading page-heading--back">
-            <a
-                class="page-heading__back"
-                href="<?= BASE_URL ?>/pages/product.php?category=<?= rawurlencode((string) ($product['category'] ?? 'all')) ?>"
-                aria-label="상품 목록으로 돌아가기">
-                <img src="<?= BASE_URL ?>/assets/icons/arrow-left.svg" alt="">
-            </a>
-            <h2 class="page-heading__title">SHOP</h2>
-        </div>
-
         <section class="product-detail__hero" aria-labelledby="product-title">
             <div class="product-detail__media">
                 <img

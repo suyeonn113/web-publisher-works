@@ -77,6 +77,19 @@
             </svg>
             회원가입
         </a>
+        <a class="applications header__applications" href="<?= BASE_URL ?>/applications.php">
+            <svg class="icon--applications icon"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+                focusable="false">
+                <path d="M7 3H17C18.1046 3 19 3.89543 19 5V19C19 20.1046 18.1046 21 17 21H7C5.89543 21 5 20.1046 5 19V5C5 3.89543 5.89543 3 7 3Z"/>
+                <path d="M9 8H15"/>
+                <path d="M9 12H15"/>
+                <path d="M9 16H13"/>
+            </svg>
+            신청내역 조회
+        </a>
     </nav>
 </header>
 
@@ -84,20 +97,33 @@
 <nav id="menu-panel" data-menu-mode="drawer" >
     <!-- Only Mobile, Tablet -->
     <div class="menu-panel__top">
-        <a class="login menu__login" href="#">
-            <svg class="icon--login icon" 
-                aria-hidden="true"
-                focusable="false"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-                focusable="false">
-                <path d="M8.90002 7.55999C9.21002 3.95999 11.06 2.48999 15.11 2.48999H15.24C19.71 2.48999 21.5 4.27999 21.5 8.74999V15.27C21.5 19.74 19.71 21.53 15.24 21.53H15.11C11.09 21.53 9.24002 20.08 8.91002 16.54"/>
-                <path d="M2 12H14.88"/>
-                <path d="M12.65 8.6499L16 11.9999L12.65 15.3499"/>
-            </svg>
-            로그인
-        </a>
+        <div class="menu-panel__user">
+            <a class="login menu__login" href="#">
+                <svg class="icon--login icon"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    focusable="false">
+                    <path d="M8.90002 7.55999C9.21002 3.95999 11.06 2.48999 15.11 2.48999H15.24C19.71 2.48999 21.5 4.27999 21.5 8.74999V15.27C21.5 19.74 19.71 21.53 15.24 21.53H15.11C11.09 21.53 9.24002 20.08 8.91002 16.54"/>
+                    <path d="M2 12H14.88"/>
+                    <path d="M12.65 8.6499L16 11.9999L12.65 15.3499"/>
+                </svg>
+                로그인
+            </a>
+            <a class="applications menu__applications" href="<?= BASE_URL ?>/applications.php">
+                <svg class="icon--applications icon"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    focusable="false">
+                    <path d="M7 3H17C18.1046 3 19 3.89543 19 5V19C19 20.1046 18.1046 21 17 21H7C5.89543 21 5 20.1046 5 19V5C5 3.89543 5.89543 3 7 3Z"/>
+                    <path d="M9 8H15"/>
+                    <path d="M9 12H15"/>
+                    <path d="M9 16H13"/>
+                </svg>
+                신청내역 조회
+            </a>
+        </div>
         <p class="menu-panel__title">전체메뉴</p>
         <button class="button--close button"
                 type="button"
@@ -386,16 +412,18 @@
         </li>
         <li class="quick-menu__item">
             <a class="quick-menu__link" 
-               href="#">
-                <svg class="icon--contact icon--quick-menu icon" 
+               href="<?= BASE_URL ?>/applications.php">
+                <svg class="icon--applications icon--quick-menu icon"
                      viewBox="0 0 24 24"
                      xmlns="http://www.w3.org/2000/svg"
                      aria-hidden="true"
                      focusable="false">
-                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88836 21.6244 10.4003 22 12 22Z"/>
-                    <path d="M8 12H8.009M11.991 12H12M15.991 12H16"/>
+                    <path d="M7 3H17C18.1046 3 19 3.89543 19 5V19C19 20.1046 18.1046 21 17 21H7C5.89543 21 5 20.1046 5 19V5C5 3.89543 5.89543 3 7 3Z"/>
+                    <path d="M9 8H15"/>
+                    <path d="M9 12H15"/>
+                    <path d="M9 16H13"/>
                 </svg>
-                문의하기
+                신청조회
             </a>
         </li>
     </ul>

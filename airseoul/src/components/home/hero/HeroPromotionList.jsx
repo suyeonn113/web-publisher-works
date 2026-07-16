@@ -23,6 +23,19 @@ function HeroPromotionList() {
         })
         .slice(0, 3);
 
+  const handlePaginationClick = (index) => {
+    shouldResetSwipeRef.current = false;
+
+    if (isSwipeLayout) {
+      listRef.current?.scrollTo({
+        left: 0,
+        behavior: 'auto',
+      });
+    }
+
+    setActiveIndex(index);
+  };
+
   useEffect(() => {
     const mediaQuery = window.matchMedia(PROMOTION_SWIPE_MEDIA_QUERY);
     const updateLayout = () => {
@@ -72,7 +85,7 @@ function HeroPromotionList() {
       window.clearInterval(timer);
       window.clearTimeout(swipeAdvanceTimer);
     };
-  }, [isSwipeLayout]);
+  }, [activeIndex, isSwipeLayout]);
 
   useEffect(() => {
     const list = listRef.current;
@@ -115,12 +128,21 @@ function HeroPromotionList() {
         </AppLink>
       ))}
 
-      <div className="hero-promotion-list__pagination" aria-hidden="true">
+      <div
+        className="hero-promotion-list__pagination"
+        aria-label="프로모션 슬라이드 선택"
+      >
         {heroPromotions.map((promotion, index) => (
-          <span
+          <button
+            type="button"
             className={index === activeIndex ? 'is-active' : ''}
             key={promotion.id}
-          />
+            onClick={() => handlePaginationClick(index)}
+            aria-label={`${promotion.title} 프로모션 보기`}
+            aria-pressed={index === activeIndex}
+          >
+            <span aria-hidden="true" />
+          </button>
         ))}
       </div>
     </div>

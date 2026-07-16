@@ -291,10 +291,16 @@ body.no-scroll {
     background: var(--color-white);
 }
 
-.menu__login {
+.menu-panel__user {
     display: flex;
     align-items: center;
-    gap: .75rem;
+}
+
+.menu__login,
+.menu__applications {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
 
     padding: var(--space-2);
 }
@@ -564,7 +570,8 @@ header::before {
 }
 
 .header__login,
-.header__sign-up {
+.header__sign-up,
+.header__applications {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -850,9 +857,8 @@ body.is-desktop-menu-stuck #menu-panel[data-menu-mode="mega"] .menu-panel__top {
     padding-inline: var(--space-4);
 }
 
-.menu__login {
+.menu-panel__user {
     display: none;
-
 }
 
 .menu-panel__title {

@@ -42,6 +42,15 @@ input::placeholder {
   outline: none;
 }
 
+/* Touch devices do not need a persistent keyboard focus ring. */
+@media (hover: none) and (pointer: coarse) {
+  :focus,
+  :focus-visible {
+    outline: none !important;
+    outline-offset: 0;
+  }
+}
+
 /* Scroll */
 html {
   -ms-overflow-style: none;  /* Edge */
