@@ -21,8 +21,7 @@
         return;
     }
 
-    const escapeHtml = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char]));
-    const formatPrice = (value) => `${Number(value || 0).toLocaleString('ko-KR')}원`;
+    const { escapeHtml, formatPrice } = window.FragfarmUtils;
     const statusLabels = { ordered: '주문 완료', preparing: '배송 준비 중', shipping: '배송 중', delivered: '배송 완료', cancelled: '취소', exchanged: '교환', returned: '반품' };
     const paymentLabels = { demo_card: '신용카드 모의 결제', demo_bank: '무통장입금 모의 결제' };
     const setText = (selector, value) => {

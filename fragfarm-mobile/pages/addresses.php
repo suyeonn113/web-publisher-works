@@ -1,5 +1,6 @@
 <?php
 include __DIR__ . '/../includes/config.php';
+require_once __DIR__ . '/../includes/view-helpers.php';
 
 if (!FRAGFARM_DEMO_MODE && empty($_SESSION['member_id'])) {
     $_SESSION['after_login_redirect'] = BASE_URL . '/pages/addresses.php';
@@ -31,11 +32,6 @@ if (!FRAGFARM_DEMO_MODE) {
     }
 }
 
-function address_e($value): string
-{
-    return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
-}
-
 $pageTitle = 'Addresses | Fragfarm';
 $pageCss = 'mypage-detail.css';
 ?>
@@ -54,9 +50,9 @@ $pageCss = 'mypage-detail.css';
         <section aria-labelledby="address-list-title">
             <h3 id="address-list-title" class="mypage-detail__section-title">배송지 목록</h3>
             <article class="address-card">
-                <div class="address-card__head"><h3 data-address-name><?= address_e($member['user_name']) ?></h3><span class="address-card__badge">기본 배송지</span></div>
-                <p data-address-phone><?= address_e($member['phone']) ?></p>
-                <address><span data-address-postcode>[<?= address_e($member['postcode']) ?>]</span> <span data-address-line1><?= address_e($member['address_line1']) ?></span> <span data-address-line2><?= address_e($member['address_line2']) ?></span></address>
+                <div class="address-card__head"><h3 data-address-name><?= e($member['user_name']) ?></h3><span class="address-card__badge">기본 배송지</span></div>
+                <p data-address-phone><?= e($member['phone']) ?></p>
+                <address><span data-address-postcode>[<?= e($member['postcode']) ?>]</span> <span data-address-line1><?= e($member['address_line1']) ?></span> <span data-address-line2><?= e($member['address_line2']) ?></span></address>
                 <a class="address-card__edit" href="<?= BASE_URL ?>/pages/member_edit.php">회원정보에서 수정</a>
             </article>
 
@@ -88,7 +84,6 @@ $pageCss = 'mypage-detail.css';
 </div>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="<?= BASE_URL ?>/js/header.js"></script>
-<script>window.FRAGFARM_BASE_URL = <?= json_encode(BASE_URL) ?>; window.FRAGFARM_DEMO_MODE = <?= FRAGFARM_DEMO_MODE ? 'true' : 'false' ?>;</script>
 <script src="<?= BASE_URL ?>/js/mypage-detail.js"></script>
 </body>
 </html>

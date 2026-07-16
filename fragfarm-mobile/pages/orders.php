@@ -1,14 +1,10 @@
 <?php
 include __DIR__ . '/../includes/config.php';
+require_once __DIR__ . '/../includes/view-helpers.php';
 
 if (!FRAGFARM_DEMO_MODE && empty($_SESSION['member_id'])) {
     header('Location: ' . BASE_URL . '/pages/login.php');
     exit;
-}
-
-function orders_e($value): string
-{
-    return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
 }
 
 function order_status_label(string $status): string
@@ -86,16 +82,16 @@ $pageCss = 'orders.css';
                     <li class="order-card">
                         <a class="order-card__link" href="<?= BASE_URL ?>/pages/order-detail.php?number=<?= rawurlencode($order['order_number']) ?>">
                         <div class="order-card__head">
-                            <time datetime="<?= orders_e($order['created_at']) ?>"><?= date('Y.m.d', strtotime($order['created_at'])) ?></time>
-                            <span><?= orders_e(order_status_label($order['order_status'])) ?></span>
+                            <time datetime="<?= e($order['created_at']) ?>"><?= date('Y.m.d', strtotime($order['created_at'])) ?></time>
+                            <span><?= e(order_status_label($order['order_status'])) ?></span>
                         </div>
                         <div class="order-card__body">
                             <?php if (!empty($order['first_product_image'])): ?>
-                                <img src="<?= BASE_URL . orders_e($order['first_product_image']) ?>" alt="">
+                                <img src="<?= BASE_URL . e($order['first_product_image']) ?>" alt="">
                             <?php endif; ?>
                             <div>
-                                <p class="order-card__number">주문번호 <?= orders_e($order['order_number']) ?></p>
-                                <h3><?= orders_e($order['first_product_name']) ?><?= $extraCount > 0 ? ' 외 ' . $extraCount . '건' : '' ?></h3>
+                                <p class="order-card__number">주문번호 <?= e($order['order_number']) ?></p>
+                                <h3><?= e($order['first_product_name']) ?><?= $extraCount > 0 ? ' 외 ' . $extraCount . '건' : '' ?></h3>
                                 <strong><?= number_format((int) $order['total_amount']) ?>원</strong>
                             </div>
                         </div>

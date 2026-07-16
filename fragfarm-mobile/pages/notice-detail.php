@@ -1,6 +1,7 @@
 <?php
 include __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../includes/services/notice-service.php';
+require_once __DIR__ . '/../includes/view-helpers.php';
 
 $postId = max(0, (int) ($_GET['id'] ?? 0));
 
@@ -21,10 +22,6 @@ if (!$post) {
 $pageTitle = $post['title'] . ' | Notice | Fragfarm';
 $pageCss = 'notice.css';
 
-function notice_detail_e($value): string
-{
-    return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
-}
 ?>
 
 <!DOCTYPE html>
@@ -44,15 +41,15 @@ function notice_detail_e($value): string
 
         <article class="notice-detail__article">
             <header class="notice-detail__header">
-                <h3><?= notice_detail_e($post['title']) ?></h3>
-                <time datetime="<?= notice_detail_e(date('Y-m-d', strtotime($post['created_at']))) ?>"><?= notice_detail_e(date('Y.m.d', strtotime($post['created_at']))) ?></time>
+                <h3><?= e($post['title']) ?></h3>
+                <time datetime="<?= e(date('Y-m-d', strtotime($post['created_at']))) ?>"><?= e(date('Y.m.d', strtotime($post['created_at']))) ?></time>
             </header>
 
             <div class="notice-detail__body">
                 <?php if (!empty($post['image_src'])): ?>
-                    <img src="<?= BASE_URL . notice_detail_e($post['image_src']) ?>" alt="">
+                    <img src="<?= BASE_URL . e($post['image_src']) ?>" alt="">
                 <?php endif; ?>
-                <p><?= nl2br(notice_detail_e($post['content'])) ?></p>
+                <p><?= nl2br(e($post['content'])) ?></p>
             </div>
 
         </article>

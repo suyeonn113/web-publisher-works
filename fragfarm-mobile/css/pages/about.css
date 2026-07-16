@@ -1,12 +1,12 @@
 @charset "utf-8";
 
-article {
+.about-page article {
     position: relative;
     width: 100%;
     height: 100%;
     aspect-ratio: 3 / 5;
 
-    background: url(../../assets/images/about__main.png) center / contain no-repeat;
+    background: url(../../assets/images/about__main.webp) center / contain no-repeat;
 }
 
 .about__text {

@@ -156,8 +156,12 @@ $loginLabel = $isLoggedIn ? '마이페이지' : '로그인';
         </a>
     </div>
 </header>
+<script>
+window.FRAGFARM_BASE_URL = <?= json_encode(BASE_URL) ?>;
+window.FRAGFARM_DEMO_MODE = <?= FRAGFARM_DEMO_MODE ? 'true' : 'false' ?>;
+</script>
+<script src="<?= BASE_URL ?>/js/app-utils.js"></script>
 <script src="<?= BASE_URL ?>/js/accessibility.js"></script>
 <?php if (FRAGFARM_DEMO_MODE): ?>
-<script>window.FRAGFARM_DEMO_MODE = true; window.FRAGFARM_BASE_URL = <?= json_encode(BASE_URL) ?>;</script>
 <script src="<?= BASE_URL ?>/js/demo-auth.js"></script>
 <?php endif; ?>

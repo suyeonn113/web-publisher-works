@@ -1,8 +1,15 @@
+<?php
+$rawPageTitle = trim((string) ($pageTitle ?? ''));
+$pageName = preg_replace('/\s*\|\s*Fragfarm\s*$/i', '', $rawPageTitle);
+$documentTitle = $pageName === '' || strcasecmp($pageName, 'Fragfarm') === 0
+    ? 'Fragfarm'
+    : 'Fragfarm | ' . $pageName;
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title><?= 'Fragfarm' ?></title>
+    <title><?= htmlspecialchars($documentTitle, ENT_QUOTES, 'UTF-8') ?></title>
 
     <?php if (!empty($useFlowerFont)): ?>
         <!-- Google Fonts: season title glyph -->

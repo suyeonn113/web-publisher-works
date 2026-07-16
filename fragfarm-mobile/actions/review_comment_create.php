@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../includes/config.php';
+require_once __DIR__ . '/../includes/security.php';
 require_once __DIR__ . '/../includes/dbconn.php';
 require_once __DIR__ . '/../includes/data/products.php';
 require_once __DIR__ . '/../includes/data/reviews.php';
@@ -19,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_SESSION['member_id'])) {
     exit;
 }
 
-if (!hash_equals($_SESSION['product_feedback_csrf'] ?? '', $_POST['csrf_token'] ?? '')) {
+if (!csrf_verify('product_feedback', $_POST['csrf_token'] ?? null)) {
     $_SESSION['feedback_error'] = '요청이 만료되었습니다.';
     header('Location: ' . $redirect);
     exit;

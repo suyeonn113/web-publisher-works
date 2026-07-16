@@ -1,5 +1,6 @@
 <?php
 include __DIR__ . '/../includes/config.php';
+require_once __DIR__ . '/../includes/security.php';
 
 if (empty($_SESSION['password_reset_member_id'])) {
     header('Location: ' . BASE_URL . '/pages/find_password.php');
@@ -27,6 +28,7 @@ $pageCss = 'account-help.css';
             <p class="account-help__lead">새 비밀번호를 입력해주세요.</p>
 
             <form class="account-help-form" action="<?= BASE_URL ?>/actions/reset_password_process.php" method="post">
+                <?= csrf_input('password_reset') ?>
                 <div class="account-help-form__group">
                     <label class="account-help-form__label" for="new-password">NEW PASSWORD</label>
                     <input id="new-password" class="account-help-form__input" name="new_password" type="password" autocomplete="new-password" placeholder="영문, 숫자, 특수문자 포함 10자 이상 입력" required>

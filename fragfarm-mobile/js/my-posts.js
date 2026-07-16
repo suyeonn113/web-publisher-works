@@ -7,15 +7,7 @@
     const reviewKey = 'fragfarm_demo_reviews';
     const commentKey = 'fragfarm_demo_review_comments';
     const qnaKey = 'fragfarm_demo_product_qna';
-    const escapeHtml = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char]));
-    const read = (key) => {
-        try {
-            return JSON.parse(window.localStorage.getItem(key) || '[]');
-        } catch (error) {
-            return [];
-        }
-    };
-    const write = (key, items) => window.localStorage.setItem(key, JSON.stringify(items));
+    const { escapeHtml, readStorageArray: read, writeStorage: write } = window.FragfarmUtils;
     const formatDate = (value) => {
         const date = new Date(value);
         if (Number.isNaN(date.getTime())) return '';

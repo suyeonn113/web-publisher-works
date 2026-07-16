@@ -33,20 +33,7 @@ $pageCss = 'checkout.css';
     </main>
     <?php include __DIR__ . '/../includes/footer.php'; ?>
 </div>
-<script>
-const remainingCart = window.sessionStorage.getItem('fragfarm_cart_after_order');
-if (remainingCart !== null) {
-    window.localStorage.setItem('fragfarm_cart', remainingCart);
-    window.sessionStorage.removeItem('fragfarm_cart_after_order');
-}
-window.localStorage.removeItem('fragfarm_checkout');
-const demoOrder = JSON.parse(window.sessionStorage.getItem('fragfarm_demo_last_order') || 'null');
-if (demoOrder) {
-    document.querySelector('[data-demo-complete-number]').textContent = demoOrder.order_number;
-    document.querySelector('[data-demo-complete-total]').textContent = `${Number(demoOrder.total_amount).toLocaleString('ko-KR')}원`;
-    window.sessionStorage.removeItem('fragfarm_demo_last_order');
-}
-</script>
+<script src="<?= BASE_URL ?>/js/order-complete.js"></script>
 <script src="<?= BASE_URL ?>/js/header.js"></script>
 </body>
 </html>

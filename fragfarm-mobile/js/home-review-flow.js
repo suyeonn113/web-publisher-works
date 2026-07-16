@@ -3,7 +3,7 @@
     if (!reviewList) return;
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const speed = 0.008;
+    const speed = 0.03;
     let frameId = 0;
     let lastTime = 0;
     let paused = false;

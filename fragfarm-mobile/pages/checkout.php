@@ -1,5 +1,7 @@
 <?php
 include __DIR__ . '/../includes/config.php';
+require_once __DIR__ . '/../includes/view-helpers.php';
+require_once __DIR__ . '/../includes/security.php';
 
 if (!FRAGFARM_DEMO_MODE && empty($_SESSION['member_id'])) {
     $_SESSION['after_login_redirect'] = BASE_URL . '/pages/checkout.php';
@@ -31,15 +33,6 @@ if (!FRAGFARM_DEMO_MODE) {
     }
 }
 
-if (empty($_SESSION['checkout_csrf'])) {
-    $_SESSION['checkout_csrf'] = bin2hex(random_bytes(32));
-}
-
-function checkout_e($value): string
-{
-    return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
-}
-
 $pageTitle = 'Checkout | Fragfarm';
 $pageCss = 'checkout.css';
 ?>
@@ -55,7 +48,7 @@ $pageCss = 'checkout.css';
         </div>
         <p class="checkout-demo">포트폴리오용 주문 체험이며 실제 결제는 발생하지 않습니다.</p>
         <?php if (!empty($_SESSION['order_error'])): ?>
-            <p class="checkout-error" role="alert"><?= checkout_e($_SESSION['order_error']) ?></p>
+            <p class="checkout-error" role="alert"><?= e($_SESSION['order_error']) ?></p>
             <?php unset($_SESSION['order_error']); ?>
         <?php endif; ?>
         <section class="checkout-section" aria-labelledby="checkout-products-title">
@@ -64,18 +57,18 @@ $pageCss = 'checkout.css';
             <p data-checkout-empty hidden>주문할 상품이 없습니다.</p>
         </section>
         <form class="checkout-form" action="<?= BASE_URL ?>/actions/order_process.php" method="post" data-checkout-form data-demo-mode="<?= FRAGFARM_DEMO_MODE ? 'true' : 'false' ?>">
-            <input type="hidden" name="csrf_token" value="<?= checkout_e($_SESSION['checkout_csrf']) ?>">
+            <?= csrf_input('checkout') ?>
             <input type="hidden" name="order_items" data-order-items>
             <section class="checkout-section" aria-labelledby="shipping-title">
                 <div class="checkout-section__head">
                     <h3 id="shipping-title">배송 정보</h3>
                     <button type="button" data-load-member-address>기본 배송지 불러오기</button>
                 </div>
-                <label>받는 분<input name="recipient_name" type="text" value="<?= checkout_e($member['user_name']) ?>" autocomplete="name" required></label>
-                <label>연락처<input name="recipient_phone" type="tel" value="<?= checkout_e($member['phone']) ?>" inputmode="numeric" autocomplete="tel" required></label>
-                <label>우편번호<input name="postcode" type="text" value="<?= checkout_e($member['postcode']) ?>" required></label>
-                <label>주소<input name="address_line1" type="text" value="<?= checkout_e($member['address_line1']) ?>" required></label>
-                <label>상세 주소<input name="address_line2" type="text" value="<?= checkout_e($member['address_line2']) ?>" required></label>
+                <label>받는 분<input name="recipient_name" type="text" value="<?= e($member['user_name']) ?>" autocomplete="name" required></label>
+                <label>연락처<input name="recipient_phone" type="tel" value="<?= e($member['phone']) ?>" inputmode="numeric" autocomplete="tel" required></label>
+                <label>우편번호<input name="postcode" type="text" value="<?= e($member['postcode']) ?>" required></label>
+                <label>주소<input name="address_line1" type="text" value="<?= e($member['address_line1']) ?>" required></label>
+                <label>상세 주소<input name="address_line2" type="text" value="<?= e($member['address_line2']) ?>" required></label>
                 <label>배송 메시지<input name="delivery_message" type="text" maxlength="255" placeholder="배송 요청사항을 입력해주세요."></label>
             </section>
             <section class="checkout-section" aria-labelledby="payment-title">
@@ -95,7 +88,6 @@ $pageCss = 'checkout.css';
     </main>
     <?php include __DIR__ . '/../includes/footer.php'; ?>
 </div>
-<script>window.FRAGFARM_BASE_URL = <?= json_encode(BASE_URL) ?>;</script>
 <script type="application/json" id="checkout-member-profile"><?= json_encode($member, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?></script>
 <script src="<?= BASE_URL ?>/js/header.js"></script>
 <script src="<?= BASE_URL ?>/js/order-flow.js"></script>

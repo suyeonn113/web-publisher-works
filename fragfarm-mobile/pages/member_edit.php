@@ -1,5 +1,6 @@
 <?php
 include __DIR__ . '/../includes/config.php';
+require_once __DIR__ . '/../includes/security.php';
 
 $member = FRAGFARM_DEMO_MODE ? [
     'user_id' => 'fragfarm',
@@ -78,6 +79,7 @@ $pageCss = 'member-edit.css';
             </div>
 
             <form class="member-form" action="<?= FRAGFARM_DEMO_MODE ? '#' : BASE_URL . '/actions/member_update.php' ?>" method="post" data-member-form>
+                <?= csrf_input('member_update') ?>
                 <div class="member-form__group">
                     <div class="member-form__label-row">
                         <label class="member-form__label" for="user-id">ID</label>
@@ -202,6 +204,7 @@ $pageCss = 'member-edit.css';
                 <h3 id="password-title" class="password-panel__title">PASSWORD</h3>
 
                 <form class="member-form" action="<?= FRAGFARM_DEMO_MODE ? '#' : BASE_URL . '/actions/password_update.php' ?>" method="post" data-password-form>
+                    <?= csrf_input('password_update') ?>
                     <div class="member-form__group">
                         <label class="member-form__label" for="current-password">CURRENT PASSWORD</label>
                         <input
@@ -251,105 +254,6 @@ $pageCss = 'member-edit.css';
 <!-- JS -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="<?= BASE_URL ?>/js/header.js"></script>
-<script>
-const isDemoMode = <?= FRAGFARM_DEMO_MODE ? 'true' : 'false' ?>;
-const demoSessionKey = 'fragfarm_demo_session';
-const postcodeInput = document.querySelector('#postcode');
-const address1Input = document.querySelector('#address-line1');
-const address2Input = document.querySelector('#address-line2');
-const addressButton = document.querySelector('.member-form__address-btn');
-
-addressButton?.addEventListener('click', () => {
-    if (!window.daum?.Postcode) {
-        window.showGlobalToast?.('주소 검색 서비스를 불러오지 못했습니다.');
-        return;
-    }
-
-    new daum.Postcode({
-        oncomplete(data) {
-            postcodeInput.value = data.zonecode;
-            address1Input.value = data.roadAddress || data.jibunAddress;
-            address2Input.focus();
-        }
-    }).open();
-});
-
-if (isDemoMode) {
-    let demoSession;
-
-    try {
-        demoSession = JSON.parse(window.localStorage.getItem(demoSessionKey) || 'null');
-    } catch (error) {
-        demoSession = null;
-    }
-
-    if (!demoSession) {
-        window.location.href = '<?= BASE_URL ?>/pages/login.php';
-    } else {
-        const fieldMap = {
-            'user-id': 'user_id',
-            'user-name': 'user_name',
-            email: 'email',
-            phone: 'phone',
-            postcode: 'postcode',
-            'address-line1': 'address_line1',
-            'address-line2': 'address_line2'
-        };
-
-        Object.entries(fieldMap).forEach(([id, key]) => {
-            const input = document.getElementById(id);
-            if (input && demoSession[key]) input.value = demoSession[key];
-        });
-
-        document.querySelector('[data-member-form]')?.addEventListener('submit', (event) => {
-            event.preventDefault();
-            const data = new FormData(event.currentTarget);
-            const nextSession = {
-                ...demoSession,
-                user_name: data.get('user_name'),
-                email: data.get('email'),
-                phone: data.get('phone'),
-                postcode: data.get('postcode'),
-                address_line1: data.get('address_line1'),
-                address_line2: data.get('address_line2'),
-                agree_marketing: data.get('agree_marketing') === '1'
-            };
-            window.localStorage.setItem(demoSessionKey, JSON.stringify(nextSession));
-            demoSession = nextSession;
-            window.showGlobalToast?.('회원정보를 저장했습니다.');
-        });
-
-        document.querySelector('[data-password-form]')?.addEventListener('submit', (event) => {
-            event.preventDefault();
-            event.currentTarget.reset();
-            window.showGlobalToast?.('데모 비밀번호를 변경했습니다.');
-        });
-    }
-}
-
-document.querySelectorAll('[data-marketing-toggle]').forEach((button) => {
-    button.addEventListener('click', () => {
-        const checkbox = document.querySelector(button.dataset.marketingToggle);
-        const text = document.querySelector('[data-marketing-text]');
-
-        if (!checkbox || !text) return;
-
-        if (checkbox.checked) {
-            const ok = confirm('수신에 동의하지 않겠습니까?');
-
-            if (!ok) return;
-
-            checkbox.checked = false;
-            text.textContent = '이메일 및 SMS 마케팅 정보 수신에 동의하지 않습니다.';
-            button.textContent = '수신동의';
-            return;
-        }
-
-        checkbox.checked = true;
-        text.textContent = '이메일 및 SMS 마케팅 정보 수신에 동의합니다.';
-        button.textContent = '수신거부';
-    });
-});
-</script>
+<script src="<?= BASE_URL ?>/js/member-edit.js"></script>
 </body>
 </html>

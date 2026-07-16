@@ -1,14 +1,10 @@
 <?php
 include __DIR__ . '/../includes/config.php';
+require_once __DIR__ . '/../includes/view-helpers.php';
 
 if (!FRAGFARM_DEMO_MODE && empty($_SESSION['member_id'])) {
     header('Location: ' . BASE_URL . '/pages/login.php');
     exit;
-}
-
-function order_detail_e($value): string
-{
-    return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
 }
 
 function order_detail_status(string $status): string
@@ -76,7 +72,7 @@ $pageCss = 'checkout.css';
 <body>
 <div class="mobile-shell">
     <?php include __DIR__ . '/../includes/header.php'; ?>
-    <main id="main" class="order-detail" data-order-detail data-order-number="<?= order_detail_e($orderNumber) ?>" data-demo-mode="<?= FRAGFARM_DEMO_MODE ? 'true' : 'false' ?>">
+    <main id="main" class="order-detail" data-order-detail data-order-number="<?= e($orderNumber) ?>" data-demo-mode="<?= FRAGFARM_DEMO_MODE ? 'true' : 'false' ?>">
         <div class="page-heading page-heading--back page-heading--contained">
             <a class="page-heading__back" href="<?= BASE_URL ?>/pages/orders.php" aria-label="주문 목록으로 돌아가기"><img src="<?= BASE_URL ?>/assets/icons/arrow-left.svg" alt=""></a>
             <h2 class="page-heading__title">ORDER DETAIL</h2>
@@ -87,8 +83,8 @@ $pageCss = 'checkout.css';
 
         <div data-order-detail-content <?= (!$order && !FRAGFARM_DEMO_MODE) ? 'hidden' : '' ?>>
             <section class="order-detail__summary">
-                <div><span data-detail-date><?= $order ? date('Y.m.d H:i', strtotime($order['created_at'])) : '' ?></span><strong data-detail-status><?= $order ? order_detail_e(order_detail_status($order['order_status'])) : '' ?></strong></div>
-                <p>주문번호 <b data-detail-number><?= $order ? order_detail_e($order['order_number']) : '' ?></b></p>
+                <div><span data-detail-date><?= $order ? date('Y.m.d H:i', strtotime($order['created_at'])) : '' ?></span><strong data-detail-status><?= $order ? e(order_detail_status($order['order_status'])) : '' ?></strong></div>
+                <p>주문번호 <b data-detail-number><?= $order ? e($order['order_number']) : '' ?></b></p>
             </section>
 
             <section class="checkout-section" aria-labelledby="detail-products-title">
@@ -96,10 +92,10 @@ $pageCss = 'checkout.css';
                 <ul class="checkout-products" data-detail-items>
                     <?php foreach ($orderItems as $item): ?>
                         <li class="checkout-product">
-                            <img src="<?= BASE_URL . order_detail_e($item['product_image']) ?>" alt="">
+                            <img src="<?= BASE_URL . e($item['product_image']) ?>" alt="">
                             <div>
-                                <h4><?= order_detail_e($item['product_name']) ?></h4>
-                                <p><?= order_detail_e($item['product_option'] ?: 'SIZE: ' . $item['size']) ?> · <?= (int) $item['quantity'] ?>개</p>
+                                <h4><?= e($item['product_name']) ?></h4>
+                                <p><?= e($item['product_option'] ?: 'SIZE: ' . $item['size']) ?> · <?= (int) $item['quantity'] ?>개</p>
                                 <strong><?= number_format((int) $item['line_total']) ?>원</strong>
                             </div>
                         </li>
@@ -110,17 +106,17 @@ $pageCss = 'checkout.css';
             <section class="checkout-section order-detail__info" aria-labelledby="detail-shipping-title">
                 <h3 id="detail-shipping-title">배송 정보</h3>
                 <dl>
-                    <div><dt>받는 분</dt><dd data-detail-recipient><?= $order ? order_detail_e($order['recipient_name']) : '' ?></dd></div>
-                    <div><dt>연락처</dt><dd data-detail-phone><?= $order ? order_detail_e($order['recipient_phone']) : '' ?></dd></div>
-                    <div><dt>주소</dt><dd data-detail-address><?= $order ? order_detail_e('[' . $order['postcode'] . '] ' . $order['address_line1'] . ' ' . $order['address_line2']) : '' ?></dd></div>
-                    <div><dt>배송 메시지</dt><dd data-detail-message><?= $order ? order_detail_e($order['delivery_message'] ?: '-') : '' ?></dd></div>
+                    <div><dt>받는 분</dt><dd data-detail-recipient><?= $order ? e($order['recipient_name']) : '' ?></dd></div>
+                    <div><dt>연락처</dt><dd data-detail-phone><?= $order ? e($order['recipient_phone']) : '' ?></dd></div>
+                    <div><dt>주소</dt><dd data-detail-address><?= $order ? e('[' . $order['postcode'] . '] ' . $order['address_line1'] . ' ' . $order['address_line2']) : '' ?></dd></div>
+                    <div><dt>배송 메시지</dt><dd data-detail-message><?= $order ? e($order['delivery_message'] ?: '-') : '' ?></dd></div>
                 </dl>
             </section>
 
             <section class="checkout-section order-detail__info" aria-labelledby="detail-payment-title">
                 <h3 id="detail-payment-title">결제 정보</h3>
                 <dl>
-                    <div><dt>결제 수단</dt><dd data-detail-payment><?= $order ? order_detail_e(order_detail_payment($order['payment_method'])) : '' ?></dd></div>
+                    <div><dt>결제 수단</dt><dd data-detail-payment><?= $order ? e(order_detail_payment($order['payment_method'])) : '' ?></dd></div>
                     <div><dt>상품 금액</dt><dd data-detail-subtotal><?= $order ? number_format((int) $order['product_amount']) . '원' : '' ?></dd></div>
                     <div><dt>배송비</dt><dd data-detail-shipping><?= $order ? number_format((int) $order['shipping_fee']) . '원' : '' ?></dd></div>
                     <div class="order-detail__total"><dt>총 결제 금액</dt><dd data-detail-total><?= $order ? number_format((int) $order['total_amount']) . '원' : '' ?></dd></div>

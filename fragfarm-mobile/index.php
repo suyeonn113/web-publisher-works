@@ -217,7 +217,7 @@ $saleProducts = array_values(array_filter($products, function ($product) {
                 aria-label="ABOUT FRAGFARM 페이지 보기">
                 <img
                     class="about__image motion-card-float"
-                    src="<?= BASE_URL ?>/assets/images/about-2.png"
+                    src="<?= BASE_URL ?>/assets/images/about-2.webp"
                     alt="날개 달린 천사와 FRAGFARM 로고가 그려진 빈티지 카드">
             </a>
         </section>

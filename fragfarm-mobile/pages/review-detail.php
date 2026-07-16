@@ -1,6 +1,7 @@
 <?php
 include __DIR__ . '/../includes/config.php';
 include __DIR__ . '/../includes/data/reviews.php';
+require_once __DIR__ . '/../includes/security.php';
 
 $reviewId = (string) ($_GET['id'] ?? '');
 $review = findReviewById($reviews, $reviewId);
@@ -15,10 +16,6 @@ $pageCss = 'review.css';
 $isLoggedIn = isset($_SESSION['member_id']);
 $productId = (string) ($review['product_id'] ?? '');
 $comments = $review['comments'] ?? [];
-
-if (empty($_SESSION['product_feedback_csrf'])) {
-    $_SESSION['product_feedback_csrf'] = bin2hex(random_bytes(32));
-}
 
 if (!FRAGFARM_DEMO_MODE) {
     require_once __DIR__ . '/../includes/dbconn.php';
@@ -91,7 +88,7 @@ if (!FRAGFARM_DEMO_MODE) {
                         <h3 class="review-comment__author"><?= htmlspecialchars($comment['author'], ENT_QUOTES, 'UTF-8') ?></h3>
                         <?php if ($isLoggedIn && !empty($comment['own']) && !empty($comment['id'])): ?>
                             <form class="review-comment__delete" action="<?= BASE_URL ?>/actions/review_comment_delete.php" method="post">
-                                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['product_feedback_csrf'], ENT_QUOTES, 'UTF-8') ?>">
+                                <?= csrf_input('product_feedback') ?>
                                 <input type="hidden" name="product_id" value="<?= htmlspecialchars($productId, ENT_QUOTES, 'UTF-8') ?>">
                                 <input type="hidden" name="review_key" value="<?= htmlspecialchars($reviewId, ENT_QUOTES, 'UTF-8') ?>">
                                 <input type="hidden" name="comment_id" value="<?= (int) $comment['id'] ?>">
@@ -104,7 +101,7 @@ if (!FRAGFARM_DEMO_MODE) {
             </div>
 
             <form class="review-comment-form" action="<?= BASE_URL ?>/actions/review_comment_create.php" method="post" data-demo-review-detail-comment>
-                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['product_feedback_csrf'], ENT_QUOTES, 'UTF-8') ?>">
+                <?= csrf_input('product_feedback') ?>
                 <input type="hidden" name="product_id" value="<?= htmlspecialchars($productId, ENT_QUOTES, 'UTF-8') ?>">
                 <input type="hidden" name="review_key" value="<?= htmlspecialchars($reviewId, ENT_QUOTES, 'UTF-8') ?>">
                 <label class="visually-hidden" for="review-comment">댓글 입력</label>

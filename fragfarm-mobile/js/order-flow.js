@@ -6,22 +6,7 @@
     const DEMO_SESSION_KEY = 'fragfarm_demo_session';
     const DEMO_ORDERS_KEY = 'fragfarm_demo_orders';
 
-    const parseJson = (value, fallback) => {
-        try {
-            return JSON.parse(value) || fallback;
-        } catch (error) {
-            return fallback;
-        }
-    };
-
-    const escapeHtml = (value) => String(value ?? '')
-        .replaceAll('&', '&amp;')
-        .replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;')
-        .replaceAll('"', '&quot;')
-        .replaceAll("'", '&#039;');
-
-    const formatPrice = (value) => `${Number(value || 0).toLocaleString('ko-KR')}원`;
+    const { escapeHtml, formatPrice, parseJson } = window.FragfarmUtils;
     const checkout = parseJson(window.localStorage.getItem(CHECKOUT_KEY), {});
     const items = Array.isArray(checkout.items) ? checkout.items.filter((item) => item?.id) : [];
     const list = document.querySelector('[data-checkout-items]');

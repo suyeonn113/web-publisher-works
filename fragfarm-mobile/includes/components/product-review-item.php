@@ -26,7 +26,7 @@ $reviewId = !empty($review['db_id'])
     <div class="review-item__body">
         <?php if ($isLoggedIn && !empty($review['own']) && !empty($review['db_id'])): ?>
             <form action="<?= BASE_URL ?>/actions/review_delete.php" method="post" class="feedback-delete-form">
-                <input type="hidden" name="csrf_token" value="<?= e($_SESSION['product_feedback_csrf']) ?>">
+                <?= csrf_input('product_feedback') ?>
                 <input type="hidden" name="product_id" value="<?= $id ?>">
                 <input type="hidden" name="review_id" value="<?= (int) $review['db_id'] ?>">
                 <button type="submit">내 리뷰 삭제</button>
@@ -45,7 +45,7 @@ $reviewId = !empty($review['db_id'])
                         <strong><?= e($comment['author']) ?></strong>
                         <?php if ($isLoggedIn && !empty($comment['own']) && !empty($comment['id'])): ?>
                             <form class="review-comment__delete" action="<?= BASE_URL ?>/actions/review_comment_delete.php" method="post">
-                                <input type="hidden" name="csrf_token" value="<?= e($_SESSION['product_feedback_csrf']) ?>">
+                                <?= csrf_input('product_feedback') ?>
                                 <input type="hidden" name="product_id" value="<?= $id ?>">
                                 <input type="hidden" name="review_key" value="<?= e($reviewKey) ?>">
                                 <input type="hidden" name="comment_id" value="<?= (int) $comment['id'] ?>">
@@ -58,7 +58,7 @@ $reviewId = !empty($review['db_id'])
             </div>
 
             <form class="review-comment-form" action="<?= BASE_URL ?>/actions/review_comment_create.php" method="post" data-demo-review-comment>
-                <input type="hidden" name="csrf_token" value="<?= e($_SESSION['product_feedback_csrf']) ?>">
+                <?= csrf_input('product_feedback') ?>
                 <input type="hidden" name="product_id" value="<?= $id ?>">
                 <input type="hidden" name="review_key" value="<?= e($reviewKey) ?>">
                 <textarea class="form-textarea form-textarea--compact" name="comment" rows="2" maxlength="500" aria-label="리뷰 댓글" placeholder="<?= $isLoggedIn ? '댓글을 남겨주세요.' : '로그인 후 이용해주세요.' ?>" <?= $isLoggedIn ? '' : 'readonly data-login-required' ?>></textarea>

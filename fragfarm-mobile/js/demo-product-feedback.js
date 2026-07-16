@@ -4,13 +4,8 @@
     const QNA_KEY = 'fragfarm_demo_product_qna';
     const SESSION_KEY = 'fragfarm_demo_session';
     const MASTER_ID = 'fragfarm';
-    const readSession = () => {
-        try {
-            return JSON.parse(window.localStorage.getItem(SESSION_KEY) || 'null');
-        } catch (error) {
-            return null;
-        }
-    };
+    const { escapeHtml, readStorage, readStorageArray: read, writeStorage: write } = window.FragfarmUtils;
+    const readSession = () => readStorage(SESSION_KEY, null);
     const session = readSession();
     const isMasterLoggedIn = session?.user_id === MASTER_ID;
     const reviewForm = document.querySelector('[data-demo-product-feedback]');
@@ -18,9 +13,6 @@
     const productId = reviewForm?.elements.namedItem('product_id')?.value || qnaForm?.elements.namedItem('product_id')?.value;
     if (!productId) return;
 
-    const read = (key) => { try { return JSON.parse(window.localStorage.getItem(key) || '[]'); } catch (error) { return []; } };
-    const write = (key, items) => window.localStorage.setItem(key, JSON.stringify(items));
-    const escapeHtml = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char]));
     const requireLogin = () => {
         if (readSession()?.user_id === MASTER_ID) return true;
         window.localStorage.setItem('fragfarm_demo_after_login', window.location.href);

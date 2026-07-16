@@ -2,38 +2,21 @@
 include __DIR__ . '/../includes/config.php';
 include __DIR__ . '/../includes/data/products.php';
 require_once __DIR__ . '/../includes/services/shop-state.php';
+require_once __DIR__ . '/../includes/view-helpers.php';
+require_once __DIR__ . '/../includes/security.php';
 
 $productId = $_GET['id'] ?? '';
-$product = null;
-
-foreach ($products as $item) {
-    if (($item['id'] ?? '') === $productId) {
-        $product = $item;
-        break;
-    }
-}
-
-if ($product === null) {
-    $product = $products[0] ?? null;
-}
+$product = shop_find_product($products, (string) $productId);
 
 if ($product === null) {
     http_response_code(404);
-    exit('Product not found.');
+    require __DIR__ . '/../404.php';
+    exit;
 }
 
 $pageTitle = ($product['name'] ?? 'Product Detail') . ' | Fragfarm';
 $pageCss = 'product-detail.css';
 $isLoggedIn = isset($_SESSION['member_id']);
-
-function e($value)
-{
-    if (is_array($value)) {
-        $value = implode(', ', array_map('strval', $value));
-    }
-
-    return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
-}
 
 function productDetailImageUrl($src)
 {
@@ -77,144 +60,34 @@ if (empty($sizes)) {
 $isSoldOut = !empty($product['soldOut']);
 $shopItem = shop_item_from_product($product, ['size' => $sizes[0] ?? 'S']);
 $shopItemAttr = shop_item_json($shopItem);
-$reviewItems = [
-    [
-        'review_key' => 'sample-1',
-        'name' => '김**',
-        'date' => '2025.06.12 21:07',
-        'score' => 5,
-        'summary' => '좋아요 예뻐요',
-        'content' => '사이즈 고민 좀 하다가 구매했는데 생각보다 훨씬 편하게 맞아요. 프린팅이 흐려지지 않고 포인트로 예쁘게 보여서 자주 입을 것 같아요.',
-        'images' => [
-            BASE_URL . '/assets/images/review/review-1.jpeg',
-            BASE_URL . '/assets/images/review/review-2.jpeg',
-        ],
-        'comments' => [
-            ['author' => '프래그팜', 'body' => '예쁜 착샷 후기 감사합니다. 앞으로도 오래 입기 좋은 상품 보여드릴게요!', 'own' => false],
-            ['author' => '윤**', 'body' => '사진 분위기 너무 예뻐요! 촬영 장소가 어디인지 궁금해요.', 'own' => false],
-            ['author' => '박**', 'body' => '혹시 인스타 아이디 알 수 있을까요? 다른 코디도 보고 싶어요.', 'own' => false],
-        ],
-    ],
-    [
-        'review_key' => 'sample-2',
-        'name' => '하**',
-        'date' => '2025.06.12 14:58',
-        'score' => 4,
-        'summary' => '옷 예뻐요',
-        'content' => '화이트 컬러라 여기저기 매치하기 좋고 그래픽이 과하지 않아서 마음에 들어요. 얇은 이너랑 같이 입어도 예쁩니다.',
-        'images' => [
-            BASE_URL . '/assets/images/review/review-3.jpeg',
-        ],
-        'comments' => [
-            ['author' => '서**', 'body' => '사진 색감이 너무 좋아요. 혹시 어떤 카메라로 찍으셨나요?', 'own' => false],
-            ['author' => '이**', 'body' => '같이 매치한 가방 정보도 궁금해요!', 'own' => false],
-        ],
-    ],
-    [
-        'review_key' => 'sample-3',
-        'name' => '진**',
-        'date' => '2025.03.23 01:23',
-        'score' => 5,
-        'summary' => '너무너무 예뻐요',
-        'content' => '가격대가 있지만 만족도가 높아요. 사이즈는 살짝 여유 있고 목선이 답답하지 않아서 자주 손이 갑니다.',
-        'images' => [
-            BASE_URL . '/assets/images/review/review-4.jpeg',
-            BASE_URL . '/assets/images/review/review-5.jpg',
-        ],
-        'comments' => [
-            ['author' => '정**', 'body' => '헤어랑 코디 분위기가 정말 잘 어울려요. 인스타 하시면 구경 가고 싶어요!', 'own' => false],
-        ],
-    ],
-];
+$sampleReviews = FRAGFARM_DEMO_MODE
+    ? require __DIR__ . '/../includes/data/product-detail-reviews.php'
+    : [];
 
-if (!FRAGFARM_DEMO_MODE) {
-    $reviewItems = [];
-}
-
-if (empty($_SESSION['product_feedback_csrf'])) {
-    $_SESSION['product_feedback_csrf'] = bin2hex(random_bytes(32));
-}
-
-$productQnaItems = [];
+$mysqli = null;
 if (!FRAGFARM_DEMO_MODE) {
     require_once __DIR__ . '/../includes/dbconn.php';
-    require_once __DIR__ . '/../includes/services/product-feedback.php';
-    $memberId = (int) ($_SESSION['member_id'] ?? 0);
-    $databaseReviews = feedback_fetch_reviews($mysqli, (string) ($product['id'] ?? ''), $memberId);
-    foreach (array_reverse($databaseReviews) as $databaseReview) {
-        array_unshift($reviewItems, [
-            'db_id' => (int) $databaseReview['id'],
-            'review_key' => 'db-' . (int) $databaseReview['id'],
-            'own' => (bool) $databaseReview['own'],
-            'name' => $databaseReview['display_name'],
-            'date' => date('Y.m.d H:i', strtotime($databaseReview['created_at'])),
-            'score' => (int) $databaseReview['rating'],
-            'summary' => mb_strimwidth($databaseReview['content'], 0, 60, '…', 'UTF-8'),
-            'content' => $databaseReview['content'],
-            'images' => [],
-            'comments' => [],
-        ]);
-    }
-    $reviewCommentGroups = feedback_fetch_review_comments($mysqli, (string) ($product['id'] ?? ''), $memberId);
-    foreach ($reviewItems as &$reviewItem) {
-        $reviewKey = (string) ($reviewItem['review_key'] ?? '');
-        if (isset($reviewCommentGroups[$reviewKey])) {
-            $reviewItem['comments'] = array_merge($reviewItem['comments'], $reviewCommentGroups[$reviewKey]);
-        }
-    }
-    unset($reviewItem);
-    $productQnaItems = feedback_fetch_qna($mysqli, (string) ($product['id'] ?? ''), $memberId);
+}
+
+require_once __DIR__ . '/../includes/services/product-detail-view.php';
+$feedbackView = build_product_detail_feedback(
+    $product,
+    $sampleReviews,
+    $catalogReviewCount,
+    $catalogRating,
+    $mysqli,
+    (int) ($_SESSION['member_id'] ?? 0)
+);
+
+if ($mysqli) {
     mysqli_close($mysqli);
 }
 
-if (FRAGFARM_DEMO_MODE) {
-    $reviewItems = array_slice($reviewItems, 0, $catalogReviewCount);
-    $templateAuthors = ['김**', '이**', '박**', '최**', '정**', '한**'];
-    $templateContents = [
-        '소재가 편안하고 실루엣이 자연스러워서 자주 입고 있어요.',
-        '사진으로 본 느낌과 실제 색감이 비슷하고 코디하기도 좋았습니다.',
-        '디테일이 과하지 않으면서 포인트가 되어 만족스러워요.',
-        '사이즈가 편하게 잘 맞고 오래 입어도 부담이 없어요.',
-        '배송도 깔끔했고 제품 상태도 좋아서 만족합니다.',
-        '단독으로 입어도 예쁘고 다른 아이템과 함께 매치하기도 좋아요.',
-    ];
-    $reviewTemplate = [
-        'review_key' => '',
-        'name' => '',
-        'date' => '',
-        'score' => 5,
-        'summary' => '',
-        'content' => '',
-        'images' => [],
-        'comments' => [],
-    ];
-    $missingReviewCount = $catalogReviewCount - count($reviewItems);
-    $targetScoreSum = (int) round($catalogRating * $catalogReviewCount);
-    $remainingScoreSum = $targetScoreSum - array_sum(array_column($reviewItems, 'score'));
-    $remainingScoreSum = max($missingReviewCount, min($missingReviewCount * 5, $remainingScoreSum));
-
-    for ($index = 0; $index < $missingReviewCount; $index++) {
-        $remainingSlots = $missingReviewCount - $index;
-        $score = max(1, min(5, (int) round($remainingScoreSum / $remainingSlots)));
-        $remainingScoreSum -= $score;
-        $templateIndex = count($reviewItems);
-        $content = $templateContents[$templateIndex % count($templateContents)];
-        $reviewItems[] = array_merge($reviewTemplate, [
-            'review_key' => 'demo-template-' . ($templateIndex + 1),
-            'name' => $templateAuthors[$templateIndex % count($templateAuthors)],
-            'date' => date('Y.m.d H:i', strtotime('2025-06-01 12:00') - ($templateIndex * 86400)),
-            'score' => $score,
-            'summary' => $content,
-            'content' => $content,
-        ]);
-    }
-}
-
-$reviewCount = count($reviewItems);
-$reviewScoreSum = array_sum(array_column($reviewItems, 'score'));
-$reviewAverage = $reviewCount > 0
-    ? $reviewScoreSum / $reviewCount
-    : 0;
+$reviewItems = $feedbackView['reviews'];
+$productQnaItems = $feedbackView['qna'];
+$reviewCount = $feedbackView['count'];
+$reviewScoreSum = $feedbackView['score_sum'];
+$reviewAverage = $feedbackView['average'];
 $rating = number_format($reviewAverage, 1);
 ?>
 
@@ -483,7 +356,7 @@ $rating = number_format($reviewAverage, 1);
             <nav class="pagination review-list__pagination" data-product-review-pagination aria-label="상품 후기 페이지 이동" hidden></nav>
 
             <form class="review-write" action="<?= BASE_URL ?>/actions/review_create.php" method="post" data-review-write data-demo-product-feedback>
-                <input type="hidden" name="csrf_token" value="<?= e($_SESSION['product_feedback_csrf']) ?>">
+                <?= csrf_input('product_feedback') ?>
                 <input type="hidden" name="product_id" value="<?= $id ?>">
                 <div class="review-write__box form-textarea-shell" id="review-write-panel" data-review-write-panel hidden>
                     <textarea
@@ -597,7 +470,7 @@ $rating = number_format($reviewAverage, 1);
                                 <?php endif; ?>
                                 <?php if (!empty($qnaItem['own'])): ?>
                                     <form action="<?= BASE_URL ?>/actions/product_qna_delete.php" method="post" class="feedback-delete-form">
-                                        <input type="hidden" name="csrf_token" value="<?= e($_SESSION['product_feedback_csrf']) ?>">
+                                        <?= csrf_input('product_feedback') ?>
                                         <input type="hidden" name="product_id" value="<?= $id ?>">
                                         <input type="hidden" name="qna_id" value="<?= (int) $qnaItem['id'] ?>">
                                         <button type="submit">내 문의 삭제</button>
@@ -607,7 +480,7 @@ $rating = number_format($reviewAverage, 1);
                         <?php endforeach; ?>
                     </div>
                     <form class="qna-form" action="<?= BASE_URL ?>/actions/product_qna_create.php" method="post" data-demo-product-qna>
-                        <input type="hidden" name="csrf_token" value="<?= e($_SESSION['product_feedback_csrf']) ?>">
+                        <?= csrf_input('product_feedback') ?>
                         <input type="hidden" name="product_id" value="<?= $id ?>">
                         <label for="qna-content">문의 내용</label>
                         <textarea
@@ -664,7 +537,8 @@ $rating = number_format($reviewAverage, 1);
 <script src="<?= BASE_URL ?>/js/header.js"></script>
 <script src="<?= BASE_URL ?>/js/product-detail.js"></script>
 <script type="application/json" id="shop-sample-data"><?= json_encode(shop_sample_items($products), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?></script>
-<script src="<?= BASE_URL ?>/js/shop-storage.js"></script>
+<script src="<?= BASE_URL ?>/js/shop-store.js"></script>
+<script src="<?= BASE_URL ?>/js/shop-product-actions.js"></script>
 <?php if (FRAGFARM_DEMO_MODE): ?><script src="<?= BASE_URL ?>/js/demo-product-feedback.js"></script><?php endif; ?>
 </body>
 </html>

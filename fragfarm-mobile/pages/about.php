@@ -16,7 +16,7 @@ $pageCss = 'about.css';
     <!-- Header -->
     <?php include __DIR__ . '/../includes/header.php'; ?>
 
-    <main id="main">
+    <main id="main" class="about-page">
         <article>
         <h1 class="visually-hidden">About FRAGFARM</h1>
         <div class="about__text">

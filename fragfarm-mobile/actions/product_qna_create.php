@@ -1,12 +1,13 @@
 <?php
 require_once __DIR__ . '/../includes/config.php';
+require_once __DIR__ . '/../includes/security.php';
 require_once __DIR__ . '/../includes/dbconn.php';
 require_once __DIR__ . '/../includes/data/products.php';
 require_once __DIR__ . '/../includes/services/shop-state.php';
 $productId = trim($_POST['product_id'] ?? '');
 $redirect = BASE_URL . '/pages/product-detail.php?id=' . rawurlencode($productId) . '#product-qna';
 if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_SESSION['member_id'])) { header('Location: ' . BASE_URL . '/pages/login.php'); exit; }
-if (!hash_equals($_SESSION['product_feedback_csrf'] ?? '', $_POST['csrf_token'] ?? '')) { $_SESSION['feedback_error'] = '요청이 만료되었습니다.'; header('Location: ' . $redirect); exit; }
+if (!csrf_verify('product_feedback', $_POST['csrf_token'] ?? null)) { $_SESSION['feedback_error'] = '요청이 만료되었습니다.'; header('Location: ' . $redirect); exit; }
 $content = trim($_POST['qna'] ?? '');
 $isSecret = isset($_POST['is_secret']) ? 1 : 0;
 if (!shop_find_product($products, $productId) || $content === '' || mb_strlen($content) > 2000) { $_SESSION['feedback_error'] = '문의 내용을 확인해주세요.'; header('Location: ' . $redirect); exit; }

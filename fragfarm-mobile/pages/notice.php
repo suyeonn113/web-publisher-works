@@ -1,6 +1,7 @@
 <?php
 include __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../includes/services/notice-service.php';
+require_once __DIR__ . '/../includes/view-helpers.php';
 
 $pageTitle = 'Notice | Fragfarm';
 $pageCss = 'notice.css';
@@ -16,10 +17,6 @@ if (notice_database_is_configured()) {
     $state = notice_fetch_demo_posts($noticePosts, $keyword, $currentPage);
 }
 
-function notice_e($value): string
-{
-    return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
-}
 ?>
 
 <!DOCTYPE html>
@@ -39,8 +36,8 @@ function notice_e($value): string
                 <?php foreach ($state['items'] as $post): ?>
                     <li>
                         <a href="<?= BASE_URL ?>/pages/notice-detail.php?id=<?= (int) $post['id'] ?>">
-                            <span><?= notice_e($post['title']) ?></span>
-                            <time datetime="<?= notice_e(date('Y-m-d', strtotime($post['created_at']))) ?>"><?= notice_e(date('Y.m.d', strtotime($post['created_at']))) ?></time>
+                            <span><?= e($post['title']) ?></span>
+                            <time datetime="<?= e(date('Y-m-d', strtotime($post['created_at']))) ?>"><?= e(date('Y.m.d', strtotime($post['created_at']))) ?></time>
                         </a>
                     </li>
                 <?php endforeach; ?>
@@ -52,7 +49,7 @@ function notice_e($value): string
 
             <form class="board-search" method="get" action="<?= BASE_URL ?>/pages/notice.php">
                 <label class="visually-hidden" for="notice-search">공지사항 검색</label>
-                <input id="notice-search" type="search" name="q" value="<?= notice_e($keyword) ?>" placeholder="What are you looking for?">
+                <input id="notice-search" type="search" name="q" value="<?= e($keyword) ?>" placeholder="What are you looking for?">
                 <button type="submit" aria-label="검색">
                     <img src="<?= BASE_URL ?>/assets/icons/search.svg" alt="">
                 </button>
@@ -61,7 +58,7 @@ function notice_e($value): string
             <?php if ($state['totalPages'] > 1): ?>
                 <nav class="pagination" aria-label="공지사항 페이지 이동">
                     <?php if ($state['currentPage'] > 1): ?>
-                        <a class="pagination__btn" href="<?= BASE_URL ?>/pages/<?= notice_e(notice_build_url(['q' => $keyword, 'page' => 1])) ?>">
+                        <a class="pagination__btn" href="<?= BASE_URL ?>/pages/<?= e(notice_build_url(['q' => $keyword, 'page' => 1])) ?>">
                             <img src="<?= BASE_URL ?>/assets/icons/double-arrow-left.svg" alt="">
                             <span class="visually-hidden">첫 페이지로 이동</span>
                         </a>
@@ -72,10 +69,10 @@ function notice_e($value): string
                         </span>
                     <?php endif; ?>
                     <?php for ($page = 1; $page <= $state['totalPages']; $page++): ?>
-                        <a href="<?= BASE_URL ?>/pages/<?= notice_e(notice_build_url(['q' => $keyword, 'page' => $page])) ?>" <?= $page === $state['currentPage'] ? 'aria-current="page"' : '' ?>><?= $page ?></a>
+                        <a href="<?= BASE_URL ?>/pages/<?= e(notice_build_url(['q' => $keyword, 'page' => $page])) ?>" <?= $page === $state['currentPage'] ? 'aria-current="page"' : '' ?>><?= $page ?></a>
                     <?php endfor; ?>
                     <?php if ($state['currentPage'] < $state['totalPages']): ?>
-                        <a class="pagination__btn" href="<?= BASE_URL ?>/pages/<?= notice_e(notice_build_url(['q' => $keyword, 'page' => $state['totalPages']])) ?>">
+                        <a class="pagination__btn" href="<?= BASE_URL ?>/pages/<?= e(notice_build_url(['q' => $keyword, 'page' => $state['totalPages']])) ?>">
                             <img class="icon-rotate-180" src="<?= BASE_URL ?>/assets/icons/double-arrow-left.svg" alt="">
                             <span class="visually-hidden">마지막 페이지로 이동</span>
                         </a>

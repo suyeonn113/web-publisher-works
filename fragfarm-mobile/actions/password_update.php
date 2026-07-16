@@ -1,25 +1,18 @@
 <?php
 require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../includes/dbconn.php';
+require_once __DIR__ . '/../includes/http-response.php';
+require_once __DIR__ . '/../includes/security.php';
+require_once __DIR__ . '/../includes/validation.php';
 
 mysqli_set_charset($mysqli, 'utf8mb4');
 
-function move_with_alert($message, $url = null)
-{
-    $safeMessage = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
-    $safeUrl = $url ? htmlspecialchars($url, ENT_QUOTES, 'UTF-8') : '';
-
-    echo '<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><title>Fragfarm</title></head><body>';
-    echo '<script>';
-    echo 'alert("' . $safeMessage . '");';
-    echo $safeUrl ? 'location.href="' . $safeUrl . '";' : 'history.back();';
-    echo '</script>';
-    echo '</body></html>';
-    exit;
-}
-
 if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_SESSION['member_id'])) {
     move_with_alert('잘못된 접근입니다.', BASE_URL . '/pages/login.php');
+}
+
+if (!csrf_verify('password_update', $_POST['csrf_token'] ?? null)) {
+    move_with_alert('요청이 만료되었습니다. 다시 시도해주세요.', BASE_URL . '/pages/member_edit.php');
 }
 
 $memberId = (int) $_SESSION['member_id'];
@@ -31,7 +24,7 @@ if ($currentPassword === '' || $newPassword === '' || $confirmPassword === '') {
     move_with_alert('비밀번호 항목을 모두 입력해주세요.');
 }
 
-if (!preg_match('/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^*+=-]).{10,}$/', $newPassword)) {
+if (!valid_member_password($newPassword)) {
     move_with_alert('새 비밀번호 형식이 올바르지 않습니다.');
 }
 
@@ -74,5 +67,6 @@ if (!mysqli_stmt_execute($updateStmt)) {
 
 mysqli_stmt_close($updateStmt);
 mysqli_close($mysqli);
+csrf_forget('password_update');
 
 move_with_alert('비밀번호가 변경되었습니다.', BASE_URL . '/pages/member_edit.php');

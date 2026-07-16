@@ -61,7 +61,6 @@ $pageCss = 'mypage-detail.css';
 </div>
 <script src="<?= BASE_URL ?>/js/header.js"></script>
 <?php if (FRAGFARM_DEMO_MODE): ?>
-<script>window.FRAGFARM_BASE_URL = <?= json_encode(BASE_URL) ?>; window.FRAGFARM_DEMO_MODE = true;</script>
 <script src="<?= BASE_URL ?>/js/mypage-detail.js"></script>
 <?php endif; ?>
 </body>

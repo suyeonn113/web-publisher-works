@@ -1,6 +1,38 @@
 @charset "utf-8";
 
 @font-face {
+    font-family: 'Pretendard';
+    src: url("../../assets/fonts/pretendard-1.3.9/Pretendard-Regular.otf") format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url("../../assets/fonts/pretendard-1.3.9/Pretendard-Medium.otf") format('opentype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url("../../assets/fonts/pretendard-1.3.9/Pretendard-SemiBold.otf") format('opentype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url("../../assets/fonts/pretendard-1.3.9/Pretendard-Bold.otf") format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
     font-family: 'EditorialToday';
     src: url("../../assets/fonts/EditorialToday-Regular.ttf") format('truetype');
     font-weight: 400;
@@ -14,16 +46,16 @@
 
 /* Font Base */
 html {
-    font-family: 
-    "Pretendard",
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    "Noto Sans KR",
-    "Apple SD Gothic Neo",
-    "Malgun Gothic",
-    Arial,
-    sans-serif;
+    font-family:
+        "Pretendard",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "Noto Sans KR",
+        "Apple SD Gothic Neo",
+        "Malgun Gothic",
+        Arial,
+        sans-serif;
 
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;

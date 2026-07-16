@@ -11,7 +11,7 @@
     const list = document.querySelector('[data-demo-orders-list]');
     const empty = document.querySelector('[data-demo-orders-empty]');
     const count = document.querySelector('[data-demo-order-count]');
-    const escapeHtml = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char]));
+    const { escapeHtml } = window.FragfarmUtils;
 
     if (count) count.textContent = String(orders.length);
     document.querySelector('[data-demo-logout]')?.addEventListener('click', () => {

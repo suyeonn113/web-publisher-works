@@ -1,22 +1,10 @@
 <?php
 require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../includes/dbconn.php';
+require_once __DIR__ . '/../includes/http-response.php';
+require_once __DIR__ . '/../includes/validation.php';
 
 mysqli_set_charset($mysqli, 'utf8mb4');
-
-function move_with_alert($message, $url = null)
-{
-    $safeMessage = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
-    $safeUrl = $url ? htmlspecialchars($url, ENT_QUOTES, 'UTF-8') : '';
-
-    echo '<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><title>Fragfarm</title></head><body>';
-    echo '<script>';
-    echo 'alert("' . $safeMessage . '");';
-    echo $safeUrl ? 'location.href="' . $safeUrl . '";' : 'history.back();';
-    echo '</script>';
-    echo '</body></html>';
-    exit;
-}
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     move_with_alert('잘못된 접근입니다.', BASE_URL . '/pages/find_password.php');
@@ -30,11 +18,11 @@ if ($userId === '' || $userName === '' || $phone === '') {
     move_with_alert('아이디, 이름, 전화번호를 모두 입력해주세요.');
 }
 
-if (!preg_match('/^(?=.*[a-z])(?=.*[0-9])[a-z0-9]{4,16}$/', $userId)) {
+if (!valid_member_user_id($userId)) {
     move_with_alert('아이디 형식이 올바르지 않습니다.');
 }
 
-if (!preg_match('/^01[0-9]{8,9}$/', $phone)) {
+if (!valid_member_phone($phone)) {
     move_with_alert('전화번호 형식이 올바르지 않습니다.');
 }
 

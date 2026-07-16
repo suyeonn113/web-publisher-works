@@ -41,6 +41,8 @@ $sampleItems = shop_sample_items($products);
 </div>
 <script type="application/json" id="shop-sample-data"><?= json_encode($sampleItems, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?></script>
 <script src="<?= BASE_URL ?>/js/header.js"></script>
-<script src="<?= BASE_URL ?>/js/shop-storage.js"></script>
+<script src="<?= BASE_URL ?>/js/shop-store.js"></script>
+<script src="<?= BASE_URL ?>/js/shop-product-actions.js"></script>
+<script src="<?= BASE_URL ?>/js/shop-bag-pages.js"></script>
 </body>
 </html>

@@ -1,15 +1,8 @@
 (function () {
     const sessionKey = 'fragfarm_demo_session';
     const isDemoMode = window.FRAGFARM_DEMO_MODE === true;
-    let session;
-
-    if (isDemoMode) {
-        try {
-            session = JSON.parse(window.localStorage.getItem(sessionKey) || 'null');
-        } catch (error) {
-            session = null;
-        }
-    }
+    const { escapeHtml, readStorage, readStorageArray, writeStorage } = window.FragfarmUtils;
+    const session = isDemoMode ? readStorage(sessionKey, null) : null;
 
     if (isDemoMode && !session) {
         window.location.href = `${window.FRAGFARM_BASE_URL || ''}/pages/login.php`;
@@ -48,27 +41,8 @@
         : addressPage.dataset.addressOwner;
     const storageKey = `fragfarm_address_book_${owner}`;
 
-    const readAddresses = () => {
-        try {
-            const items = JSON.parse(window.localStorage.getItem(storageKey) || '[]');
-
-            return Array.isArray(items) ? items : [];
-        } catch (error) {
-            return [];
-        }
-    };
-
-    const writeAddresses = (items) => {
-        window.localStorage.setItem(storageKey, JSON.stringify(items));
-    };
-
-    const escapeHtml = (value) => String(value ?? '').replace(/[&<>"']/g, (character) => ({
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#039;'
-    }[character]));
+    const readAddresses = () => readStorageArray(storageKey);
+    const writeAddresses = (items) => writeStorage(storageKey, items);
 
     const renderAddresses = () => {
         if (!list) return;

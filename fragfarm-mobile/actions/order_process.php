@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../includes/config.php';
+require_once __DIR__ . '/../includes/security.php';
 require_once __DIR__ . '/../includes/dbconn.php';
 require_once __DIR__ . '/../includes/data/products.php';
 require_once __DIR__ . '/../includes/services/shop-state.php';
@@ -16,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_SESSION['member_id'])) {
     exit;
 }
 
-if (!hash_equals($_SESSION['checkout_csrf'] ?? '', $_POST['csrf_token'] ?? '')) {
+if (!csrf_verify('checkout', $_POST['csrf_token'] ?? null)) {
     order_fail('주문 요청이 만료되었습니다. 다시 시도해주세요.');
 }
 
@@ -96,7 +97,7 @@ try {
     order_fail('주문 저장 중 오류가 발생했습니다.');
 }
 
-unset($_SESSION['checkout_csrf']);
+csrf_forget('checkout');
 $_SESSION['last_order'] = ['number' => $orderNumber, 'total' => $totalAmount];
 header('Location: ' . BASE_URL . '/pages/order-complete.php');
 exit;

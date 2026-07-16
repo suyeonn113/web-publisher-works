@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../includes/config.php';
+require_once __DIR__ . '/../includes/security.php';
 require_once __DIR__ . '/../includes/dbconn.php';
 
 $productId = trim($_POST['product_id'] ?? '');
@@ -9,7 +10,7 @@ $redirect = preg_match('/^moment-\d{3}$/', $reviewKey)
     ? BASE_URL . '/pages/review-detail.php?id=' . rawurlencode($reviewKey) . '#comments-title'
     : BASE_URL . '/pages/product-detail.php?id=' . rawurlencode($productId) . '#' . rawurlencode($anchor);
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_SESSION['member_id']) || !hash_equals($_SESSION['product_feedback_csrf'] ?? '', $_POST['csrf_token'] ?? '')) {
+if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_SESSION['member_id']) || !csrf_verify('product_feedback', $_POST['csrf_token'] ?? null)) {
     http_response_code(403);
     exit('잘못된 요청입니다.');
 }

@@ -1,8 +1,9 @@
 <?php
 require_once __DIR__ . '/../includes/config.php';
+require_once __DIR__ . '/../includes/security.php';
 require_once __DIR__ . '/../includes/dbconn.php';
 require_once __DIR__ . '/../includes/services/product-feedback.php';
-if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_SESSION['member_id']) || !hash_equals($_SESSION['product_feedback_csrf'] ?? '', $_POST['csrf_token'] ?? '')) { http_response_code(403); exit('잘못된 요청입니다.'); }
+if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_SESSION['member_id']) || !csrf_verify('product_feedback', $_POST['csrf_token'] ?? null)) { http_response_code(403); exit('잘못된 요청입니다.'); }
 $reviewId = (int) ($_POST['review_id'] ?? 0);
 $productId = trim($_POST['product_id'] ?? '');
 $memberId = (int) $_SESSION['member_id'];

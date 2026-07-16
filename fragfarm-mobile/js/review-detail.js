@@ -67,22 +67,8 @@
     const reviewKey = section.dataset.reviewDetailComments;
     const productId = String(form.elements.namedItem('product_id')?.value || '');
     const textarea = form.elements.namedItem('comment');
-    const read = (key) => {
-        try {
-            return JSON.parse(window.localStorage.getItem(key) || '[]');
-        } catch (error) {
-            return [];
-        }
-    };
-    const write = (key, items) => window.localStorage.setItem(key, JSON.stringify(items));
-    const escapeHtml = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char]));
-    const session = (() => {
-        try {
-            return JSON.parse(window.localStorage.getItem(SESSION_KEY) || 'null');
-        } catch (error) {
-            return null;
-        }
-    })();
+    const { escapeHtml, readStorage, readStorageArray: read, writeStorage: write } = window.FragfarmUtils;
+    const session = readStorage(SESSION_KEY, null);
     const isMasterLoggedIn = session?.user_id === 'fragfarm';
 
     if (textarea) {

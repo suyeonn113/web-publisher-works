@@ -7,13 +7,7 @@
     const MASTER_PASSWORD = 'fragfarm123!';
     const baseUrl = window.FRAGFARM_BASE_URL || '';
 
-    const readJson = (key, fallback = null) => {
-        try {
-            return JSON.parse(window.localStorage.getItem(key)) || fallback;
-        } catch (error) {
-            return fallback;
-        }
-    };
+    const readJson = window.FragfarmUtils.readStorage;
 
     const updateHeader = () => {
         const link = document.querySelector('[data-demo-login-link]');

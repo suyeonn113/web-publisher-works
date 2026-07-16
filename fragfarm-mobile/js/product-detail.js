@@ -146,7 +146,7 @@ function initSelectedProduct() {
     const unitPrice = Number(selectedProduct.dataset.unitPrice || 0);
     let quantity = 1;
 
-    const formatPrice = (price) => `${price.toLocaleString('ko-KR')}원`;
+    const { formatPrice } = window.FragfarmUtils;
 
     const updateQuantity = () => {
         if (selectedQty) {

@@ -20,7 +20,7 @@
 }
 
 /* Account */
-form {
+#join-form {
     padding: 0 var(--page-gutter) 2.5rem;
 }
 
