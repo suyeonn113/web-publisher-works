@@ -2,7 +2,7 @@
 
 html,
 body {
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 html { 
@@ -52,7 +52,7 @@ input::placeholder {
 
 ::-webkit-scrollbar-thumb {
   background: #ccc;
-  border-radius: 10px;
+  border-radius: var(--radius-full);
 }
 
 ::-webkit-scrollbar-thumb:hover {

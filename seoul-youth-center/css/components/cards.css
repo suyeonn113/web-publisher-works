@@ -12,7 +12,7 @@
     min-width: 0;
 
     border-radius: var(--radius-md);
-    border: 1px solid var(--color-text-on);
+    border: 1px solid var(--color-card-line);
 }
 
 .card__image {
@@ -31,7 +31,7 @@
 }
 /* ===== Recommend Result ===== */
 .recommend-result__list .card {
-    border: 2px solid var(--color-lightyellow);
+    border: 1px solid var(--color-card-line);
 }
 
 .card__image img {
@@ -43,15 +43,41 @@
     box-shadow: 4px 4px 4px 0 rgba(0,0,0,0.25);
 }
 
+.card__image-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-md);
+    color: var(--color-orange);
+    background: var(--color-primary-soft);
+}
+
+.card__image-placeholder img {
+    width: 34%;
+    max-width: 4.5rem;
+    aspect-ratio: 1;
+    object-fit: contain;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.card[data-status="closed"] .card__image img {
+    filter: grayscale(1);
+    opacity: .72;
+}
+
 .card__badge {
     position: absolute;
     left: 5%;
     bottom: 3%;
-
-    width: 4.5rem;
+    width: fit-content;
     height: fit-content;
 
-    padding-block: var(--space-1);
+    padding: .375rem .75rem;
 
     font-size: var(--text-badge-size);
     font-weight: var(--text-badge-weight);
@@ -61,13 +87,6 @@
     color: var(--color-text-on);
     border-radius: var(--radius-sm);
     background: var(--color-orange);
-}
-
-/* ===== Recommend Result ===== */
-.recommend-result__list .card__badge {
-    bottom: -7.5rem;
-    color: var(--color-orange);
-    background: var(--color-yellow-20);
 }
 
 .card__body {
@@ -154,14 +173,6 @@
 
 @media (min-width: 768px) {
 
-.card__badge {
-    width: 5rem;
-}
-/* ===== Recommend Result ===== */
-.recommend-result__list .card__badge {
-    bottom: -8.5rem;
-}
-
 .card__title {
     font-size: var(--fs-18);
 }
@@ -192,12 +203,6 @@
 ======================================== */
 
 @media (min-width: 1248px) {
-
-/* ===== Recommend Result ===== */
-.recommend-result__list .card__badge {
-    left: 5%;
-    bottom: -9.5rem;
-}
 
 .card__title {
     font-size: var(--fs-20);

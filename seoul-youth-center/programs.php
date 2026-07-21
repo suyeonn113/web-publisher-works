@@ -4,7 +4,8 @@ include __DIR__ . '/includes/data/youth-programs.php';
 include __DIR__ . '/includes/functions/program.service.php';
 
 $pageTitle = '청소년 활동 신청';
-$pageCss = ['programs.css', 'program-confirm-modal.css'];
+$pageCss = ['info-pages.css', 'programs.css', 'program-confirm-modal.css'];
+$programContextPage = 'programs';
 
 $statusFilter = isset($_GET['status']) ? trim((string) $_GET['status']) : '';
 $keyword = isset($_GET['keyword']) ? trim((string) $_GET['keyword']) : '';
@@ -14,7 +15,6 @@ $allowedStatuses = [
     '',
     ProgramStatus::ALWAYS,
     ProgramStatus::ONGOING,
-    ProgramStatus::UPCOMING,
     ProgramStatus::CLOSED,
 ];
 
@@ -91,9 +91,27 @@ $pagedPrograms = array_slice($programs, $pageOffset, $programsPerPage);
 <body>
 <?php include __DIR__ . '/includes/global-nav.php'; ?>
 
-<main id="main" class="program-page">
+<main id="main" class="info-page program-page">
+    <section class="info-hero" aria-labelledby="program-page-title">
+        <div class="info-hero__inner inner">
+            <nav class="info-breadcrumb" aria-label="현재 위치">
+                <ol>
+                    <li><a href="<?= BASE_URL ?>/index.php">홈</a></li>
+                    <li>청소년 프로그램</li>
+                    <li aria-current="page">활동신청</li>
+                </ol>
+            </nav>
+            <div class="info-hero__copy">
+                <p class="info-eyebrow">PROGRAM APPLICATION</p>
+                <h1 id="program-page-title">청소년 활동 신청</h1>
+                <p>현재 모집 중인 프로그램을 확인하고 관심 있는 활동에 바로 신청할 수 있습니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <?php include __DIR__ . '/includes/components/program-context-nav.php'; ?>
+
     <section class="program-page__header inner" aria-labelledby="program-page-title">
-        <h1 id="program-page-title">청소년 활동 신청</h1>
         <p>
             총 <strong><?= $totalPrograms ?></strong>개의 프로그램이 등록되어 있습니다.
         </p>
@@ -104,7 +122,6 @@ $pagedPrograms = array_slice($programs, $pageOffset, $programsPerPage);
                 <option value=""<?= $statusFilter === '' ? ' selected' : '' ?>>전체</option>
                 <option value="<?= ProgramStatus::ONGOING ?>"<?= $statusFilter === ProgramStatus::ONGOING ? ' selected' : '' ?>>모집중</option>
                 <option value="<?= ProgramStatus::ALWAYS ?>"<?= $statusFilter === ProgramStatus::ALWAYS ? ' selected' : '' ?>>상시</option>
-                <option value="<?= ProgramStatus::UPCOMING ?>"<?= $statusFilter === ProgramStatus::UPCOMING ? ' selected' : '' ?>>예정</option>
                 <option value="<?= ProgramStatus::CLOSED ?>"<?= $statusFilter === ProgramStatus::CLOSED ? ' selected' : '' ?>>마감</option>
             </select>
 
@@ -142,7 +159,7 @@ $pagedPrograms = array_slice($programs, $pageOffset, $programsPerPage);
                     ? $programMeta['activity_period']
                     : '상시 운영';
                 ?>
-                <article class="program-apply-card" id="program-<?= (int) ($program['id'] ?? 0) ?>">
+                <article class="program-apply-card<?= $isClosed ? ' is-closed' : '' ?>" id="program-<?= (int) ($program['id'] ?? 0) ?>">
                     <a class="program-apply-card__media" href="<?= BASE_URL ?>/program-detail.php?id=<?= (int) ($program['id'] ?? 0) ?>">
                         <img
                             src="<?= htmlspecialchars($imageSrc, ENT_QUOTES, 'UTF-8') ?>"

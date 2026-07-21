@@ -53,28 +53,29 @@
     /* Font size - mobile */
     
     /* Navigation */
-    --text-user-size: var(--fs-16);
+    --text-user-size: var(--fs-14);
 
-    --text-nav-main-size: var(--fs-16);
+    --text-nav-main-size: var(--fs-15);
     --text-nav-main-weight: 500;
-    --text-nav-main-current-weight: 800;
+    --text-nav-main-current-weight: 700;
 
     --text-nav-sub-size: var(--fs-14);
-    --text-nav-sub-current-weight: 700;
+    --text-nav-sub-weight: 500;
+    --text-nav-sub-current-weight: 600;
 
     --text-quick-nav-size: var(--fs-12);
     --text-quick-nav-weight: 600;
 
     /* Section Titles */
     --text-title-section-size: var(--fs-18);
-    --text-title-section-weight: 700;
+    --text-title-section-weight: 600;
 
     --text-title-subsection-size: var(--fs-16);
-    --text-title-subsection-weight: 700;
+    --text-title-subsection-weight: 600;
 
     /* Body Text */
     --text-body-size: var(--fs-14);
-    --text-body-weight: 700;
+    --text-body-weight: 500;
 
     --text-body-sm-size: var(--fs-12);
 
@@ -86,7 +87,7 @@
     --text-button-sm-weight: 500;
 
     --button-text-size: var(--fs-13);
-    --button-text-weight: 700;
+    --button-text-weight: 600;
     --button-text-tracking: 0.05em;
 
     /* Badge Text */
@@ -95,8 +96,8 @@
     --text-badge-tracking: 0.1em;
 
     /* Footer */
-    --text-footer-size: var(--fs-11);
-    --text-footer-accent-weight: 700;
+    --text-footer-size: var(--fs-13);
+    --text-footer-accent-weight: 600;
     --text-footer-copy-weight: 500;
 }
 
@@ -116,13 +117,13 @@
     
     /* Navigation */
 
-    --text-nav-main-size: var(--fs-18);
+    --text-nav-main-size: var(--fs-16);
     --text-nav-main-weight: 500;
-    --text-nav-main-current-weight: 800;
+    --text-nav-main-current-weight: 700;
 
-    --text-nav-sub-size: var(--fs-16);
+    --text-nav-sub-size: var(--fs-15);
 
-    --text-quick-nav-size: var(--fs-14);
+    --text-quick-nav-size: var(--fs-13);
 
     /* Section Titles */
     --text-title-section-size: var(--fs-24);
@@ -141,7 +142,7 @@
     --text-badge-size: var(--fs-14);
 
     /* Footer */
-    --text-footer-size: var(--fs-16);
+    --text-footer-size: var(--fs-14);
 }
 
 }
@@ -171,7 +172,7 @@
     --button-text-size: var(--fs-18);
 
     /* Footer */
-    --text-footer-size: var(--fs-16);
+    --text-footer-size: var(--fs-14);
 }
 
 }

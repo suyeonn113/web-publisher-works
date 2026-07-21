@@ -5,10 +5,10 @@
                 <a class="footer__link footer__link--privacy" href="#">개인정보처리방침</a>
             </li>
             <li>
-                <a class="footer__link" href="#">시립서울청소년센터 소개</a>
+                <a class="footer__link" href="<?= BASE_URL ?>/center-introduction.php">시립서울청소년센터 소개</a>
             </li>
             <li class="footer__link--location">
-                <a class="footer__link" href="#">찾아오시는 길</a>
+                <a class="footer__link" href="<?= BASE_URL ?>/directions.php">찾아오시는 길</a>
             </li>
             <li>
                 <a class="footer__link" href="#">문의 및 건의</a>
@@ -18,7 +18,7 @@
     <div class="wrapper--bottom">
         <div class="footer__bottom inner">
             <a href="<?= BASE_URL ?>/index.php" class="footer__logo">
-                <img src="<?= BASE_URL ?>/assets/images/logo.gif" alt="서울시립청소년센터">
+                <img src="<?= BASE_URL ?>/assets/images/logo.gif" alt="시립서울청소년센터">
             </a>
             <ul class="footer__sns">
                 <li class="footer__sns--wrapper wrapper__instagram">

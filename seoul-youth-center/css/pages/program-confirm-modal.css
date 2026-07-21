@@ -57,7 +57,7 @@
 
 .program-confirm-modal__header h2 {
     font-size: var(--fs-28);
-    font-weight: 800;
+    font-weight: 600;
     line-height: 1.25;
 }
 
@@ -87,7 +87,7 @@
 
 .program-confirm-modal__form span {
     padding-inline: var(--space-2);
-    font-weight: 800;
+    font-weight: 600;
 }
 
 .program-confirm-modal__form strong {

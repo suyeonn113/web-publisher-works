@@ -134,7 +134,7 @@ $activityPeriod = ($programMeta['activity_period'] ?? '') !== '' ? $programMeta[
                     </ul>
                 </section>
 
-                <section>
+                <section class="program-detail-notice">
                     <h2>유의사항</h2>
                     <ul class="program-detail-list">
                         <?php foreach ($programDetail['notes'] as $item): ?>

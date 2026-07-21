@@ -35,14 +35,14 @@
 .program-apply-info h2 {
     color: var(--color-text-default);
     font-size: var(--fs-20);
-    font-weight: 900;
+    font-weight: 700;
 }
 
 .program-apply-section-title label {
     display: inline-flex;
     align-items: center;
     gap: .375rem;
-    font-weight: 800;
+    font-weight: 600;
 }
 
 .program-apply-agree input[type="checkbox"] {
@@ -59,7 +59,7 @@
 .program-apply-card {
     padding: var(--space-3);
     background: var(--color-beige);
-    border: 1px solid var(--color-line);
+    border: 1px solid var(--color-card-line);
     border-radius: var(--radius-md);
 }
 
@@ -74,7 +74,7 @@
     justify-content: space-between;
     gap: var(--space-2);
     color: var(--color-text-default);
-    font-weight: 900;
+    font-weight: 700;
 }
 
 .program-apply-agree__box span {
@@ -112,20 +112,20 @@
 
 .program-apply-card__summary p {
     color: var(--color-orange);
-    font-weight: 900;
+    font-weight: 700;
 }
 
 .program-apply-card__summary h3 {
     color: var(--color-purple);
     font-size: clamp(1.5rem, 4vw, 2rem);
-    font-weight: 900;
+    font-weight: 700;
     line-height: 1.25;
     word-break: keep-all;
 }
 
 .program-apply-card__summary span {
     color: var(--color-text-default-soft);
-    font-weight: 800;
+    font-weight: 600;
 }
 
 .program-apply-fields {
@@ -149,7 +149,7 @@
 .program-apply-fields span {
     padding-inline: var(--space-2);
     color: var(--color-text-default);
-    font-weight: 900;
+    font-weight: 700;
 }
 
 .program-apply-fields strong {
@@ -181,7 +181,7 @@
     margin-right: var(--space-1);
     padding-inline: var(--space-2);
     color: var(--color-text-default);
-    font-weight: 800;
+    font-weight: 600;
     background: var(--color-beige);
     border: 1px solid var(--color-line);
     border-radius: var(--radius-sm);

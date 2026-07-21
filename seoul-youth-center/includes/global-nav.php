@@ -5,19 +5,12 @@
     <a href="#main" class="skip-links__link">본문 바로가기</a>
 </div>
 
-<!------------ Top Notice ------------>
-<div class="top-bar wrapper">
-<p class="top-bar__notice inner">
-    이 누리집은 대한민국 공식 전자정부 누리집입니다.
-</p>
-</div>
-
 <!------------ Header ------------>
-<header class="inner">
+<header class="site-header inner">
     <!-- Logo -->
     <h1 class="logo">
-        <a class="logo__link" href="<?= BASE_URL ?>/index.php" aria-label="서울시립청소년센터 홈으로 이동">
-            <img src="<?= BASE_URL ?>/assets/images/logo.gif" alt="서울시립청소년센터">
+        <a class="logo__link" href="<?= BASE_URL ?>/index.php" aria-label="시립서울청소년센터 홈으로 이동">
+            <img src="<?= BASE_URL ?>/assets/images/logo.gif" alt="시립서울청소년센터">
         </a>
     </h1>
     <!-- Search -->
@@ -52,7 +45,7 @@
     </form>
     <!-- Only PC -->
     <nav class="nav-user">
-        <a class="login header__login" href="#">
+        <a class="login header__login" href="<?= BASE_URL ?>/login.php">
             <svg class="icon--login icon" 
                 aria-hidden="true"
                 focusable="false"
@@ -65,17 +58,6 @@
                 <path d="M12.65 8.6499L16 11.9999L12.65 15.3499"/>
             </svg>
             로그인
-        </a>
-        <a class="sign-up header__sign-up" href="#">
-            <svg class="icon--sign-up icon"
-                viewBox="0 0 24 24" 
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-                focusable="false">
-                <path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z"/>
-                <path d="M20.59 22C20.59 18.13 16.74 15 12 15C7.26003 15 3.41003 18.13 3.41003 22"/>
-            </svg>
-            회원가입
         </a>
         <a class="applications header__applications" href="<?= BASE_URL ?>/applications.php">
             <svg class="icon--applications icon"
@@ -98,7 +80,7 @@
     <!-- Only Mobile, Tablet -->
     <div class="menu-panel__top">
         <div class="menu-panel__user">
-            <a class="login menu__login" href="#">
+            <a class="login menu__login" href="<?= BASE_URL ?>/login.php">
                 <svg class="icon--login icon"
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
@@ -220,13 +202,13 @@
             <ul class="sub-menu">
                 <li class="sub-menu__title">청소년센터 안내</li>
                 <li class="sub-menu__item">
-                    <a class="sub-menu__link" href="#">소개</a>
+                    <a class="sub-menu__link" href="<?= BASE_URL ?>/center-introduction.php">소개</a>
                 </li>
                 <li class="sub-menu__item">
-                    <a class="sub-menu__link" href="#">시설개요 및 안내</a>
+                    <a class="sub-menu__link" href="<?= BASE_URL ?>/facility-overview.php">시설 및 개요</a>
                 </li>
                 <li class="sub-menu__item">
-                    <a class="sub-menu__link" href="#">찾아오시는 길</a>
+                    <a class="sub-menu__link" href="<?= BASE_URL ?>/directions.php">찾아오시는 길</a>
                 </li>
             </ul>
         </div>
@@ -236,52 +218,13 @@
             <ul class="sub-menu">
                 <li class="sub-menu__title">청소년 프로그램</li>
                 <li class="sub-menu__item">
+                    <a class="sub-menu__link" href="<?= BASE_URL ?>/youth-program-introduction.php">프로그램 소개</a>
+                </li>
+                <li class="sub-menu__item">
                     <a class="sub-menu__link" href="<?= BASE_URL ?>/programs.php">활동신청</a>
                 </li>
                 <li class="sub-menu__item">
-                    <a class="sub-menu__link" href="<?= BASE_URL ?>/applications.php">신청목록</a>
-                </li>
-                <li class="sub-menu__item">
-                    <a class="sub-menu__link" href="#">참여활동</a>
-                </li>
-                <li class="sub-menu__item">
-                    <a class="sub-menu__link" href="#">수련활동</a>
-                </li>
-                <li class="sub-menu__item">
-                    <a class="sub-menu__link" href="#">봉사활동</a>
-                </li>
-                <li class="sub-menu__item">
-                    <a class="sub-menu__link" href="#">지역연계활동</a>
-                </li>
-                <li class="sub-menu__item">
-                    <a class="sub-menu__link" href="#">학교연계활동</a>
-                </li>
-                <li class="sub-menu__item">
-                    <a class="sub-menu__link" href="#">진로체험활동</a>
-                </li>
-                <li class="sub-menu__item">
-                    <a class="sub-menu__link" href="#">문화예술활동</a>
-                </li>
-                <li class="sub-menu__item">
-                    <a class="sub-menu__link" href="#">미래융합활동</a>
-                </li>
-                <li class="sub-menu__item">
-                    <a class="sub-menu__link" href="#">국제교류활동</a>
-                </li>
-                <li class="sub-menu__item">
-                    <a class="sub-menu__link" href="#">장애청소년활동</a>
-                </li>
-                <li class="sub-menu__item">
-                    <a class="sub-menu__link" href="#">위기청소년활동</a>
-                </li>
-                <li class="sub-menu__item">
-                    <a class="sub-menu__link" href="#">특성화활동</a>
-                </li>
-                <li class="sub-menu__item">
-                    <a class="sub-menu__link" href="#">동그라미학교</a>
-                </li>
-                <li class="sub-menu__item">
-                    <a class="sub-menu__link" href="#">방과후아카데미</a>
+                    <a class="sub-menu__link" href="<?= BASE_URL ?>/applications.php">신청내역 조회</a>
                 </li>
             </ul>
         </div>
@@ -291,10 +234,10 @@
             <ul class="sub-menu">
                 <li class="sub-menu__title">평생교육 프로그램</li>
                 <li class="sub-menu__item">
-                    <a class="sub-menu__link" href="#">접수안내</a>
+                    <a class="sub-menu__link" href="<?= BASE_URL ?>/lifelong-education-guide.php">접수안내</a>
                 </li>
                 <li class="sub-menu__item">
-                    <a class="sub-menu__link" href="#">교육강좌</a>
+                    <a class="sub-menu__link" href="<?= BASE_URL ?>/lifelong-education-classes.php">교육강좌</a>
                 </li>
             </ul>
         </div>
@@ -304,16 +247,16 @@
             <ul class="sub-menu">
                 <li class="sub-menu__title">이용 안내</li>
                 <li class="sub-menu__item">
-                    <a class="sub-menu__link" href="#">문화공간</a>
+                    <a class="sub-menu__link" href="<?= BASE_URL ?>/culture-space.php">문화공간</a>
                 </li>
                 <li class="sub-menu__item">
-                    <a class="sub-menu__link" href="#">종합체력실</a>
+                    <a class="sub-menu__link" href="<?= BASE_URL ?>/fitness-center.php">종합체력실</a>
                 </li>
                 <li class="sub-menu__item">
-                    <a class="sub-menu__link" href="#">시설대관</a>
+                    <a class="sub-menu__link" href="<?= BASE_URL ?>/facility-rental.php">시설대관</a>
                 </li>
                 <li class="sub-menu__item">
-                    <a class="sub-menu__link" href="#">기관방문</a>
+                    <a class="sub-menu__link" href="<?= BASE_URL ?>/visit.php">기관방문</a>
                 </li>
             </ul>
         </div>
@@ -323,7 +266,7 @@
             <ul class="sub-menu">
                 <li class="sub-menu__title">소식</li>
                 <li class="sub-menu__item">
-                    <a class="sub-menu__link" href="#">공지사항</a>
+                    <a class="sub-menu__link" href="<?= BASE_URL ?>/notices.php">공지사항</a>
                 </li>
                 <li class="sub-menu__item">
                     <a class="sub-menu__link" href="#">프로그램 활동사진</a>
@@ -397,7 +340,7 @@
         </li>
         <li class="quick-menu__item">
             <a class="quick-menu__link" 
-               href="#">
+               href="<?= BASE_URL ?>/lifelong-education-guide.php">
                 <svg class="icon--education icon--quick-menu icon" 
                      viewBox="0 0 24 24"
                      xmlns="http://www.w3.org/2000/svg"

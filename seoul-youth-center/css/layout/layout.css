@@ -18,8 +18,8 @@
     --space-8: 4rem;     /* 64px */
 
     /* Radius Tokens */
-    --radius-sm: 10px;
-    --radius-md: 15px;
+    --radius-sm: 8px;
+    --radius-md: 12px;
     --radius-full: 9999px;
 
     /* Moblie */

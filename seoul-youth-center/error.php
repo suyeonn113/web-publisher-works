@@ -1,7 +1,7 @@
 <?php
 include __DIR__ . '/includes/config.php';
 
-$pageTitle = '페이지를 불러올 수 없습니다 | 서울시립청소년센터';
+$pageTitle = '페이지를 불러올 수 없습니다 | 시립서울청소년센터';
 ?>
 
 <!DOCTYPE html>

@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const siteHeader = document.querySelector('body > header');
         const mainMenu = menuPanel.querySelector('.main-menu');
 
-        if (!topBar || !siteHeader || !mainMenu) return () => {};
+        if (!siteHeader || !mainMenu) return () => {};
 
         const cleanups = [];
         let lastScrollY = window.scrollY;
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
         function syncLayoutVars() {
             if (!desktopMq.matches) return;
 
-            const topBarHeight = topBar.getBoundingClientRect().height;
+            const topBarHeight = topBar ? topBar.getBoundingClientRect().height : 0;
             const headerHeight = siteHeader.getBoundingClientRect().height;
             const menuHeight = mainMenu.getBoundingClientRect().height;
 
@@ -183,6 +183,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const cleanups = [];
         let lastFocusedElement = null;
+
+        function syncQuickMenuHeight() {
+            if (desktopMq.matches) {
+                document.documentElement.style.removeProperty('--global-quick-menu-height');
+                return;
+            }
+
+            const quickMenuHeight = quickMenu.getBoundingClientRect().height;
+            if (quickMenuHeight > 0) {
+                document.documentElement.style.setProperty(
+                    '--global-quick-menu-height',
+                    `${quickMenuHeight}px`
+                );
+            }
+        }
+
+        const quickMenuResizeObserver = typeof ResizeObserver === 'function'
+            ? new ResizeObserver(syncQuickMenuHeight)
+            : null;
+
+        syncQuickMenuHeight();
+        requestAnimationFrame(syncQuickMenuHeight);
+        quickMenuResizeObserver?.observe(quickMenu);
+        cleanups.push(addListenerWithCleanup(window, 'resize', syncQuickMenuHeight));
 
         /* --- scroll 상태 --- */
         let lastScrollY = window.scrollY;
@@ -463,6 +487,7 @@ document.addEventListener('DOMContentLoaded', () => {
             addMqChangeListener(desktopMq, () => {
                 closeMobileTabletMenu({ restoreFocus: false });
                 setQuickMenuScrollState('visible');
+                syncQuickMenuHeight();
 
                 if (desktopMq.matches) {
                     switchMenuMode('drawer');
@@ -496,6 +521,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         return () => {
             document.body.classList.remove('no-scroll');
+            quickMenuResizeObserver?.disconnect();
+            document.documentElement.style.removeProperty('--global-quick-menu-height');
             cleanups.forEach((cleanup) => cleanup());
         };
     }
@@ -1078,6 +1105,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function switchMenuMode(nextMode) {
         cleanupCurrentMode();
+
+        document.body.classList.toggle('is-mega-menu-open', nextMode === 'mega');
 
         if (nextMode === 'drawer') {
             resetDrawerStateForMega();

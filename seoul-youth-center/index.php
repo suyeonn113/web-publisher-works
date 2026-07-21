@@ -2,7 +2,6 @@
 include __DIR__ . '/includes/config.php';
 include __DIR__ . '/includes/data/banners.php';
 include __DIR__ . '/includes/data/youth-programs.php';
-include __DIR__ . '/includes/data/education-programs.php';
 include __DIR__ . '/includes/functions/program.service.php';
 
 $pageTitle = '시립서울청소년센터';
@@ -26,7 +25,8 @@ $programs = sortProgramsForDisplay($programs);
 <!------------ <Main> ------------>
 <main id="main">
     <!------------ Hero ------------>
-    <section class="hero inner">
+    <section class="hero-season" aria-label="센터 주요 소식">
+    <div class="hero inner">
         <!-- Banner -->
         <div class="banner">
             <div class="banner__gallery">
@@ -58,7 +58,6 @@ $programs = sortProgramsForDisplay($programs);
                 </ul>
             </div>
             <div class="banner__controls">
-                <span class="banner__count">1 / <?= count($heroBanners) ?></span>
                 <button class="banner__prev" 
                         type="button"
                         aria-label="이전 배너">
@@ -83,18 +82,21 @@ $programs = sortProgramsForDisplay($programs);
                         <path fill="none" d="M10.74 15.53L14.26 12L10.74 8.46997"/>
                     </svg>
                 </button>
-                <button class="banner__pause" 
-                        type="button"
-                        aria-label="자동재생 일시정지">
-                    <svg class="icon--pause icon" 
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                        aria-hidden="true" 
-                        focusable="false">
-                        <path class="icon__circle" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/>
-                        <path class="icon__symbol" d="M10 8V15.6M14 15.6V8"/>
-                    </svg>
-                </button>
+                <div class="banner__status">
+                    <span class="banner__count">1 / <?= count($heroBanners) ?></span>
+                    <button class="banner__pause"
+                            type="button"
+                            aria-label="자동재생 일시정지">
+                        <svg class="icon--pause icon"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true"
+                            focusable="false">
+                            <path class="icon__circle" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/>
+                            <path class="icon__symbol" d="M10 8V15.6M14 15.6V8"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
         <!-- Quick Menu -->
@@ -108,17 +110,19 @@ $programs = sortProgramsForDisplay($programs);
                             <svg class="icon--youth icon--quick-menu home icon stroke" 
                                 viewBox="0 0 40 40" 
                                 xmlns="http://www.w3.org/2000/svg">
-                                <path d="M23.3333 6.66671C23.3333 8.50766 21.8409 10 20 10C18.159 10 16.6666 8.50766 16.6666 6.66671C16.6666 4.82576 18.159 3.33337 20 3.33337C21.8409 3.33337 23.3333 4.82576 23.3333 6.66671Z" fill="#2563EB"/>
-                                <path d="M13.7052 19.2906L10.0797 18.0821C9.03681 17.7344 8.33337 16.7585 8.33337 15.6592C8.33337 14.0332 9.83259 12.8212 11.4225 13.1619L14.5851 13.8396C14.7609 13.8773 14.8489 13.8961 14.9361 13.9142C18.2767 14.6052 21.7234 14.6052 25.064 13.9142C25.1512 13.8961 25.2391 13.8773 25.415 13.8396L28.5776 13.1619C30.1675 12.8212 31.6667 14.0332 31.6667 15.6592C31.6667 16.7585 30.9633 17.7344 29.9204 18.0821L26.2949 19.2906C25.8568 19.4366 25.6377 19.5096 25.473 19.6113C24.9119 19.9576 24.6078 20.6021 24.6971 21.2554C24.7233 21.4472 24.8062 21.6627 24.972 22.0937L27.05 27.4965C27.6686 29.1048 26.4814 30.8333 24.7583 30.8333C23.8772 30.8333 23.0636 30.3612 22.6264 29.5961L20 25L17.3737 29.5961C16.9365 30.3612 16.1229 30.8333 15.2418 30.8333C13.5187 30.8333 12.3315 29.1048 12.9501 27.4965L15.0281 22.0937C15.1939 21.6627 15.2768 21.4472 15.303 21.2554C15.3923 20.6021 15.0882 19.9576 14.5271 19.6113C14.3624 19.5096 14.1433 19.4366 13.7052 19.2906Z" fill="#2563EB"/>
+                                <path d="M23.3333 6.66671C23.3333 8.50766 21.8409 10 20 10C18.159 10 16.6666 8.50766 16.6666 6.66671C16.6666 4.82576 18.159 3.33337 20 3.33337C21.8409 3.33337 23.3333 4.82576 23.3333 6.66671Z" fill="var(--color-accent-blue)"/>
+                                <path d="M13.7052 19.2906L10.0797 18.0821C9.03681 17.7344 8.33337 16.7585 8.33337 15.6592C8.33337 14.0332 9.83259 12.8212 11.4225 13.1619L14.5851 13.8396C14.7609 13.8773 14.8489 13.8961 14.9361 13.9142C18.2767 14.6052 21.7234 14.6052 25.064 13.9142C25.1512 13.8961 25.2391 13.8773 25.415 13.8396L28.5776 13.1619C30.1675 12.8212 31.6667 14.0332 31.6667 15.6592C31.6667 16.7585 30.9633 17.7344 29.9204 18.0821L26.2949 19.2906C25.8568 19.4366 25.6377 19.5096 25.473 19.6113C24.9119 19.9576 24.6078 20.6021 24.6971 21.2554C24.7233 21.4472 24.8062 21.6627 24.972 22.0937L27.05 27.4965C27.6686 29.1048 26.4814 30.8333 24.7583 30.8333C23.8772 30.8333 23.0636 30.3612 22.6264 29.5961L20 25L17.3737 29.5961C16.9365 30.3612 16.1229 30.8333 15.2418 30.8333C13.5187 30.8333 12.3315 29.1048 12.9501 27.4965L15.0281 22.0937C15.1939 21.6627 15.2768 21.4472 15.303 21.2554C15.3923 20.6021 15.0882 19.9576 14.5271 19.6113C14.3624 19.5096 14.1433 19.4366 13.7052 19.2906Z" fill="var(--color-accent-blue)"/>
                                 <path d="M32.4229 24.1666C35.062 25.4935 36.6667 27.2457 36.6667 29.1666C36.6667 33.3088 29.2048 36.6666 20 36.6666C10.7953 36.6666 3.33337 33.3088 3.33337 29.1666C3.33337 27.2457 4.93812 25.4935 7.57723 24.1666"/>
                             </svg>
                         </span>
-                        청소년프로그램
+                        <span class="quick-menu--home__text">
+                            <strong>청소년프로그램</strong>
+                        </span>
                     </a>
                 </li>
                 <li class="quick-menu--home__item">
                     <a class="quick-menu--home__link" 
-                    href="#">
+                    href="<?= BASE_URL ?>/lifelong-education-guide.php">
                         <span class="line">
                             <svg class="icon--education icon--quick-menu home icon" 
                                 viewBox="0 0 24 24"
@@ -130,12 +134,14 @@ $programs = sortProgramsForDisplay($programs);
                                 <path d="M2 8.5V14"/>
                             </svg>
                         </span>
-                        평생교육평생교육
+                        <span class="quick-menu--home__text">
+                            <strong>평생교육</strong>
+                        </span>
                     </a>
                 </li>
                 <li class="quick-menu--home__item">
                     <a class="quick-menu--home__link" 
-                    href="#">
+                    href="<?= BASE_URL ?>/culture-space.php">
                         <span class="line">
                             <svg class="icon--youth icon--quick-menu icon" 
                                 viewBox="0 0 24 24"
@@ -150,12 +156,14 @@ $programs = sortProgramsForDisplay($programs);
                                 <path d="M10.5 7.5H13.5"/>
                             </svg>
                         </span>
-                        청소년공감센터'움'
+                        <span class="quick-menu--home__text">
+                            <strong>문화공간 예약</strong>
+                        </span>
                     </a>
                 </li>
                 <li class="quick-menu--home__item">
                     <a class="quick-menu--home__link" 
-                    href="#">
+                    href="<?= BASE_URL ?>/fitness-center.php">
                         <span class="line">
                             <svg class="icon--youth icon--quick-menu home icon" 
                                 viewBox="0 0 24 24"
@@ -169,12 +177,14 @@ $programs = sortProgramsForDisplay($programs);
                                 <path fill="#14B8A6" d="M4.5 9L4.5 15C4.5 15.465 4.5 15.6975 4.55111 15.8882C4.68981 16.4059 5.09413 16.8102 5.61177 16.9489C5.80252 17 6.03501 17 6.5 17C6.96499 17 7.19748 17 7.38823 16.9489C7.90587 16.8102 8.31019 16.4059 8.44889 15.8882C8.5 15.6975 8.5 15.465 8.5 15V9C8.5 8.53501 8.5 8.30252 8.44889 8.11177C8.31019 7.59413 7.90587 7.18981 7.38823 7.05111C7.19748 7 6.96499 7 6.5 7C6.03501 7 5.80252 7 5.61177 7.05111C5.09413 7.18981 4.68981 7.59413 4.55111 8.11177C4.5 8.30252 4.5 8.53501 4.5 9Z"/>
                             </svg>
                         </span>
-                        종합체력실
+                        <span class="quick-menu--home__text">
+                            <strong>종합체력실</strong>
+                        </span>
                     </a>
                 </li>
                 <li class="quick-menu--home__item">
                     <a class="quick-menu--home__link" 
-                    href="#">
+                    href="<?= BASE_URL ?>/facility-rental.php">
                         <span class="line">
                             <svg class="icon--youth icon--quick-menu home icon" 
                                 viewBox="0 0 24 24"
@@ -188,7 +198,9 @@ $programs = sortProgramsForDisplay($programs);
                                 <path class="no-stroke" fill="#1F2937" d="M20.9711 10V10.75H21.7472L21.7206 9.97432L20.9711 10ZM20.0451 6.06107L19.4383 6.50191L19.4383 6.50191L20.0451 6.06107ZM18.9389 4.95492L18.4981 5.56168V5.56168L18.9389 4.95492ZM14.25 5C14.25 5.41421 14.5858 5.75 15 5.75C15.4142 5.75 15.75 5.41421 15.75 5H15H14.25ZM3.02893 10L2.27937 9.97432L2.25279 10.75H3.02893V10ZM3.95492 6.06107L4.56168 6.50191H4.56168L3.95492 6.06107ZM15.75 2C15.75 1.58579 15.4142 1.25 15 1.25C14.5858 1.25 14.25 1.58579 14.25 2H15H15.75ZM5.06108 4.95492L5.50191 5.56168V5.56168L5.06108 4.95492ZM9.75 2C9.75 1.58579 9.41422 1.25 9 1.25C8.58579 1.25 8.25 1.58579 8.25 2H9H9.75ZM8.25 5C8.25 5.41421 8.58579 5.75 9 5.75C9.41422 5.75 9.75 5.41421 9.75 5H9H8.25ZM20.9711 10L21.7206 9.97432C21.6564 8.10088 21.4537 6.7239 20.6518 5.62023L20.0451 6.06107L19.4383 6.50191C19.9509 7.20746 20.158 8.17075 20.2215 10.0257L20.9711 10ZM15 4.02893L14.9743 4.77849C16.8292 4.84204 17.7925 5.04907 18.4981 5.56168L18.9389 4.95492L19.3798 4.34815C18.2761 3.5463 16.8991 3.34356 15.0257 3.27937L15 4.02893ZM18.9389 4.95492L18.4981 5.56168C18.8589 5.82382 19.1762 6.14111 19.4383 6.50191L20.0451 6.06107L20.6519 5.62024C20.2972 5.13209 19.8679 4.70281 19.3798 4.34815L18.9389 4.95492ZM15 5H15.75V4.02893H15H14.25V5H15ZM3.02893 10L3.77849 10.0257C3.84204 8.17075 4.04907 7.20746 4.56168 6.50191L3.95492 6.06107L3.34815 5.62023C2.5463 6.7239 2.34356 8.10087 2.27937 9.97432L3.02893 10ZM15 4.02893H15.75V2H15H14.25V4.02893H15ZM5.06108 4.95492L4.62024 4.34815C4.13209 4.70281 3.70281 5.13209 3.34815 5.62023L3.95492 6.06107L4.56168 6.50191C4.82382 6.14111 5.14111 5.82382 5.50191 5.56168L5.06108 4.95492ZM9 4.02893H9.75V2H9H8.25V4.02893H9ZM9 5H9.75V4.02893H9H8.25V5H9ZM12 4V3.25C10.8352 3.25 9.83425 3.24991 8.97432 3.27937L9 4.02893L9.02568 4.77849C9.85445 4.75009 10.8269 4.75 12 4.75V4ZM9 4.02893L8.97432 3.27937C7.10088 3.34355 5.7239 3.5463 4.62024 4.34815L5.06108 4.95492L5.50191 5.56168C6.20746 5.04907 7.17076 4.84204 9.02568 4.77849L9 4.02893ZM12 4V4.75C13.1731 4.75 14.1456 4.75009 14.9743 4.77849L15 4.02893L15.0257 3.27937C14.1658 3.24991 13.1648 3.25 12 3.25V4ZM3.02893 10V10.75H20.9711V10V9.25H3.02893V10Z"/>
                             </svg>
                         </span>
-                        시설대관
+                        <span class="quick-menu--home__text">
+                            <strong>시설대관</strong>
+                        </span>
                     </a>
                 </li>
                 <li class="quick-menu--home__item">
@@ -204,77 +216,60 @@ $programs = sortProgramsForDisplay($programs);
                                 <path d="M8 12H8.009M11.991 12H12M15.991 12H16"/>
                             </svg>
                         </span>
-                        문의하기
+                        <span class="quick-menu--home__text">
+                            <strong>문의하기</strong>
+                        </span>
                     </a>
                 </li>
             </ul>
         </nav>
+    </div>
     </section>
 
-    <!------------ Programs ------------>
-    <div class="programs wrapper padding-block">
-        <?php
-        $openPrograms = getOpenProgramsForDisplay($programs);
-        ?>
-        <section class="programs inner">
-            <h2 class="section__title">모집 중인 청소년 프로그램</h2>
-            <div class="programs__controls">
-                <button class="programs__prev" 
-                        type="button"
-                        aria-label="이전 프로그램">
-                    <svg class="icon--prev icon" 
-                        viewBox="0 0 24 24" 
-                        xmlns="http://www.w3.org/2000/svg"
-                        aria-hidden="true" 
-                        focusable="false">
-                        <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22Z"/>
-                        <path fill="none" d="M13.26 15.53L9.74001 12L13.26 8.46997"/>
-                    </svg>
-                </button>
-                <button class="programs__next" 
-                        type="button"
-                        aria-label="다음 프로그램">
-                    <svg class="icon--next icon" 
-                        viewBox="0 0 24 24" 
-                        xmlns="http://www.w3.org/2000/svg"
-                        aria-hidden="true" 
-                        focusable="false">
-                        <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22Z"/>
-                        <path fill="none" d="M10.74 15.53L14.26 12L10.74 8.46997"/>
-                    </svg>
-                </button>
-            </div>
-            <a class="button--more button"
-               href="<?= BASE_URL ?>/programs.php"
-               aria-label="청소년 프로그램 더보기">
-                더보기
-            </a>
-            <div class="programs__slider">
-                <div class="programs__track">
-
-                    <?php if (empty($openPrograms)): ?>
-                        <p class="programs__empty">모집 중인 프로그램이 없습니다.</p>
-                    <?php else: ?>
-
-                        <?php foreach ($openPrograms as $program): ?>
-                            <?php
-                            $programMeta = getProgramCardMeta($program);
-                            $cardVariant = 'home-program';
-                            include __DIR__ . '/includes/components/program-card.php';
-                            ?>
-                        <?php endforeach; ?>
-
-                    <?php endif; ?>
-
+    <!------------ Program explorer ------------>
+    <section class="program-explorer wrapper padding-block">
+        <div class="program-explorer__inner inner">
+            <div class="program-explorer__heading">
+                <div>
+                    <p class="program-explorer__eyebrow">지금 신청 가능해요</p>
+                    <h2 class="section__title">나에게 맞는 프로그램 찾기</h2>
                 </div>
+                <p class="program-explorer__description">연령과 관심 분야를 선택하면 모집 중인 프로그램만 바로 보여드려요.</p>
             </div>
-        </section>
-    </div>
-    <!------------ recommend ------------>
-    <section class="recommend inner padding-block">
-        <h2 class="section__title">나에게 맞는 프로그램 살펴보기</h2>
-        <div class="recommend__content">
+
+            <div class="program-explorer__tabs" role="tablist" aria-label="프로그램 유형">
+                <button class="program-explorer__tab" type="button" role="tab" aria-selected="true" data-program-type="youth">청소년 프로그램</button>
+                <button class="program-explorer__tab" type="button" role="tab" aria-selected="false" data-program-type="education">평생교육 프로그램</button>
+            </div>
+
             <form class="recommend-filter" action="" method="get" data-has-selection="false">
+                <div class="recommend-filter__mobile">
+                    <label class="recommend-filter__select-field">
+                        <span>연령 선택</span>
+                        <select name="age" aria-label="연령 기준 선택">
+                            <option value="">전체 연령</option>
+                            <option value="infant">유아</option>
+                            <option value="elementary-low">초등 저학년</option>
+                            <option value="elementary-high">초등 고학년</option>
+                            <option value="early-youth">초기 청소년</option>
+                            <option value="mid-youth">중기 청소년</option>
+                            <option value="late-youth">후기 청소년</option>
+                            <option value="citizen">시민</option>
+                        </select>
+                    </label>
+                    <label class="recommend-filter__select-field">
+                        <span>분야 선택</span>
+                        <select name="field" aria-label="분야 기준 선택">
+                            <option value="">전체 분야</option>
+                            <option value="career">진로 직업</option>
+                            <option value="culture-art">문화 예술</option>
+                            <option value="emotional">정서 관계</option>
+                            <option value="competency">역량 성장</option>
+                            <option value="citizen">시민 참여</option>
+                        </select>
+                    </label>
+                </div>
+
                 <fieldset class="recommend-filter__group age_group_codes">
                     <legend class="recommend-filter__title">연령 기준</legend>
                     <div class="recommend-filter__list" role="group">
@@ -299,100 +294,82 @@ $programs = sortProgramsForDisplay($programs);
                     </div>
                 </fieldset>
             </form>
-            <div class="recommend-result">
-                <section class="recommend-result__youth">
-                    <h3 class="recommend-result__title">청소년 프로그램</h3>
-                    <div class="programs__controls">
-                        <button class="programs__prev" 
-                                type="button"
-                                aria-label="이전 프로그램">
-                            <svg class="icon--prev icon" 
-                                viewBox="0 0 24 24" 
-                                xmlns="http://www.w3.org/2000/svg"
-                                aria-hidden="true" 
-                                focusable="false">
-                                <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22Z"/>
-                                <path fill="none" d="M13.26 15.53L9.74001 12L13.26 8.46997"/>
-                            </svg>
-                        </button>
-                        <button class="programs__next" 
-                                type="button"
-                                aria-label="다음 프로그램">
-                            <svg class="icon--next icon" 
-                                viewBox="0 0 24 24" 
-                                xmlns="http://www.w3.org/2000/svg"
-                                aria-hidden="true" 
-                                focusable="false">
-                                <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22Z"/>
-                                <path fill="none" d="M10.74 15.53L14.26 12L10.74 8.46997"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <a class="button--more button"
-                        href="<?= BASE_URL ?>/programs.php"
-                        aria-label="청소년 프로그램 더보기">
-                        더보기
-                    </a>
-                    <div class="recommend-result__body" data-state="idle">
-                        <p class="programs__empty recommend-result__status" aria-live="polite">
-                            기준을 선택해주세요.
-                        </p>
 
-                        <div class="recommend-result__slider" hidden>
-                            <ul class="recommend-result__list"></ul>
-                        </div>
-                    </div>
-                </section>
-                <section class="recommend-result__education">
-                    <h3 class="recommend-result__title">평생교육 프로그램</h3>
-                    <div class="education__controls">
-                        <button class="education__prev" 
-                                type="button"
-                                aria-label="이전 프로그램">
-                            <svg class="icon--prev icon" 
-                                viewBox="0 0 24 24" 
-                                xmlns="http://www.w3.org/2000/svg"
-                                aria-hidden="true" 
-                                focusable="false">
-                                <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22Z"/>
-                                <path fill="none" d="M13.26 15.53L9.74001 12L13.26 8.46997"/>
-                            </svg>
-                        </button>
-                        <button class="education__next" 
-                                type="button"
-                                aria-label="다음 프로그램">
-                            <svg class="icon--next icon" 
-                                viewBox="0 0 24 24" 
-                                xmlns="http://www.w3.org/2000/svg"
-                                aria-hidden="true" 
-                                focusable="false">
-                                <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22Z"/>
-                                <path fill="none" d="M10.74 15.53L14.26 12L10.74 8.46997"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <a class="button--more button"
-                        href="#"
-                        aria-label="평생교육 프로그램 더보기">
-                        더보기
-                    </a>
-
-                    <div class="recommend-result__body" data-state="idle">
-                        <p class="programs__empty recommend-result__status" aria-live="polite">
-                            기준을 선택해주세요.
-                        </p>
-
-                        <div class="education__slider" hidden>
-                            <ul class="education__track"></ul>
-                        </div>
-                    </div>
-                </section>
+            <div class="program-explorer__result" aria-busy="true">
+                <div class="program-explorer__result-head">
+                    <p class="program-explorer__count" aria-live="polite">프로그램을 불러오는 중입니다.</p>
+                    <button class="program-explorer__reset" type="button" hidden>선택 초기화</button>
+                </div>
+                <p class="program-explorer__status">프로그램을 불러오는 중입니다.</p>
+                <div class="program-explorer__grid"></div>
+                <div class="program-explorer__actions" hidden>
+                    <button class="program-explorer__load-more button" type="button">펼쳐서 더보기</button>
+                    <a class="program-explorer__all button" href="<?= BASE_URL ?>/programs.php">전체 프로그램 보기</a>
+                </div>
             </div>
         </div>
     </section>
 
+    <!------------ News ------------>
+    <section class="news inner">
+        <div class="news__heading">
+            <div>
+                <p class="news__eyebrow">놓치지 말아야 할 센터 소식</p>
+                <h2 class="section__title">센터 소식 한눈에 보기</h2>
+            </div>
+            <a class="button--more button" href="<?= BASE_URL ?>/notices.php">전체 소식 보기</a>
+        </div>
+
+        <article class="news-card news-card--notice">
+            <div class="news-card__heading">
+                <h3>공지사항</h3>
+                <a class="news-card__more" href="<?= BASE_URL ?>/notices.php">전체보기</a>
+            </div>
+            <ul class="news-card__list news-card__list--notice">
+                <li class="news-card__item pin">
+                    <a class="news-card__link" href="<?= BASE_URL ?>/notices.php?notice=12">홈페이지 회원 자동탈퇴(파기) 안내 및 재동의 사전 안내</a>
+                </li>
+                <li class="news-card__item pin">
+                    <a class="news-card__link" href="<?= BASE_URL ?>/notices.php?notice=11">홈페이지 자녀계정 로그인 방법 안내</a>
+                </li>
+                <li class="news-card__item">
+                    <a class="news-card__link" href="<?= BASE_URL ?>/notices.php?notice=10">[공고] 2026년 평생교육 기구필라테스 강사 채용 공고</a>
+                </li>
+                <li class="news-card__item">
+                    <a class="news-card__link" href="<?= BASE_URL ?>/notices.php?notice=9">[안내] 시립서울청소년센터 운영백서(2025년)</a>
+                </li>
+                <li class="news-card__item">
+                    <a class="news-card__link" href="<?= BASE_URL ?>/notices.php?notice=8">[고시] 수의계약 공개내역서(2026년 3월 꿈꾸는 아이들 책걸상 구매)</a>
+                </li>
+            </ul>
+        </article>
+
+        <article class="news-card news-card--city">
+            <div class="news-card__heading">
+                <h3>서울시정</h3>
+                <a class="news-card__more" href="#">전체보기</a>
+            </div>
+            <ul class="news-card__list">
+                <li class="news-card__item"><a class="news-card__link" href="#">제1기 청년 공존·공감위원회 청년위원 모집 공고</a></li>
+                <li class="news-card__item"><a class="news-card__link" href="#">서울특별시 청소년참여위원회 모집</a></li>
+            </ul>
+        </article>
+
+        <article class="news-card news-card--press">
+            <div class="news-card__heading">
+                <h3>보도자료</h3>
+                <a class="news-card__more" href="#">전체보기</a>
+            </div>
+            <ul class="news-card__list news-card__list--press">
+                <li class="news-card__item"><a class="news-card__link" href="#">[2025.02.05] 소셜임팩트뉴스-청다온 등 35건(2025년 3분기)</a></li>
+                <li class="news-card__item"><a class="news-card__link" href="#">[2025.01.06] KNS뉴스통신-움아트 외 39건</a></li>
+            </ul>
+        </article>
+    </section>
+
     <!------------ Schedule ------------>
     <section class="schedule inner">
+        <p class="schedule__eyebrow">센터의 하루를 확인해요</p>
         <h2 class="section__title">센터 일정 둘러보기</h2>
 
         <div class="schedule__layout">
@@ -473,7 +450,8 @@ $programs = sortProgramsForDisplay($programs);
             </div>
 
             <!-- 일정 목록 영역 -->
-            <div class="schedule-agenda" aria-labelledby="schedule-agenda__title">
+            <div class="schedule-agenda-wrap">
+              <div class="schedule-agenda" aria-labelledby="schedule-agenda__title">
                 <h3 id="schedule-agenda__title" class="visually-hidden">선택한 날짜 기준 일정 목록</h3>
 
                 <div class="schedule-agenda__group yesterday">
@@ -490,6 +468,10 @@ $programs = sortProgramsForDisplay($programs);
                         id="schedule-list-today"
                         aria-label="오늘 일정">
                     </ul>
+                    <div class="schedule-agenda__scroll-hint" aria-hidden="true">
+                        <span class="schedule-agenda__scroll-icon"></span>
+                        <span>스크롤</span>
+                    </div>
                 </div>
 
                 <div class="schedule-agenda__group tomorrow">
@@ -499,146 +481,47 @@ $programs = sortProgramsForDisplay($programs);
                         aria-label="내일 일정">
                     </ul>
                 </div>
+              </div>
             </div>
         </div>
     </section>
 
-    <!------------ News ------------>
-    <section class="news inner">
-        <h2 class="visually-hidden">센터 소식 모아보기</h2>
-        <article class="news-card news-card--notice">
-            <h3 class="section__title">공지사항</h3>
-            <a class="button--more button"
-                href="#"
-                aria-label="공지사항 더보기">
-                더보기
-            </a>
-            <ul class="news-card__list news-card__list--notice">
-                <li class="news-card__item pin">
-                    <a class="news-card__link"
-                       href="#">
-                        홈페이지 회원 자동탈퇴(파기) 안내 및 재동의 사전 안내
-                    </a>
-                </li>
-                <li class="news-card__item pin">
-                    <a class="news-card__link"
-                       href="#">
-                        홈페이지 자녀계정 로그인 방법 안내
-                    </a>
-                </li>
-                <li class="news-card__item">
-                    <a class="news-card__link"
-                       href="#">
-                        [공고] 2026년 평생교육 기구필라테스 강사 채용 공고
-                    </a>
-                </li>
-                <li class="news-card__item">
-                    <a class="news-card__link"
-                       href="#">
-                        [안내] 시립서울청소년센터 운영백서(2025년)
-                    </a>
-                </li>
-                <li class="news-card__item">
-                    <a class="news-card__link"
-                       href="#">
-                        [고시] 수의계약 공개내역서(2026년 3월 꿈꾸는 아이들 책걸상 구매)
-                    </a>
-                </li>
-            </ul>
-        </article>
-
-        <article class="news-card news-card--city">
-            <h3 class="section__title">서울시정</h3>
-            <a class="button--more button"
-                href="#"
-                aria-label="서울시정 더보기">
-                더보기
-            </a>
-            <ul class="news-card__list">
-                <li class="news-card__item">
-                    <a class="news-card__link"
-                       href="#">
-                    제1기 청년 공존·공감위원회청년위원 모집 공고
-                    </a>
-                </li>
-                <li class="news-card__item">
-                    <a class="news-card__link"
-                       href="#">                
-                    서울특별시 청소년참여위원회 모집
-                    </a>
-                </li>
-            </ul>
-        </article>
-
-        <article class="news-card news-card--sm">
-            <h3 class="section__title">보도자료</h3>
-            <a class="button--more button"
-                href="#"
-                aria-label="보도자료 더보기">
-                더보기
-            </a>
-
-            <ul class="news-card__list news-card__list--press">
-                <li class="news-card__item">
-                    <a class="news-card__link"
-                       href="#">                
-                    [2025.02.05] 소셜임팩트뉴스-청다온 등 35건(2025년 3분기)
-                    </a>
-                </li>
-                <li class="news-card__item">
-                    <a class="news-card__link"
-                       href="#">                
-                    [2025.01.06] KNS뉴스통신-움아트 외 39건
-                    </a>
-                </li>
-            </ul>
-        </article>
-    </section>
-     
     <!------------ Gallery ------------>
     <section class="gallery inner">
-        <h2 class="section__title">활동 사진</h2>
-        <div class="gallery__controls">
-            <button class="gallery__prev" 
-                    type="button"
-                    aria-label="이전 활동사진">
-                <svg class="icon--prev icon" 
-                    viewBox="0 0 24 24" 
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true" 
-                    focusable="false">
-                    <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22Z"/>
-                    <path fill="none" d="M13.26 15.53L9.74001 12L13.26 8.46997"/>
-                </svg>
-            </button>
-            <button class="gallery__next" 
-                    type="button"
-                    aria-label="다음 활동사진">
-                <svg class="icon--next icon" 
-                    viewBox="0 0 24 24" 
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true" 
-                    focusable="false">
-                    <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22Z"/>
-                    <path fill="none" d="M10.74 15.53L14.26 12L10.74 8.46997"/>
-                </svg>
-            </button>
+        <div class="gallery__heading">
+            <p class="gallery__eyebrow">센터의 생생한 순간을 만나보세요</p>
+            <h2 class="section__title">활동 사진</h2>
         </div>
-        <a class="button--more button"
-            href="#"
-            aria-label="활동 사진 더보기">
+        <span class="button--more button" aria-disabled="true">
             더보기
-        </a>
+        </span>
         <div class="gallery__slider">
-                <ul class="gallery__track">
-                    <!-- JS로 li.gallery__item 생성 -->
-                </ul>
+            <div class="gallery__controls">
+                <button class="gallery__prev" type="button" aria-label="이전 활동사진">
+                    <svg class="icon--prev icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                        <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22Z"/>
+                        <path fill="none" d="M13.26 15.53L9.74001 12L13.26 8.46997"/>
+                    </svg>
+                </button>
+                <button class="gallery__next" type="button" aria-label="다음 활동사진">
+                    <svg class="icon--next icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                        <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22Z"/>
+                        <path fill="none" d="M10.74 15.53L14.26 12L10.74 8.46997"/>
+                    </svg>
+                </button>
             </div>
+            <ul class="gallery__track">
+                <!-- JS로 li.gallery__item 생성 -->
+            </ul>
+        </div>
     </section>
 
     <!------------ SNS ------------>
     <section class="sns inner">
-        <h2 class="section__title" id="sns-title">SNS</h2>
+        <div class="sns__heading">
+            <p class="sns__eyebrow">센터의 새로운 이야기를 만나보세요</p>
+            <h2 class="section__title" id="sns-title">SNS</h2>
+        </div>
         <div class="sns__controls">
             <div class="sns__platforms" role="tablist" aria-label="SNS 채널 선택">
                 <button class="sns__platform"
@@ -709,6 +592,21 @@ $programs = sortProgramsForDisplay($programs);
             </a>
         </div>
 
+        <article class="sns__featured" aria-label="시립서울청소년센터 안내 영상">
+            <div class="sns__featured-head">
+                <h3 class="sns__featured-title">시립서울청소년센터 안내</h3>
+            </div>
+            <video class="sns__featured-video"
+                   controls
+                   playsinline
+                   preload="metadata"
+                   poster="https://i.ytimg.com/vi/ojGdoQwNG5A/hqdefault.jpg"
+                   aria-label="시립서울청소년센터 안내 영상">
+                <source src="<?= BASE_URL ?>/assets/videos/sns/youtube-01.mp4" type="video/mp4">
+                브라우저에서 영상을 재생할 수 없습니다.
+            </video>
+        </article>
+
         <div class="sns__body">
             <!-- 인스타그램 -->
             <div class="sns__panel"
@@ -772,20 +670,6 @@ $programs = sortProgramsForDisplay($programs);
                 data-platform-panel="youtube"
                 hidden>
                 <ul class="sns__list" aria-label="유튜브 게시글 목록">
-                    <li class="sns__item">
-                        <a class="sns__link"
-                        href="https://youtu.be/ojGdoQwNG5A?si=GJmaxdlNiNqH-5ip"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="유튜브 영상 새 창 열기: 서울특별시립 서울청소년센터 안내"
-                        data-preview-video="<?= BASE_URL ?>/assets/videos/sns/youtube-01.mp4">
-                            <div class="sns__thumb">
-                                <img src="https://i.ytimg.com/vi/ojGdoQwNG5A/hqdefault.jpg" alt="">
-                                <span class="sns__preview" aria-hidden="true"></span>
-                                <span class="sns__play" aria-hidden="true"></span>
-                            </div>
-                        </a>
-                    </li>
                     <li class="sns__item">
                         <a class="sns__link"
                         href="https://youtu.be/qMk9KHPnli0?si=vD26hsfncHffGaGe"

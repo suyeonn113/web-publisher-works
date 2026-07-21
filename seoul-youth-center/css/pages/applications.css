@@ -10,23 +10,206 @@
     display: grid;
     justify-items: center;
     gap: var(--space-2);
-    padding-block: var(--space-4) var(--space-3);
+    padding-block: var(--space-4);
     text-align: center;
-}
-
-.applications-header h1 {
-    color: var(--color-text-default);
-    font-size: var(--text-title-section-size);
-    font-weight: var(--text-title-section-weight);
-}
-
-.applications-header p {
-    color: var(--color-text-default-soft);
-    font-weight: 800;
 }
 
 .applications-header strong {
     color: var(--color-purple);
+}
+
+.application-lookup {
+    display: grid;
+    gap: var(--space-2);
+    width: min(100%, 54rem);
+    padding: var(--space-3);
+    margin-top: var(--space-2);
+    text-align: left;
+    border: 1px solid var(--color-card-line);
+    border-radius: var(--radius-md);
+    background: var(--color-beige);
+}
+
+.application-lookup__fields {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-2);
+}
+
+.application-lookup label {
+    display: grid;
+    gap: .5rem;
+    color: var(--color-text-default);
+    font-weight: 700;
+}
+
+.application-lookup input {
+    width: 100%;
+    min-height: 3.25rem;
+    padding-inline: var(--space-2);
+    color: var(--color-text-default);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-sm);
+    background: var(--color-white);
+}
+
+.application-lookup input:focus {
+    border-color: var(--color-purple);
+}
+
+.application-lookup button {
+    min-height: 3.25rem;
+    color: var(--color-text-on);
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+    background: var(--color-purple);
+}
+
+.application-master {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-2);
+    width: min(100%, 54rem);
+    padding: var(--space-2);
+    color: var(--color-text-default);
+    text-align: left;
+    border: 1px dashed var(--color-purple);
+    border-radius: var(--radius-sm);
+    background: var(--color-white);
+}
+
+.application-master > strong {
+    color: var(--color-purple);
+}
+
+.application-master dl {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: .5rem var(--space-2);
+}
+
+.application-master dl > div {
+    display: flex;
+    gap: .375rem;
+}
+
+.application-master dt {
+    color: var(--color-text-default-soft);
+    font-weight: 600;
+}
+
+.application-master dd {
+    font-weight: 700;
+}
+
+.application-lookup__error {
+    width: min(100%, 54rem);
+    padding: var(--space-2);
+    color: #b42318;
+    text-align: left;
+    border: 1px solid #f3b4ad;
+    border-radius: var(--radius-sm);
+    background: #fff4f2;
+}
+
+.application-lookup-guide {
+    width: min(100%, 54rem);
+    text-align: left;
+    border: 1px solid var(--color-card-line);
+    border-radius: var(--radius-sm);
+    background: var(--color-white);
+}
+
+.application-lookup-guide summary {
+    display: flex;
+    align-items: center;
+    gap: .625rem;
+    padding: var(--space-2);
+    color: var(--color-text-default);
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+}
+
+.application-lookup-guide summary::-webkit-details-marker {
+    display: none;
+}
+
+.application-lookup-guide summary span {
+    display: grid;
+    place-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--color-text-on);
+    font-size: var(--fs-12);
+    font-weight: 700;
+    border-radius: var(--radius-full);
+    background: var(--color-purple);
+}
+
+.application-lookup-guide ul {
+    display: grid;
+    gap: .5rem;
+    padding: 0 var(--space-3) var(--space-2) 3.5rem;
+    color: var(--color-text-default-soft);
+    list-style: disc;
+}
+
+.applications-board__heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: var(--space-2);
+    padding-bottom: var(--space-2);
+}
+
+.applications-board__heading h2 {
+    color: var(--color-text-default);
+    font-size: var(--text-title-card-size);
+    font-weight: 700;
+}
+
+.applications-board__heading strong {
+    color: var(--color-purple);
+}
+
+.application-detail-link {
+    display: inline-grid;
+    place-items: center;
+    min-width: 7rem;
+    min-height: 2.5rem;
+    padding: .5rem .75rem;
+    color: var(--color-text-on);
+    font-size: var(--fs-13);
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+    background: var(--color-purple);
+}
+
+.application-detail-link.is-program {
+    color: var(--color-purple);
+    border: 1px solid var(--color-purple);
+    background: var(--color-white);
+}
+
+.application-status-badge {
+    display: inline-grid;
+    place-items: center;
+    min-height: 2.25rem;
+    padding: .4rem .75rem;
+    color: var(--color-purple);
+    font-size: var(--fs-13);
+    font-weight: 700;
+    border-radius: var(--radius-full);
+    background: var(--color-yellow-20);
+}
+
+.application-row-actions {
+    display: grid;
+    justify-items: center;
+    gap: .5rem;
 }
 
 .applications-search {
@@ -49,7 +232,7 @@
     min-width: 7rem;
     padding-inline: var(--space-2);
     color: var(--color-text-on);
-    font-weight: 900;
+    font-weight: 700;
     background: var(--color-purple);
 }
 
@@ -59,8 +242,8 @@
 
 .applications-board table {
     width: 100%;
-    min-width: 48rem;
-    border-top: 2px solid var(--color-text-default);
+    min-width: 58rem;
+    border-top: 2px solid var(--color-line);
 }
 
 .applications-board th,
@@ -72,7 +255,7 @@
 }
 
 .applications-board th {
-    font-weight: 900;
+    font-weight: 700;
     background: var(--color-beige);
 }
 
@@ -94,7 +277,7 @@
     min-width: 2.5rem;
     min-height: 2.5rem;
     color: var(--color-text-default);
-    font-weight: 900;
+    font-weight: 700;
     border: 1px solid var(--color-line);
     border-radius: var(--radius-sm);
 }
@@ -113,7 +296,7 @@
 }
 
 .application-detail dl {
-    border-top: 2px solid var(--color-text-default);
+    border-top: 2px solid var(--color-line);
 }
 
 .application-detail dl > div {
@@ -130,7 +313,7 @@
 }
 
 .application-detail dt {
-    font-weight: 900;
+    font-weight: 700;
     background: var(--color-beige);
 }
 
@@ -171,6 +354,31 @@
 }
 
 @media (max-width: 599px) {
+    .application-lookup {
+        padding: var(--space-2);
+    }
+
+    .application-lookup__fields {
+        grid-template-columns: 1fr;
+    }
+
+    .application-master {
+        display: grid;
+    }
+
+    .application-master dl {
+        display: grid;
+        justify-content: stretch;
+    }
+
+    .application-master dl > div {
+        justify-content: space-between;
+    }
+
+    .application-lookup-guide ul {
+        padding-left: 3rem;
+    }
+
     .applications-search {
         display: grid;
         gap: .75rem;
@@ -226,7 +434,7 @@
     }
 
     .applications-board tr {
-        border: 1px solid var(--color-line);
+        border: 1px solid var(--color-card-line);
         border-radius: var(--radius-sm);
         overflow: hidden;
         background: var(--color-white);
@@ -251,7 +459,7 @@
     .applications-board td::before {
         content: attr(data-label);
         color: var(--color-text-default-soft);
-        font-weight: 900;
+        font-weight: 700;
     }
 
     .applications-board td[colspan] {

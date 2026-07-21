@@ -30,4 +30,10 @@ mysqli_close($mysqli);
 
 unset($_SESSION['verified_application_id']);
 
+$verifiedIds = array_map('intval', (array) ($_SESSION['verified_application_ids'] ?? []));
+$_SESSION['verified_application_ids'] = array_values(array_filter(
+    $verifiedIds,
+    static fn(int $verifiedId): bool => $verifiedId !== $applicationId
+));
+
 syc_move_with_alert('신청이 취소되었습니다.', BASE_URL . '/programs.php');

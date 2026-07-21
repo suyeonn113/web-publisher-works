@@ -309,7 +309,7 @@ function getProgramDetailContent(array $program, ?DateTime $today = null): array
 
     return [
         'description' => $program['description'] ?? "{$fieldLabel} 분야에 관심 있는 {$ageLabel}을 위한 참여형 프로그램입니다. {$tagText}를 주제로 직접 경험하고 협업하며 자신의 생각을 구체적인 활동으로 확장해 볼 수 있습니다.",
-        'location' => $program['location'] ?? '서울시립청소년센터 활동실',
+        'location' => $program['location'] ?? '시립서울청소년센터 활동실',
         'capacity' => $capacity,
         'applied_count' => $applied,
         'waiting_count' => (int) ($program['waiting_count'] ?? 0),

@@ -140,6 +140,7 @@
 
     fill: var(--color-text-default-70);
     stroke: var(--color-text-on);
+    stroke-width: 2;
 }
 .icon__symbol {
     fill: none;
@@ -265,7 +266,7 @@
 
 .main-menu__link:hover .icon--export,
 .main-menu__link:focus-visible .icon--export {
-    stroke: #e065bb!important;
+    stroke: var(--color-primary);
     stroke-width: 3.5;
 }
 

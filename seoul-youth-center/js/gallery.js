@@ -20,15 +20,19 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!gallerySlider || !galleryTrack || !prevButton || !nextButton) return;
 
     const BREAKPOINT_MOBILE = 480;
+    const BREAKPOINT_TABLET = 768;
     const DRAG_THRESHOLD = 50;
+    const AUTO_PLAY_DELAY = 4500;
 
     let resizeTimer = null;
+    let autoPlayTimer = null;
     let currentIndex = 0;
     let positions = [];
     let maxTranslate = 0;
 
     let startX = 0;
     let isDragging = false;
+    let renderedItemsPerPanel = null;
 
     /**
      * -----------------------------------------
@@ -38,71 +42,29 @@ document.addEventListener('DOMContentLoaded', () => {
      */
 
     const activityPhotos = [
-        {
-            id: 1,
-            title: '2026년 3월 특성화사업 움: 트다',
-            label: '[움연구소 4.0]',
-            imageSrc: 'assets/images/gallery/gallery-01.jpg',
-            imageAlt: '프로그램 참여자들이 실내에서 활동에 참여하고 있는 모습',
-            href: '#'
-        },
-        {
-            id: 2,
-            title: '2026년 청소년 연합 발대식',
-            label: '',
-            imageSrc: 'assets/images/gallery/gallery-02.jpg',
-            imageAlt: '청소년들이 현수막을 들고 있는 단체 사진',
-            href: '#'
-        },
-        {
-            id: 3,
-            title: '2026년 3월 특성화사업 움: 트다',
-            label: '[움아트]',
-            imageSrc: 'assets/images/gallery/gallery-03.jpg',
-            imageAlt: '청소년들이 직접 만든 작품을 들고 있는 모습',
-            href: '#'
-        },
-        {
-            id: 4,
-            title: '2026년 인공지능 청소년 프로그램 기획단',
-            label: '[서울AI메이커]',
-            imageSrc: 'assets/images/gallery/gallery-04.jpg',
-            imageAlt: '참여 청소년들의 단체 사진',
-            href: '#'
-        },
-        {
-            id: 5,
-            title: '2026년 2월 24기 청소년운영위원회',
-            label: '[청춘]',
-            imageSrc: 'assets/images/gallery/gallery-05.jpg',
-            imageAlt: '청소년들이 원으로 모여 회의를 진행하고 있는 모습',
-            href: '#'
-        },
-        {
-            id: 6,
-            title: '2026년 겨울방학 우.다.다 프로젝트',
-            label: '',
-            imageSrc: 'assets/images/gallery/gallery-06.jpg',
-            imageAlt: '참여자들이 둥글게 둥글게 활동을 진행하고 있는 모습',
-            href: '#'
-        },
-        {
-            id: 7,
-            title: '2025년 12월 청소년특봉대',
-            label: '',
-            imageSrc: 'assets/images/gallery/gallery-07.jpg',
-            imageAlt: '참가자들이 안대를 쓰고 시각장애인 체험 활동을 하는 모습',
-            href: '#'
-        },
-        {
-            id: 8,
-            title: '2025년 11월 예술로 다독다독',
-            label: '',
-            imageSrc: 'assets/images/gallery/gallery-08.jpg',
-            imageAlt: '참가자들이 그린 내가 바라는 미래 모습 작품 전시 사진',
-            href: '#'
-        }
-    ];
+        ['participation', 5, '참여활동', '동아리 활동', 'http://www.youthc.or.kr/upload/company/comp2026020311422.jpg'],
+        ['participation', 65, '참여활동', '자치단, 동아리 연합활동', 'http://www.youthc.or.kr/upload/company/comp20250416145854.jpg'],
+        ['participation', 32, '참여활동', '청소년운영위원회 청춘', 'http://www.youthc.or.kr/upload/company/comp20250418145337.jpg'],
+        ['participation', 104, '참여활동', '청소년지도사 실습', 'http://www.youthc.or.kr/upload/company/comp2025041815150.jpg'],
+        ['participation', 130, '참여활동', '서울 유스 캠퍼스', 'http://www.youthc.or.kr/upload/company/comp20260203152651.jpg'],
+        ['participation', 9, '참여활동', '캠프기획단 온기', 'http://www.youthc.or.kr/upload/company/comp20250418143725.jpg'],
+        ['participation', 111, '참여활동', '청소년특봉대', 'http://www.youthc.or.kr/upload/company/comp20260203142841.jpg'],
+        ['participation', 23, '참여활동', '도레미에코프로젝트', 'http://www.youthc.or.kr/upload/company/comp20260203141122.jpg'],
+        ['participation', 53, '참여활동', '보이는 상담소', 'http://www.youthc.or.kr/upload/company/comp20260203141352.jpg'],
+        ['training', 129, '수련활동', '서울청소년동행캠프', 'http://www.youthc.or.kr/upload/company/comp20260203105744.jpg'],
+        ['training', 71, '수련활동', '서울-지방 청소년 역사문화교류사업', 'http://www.youthc.or.kr/upload/company/comp20250418151240.jpg'],
+        ['training', 116, '수련활동', '온(ON)밤', 'http://www.youthc.or.kr/upload/company/comp20250418151341.jpg'],
+        ['training', 67, '수련활동', '꿀밤(Honey Bomb)', 'http://www.youthc.or.kr/upload/company/comp20250418151135.jpg'],
+        ['training', 70, '수련활동', '스쿨 오브 캠핑', 'http://www.youthc.or.kr/upload/company/comp20260203112645.jpg'],
+        ['training', 54, '수련활동', '여름방학 공정무역학교', 'http://www.youthc.or.kr/upload/company/comp20260203112234.jpg'],
+        ['community', 90, '지역연계활동', '청소년코디네이터 연계사업', 'http://www.youthc.or.kr/upload/company/comp20260203144853.jpg']
+    ].map(([category, id, label, title, imageSrc]) => ({
+        id: `${category}-${id}`,
+        title,
+        label,
+        imageSrc,
+        imageAlt: `${title} 프로그램 활동 사진`,
+    }));
 
     /**
      * -----------------------------------------
@@ -111,6 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
      */
 
     function buildAssetUrl(path) {
+        if (/^https?:\/\//i.test(path)) return path;
+
         const baseUrl = window.APP_BASE_URL || '';
         const normalizedBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
         const normalizedPath = path.startsWith('/') ? path.slice(1) : path;
@@ -122,12 +86,19 @@ document.addEventListener('DOMContentLoaded', () => {
         return window.innerWidth < BREAKPOINT_MOBILE;
     }
 
+    function getItemsPerPanel() {
+        return window.innerWidth >= BREAKPOINT_MOBILE
+            && window.innerWidth < BREAKPOINT_TABLET
+            ? 3
+            : 4;
+    }
+
     function clamp(value, min, max) {
         return Math.min(Math.max(value, min), max);
     }
 
     function getGalleryItems() {
-        return Array.from(galleryTrack.querySelectorAll('.gallery__item')).filter((item) => !item.hidden);
+        return Array.from(galleryTrack.querySelectorAll('.gallery__panel')).filter((item) => !item.hidden);
     }
 
     function setButtonState(button, isAvailable) {
@@ -160,16 +131,16 @@ document.addEventListener('DOMContentLoaded', () => {
         item.className = 'gallery__item';
 
         item.innerHTML = `
-            <a class="gallery__link" href="${photo.href}">
+            <div class="gallery__link">
                 <div class="gallery__image">
-                    <img src="${buildAssetUrl(photo.imageSrc)}" alt="${photo.imageAlt}">
+                    <img src="${buildAssetUrl(photo.imageSrc)}" alt="${photo.imageAlt}" referrerpolicy="no-referrer">
                 </div>
                 <div class="gallery__content">
                     <p class="gallery__title">${photo.title}
                         <span class="gallery__label">${photo.label}</span>
                     </p>
                 </div>
-            </a>
+            </div>
         `;
 
         return item;
@@ -189,10 +160,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const fragment = document.createDocumentFragment();
+        const itemsPerPanel = getItemsPerPanel();
 
-        items.forEach((photo) => {
-            fragment.appendChild(createGalleryItem(photo));
-        });
+        renderedItemsPerPanel = itemsPerPanel;
+
+        for (let index = 0; index < items.length; index += itemsPerPanel) {
+            const panel = document.createElement('li');
+            const collage = document.createElement('ul');
+
+            panel.className = 'gallery__panel';
+            collage.className = 'gallery__collage';
+
+            items.slice(index, index + itemsPerPanel).forEach((photo) => {
+                collage.appendChild(createGalleryItem(photo));
+            });
+
+            panel.appendChild(collage);
+            fragment.appendChild(panel);
+        }
 
         galleryTrack.appendChild(fragment);
     }
@@ -245,11 +230,10 @@ document.addEventListener('DOMContentLoaded', () => {
         prevButton.hidden = false;
         nextButton.hidden = false;
 
-        const hasPrev = currentIndex > 0;
-        const hasNext = positions.length > 1 && currentIndex < getLastIndex();
+        const hasMultiplePanels = positions.length > 1;
 
-        setButtonState(prevButton, hasPrev);
-        setButtonState(nextButton, hasNext);
+        setButtonState(prevButton, hasMultiplePanels);
+        setButtonState(nextButton, hasMultiplePanels);
     }
 
     function goTo(index) {
@@ -260,14 +244,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function goNext() {
         if (isMobileGridMode()) return;
-        if (currentIndex >= getLastIndex()) return;
-        goTo(currentIndex + 1);
+        if (positions.length <= 1) return;
+        goTo(currentIndex >= getLastIndex() ? 0 : currentIndex + 1);
     }
 
     function goPrev() {
         if (isMobileGridMode()) return;
-        if (currentIndex <= 0) return;
-        goTo(currentIndex - 1);
+        if (positions.length <= 1) return;
+        goTo(currentIndex <= 0 ? getLastIndex() : currentIndex - 1);
+    }
+
+    function stopAutoPlay() {
+        window.clearInterval(autoPlayTimer);
+        autoPlayTimer = null;
+    }
+
+    function startAutoPlay() {
+        stopAutoPlay();
+
+        if (
+            isMobileGridMode() ||
+            positions.length <= 1 ||
+            window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        ) {
+            return;
+        }
+
+        autoPlayTimer = window.setInterval(goNext, AUTO_PLAY_DELAY);
     }
 
     /**
@@ -280,6 +283,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isMobileGridMode()) return;
         if (event.pointerType === 'mouse' && event.button !== 0) return;
 
+        stopAutoPlay();
         startX = event.clientX;
         isDragging = true;
         galleryTrack.dataset.dragging = 'true';
@@ -295,17 +299,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (delta <= -DRAG_THRESHOLD) {
             goNext();
+            startAutoPlay();
             return;
         }
 
         if (delta >= DRAG_THRESHOLD) {
             goPrev();
         }
+
+        startAutoPlay();
     }
 
     function handlePointerCancel() {
         isDragging = false;
         delete galleryTrack.dataset.dragging;
+        startAutoPlay();
     }
 
     /**
@@ -314,6 +322,11 @@ document.addEventListener('DOMContentLoaded', () => {
      * -----------------------------------------
      */
     function syncGalleryState() {
+        if (renderedItemsPerPanel !== getItemsPerPanel()) {
+            renderGallery(activityPhotos);
+            currentIndex = 0;
+        }
+
         if (isMobileGridMode()) {
             currentIndex = 0;
             applyTranslate(0);
@@ -330,6 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         resizeTimer = window.setTimeout(() => {
             syncGalleryState();
+            startAutoPlay();
         }, 120);
     }
 
@@ -340,19 +354,43 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     renderGallery(activityPhotos);
     syncGalleryState();
+    startAutoPlay();
 
     /**
      * -----------------------------------------
      * 9) 이벤트 바인딩
      * -----------------------------------------
      */
-    prevButton.addEventListener('click', goPrev);
-    nextButton.addEventListener('click', goNext);
+    prevButton.addEventListener('click', () => {
+        goPrev();
+        startAutoPlay();
+    });
+    nextButton.addEventListener('click', () => {
+        goNext();
+        startAutoPlay();
+    });
 
     gallerySlider.addEventListener('pointerdown', handlePointerDown);
     gallerySlider.addEventListener('pointerup', handlePointerUp);
     gallerySlider.addEventListener('pointercancel', handlePointerCancel);
     gallerySlider.addEventListener('pointerleave', handlePointerCancel);
+    gallerySection.addEventListener('mouseenter', stopAutoPlay);
+    gallerySection.addEventListener('mouseleave', startAutoPlay);
+    gallerySection.addEventListener('focusin', stopAutoPlay);
+    gallerySection.addEventListener('focusout', (event) => {
+        if (!gallerySection.contains(event.relatedTarget)) {
+            startAutoPlay();
+        }
+    });
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            stopAutoPlay();
+            return;
+        }
+
+        startAutoPlay();
+    });
 
     window.addEventListener('resize', handleResize);
 });

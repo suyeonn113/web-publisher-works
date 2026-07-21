@@ -3,7 +3,7 @@ include __DIR__ . '/includes/config.php';
 
 http_response_code(404);
 
-$pageTitle = '페이지를 찾을 수 없습니다 | 서울시립청소년센터';
+$pageTitle = '페이지를 찾을 수 없습니다 | 시립서울청소년센터';
 ?>
 
 <!DOCTYPE html>

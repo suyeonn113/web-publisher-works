@@ -20,31 +20,47 @@ html {
 
     --color-text-on: #fff;
 
-    /* Gradient */
-    --color-accent-gradient: linear-gradient(45deg, #F8A33D 20%, #D946EF 100%);
+    /* Brand */
+    --color-primary: #EF8A36;
+    --color-primary-dark: #C66624;
+    --color-primary-70: rgb(239 138 54 / 70%);
+    --color-primary-20: rgb(239 138 54 / 20%);
+    --color-primary-10: rgb(239 138 54 / 10%);
+    --color-primary-soft: rgb(205 173 147 / 10%);
+    --color-secondary: #F6B25D;
+
+    /* Supporting accent - small informational elements only */
+    --color-accent-blue: #368FEF;
+    --color-accent-blue-dark: #2473D4;
+    --color-accent-blue-20: rgb(54 143 239 / 20%);
+    --color-accent-blue-soft: #F2F5F8;
+
+    /* Gradient - 제한된 강조 요소에만 사용 */
+    --color-accent-gradient: linear-gradient(135deg, #F6B25D 0%, #EF8A36 100%);
 
     /* Line */
-    --color-line: #D9D9D9;
-    --color-stroke: #B3B3B3;
+    --color-line: #E7EBEF;
+    --color-card-line: #E7EBEF;
+    --color-stroke: #A9B2BB;
 
-    /* Accent */
-    --color-orange: #FF8A3D;
-    --color-orange-70: rgb(255 128 61 / 70%);
-    --color-orange-20: rgb(255 128 61 / 20%);
+    /* Legacy accent aliases - 기존 컴포넌트를 새 브랜드 팔레트로 통일 */
+    --color-orange: var(--color-primary);
+    --color-orange-70: var(--color-primary-70);
+    --color-orange-20: var(--color-primary-20);
 
-    --color-yellow: #FBBF24;
-    --color-yellow-20: rgb(251 191 36 / 20%);
+    --color-yellow: var(--color-secondary);
+    --color-yellow-20: var(--color-primary-soft);
 
-    --color-lightyellow: #FFF1CE;
+    --color-lightyellow: var(--color-primary-soft);
 
-    --color-purple: #D946EF;
+    --color-purple: var(--color-accent-blue);
 
     --color-gray: #9CA3AF;
 
     /* Background */
-    --color-lightblue: #F1F5F9;
-    --color-lightgray: #EDEDED;
-    --color-beige: #F8F8F8;
+    --color-lightblue: var(--color-accent-blue-soft);
+    --color-lightgray: #E7EBEF;
+    --color-beige: var(--color-primary-soft);
     --color-white: #fff;
 
     /* SNS */

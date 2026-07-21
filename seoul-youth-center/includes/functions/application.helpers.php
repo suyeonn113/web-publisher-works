@@ -5,7 +5,7 @@ function syc_move_with_alert($message, $url = null)
     $safeMessage = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
     $safeUrl = $url ? htmlspecialchars($url, ENT_QUOTES, 'UTF-8') : '';
 
-    echo '<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><title>서울시립청소년센터</title></head><body>';
+    echo '<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><title>시립서울청소년센터</title></head><body>';
     echo '<script>';
     echo 'alert("' . $safeMessage . '");';
     echo $safeUrl ? 'location.href="' . $safeUrl . '";' : 'history.back();';
@@ -17,13 +17,19 @@ function syc_move_with_alert($message, $url = null)
 function syc_mask_name($name)
 {
     $name = trim((string) $name);
-    $length = mb_strlen($name, 'UTF-8');
+    $characters = preg_split('//u', $name, -1, PREG_SPLIT_NO_EMPTY);
+
+    if (!is_array($characters)) {
+        return $name;
+    }
+
+    $length = count($characters);
 
     if ($length <= 1) {
         return $name;
     }
 
-    return mb_substr($name, 0, 1, 'UTF-8') . str_repeat('*', max(1, $length - 1));
+    return $characters[0] . str_repeat('*', max(1, $length - 1));
 }
 
 function syc_mask_phone($phone)
@@ -40,8 +46,9 @@ function syc_mask_phone($phone)
 function syc_require_verified_application($applicationId)
 {
     $verifiedId = (int) ($_SESSION['verified_application_id'] ?? 0);
+    $verifiedIds = array_map('intval', (array) ($_SESSION['verified_application_ids'] ?? []));
 
-    if ($verifiedId !== (int) $applicationId) {
-        syc_move_with_alert('신청자 확인 후 이용해주세요.', BASE_URL . '/programs.php');
+    if ($verifiedId !== (int) $applicationId && !in_array((int) $applicationId, $verifiedIds, true)) {
+        syc_move_with_alert('신청자 확인 후 이용해주세요.', BASE_URL . '/applications.php');
     }
 }

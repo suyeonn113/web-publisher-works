@@ -21,9 +21,12 @@ $imageAlt = $image['alt'] ?? ($program['title'] ?? '');
 
 $url = $program['url'] ?? '#';
 $programId = (int) ($program['id'] ?? 0);
+$isEducationProgram = ($program['type'] ?? '') === 'education';
 
 if ($url === '#' && $programId > 0) {
-    $url = '/programs.php#program-' . $programId;
+    $url = $isEducationProgram
+        ? '/lifelong-education-classes.php'
+        : '/program-detail.php?id=' . $programId;
 }
 $title = $program['title'] ?? '';
 $summary = $program['summary'] ?? '';
@@ -45,7 +48,7 @@ $dataAttributes = $programMeta['data_attributes'] ?? [];
  * variant flags
  */
 $isHomeProgram = $cardVariant === 'home-program';
-$isHomeRecommend = $cardVariant === 'home-recommend';
+$isHomeRecommend = in_array($cardVariant, ['home-recommend', 'home-explorer'], true);
 $isProgramList = $cardVariant === 'program-list';
 
 /**
@@ -67,23 +70,31 @@ foreach ($dataAttributes as $name => $value) {
 
 <article class="<?= implode(' ', $cardClasses) ?>"<?= $cardAttributes ?>>
     <a class="card__link" 
-       href="<?= BASE_URL ?>/program-detail.php?id=<?= (int) ($program['id'] ?? 0) ?>"
+       href="<?= htmlspecialchars(BASE_URL . $url, ENT_QUOTES, 'UTF-8') ?>"
        aria-labelledby="program-card-title-<?= (int) ($program['id'] ?? 0) ?>">
 
         <!-- 이미지 영역 (공통) -->
         <div class="card__image">
-            <img
-                src="<?= htmlspecialchars(BASE_URL . $imageSrc, ENT_QUOTES, 'UTF-8') ?>"
-                alt="<?= htmlspecialchars($imageAlt, ENT_QUOTES, 'UTF-8') ?>"
-            >
+            <?php if ($imageSrc !== ''): ?>
+                <img
+                    src="<?= htmlspecialchars(BASE_URL . $imageSrc, ENT_QUOTES, 'UTF-8') ?>"
+                    alt="<?= htmlspecialchars($imageAlt, ENT_QUOTES, 'UTF-8') ?>"
+                >
+            <?php else: ?>
+                <span class="card__image-placeholder" aria-hidden="true">
+                    <img src="<?= BASE_URL ?>/assets/icons/education-program.svg" alt="">
+                    <strong>평생교육</strong>
+                </span>
+            <?php endif; ?>
 
-            <!-- 모집 상태 배지 (공통) -->
+            <!-- 모집 상태 배지: 이미지 카드 -->
             <?php if ($statusLabel): ?>
                 <span class="card__badge">
                     <span class="visually-hidden">모집 상태:</span>
                     <?= htmlspecialchars($statusLabel, ENT_QUOTES, 'UTF-8') ?>
                 </span>
             <?php endif; ?>
+
         </div>
 
         <div class="card__body">

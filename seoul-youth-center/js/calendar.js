@@ -21,6 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const yesterdayList = document.querySelector('#schedule-list-yesterday');
     const todayList = document.querySelector('#schedule-list-today');
     const tomorrowList = document.querySelector('#schedule-list-tomorrow');
+    const agenda = document.querySelector('.schedule-agenda');
+    const yesterdayGroup = document.querySelector('.schedule-agenda__group.yesterday');
+    const todayGroup = document.querySelector('.schedule-agenda__group.today');
+    const tomorrowGroup = document.querySelector('.schedule-agenda__group.tomorrow');
 
     if (
         !calendarRoot ||
@@ -32,7 +36,11 @@ document.addEventListener('DOMContentLoaded', () => {
         !headingButton ||
         !yesterdayList ||
         !todayList ||
-        !tomorrowList
+        !tomorrowList ||
+        !agenda ||
+        !yesterdayGroup ||
+        !todayGroup ||
+        !tomorrowGroup
     ) {
         return;
     }
@@ -45,22 +53,24 @@ document.addEventListener('DOMContentLoaded', () => {
     /* =========================
      * 2) 데모 일정 데이터
      * ========================= */
+    const baseUrl = window.APP_BASE_URL || '';
+
     const mockEvents = [
-        { id: 1, type: 'program', title: '청소년 진로 탐색 워크숍', date: '2026-03-22' },
+        { id: 1, type: 'program', title: '미래직업 오픈랩', date: '2026-03-22', href: '/program-detail.php?id=8' },
         { id: 2, type: 'center-event', title: '센터 운영 회의', date: '2026-03-22' },
 
-        { id: 3, type: 'program', title: '디지털 드로잉 클래스', date: '2026-03-23' },
-        { id: 4, type: 'center-event', title: '상반기 정직원 채용 면접', date: '2026-03-23' },
-        { id: 5, type: 'closed-day', title: '정기 휴관일 안내', date: '2026-03-23' },
+        { id: 3, type: 'program', title: '드로잉 앤 메이킹 클래스', date: '2026-03-23', href: '/program-detail.php?id=6' },
+        { id: 4, type: 'center-event', title: '상반기 정직원 채용 면접', date: '2026-03-23', href: '/notices.php?notice=14' },
+        { id: 5, type: 'closed-day', title: '정기 휴관일 안내', date: '2026-03-23', href: '/notices.php?notice=13' },
 
         { id: 6, type: 'center-event', title: '센터 일정 점검', date: '2026-03-24' },
-        { id: 7, type: 'program', title: '청소년 미디어 활동', date: '2026-03-24' },
+        { id: 7, type: 'program', title: '로컬체인지 메이커', date: '2026-03-24', href: '/program-detail.php?id=1' },
 
-        { id: 8, type: 'program', title: '멘토링 프로그램', date: '2026-03-10' },
+        { id: 8, type: 'program', title: '마음 잇기 프로젝트', date: '2026-03-10', href: '/program-detail.php?id=7' },
         { id: 9, type: 'center-event', title: '우수 기관 시상식', date: '2026-03-14' },
-        { id: 10, type: 'closed-day', title: '시설 점검 휴관', date: '2026-03-28' },
-        { id: 11, type: 'program', title: '봄맞이 특별 행사', date: '2026-04-02' },
-        { id: 12, type: 'program', title: '자기소개서 클리닉', date: '2026-04-07' }
+        { id: 10, type: 'closed-day', title: '시설 점검 휴관', date: '2026-03-28', href: '/notices.php' },
+        { id: 11, type: 'program', title: '아트 인사이트 투어', date: '2026-04-02', href: '/program-detail.php?id=9' },
+        { id: 12, type: 'program', title: '미래탐색 커리어 브릿지', date: '2026-04-07', href: '/program-detail.php?id=14' }
     ];
 
     /* =========================
@@ -76,6 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let selectedDateStr = DEMO_TODAY;
     let focusedDateStr = DEMO_TODAY;
+    let agendaAnimationTimer = null;
+    let isAgendaTransitioning = false;
 
     /* =========================
      * 4) 유틸
@@ -141,7 +153,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function selectDate(dateString, options = {}) {
         const {
             focusTargetDateStr = dateString,
-            shouldRenderAgenda = true
+            shouldRenderAgenda = true,
+            shouldFocusDate = true
         } = options;
 
         const selectedDate = parseLocalDate(dateString);
@@ -160,13 +173,15 @@ document.addEventListener('DOMContentLoaded', () => {
             renderAgenda();
         }
 
-        focusDateButton(focusTargetDateStr);
+        if (shouldFocusDate) {
+            focusDateButton(focusTargetDateStr);
+        }
     }
 
     /* =========================
      * 5) 일정 목록 렌더
      * ========================= */
-    function renderAgendaList(listElement, events) {
+    function renderAgendaList(listElement, events, showDetailLinks = false) {
         listElement.innerHTML = '';
 
         if (!events.length) {
@@ -179,6 +194,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const itemsMarkup = events.map((event) => {
+            const detailLink = showDetailLinks && event.href
+                ? `
+                    <a
+                        class="schedule-agenda__link"
+                        href="${baseUrl}${event.href}"
+                        aria-label="${event.title} 상세 페이지로 이동"
+                    >
+                        바로가기
+                    </a>
+                `
+                : '';
+
             return `
                 <li class="schedule-agenda__item">
                     <span
@@ -186,6 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         aria-label="${getTypeLabel(event.type)}"
                     ></span>
                     <p class="schedule-agenda__text">${event.title}</p>
+                    ${detailLink}
                 </li>
             `;
         }).join('');
@@ -199,8 +227,53 @@ document.addEventListener('DOMContentLoaded', () => {
         const tomorrowDate = addDays(selectedDateStr, 1);
 
         renderAgendaList(yesterdayList, getEventsByDate(yesterdayDate));
-        renderAgendaList(todayList, getEventsByDate(todayDate));
+        renderAgendaList(todayList, getEventsByDate(todayDate), true);
         renderAgendaList(tomorrowList, getEventsByDate(tomorrowDate));
+
+        yesterdayGroup.dataset.date = yesterdayDate;
+        todayGroup.dataset.date = todayDate;
+        tomorrowGroup.dataset.date = tomorrowDate;
+
+        window.requestAnimationFrame(() => {
+            if (window.innerWidth < 768) return;
+
+            agenda.scrollTop = todayGroup.offsetTop
+                - ((agenda.clientHeight - todayGroup.offsetHeight) / 2);
+        });
+    }
+
+    function changeAgendaDate(offset) {
+        if (window.innerWidth < 768 || isAgendaTransitioning) return;
+
+        const dateString = addDays(selectedDateStr, offset);
+        const directionClass = offset > 0
+            ? 'is-moving-forward'
+            : 'is-moving-backward';
+
+        isAgendaTransitioning = true;
+        agenda.classList.remove('is-moving-forward', 'is-moving-backward');
+        window.clearTimeout(agendaAnimationTimer);
+
+        selectDate(dateString, {
+            focusTargetDateStr: dateString,
+            shouldRenderAgenda: true,
+            shouldFocusDate: false
+        });
+
+        window.requestAnimationFrame(() => {
+            agenda.classList.add(directionClass);
+            agendaAnimationTimer = window.setTimeout(() => {
+                agenda.classList.remove(directionClass);
+                isAgendaTransitioning = false;
+            }, 320);
+        });
+    }
+
+    function handleAgendaWheel(event) {
+        if (window.innerWidth < 768 || Math.abs(event.deltaY) < 8) return;
+
+        event.preventDefault();
+        changeAgendaDate(event.deltaY > 0 ? 1 : -1);
     }
 
     /* =========================
@@ -432,6 +505,8 @@ document.addEventListener('DOMContentLoaded', () => {
         renderAgenda();
         focusDateButton(DEMO_TODAY);
     });
+
+    todayGroup.addEventListener('wheel', handleAgendaWheel, { passive: false });
 
     /* =========================
      * 9) 최초 실행

@@ -6,17 +6,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleButton = searchPanel.querySelector('.button--search__toggle');
     const searchBody = searchPanel.querySelector('#search__body');
     const searchInput = searchPanel.querySelector('#search__input');
+    const header = searchPanel.closest('.site-header');
 
     if (!toggleButton || !searchBody || !searchInput) return;
 
     let isClosing = false;
+    let closeTimer = null;
 
     function openSearch() {
+        window.clearTimeout(closeTimer);
         isClosing = false;
         searchBody.hidden = false;
 
         requestAnimationFrame(() => {
             searchPanel.dataset.state = 'open';
+            header?.classList.add('is-search-open');
             toggleButton.setAttribute('aria-expanded', 'true');
             toggleButton.setAttribute('aria-label', '검색 실행');
             searchInput.focus();
@@ -24,6 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function finishClose({ focusButton = false } = {}) {
+        if (searchPanel.dataset.state !== 'closed') return;
+
+        window.clearTimeout(closeTimer);
+        closeTimer = null;
         searchBody.hidden = true;
         isClosing = false;
 
@@ -37,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         isClosing = true;
 
         searchPanel.dataset.state = 'closed';
+        header?.classList.remove('is-search-open');
         toggleButton.setAttribute('aria-expanded', 'false');
         toggleButton.setAttribute('aria-label', '검색 열기');
 
@@ -46,12 +55,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const handleTransitionEnd = (event) => {
             if (event.target !== searchBody) return;
-            if (event.propertyName !== 'clip-path') return;
 
             finishClose(focusButton);
         };
 
         searchBody.addEventListener('transitionend', handleTransitionEnd, { once: true });
+        closeTimer = window.setTimeout(() => finishClose({ focusButton }), 400);
     }
 
     function submitSearch() {
