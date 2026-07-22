@@ -9,8 +9,10 @@
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/base/color.css">
 
     <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="<?= BASE_URL ?>/assets/icons/favicon.svg">
     <link rel="icon" href="<?= BASE_URL ?>/assets/icons/favicon.ico">
-    <link rel="apple-touch-icon" href="<?= BASE_URL ?>/assets/icons/favicon.png">
+    <link rel="icon" type="image/png" href="<?= BASE_URL ?>/assets/icons/favicon.png">
+    <link rel="apple-touch-icon" href="<?= BASE_URL ?>/assets/icons/apple-touch-icon.png">
 
     <!-- Layout -->
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/layout/layout.css">

@@ -1,16 +1,70 @@
-# React + Vite
+# DAISOMALL
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+상품 상세까지 넓게 복제하기보다, 사용 빈도가 높은 홈 탐색과 검색 결과 탐색에 집중한 React 커머스 UI 리디자인입니다.
 
-Currently, two official plugins are available:
+- Live: https://suyeonn.dothome.co.kr/daisomall/
+- Project type: Team project
+- My role: UI 기획, React 구조·상품 데이터 설계, 홈·검색 UI 구현
+- Stack: React, React Router, SCSS, Vite
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 프로젝트 개요
 
-## React Compiler
+팀 프로젝트 결과물을 제출용으로 다시 정리하면서 반응형 레이아웃, 정보 위계, 검색 UX와 키보드 접근성을 보완했습니다. 홈에서 상품을 발견하고 검색 결과에서 필터·정렬한 뒤, 상품 카드의 가격·평점·배송 정보를 비교하는 흐름을 핵심 범위로 설정했습니다.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 문제와 개선 방향
 
-## Expanding the ESLint configuration
+### 1. 메인 화면의 정보가 상품 구매 영역처럼 길게 이어짐
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 배송 서비스, 생활 카테고리, 신상품, 랭킹, 기획전을 목적별 섹션으로 나눴습니다.
+- 사용자가 "어떻게 둘러볼지" 먼저 선택할 수 있도록 상단 탐색 구조를 재정리했습니다.
+- 반복되는 상품 UI는 공통 카드와 리스트 컴포넌트로 분리했습니다.
+
+### 2. 검색 결과에서 현재 조건을 파악하기 어려움
+
+- 검색어와 결과 수를 문장으로 요약했습니다.
+- 배송 옵션과 정렬 기준을 선택 상태가 보이는 컨트롤로 구성했습니다.
+- 상품명, 가격, 평점, 배송 가능 여부를 빠르게 비교할 수 있도록 카드 정보 위계를 조정했습니다.
+
+### 3. 마우스 중심의 탐색 구조
+
+- 스킵 메뉴로 반복되는 헤더와 내비게이션을 건너뛸 수 있게 했습니다.
+- 랭킹과 기획전 탭은 방향키로 이동하고 Enter/Space로 선택할 수 있게 했습니다.
+- 카테고리 드로어의 대분류와 서브 카테고리를 키보드로 오갈 수 있게 했습니다.
+- 필터와 정렬 상태는 `aria-pressed`, 탭은 `aria-selected`와 `aria-controls`로 전달했습니다.
+
+## 핵심 사용자 흐름
+
+1. 홈에서 프로모션, 배송 서비스, 카테고리, 랭킹과 추천 상품을 탐색합니다.
+2. 검색창 또는 추천 키워드로 검색 결과 화면에 진입합니다.
+3. 배송 옵션과 정렬 기준으로 결과를 좁힙니다.
+4. 상품 카드에서 가격, 평점과 배송 가능 여부를 비교합니다.
+
+## 핵심 화면
+
+| 화면 | 주요 구현 | 확인 포인트 |
+| --- | --- | --- |
+| Home | 히어로, 배송 서비스, 카테고리, 신상품, 랭킹, 기획전, 추천 상품 | 역할별 섹션 구성과 반응형 상품 노출 |
+| Search | 검색어 입력, 추천 키워드, 결과 요약 | 검색 전·후 상태와 정보 위계 |
+| Search results | 배송 필터, 정렬, 상품 목록 | 선택 상태 전달과 상품 비교 흐름 |
+| Category drawer | 대분류·서브 카테고리 탐색 | 키보드 방향키 이동과 포커스 흐름 |
+
+## 구현 포인트
+
+- `MainLayout`을 기준으로 Header, MainCategoryNav, BottomTabBar와 Footer를 공통화했습니다.
+- 상품 데이터와 검색·필터·정렬 상태를 React state와 hook으로 분리했습니다.
+- `ProductCard`, `ProductCardList`, `SectionHeader`, `BadgeButton` 등 반복 UI를 컴포넌트화했습니다.
+- SCSS token과 breakpoint로 여백, 색상, radius와 focus ring 기준을 통일했습니다.
+- 이미지가 강한 배너와 기획전 카드에서도 포커스 표시가 묻히지 않도록 내부 포커스링을 적용했습니다.
+
+## 로컬 실행
+
+```bash
+npm install
+npm run dev
+```
+
+프로덕션 빌드는 `npm run build`, 코드 검사는 `npm run lint`로 확인할 수 있습니다.
+
+## 구현 범위
+
+다이소몰 전체 서비스를 복제한 프로젝트가 아닙니다. 포트폴리오에서 보여줄 홈과 검색 중심의 상품 탐색 경험을 구현 범위로 정했으며, 팀 프로젝트 이후 제출용으로 구조와 접근성을 추가 개선했습니다.

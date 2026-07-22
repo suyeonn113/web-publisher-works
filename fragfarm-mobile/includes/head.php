@@ -26,9 +26,10 @@ $documentTitle = $pageName === '' || strcasecmp($pageName, 'Fragfarm') === 0
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/core/typography.css">
 
     <!-- favicon -->
+    <link rel="icon" type="image/svg+xml" href="<?= BASE_URL ?>/assets/icons/favicon.svg">
     <link rel="icon" href="<?= BASE_URL ?>/assets/icons/favicon.ico">
     <link rel="icon" href="<?= BASE_URL ?>/assets/icons/favicon.png">
-    <link rel="apple-touch-icon" href="<?= BASE_URL ?>/assets/icons/favicon.png">
+    <link rel="apple-touch-icon" href="<?= BASE_URL ?>/assets/icons/apple-touch-icon.png">
 
     <!-- layout -->
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/layout/layout.css">
