@@ -2,21 +2,15 @@
  * SNS
  * - 탭 선택 / 미리보기 상태 관리
  * - 기본 활성 탭: instagram
- * - 카카오 링크는 SNS 흐름의 마지막 포커스 요소
+ * - 탭 목록은 WAI-ARIA 탭 패턴의 roving tabindex 사용
  * - 유튜브 카드 프리뷰:
  *   모든 화면에서 hover / focus / touchstart 시 무음 자동재생
  *   카드 이탈 / 탭 전환 / 패널 변경 시 즉시 정지
  *
  * 키보드 포커스 흐름
- * 1) 선택된 탭에서 Tab  : 해당 패널 첫 링크로 이동
- * 2) 패널 내부 Tab      : 링크 순차 이동
- * 3) 패널 마지막 링크 Tab:
- *    - 마지막 플랫폼이 아니면 다음 탭으로 이동 + 선택 확정
- *    - 마지막 플랫폼이면 카카오 링크로 이동
- * 4) 카카오 링크 다음 Tab: 다음 섹션(브라우저 기본 흐름)
- * 5) Shift + Tab
- *    - 패널 첫 링크에서 선택된 탭으로 복귀
- *    - 카카오 링크에서 마지막 플랫폼 패널 마지막 링크로 복귀
+ * - Tab / Shift+Tab: DOM 순서에 따라 다음·이전 콘텐츠로 자연스럽게 이동
+ * - SNS 플랫폼 간 이동: ArrowLeft / ArrowRight
+ * - 선택된 탭만 일반 Tab 순서에 포함
  *
  * 탭 조작
  * - ArrowLeft / ArrowRight : 탭 포커스만 이동
@@ -60,32 +54,8 @@ function initSnsTabs() {
         return !REDUCED_MOTION.matches;
     }
 
-    function getTabIndex(tab) {
-        return tabs.indexOf(tab);
-    }
-
     function getFirstTab() {
         return tabs[0] || null;
-    }
-
-    function getLastTab() {
-        return tabs[tabs.length - 1] || null;
-    }
-
-    function isLastTab(tab) {
-        return getTabIndex(tab) === tabs.length - 1;
-    }
-
-    function getNextTab(tab = selectedTab) {
-        const index = getTabIndex(tab);
-        if (index < 0) return null;
-        return tabs[index + 1] || null;
-    }
-
-    function getPrevTab(tab = selectedTab) {
-        const index = getTabIndex(tab);
-        if (index <= 0) return null;
-        return tabs[index - 1] || null;
     }
 
     function getPanelByTab(tab) {
@@ -94,32 +64,6 @@ function initSnsTabs() {
         return panels.find(
             (panel) => panel.dataset.platformPanel === tab.dataset.platform
         ) || null;
-    }
-
-    function getActivePanel() {
-        return getPanelByTab(selectedTab);
-    }
-
-    function getPanelFocusableItems(panel = getActivePanel()) {
-        if (!panel) return [];
-
-        return Array.from(
-            panel.querySelectorAll(
-                'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
-            )
-        ).filter((element) => {
-            return !element.closest('[hidden]') && 
-                element.offsetParent !== null;
-        });
-    }
-
-    function getFirstPanelFocusableItem(panel = getActivePanel()) {
-        return getPanelFocusableItems(panel)[0] || null;
-    }
-
-    function getLastPanelFocusableItem(panel = getActivePanel()) {
-        const items = getPanelFocusableItems(panel);
-        return items.length ? items[items.length - 1] : null;
     }
 
     function getYoutubePanel() {
@@ -332,32 +276,6 @@ function initSnsTabs() {
         targetTab.focus();
     }
 
-    function moveFromSelectedTabToPanel() {
-        const firstItem = getFirstPanelFocusableItem();
-        if (!firstItem) return false;
-
-        firstItem.focus();
-        return true;
-    }
-
-    function moveFromPanelEndToNextStep() {
-        if (!selectedTab) return false;
-
-        if (isLastTab(selectedTab)) {
-            if (kakaoLink) {
-                kakaoLink.focus();
-                return true;
-            }
-            return false;
-        }
-
-        const nextTab = getNextTab(selectedTab);
-        if (!nextTab) return false;
-
-        activateTab(nextTab, { moveFocus: true });
-        return true;
-    }
-
     function getDefaultTab() {
         return (
             tabs.find((tab) => tab.dataset.platform === DEFAULT_PLATFORM) ||
@@ -464,17 +382,6 @@ function initSnsTabs() {
                         activateTab(tab, { moveFocus: true });
                         break;
 
-                    case 'Tab':
-                        if (event.shiftKey) return;
-
-                        if (tab === selectedTab) {
-                            const moved = moveFromSelectedTabToPanel();
-                            if (moved) {
-                                event.preventDefault();
-                            }
-                        }
-                        break;
-
                     case 'Escape':
                         event.preventDefault();
                         restoreSelectedVisual();
@@ -486,38 +393,6 @@ function initSnsTabs() {
                 }
             });
         });
-    }
-
-    function bindPanelKeyboardFlow() {
-        document.addEventListener('keydown', (event) => {
-            if (event.key !== 'Tab') return;
-
-            const activePanel = panels.find(p => !p.hidden);
-            if (!activePanel) return;
-
-            const focusableItems = Array.from(
-                activePanel.querySelectorAll('a[href], button:not([disabled])')
-            ).filter(el => !el.closest('[hidden]') && el.offsetParent !== null);
-
-            if (!focusableItems.length) return;
-
-            const firstItem = focusableItems[0];
-            const lastItem = focusableItems[focusableItems.length - 1];
-            const focused = document.activeElement;
-
-            // Shift+Tab: 패널 첫 링크 → 선택된 탭으로 복귀
-            if (event.shiftKey && focused === firstItem) {
-                event.preventDefault();
-                selectedTab?.focus();
-                return;
-            }
-
-            // Tab: 패널 마지막 링크 → 다음 탭 or 카카오
-            if (!event.shiftKey && focused === lastItem) {
-                event.preventDefault();
-                moveFromPanelEndToNextStep();
-            }
-        }, true); // capture: true 핵심
     }
 
     function bindKakaoEvents() {
@@ -542,20 +417,6 @@ function initSnsTabs() {
         });
 
         kakaoLink.addEventListener('keydown', (event) => {
-            if (event.key === 'Tab' && event.shiftKey) {
-                const lastTab = getLastTab();
-
-                if (selectedTab !== lastTab) {
-                    activateTab(lastTab, { moveFocus: false });
-                }
-
-                const lastItem = getLastPanelFocusableItem(getActivePanel());
-                if (lastItem) {
-                    event.preventDefault();
-                    lastItem.focus();
-                }
-            }
-
             if (event.key === 'Escape') {
                 event.preventDefault();
                 restoreSelectedVisual();
@@ -587,7 +448,6 @@ function initSnsTabs() {
 
     setupInitialState();
     bindTabEvents();
-    bindPanelKeyboardFlow();
     bindKakaoEvents();
     bindTablistEvents();
     bindVideoPreviewEvents();

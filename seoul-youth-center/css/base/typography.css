@@ -75,12 +75,12 @@
 
     /* Body Text */
     --text-body-size: var(--fs-14);
-    --text-body-weight: 500;
+    --text-body-weight: 400;
 
     --text-body-sm-size: var(--fs-12);
 
     --text-body-lg-size: var(--fs-15);
-    --text-body-lg-weight: 500;
+    --text-body-lg-weight: 400;
 
     /* Buttons */
     --text-button-sm-size: var(--fs-12);
@@ -98,7 +98,7 @@
     /* Footer */
     --text-footer-size: var(--fs-13);
     --text-footer-accent-weight: 600;
-    --text-footer-copy-weight: 500;
+    --text-footer-copy-weight: 400;
 }
 
 
@@ -173,6 +173,34 @@
 
     /* Footer */
     --text-footer-size: var(--fs-14);
+}
+
+}
+
+
+/* ========================================
+                Wide Desktop
+======================================== */
+
+@media (min-width: 1536px) {
+
+:root {
+    --text-user-size: var(--fs-15);
+    --text-nav-main-size: var(--fs-17);
+    --text-nav-sub-size: var(--fs-16);
+    --text-quick-nav-size: var(--fs-14);
+
+    --text-title-section-size: var(--fs-28);
+    --text-title-subsection-size: var(--fs-20);
+
+    --text-body-size: var(--fs-17);
+    --text-body-sm-size: var(--fs-19);
+    --text-body-lg-size: var(--fs-21);
+
+    --text-button-sm-size: var(--fs-17);
+    --button-text-size: var(--fs-19);
+    --text-badge-size: var(--fs-15);
+    --text-footer-size: var(--fs-15);
 }
 
 }

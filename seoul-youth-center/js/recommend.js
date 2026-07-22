@@ -2,237 +2,220 @@ document.addEventListener('DOMContentLoaded', () => {
     const explorer = document.querySelector('.program-explorer');
     if (!explorer) return;
 
-    const form = explorer.querySelector('.recommend-filter');
-    const tabs = [...explorer.querySelectorAll('[data-program-type]')];
+    const result = explorer.querySelector('.program-explorer__result');
+    const slider = explorer.querySelector('.program-explorer__slider');
     const grid = explorer.querySelector('.program-explorer__grid');
     const count = explorer.querySelector('.program-explorer__count');
     const status = explorer.querySelector('.program-explorer__status');
-    const actions = explorer.querySelector('.program-explorer__actions');
-    const loadMore = explorer.querySelector('.program-explorer__load-more');
+    const previousButton = explorer.querySelector('.program-explorer__nav--prev');
+    const nextButton = explorer.querySelector('.program-explorer__nav--next');
     const allLink = explorer.querySelector('.program-explorer__all');
-    const reset = explorer.querySelector('.program-explorer__reset');
-    const description = explorer.querySelector('.program-explorer__description');
-    const mobileSelects = [...(form?.querySelectorAll('.recommend-filter__mobile select') ?? [])];
 
-    if (!form || !grid || !count || !status || !actions || !loadMore || !allLink || !reset) return;
+    if (!result || !slider || !grid || !count || !status || !previousButton || !nextButton || !allLink) return;
 
-    function getPageSize(type = 'youth') {
-        if (type === 'education') {
-            return window.matchMedia('(min-width: 768px)').matches ? 4 : 3;
-        }
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const AUTOPLAY_DELAY = 5200;
 
-        if (window.matchMedia('(min-width: 1024px)').matches) return 4;
-        if (window.matchMedia('(min-width: 768px)').matches) return 6;
-        return 4;
-    }
-
-    let currentPageSize = getPageSize();
-
-    const state = {
-        type: 'youth',
-        age: null,
-        field: null,
-        visible: currentPageSize,
-        payload: null,
-    };
-
+    let programCount = 0;
+    let currentIndex = 0;
+    let autoplayTimer = null;
+    let isAnimating = false;
+    let isPointerInside = false;
+    let isFocusInside = false;
     let requestController = null;
 
-    const typeInfo = {
-        youth: {
-            label: '청소년 프로그램',
-            htmlKey: 'youthHtml',
-            countKey: 'youthCount',
-            url: `${window.APP_BASE_URL || ''}/programs.php`,
-            description: '연령과 관심 분야를 선택하면 모집 중인 프로그램만 바로 보여드려요.',
-        },
-        education: {
-            label: '평생교육 프로그램',
-            htmlKey: 'educationHtml',
-            countKey: 'educationCount',
-            url: `${window.APP_BASE_URL || ''}/lifelong-education-classes.php#class-guide-title`,
-            description: '현재 모집 중인 평생교육 강좌와 주요 정보를 한눈에 확인해보세요.',
-        },
-    };
+    function getSlideStep() {
+        const firstCard = grid.querySelector('.card:not([data-carousel-clone="true"])');
+        if (!firstCard) return 0;
 
-    function hasFilters() {
-        return Boolean(state.age || state.field);
+        const styles = window.getComputedStyle(grid);
+        const gap = Number.parseFloat(styles.columnGap || styles.gap) || 0;
+        return firstCard.getBoundingClientRect().width + gap;
     }
 
-    function readUrlState() {
-        const params = new URLSearchParams(window.location.search);
-        const requestedType = params.get('programType');
+    function setPosition(index, animate = true) {
+        const step = getSlideStep();
+        if (!step) return;
 
-        state.type = typeInfo[requestedType] ? requestedType : 'youth';
-        state.age = params.get('age') || null;
-        state.field = params.get('field') || null;
+        grid.style.transition = animate ? '' : 'none';
+        grid.style.transform = `translate3d(${-index * step}px, 0, 0)`;
+
+        if (!animate) {
+            grid.getBoundingClientRect();
+            grid.style.transition = '';
+        }
     }
 
-    function writeUrlState() {
-        const params = new URLSearchParams(window.location.search);
-
-        state.age ? params.set('age', state.age) : params.delete('age');
-        state.field ? params.set('field', state.field) : params.delete('field');
-        state.type === 'education' ? params.set('programType', state.type) : params.delete('programType');
-
-        const query = params.toString();
-        window.history.replaceState({}, '', `${window.location.pathname}${query ? `?${query}` : ''}`);
+    function stopAutoplay() {
+        window.clearInterval(autoplayTimer);
+        autoplayTimer = null;
     }
 
-    function applyControlState() {
-        form.dataset.hasSelection = hasFilters() ? 'true' : 'false';
-        explorer.dataset.programType = state.type;
-        form.hidden = state.type === 'education';
-        reset.hidden = state.type === 'education' || !hasFilters();
-        if (description) description.textContent = typeInfo[state.type].description;
+    function startAutoplay() {
+        stopAutoplay();
+        if (programCount <= 1 || reduceMotion.matches || isPointerInside || isFocusInside || document.hidden) return;
 
-        form.querySelectorAll('.button--filter').forEach((button) => {
-            const selected = state[button.name] === button.value;
-            button.setAttribute('aria-pressed', selected ? 'true' : 'false');
-        });
-
-        mobileSelects.forEach((select) => {
-            select.value = state[select.name] || '';
-        });
-
-        tabs.forEach((tab) => {
-            tab.setAttribute('aria-selected', tab.dataset.programType === state.type ? 'true' : 'false');
-        });
+        autoplayTimer = window.setInterval(() => {
+            moveNext();
+        }, AUTOPLAY_DELAY);
     }
 
-    function render() {
-        if (!state.payload) return;
+    function moveNext() {
+        if (programCount <= 1 || isAnimating) return;
 
-        const info = typeInfo[state.type];
-        const total = Number(state.payload[info.countKey]) || 0;
-        const html = typeof state.payload[info.htmlKey] === 'string' ? state.payload[info.htmlKey] : '';
-
-        grid.innerHTML = html;
-        const cards = [...grid.querySelectorAll('.card')];
-        const isEducation = state.type === 'education';
-        cards.forEach((card, index) => {
-            card.hidden = !isEducation && index >= state.visible;
-        });
-
-        const visibleCount = isEducation ? total : Math.min(state.visible, total);
-        const filterCopy = state.type === 'youth' && hasFilters() ? '선택한 조건에 맞는 ' : '현재 모집 중인 ';
-        count.textContent = `${filterCopy}${info.label} ${total}개`;
-        status.hidden = total > 0;
-        status.textContent = total > 0 ? '' : '선택한 조건에 맞는 모집 중 프로그램이 없습니다.';
-
-        actions.hidden = total === 0 || isEducation;
-        if (isEducation) {
-            loadMore.hidden = true;
-            allLink.hidden = true;
-        } else {
-            const pageLimit = currentPageSize * 2;
-            loadMore.hidden = total <= visibleCount || state.visible >= pageLimit;
-            loadMore.textContent = '펼쳐서 더보기';
-            allLink.hidden = state.visible < Math.min(total, pageLimit);
-            allLink.href = info.url;
-            allLink.textContent = `${info.label} 전체 보기`;
+        if (reduceMotion.matches) {
+            currentIndex = (currentIndex + 1) % programCount;
+            setPosition(currentIndex, false);
+            return;
         }
 
-        explorer.querySelector('.program-explorer__result').setAttribute('aria-busy', 'false');
+        isAnimating = true;
+        currentIndex += 1;
+        setPosition(currentIndex, true);
+    }
+
+    function movePrevious() {
+        if (programCount <= 1 || isAnimating) return;
+
+        if (reduceMotion.matches) {
+            currentIndex = (currentIndex - 1 + programCount) % programCount;
+            setPosition(currentIndex, false);
+            return;
+        }
+
+        isAnimating = true;
+
+        if (currentIndex === 0) {
+            currentIndex = programCount;
+            setPosition(currentIndex, false);
+            currentIndex -= 1;
+            window.requestAnimationFrame(() => setPosition(currentIndex, true));
+            return;
+        }
+
+        currentIndex -= 1;
+        setPosition(currentIndex, true);
+    }
+
+    function prepareCarousel() {
+        const cards = [...grid.querySelectorAll('.card')];
+        programCount = cards.length;
+        currentIndex = 0;
+        isAnimating = false;
+
+        cards.forEach((card, index) => {
+            card.setAttribute('aria-label', `${index + 1} / ${programCount}`);
+
+            const clone = card.cloneNode(true);
+            clone.dataset.carouselClone = 'true';
+            clone.setAttribute('aria-hidden', 'true');
+            clone.removeAttribute('aria-label');
+            clone.querySelectorAll('a, button, input, select, textarea').forEach((element) => {
+                element.tabIndex = -1;
+            });
+            grid.append(clone);
+        });
+
+        previousButton.disabled = programCount <= 1;
+        nextButton.disabled = programCount <= 1;
+        setPosition(0, false);
+        startAutoplay();
+    }
+
+    function render(payload) {
+        const total = Number(payload.youthCount) || 0;
+        const html = typeof payload.youthHtml === 'string' ? payload.youthHtml : '';
+
+        stopAutoplay();
+        grid.innerHTML = html;
+        count.innerHTML = `<strong>${total}</strong>개`;
+        count.setAttribute('aria-label', `현재 접수 중인 프로그램 ${total}개`);
+        status.hidden = total > 0;
+        status.textContent = total > 0 ? '' : '현재 접수 중인 프로그램이 없습니다.';
+        slider.hidden = total === 0;
+        allLink.href = `${window.APP_BASE_URL || ''}/programs.php?status=ongoing`;
+
+        if (total > 0) prepareCarousel();
+        result.setAttribute('aria-busy', 'false');
     }
 
     async function fetchPrograms() {
         requestController?.abort();
         requestController = new AbortController();
 
-        const params = new URLSearchParams();
-        if (state.age) params.set('age', state.age);
-        if (state.field) params.set('field', state.field);
-
         const base = window.APP_BASE_URL || '';
-        const url = `${base}/api/recommend-programs.php${params.toString() ? `?${params}` : ''}`;
-
-        explorer.querySelector('.program-explorer__result').setAttribute('aria-busy', 'true');
+        result.setAttribute('aria-busy', 'true');
         status.hidden = false;
         status.textContent = '프로그램을 불러오는 중입니다.';
-        actions.hidden = true;
+        slider.hidden = true;
 
         try {
-            const response = await fetch(url, {
+            const response = await fetch(`${base}/api/recommend-programs.php`, {
                 headers: { Accept: 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
                 signal: requestController.signal,
             });
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
-            state.payload = await response.json();
-            render();
+            render(await response.json());
         } catch (error) {
             if (error.name === 'AbortError') return;
             console.error('프로그램을 불러오지 못했습니다.', error);
-            count.textContent = '프로그램을 불러오지 못했습니다.';
+            count.textContent = '오류';
+            count.setAttribute('aria-label', '프로그램을 불러오지 못했습니다.');
             status.hidden = false;
             status.textContent = '잠시 후 다시 시도해주세요.';
+            slider.hidden = true;
             grid.innerHTML = '';
         } finally {
-            explorer.querySelector('.program-explorer__result').setAttribute('aria-busy', 'false');
+            result.setAttribute('aria-busy', 'false');
         }
     }
 
-    form.addEventListener('submit', (event) => event.preventDefault());
-    form.addEventListener('click', (event) => {
-        const button = event.target.closest('.button--filter');
-        if (!button || !form.contains(button)) return;
+    grid.addEventListener('transitionend', (event) => {
+        if (event.propertyName !== 'transform') return;
 
-        state[button.name] = state[button.name] === button.value ? null : button.value;
-        state.visible = currentPageSize;
-        applyControlState();
-        writeUrlState();
-        fetchPrograms();
+        if (currentIndex >= programCount) {
+            currentIndex = 0;
+            setPosition(currentIndex, false);
+        }
+
+        isAnimating = false;
     });
 
-    form.addEventListener('change', (event) => {
-        const select = event.target.closest('.recommend-filter__mobile select');
-        if (!select || !form.contains(select)) return;
-
-        state[select.name] = select.value || null;
-        state.visible = currentPageSize;
-        applyControlState();
-        writeUrlState();
-        fetchPrograms();
+    previousButton.addEventListener('click', () => {
+        movePrevious();
+        startAutoplay();
     });
 
-    tabs.forEach((tab) => {
-        tab.addEventListener('click', () => {
-            state.type = tab.dataset.programType;
-            currentPageSize = getPageSize(state.type);
-            state.visible = currentPageSize;
-            applyControlState();
-            writeUrlState();
-            render();
-        });
+    nextButton.addEventListener('click', () => {
+        moveNext();
+        startAutoplay();
     });
 
-    loadMore.addEventListener('click', () => {
-        state.visible = Math.min(currentPageSize * 2, state.visible + currentPageSize);
-        render();
+    slider.addEventListener('pointerenter', () => {
+        isPointerInside = true;
+        stopAutoplay();
     });
 
-    reset.addEventListener('click', () => {
-        state.age = null;
-        state.field = null;
-        state.visible = currentPageSize;
-        applyControlState();
-        writeUrlState();
-        fetchPrograms();
+    slider.addEventListener('pointerleave', () => {
+        isPointerInside = false;
+        startAutoplay();
     });
 
-    window.addEventListener('resize', () => {
-        const nextPageSize = getPageSize(state.type);
-        if (nextPageSize === currentPageSize) return;
-
-        currentPageSize = nextPageSize;
-        state.visible = currentPageSize;
-        render();
+    slider.addEventListener('focusin', () => {
+        isFocusInside = true;
+        stopAutoplay();
     });
 
-    readUrlState();
-    currentPageSize = getPageSize(state.type);
-    state.visible = currentPageSize;
-    applyControlState();
+    slider.addEventListener('focusout', (event) => {
+        if (slider.contains(event.relatedTarget)) return;
+        isFocusInside = false;
+        startAutoplay();
+    });
+
+    reduceMotion.addEventListener('change', startAutoplay);
+    document.addEventListener('visibilitychange', startAutoplay);
+    window.addEventListener('resize', () => setPosition(currentIndex, false));
+
     fetchPrograms();
 });

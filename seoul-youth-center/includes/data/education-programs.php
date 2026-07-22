@@ -15,7 +15,7 @@
  * - sort_order
  *
  * [상태 계산 규칙]
- * - 모집중: recruitment_start_date <= today <= recruitment_end_date
+ * - 접수중: recruitment_start_date <= today <= recruitment_end_date
  * - 상시: is_ongoing === true
  *
  * [평생교육 특이점]
@@ -43,7 +43,7 @@
 $educationPrograms = [
 
     // ========================
-    // 모집중
+    // 접수중
     // ========================
     [
         'id' => 201,

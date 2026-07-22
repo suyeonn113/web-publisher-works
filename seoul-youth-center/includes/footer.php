@@ -1,3 +1,17 @@
+<a class="kakao-contact"
+   href="https://pf.kakao.com/_pqVxaG"
+   target="_blank"
+   rel="noopener"
+    aria-label="카카오톡 채널로 문의하기 (새 창)">
+    <span class="kakao-contact__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" focusable="false">
+            <path d="M20.5 11.25a8.5 8.5 0 0 1-9 8.47 9.62 9.62 0 0 1-3.13-.75l-3.65 1.16 1.18-3.48a8.5 8.5 0 1 1 14.6-5.4Z"/>
+            <path class="kakao-contact__question" d="M9.75 9.18a2.35 2.35 0 0 1 4.5.92c0 1.72-2.25 1.85-2.25 3.28"/>
+            <path class="kakao-contact__question" d="M12 16.25h.01"/>
+        </svg>
+    </span>
+</a>
+
 <footer>
     <div class="footer__top wrapper">
         <ul class="footer__links inner">

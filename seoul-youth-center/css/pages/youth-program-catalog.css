@@ -91,7 +91,7 @@
 }
 
 .catalog-program-card__link:focus-visible {
-    outline: 3px solid var(--color-primary-20);
+    outline: 2px solid #17324D;
     outline-offset: -3px;
 }
 
@@ -162,7 +162,7 @@
     min-height: 3.3rem;
     color: var(--color-text-default-soft);
     font-size: var(--fs-12);
-    font-weight: 600;
+    font-weight: 400;
     line-height: 1.45;
 }
 
@@ -270,8 +270,12 @@
 .catalog-detail__intro > div {
     color: var(--color-text-default-soft);
     font-size: var(--fs-15);
-    font-weight: 600;
+    font-weight: 400;
     line-height: 1.85;
+}
+
+.youth-detail-page .catalog-detail + .info-section {
+    margin-top: clamp(2.5rem, 5vw, 4rem);
 }
 
 .catalog-fact-list {
@@ -306,7 +310,7 @@
 
 .catalog-fact-list dd {
     color: var(--color-text-default-soft);
-    font-weight: 600;
+    font-weight: 400;
 }
 
 .catalog-detail-cta {
@@ -334,7 +338,7 @@
 .catalog-detail-cta p {
     color: var(--color-text-default-soft);
     font-size: var(--fs-13);
-    font-weight: 600;
+    font-weight: 400;
     line-height: 1.65;
 }
 

@@ -93,11 +93,11 @@ $refundGroups = [
                 </header>
                 <ol class="service-process">
                     <li>
-                        <div><strong>접수 방문</strong><p>센터 안내데스크 또는 접수처에서 신청할 강좌를 확인합니다.</p></div>
+                        <div><strong>강좌 선택</strong><p>온라인 신청 페이지 또는 센터 안내데스크에서 접수 가능한 강좌를 확인합니다.</p></div>
                         <svg class="service-process__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
                     </li>
                     <li>
-                        <div><strong>신청서 작성</strong><p>수강생 정보와 연락처를 정확하게 작성합니다.</p></div>
+                        <div><strong>신청서 작성</strong><p>온라인 신청서에 수강생 정보와 연락처를 정확하게 작성합니다.</p></div>
                         <svg class="service-process__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
                     </li>
                     <li>
@@ -121,7 +121,7 @@ $refundGroups = [
                             </svg>
                             <span>접수 방법</span>
                         </dt>
-                        <dd>방문 접수 · 선착순 마감</dd>
+                        <dd>온라인·방문 접수 · 선착순 마감</dd>
                     </div>
                     <div>
                         <dt>
@@ -266,10 +266,13 @@ $refundGroups = [
             <section class="info-section" aria-label="평생교육 강좌 이동">
                 <div class="service-contact">
                     <div>
-                        <strong>어떤 강좌를 선택할지 고민되나요?</strong>
-                        <p>요일, 시간, 대상과 수강료를 비교해 나에게 맞는 강좌를 확인해보세요.</p>
+                        <strong>접수 가능한 강좌를 바로 확인하세요</strong>
+                        <p>요일, 대상, 수강료와 잔여 정원을 비교하고 온라인으로 신청할 수 있습니다.</p>
                     </div>
-                    <a class="info-button" href="<?= BASE_URL ?>/lifelong-education-classes.php">교육강좌 보기</a>
+                    <div class="service-contact__actions">
+                        <a class="info-button" href="<?= BASE_URL ?>/lifelong-education-apply.php">평생교육 신청하기</a>
+                        <a class="info-button info-button--line" href="<?= BASE_URL ?>/lifelong-education-classes.php">전체 강좌 안내</a>
+                    </div>
                 </div>
             </section>
         </div>

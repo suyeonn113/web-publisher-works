@@ -125,7 +125,7 @@
 
 .program-apply-card__summary span {
     color: var(--color-text-default-soft);
-    font-weight: 600;
+    font-weight: 400;
 }
 
 .program-apply-fields {
@@ -166,7 +166,7 @@
 
 .program-apply-fields input:focus,
 .program-apply-fields select:focus {
-    outline: 2px solid var(--color-purple);
+    outline: 2px solid #17324D;
     outline-offset: -2px;
 }
 

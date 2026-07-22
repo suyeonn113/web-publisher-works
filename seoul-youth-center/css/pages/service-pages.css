@@ -318,7 +318,7 @@
 
     .refund-tabs__button:focus-visible,
     .refund-panel:focus-visible {
-        outline: 2px solid var(--color-accent-blue);
+        outline: 2px solid #17324D;
         outline-offset: 2px;
     }
 
@@ -406,7 +406,7 @@
     padding-left: 0;
     color: var(--color-text-default-soft);
     font-size: var(--fs-14);
-    font-weight: 600;
+    font-weight: 400;
     line-height: 1.55;
     text-align: center;
 }
@@ -565,7 +565,7 @@
     padding: .55rem .85rem;
     color: var(--color-text-default-soft);
     font-size: var(--fs-13);
-    font-weight: 600;
+    font-weight: 500;
     border: 1px solid var(--color-card-line);
     border-radius: var(--radius-sm);
     background: var(--color-white);
@@ -894,6 +894,18 @@
     color: var(--color-text-on);
     border-color: var(--color-primary);
     background: var(--color-primary);
+}
+
+.service-contact .service-contact__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1);
+}
+
+.service-contact .info-button--line {
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    background: var(--color-white);
 }
 
 .space-booking {

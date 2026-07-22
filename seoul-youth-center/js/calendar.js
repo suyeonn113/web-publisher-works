@@ -3,7 +3,7 @@
  * - 데모 기준일 고정
  * - 월 자동 생성
  * - 날짜 선택
- * - 어제 / 오늘 / 내일 일정 목록 렌더
+ * - 선택 날짜 일정 목록 렌더
  * - roving tabindex
  * - 방향키 이동
  * - 정석 구조: gridcell + button
@@ -18,13 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextButton = document.querySelector('.schedule-calendar__nav--next');
     const headingButton = document.querySelector('.schedule-calendar__heading');
 
-    const yesterdayList = document.querySelector('#schedule-list-yesterday');
     const todayList = document.querySelector('#schedule-list-today');
-    const tomorrowList = document.querySelector('#schedule-list-tomorrow');
-    const agenda = document.querySelector('.schedule-agenda');
-    const yesterdayGroup = document.querySelector('.schedule-agenda__group.yesterday');
     const todayGroup = document.querySelector('.schedule-agenda__group.today');
-    const tomorrowGroup = document.querySelector('.schedule-agenda__group.tomorrow');
 
     if (
         !calendarRoot ||
@@ -34,13 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
         !prevButton ||
         !nextButton ||
         !headingButton ||
-        !yesterdayList ||
         !todayList ||
-        !tomorrowList ||
-        !agenda ||
-        !yesterdayGroup ||
-        !todayGroup ||
-        !tomorrowGroup
+        !todayGroup
     ) {
         return;
     }
@@ -86,8 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let selectedDateStr = DEMO_TODAY;
     let focusedDateStr = DEMO_TODAY;
-    let agendaAnimationTimer = null;
-    let isAgendaTransitioning = false;
 
     /* =========================
      * 4) 유틸
@@ -183,6 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * ========================= */
     function renderAgendaList(listElement, events, showDetailLinks = false) {
         listElement.innerHTML = '';
+        listElement.scrollTop = 0;
 
         if (!events.length) {
             listElement.innerHTML = `
@@ -222,58 +211,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderAgenda() {
-        const yesterdayDate = addDays(selectedDateStr, -1);
-        const todayDate = selectedDateStr;
-        const tomorrowDate = addDays(selectedDateStr, 1);
+        const selectedEvents = getEventsByDate(selectedDateStr);
 
-        renderAgendaList(yesterdayList, getEventsByDate(yesterdayDate));
-        renderAgendaList(todayList, getEventsByDate(todayDate), true);
-        renderAgendaList(tomorrowList, getEventsByDate(tomorrowDate));
-
-        yesterdayGroup.dataset.date = yesterdayDate;
-        todayGroup.dataset.date = todayDate;
-        tomorrowGroup.dataset.date = tomorrowDate;
-
-        window.requestAnimationFrame(() => {
-            if (window.innerWidth < 768) return;
-
-            agenda.scrollTop = todayGroup.offsetTop
-                - ((agenda.clientHeight - todayGroup.offsetHeight) / 2);
-        });
-    }
-
-    function changeAgendaDate(offset) {
-        if (window.innerWidth < 768 || isAgendaTransitioning) return;
-
-        const dateString = addDays(selectedDateStr, offset);
-        const directionClass = offset > 0
-            ? 'is-moving-forward'
-            : 'is-moving-backward';
-
-        isAgendaTransitioning = true;
-        agenda.classList.remove('is-moving-forward', 'is-moving-backward');
-        window.clearTimeout(agendaAnimationTimer);
-
-        selectDate(dateString, {
-            focusTargetDateStr: dateString,
-            shouldRenderAgenda: true,
-            shouldFocusDate: false
-        });
-
-        window.requestAnimationFrame(() => {
-            agenda.classList.add(directionClass);
-            agendaAnimationTimer = window.setTimeout(() => {
-                agenda.classList.remove(directionClass);
-                isAgendaTransitioning = false;
-            }, 320);
-        });
-    }
-
-    function handleAgendaWheel(event) {
-        if (window.innerWidth < 768 || Math.abs(event.deltaY) < 8) return;
-
-        event.preventDefault();
-        changeAgendaDate(event.deltaY > 0 ? 1 : -1);
+        renderAgendaList(todayList, selectedEvents, true);
+        todayGroup.dataset.date = selectedDateStr;
+        todayGroup.dataset.eventCount = String(selectedEvents.length);
+        todayGroup.classList.toggle('is-scrollable', selectedEvents.length > 3);
     }
 
     /* =========================
@@ -505,8 +448,6 @@ document.addEventListener('DOMContentLoaded', () => {
         renderAgenda();
         focusDateButton(DEMO_TODAY);
     });
-
-    todayGroup.addEventListener('wheel', handleAgendaWheel, { passive: false });
 
     /* =========================
      * 9) 최초 실행

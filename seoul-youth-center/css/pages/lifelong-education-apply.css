@@ -1,0 +1,314 @@
+@charset "utf-8";
+
+.lifelong-apply-page {
+    padding-bottom: var(--section-padding-block);
+    background: var(--color-white);
+}
+
+.lifelong-apply-content {
+    display: grid;
+    gap: var(--space-6);
+    padding-block: var(--space-5) var(--section-padding-block);
+}
+
+.lifelong-course-search {
+    display: grid;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    border: 1px solid var(--color-card-line);
+    border-radius: var(--radius-md);
+    background: #f8fafc;
+}
+
+.lifelong-course-search__heading,
+.lifelong-course-results__heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: var(--space-2);
+}
+
+.lifelong-course-search__heading p {
+    margin-bottom: .35rem;
+    color: var(--color-orange);
+    font-size: var(--fs-13);
+    font-weight: 700;
+    letter-spacing: .08em;
+}
+
+.lifelong-course-search__heading h2,
+.lifelong-course-results__heading h2 {
+    color: var(--color-text-default);
+    font-size: var(--text-title-section-size);
+}
+
+.lifelong-course-search__heading > span {
+    color: var(--color-text-default-soft);
+    font-size: var(--fs-14);
+}
+
+.lifelong-course-search form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-2);
+}
+
+.lifelong-course-search label {
+    display: grid;
+    gap: .5rem;
+    min-width: 0;
+    color: var(--color-text-default);
+    font-weight: 600;
+}
+
+.lifelong-course-search select,
+.lifelong-course-search input {
+    width: 100%;
+    min-height: 3.25rem;
+    padding-inline: var(--space-2);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-sm);
+    background: var(--color-white);
+}
+
+.lifelong-course-search__keyword {
+    grid-column: 1 / -1;
+}
+
+.lifelong-course-search__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-1);
+    grid-column: 1 / -1;
+}
+
+.lifelong-course-search__actions a,
+.lifelong-course-search__actions button,
+.lifelong-course-apply {
+    display: inline-grid;
+    place-items: center;
+    min-height: 3rem;
+    padding-inline: var(--space-3);
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+}
+
+.lifelong-course-search__actions a {
+    color: var(--color-text-default);
+    border: 1px solid var(--color-line);
+    background: var(--color-white);
+}
+
+.lifelong-course-search__actions button,
+.lifelong-course-apply {
+    color: var(--color-text-on);
+    background: var(--color-orange);
+}
+
+.lifelong-course-results {
+    display: grid;
+    gap: var(--space-3);
+}
+
+.lifelong-course-results__heading strong {
+    color: var(--color-orange);
+}
+
+.lifelong-course-table-wrap {
+    overflow-x: auto;
+    border-top: 2px solid #17324d;
+}
+
+.lifelong-course-table {
+    width: 100%;
+    min-width: 76rem;
+    color: var(--color-text-default);
+}
+
+.lifelong-course-table th,
+.lifelong-course-table td {
+    padding: .9rem .75rem;
+    text-align: center;
+    border-right: 1px solid var(--color-line);
+    border-bottom: 1px solid var(--color-line);
+}
+
+.lifelong-course-table th:last-child,
+.lifelong-course-table td:last-child {
+    border-right: 0;
+}
+
+.lifelong-course-table thead th {
+    font-size: var(--fs-14);
+    background: #f1f4f7;
+}
+
+.lifelong-course-table tbody th {
+    min-width: 13rem;
+    text-align: left;
+}
+
+.lifelong-course-table tbody th strong,
+.lifelong-course-table tbody th span {
+    display: block;
+}
+
+.lifelong-course-table tbody th strong {
+    font-weight: 500;
+}
+
+.lifelong-course-table tbody th span {
+    margin-top: .25rem;
+    color: var(--color-text-default-soft);
+    font-size: var(--fs-13);
+    font-weight: 400;
+}
+
+.lifelong-course-status {
+    display: inline-flex;
+    padding: .35rem .65rem;
+    color: #0a6847;
+    font-size: var(--fs-13);
+    font-weight: 500;
+    border-radius: var(--radius-full);
+    background: #e6f7f0;
+}
+
+.lifelong-course-apply {
+    min-height: 2.5rem;
+    padding-inline: 1rem;
+    font-size: var(--fs-14);
+}
+
+.lifelong-course-progress-row td {
+    padding: .55rem .75rem .75rem;
+    background: #fbfcfd;
+}
+
+.lifelong-course-progress {
+    height: .55rem;
+    overflow: hidden;
+    border-radius: var(--radius-full);
+    background: #e7ebef;
+}
+
+.lifelong-course-progress span {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: #17324D;
+}
+
+.lifelong-course-progress-row small {
+    display: block;
+    margin-top: .3rem;
+    color: var(--color-text-default-soft);
+    text-align: right;
+}
+
+.lifelong-course-results__empty {
+    padding: var(--space-6) var(--space-2);
+    color: var(--color-text-default-soft);
+    text-align: center;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+}
+
+@media (min-width: 900px) {
+    .lifelong-course-search form {
+        grid-template-columns: minmax(10rem, .8fr) minmax(10rem, .8fr) minmax(16rem, 1.5fr) auto;
+        align-items: end;
+    }
+
+    .lifelong-course-search__keyword,
+    .lifelong-course-search__actions {
+        grid-column: auto;
+    }
+}
+
+@media (max-width: 767px) {
+    .lifelong-course-search,
+    .lifelong-apply-content {
+        gap: var(--space-3);
+    }
+
+    .lifelong-course-search {
+        padding: var(--space-3) var(--space-2);
+    }
+
+    .lifelong-course-search__heading,
+    .lifelong-course-results__heading {
+        display: grid;
+        align-items: start;
+    }
+
+    .lifelong-course-search form {
+        grid-template-columns: 1fr;
+    }
+
+    .lifelong-course-search__keyword,
+    .lifelong-course-search__actions {
+        grid-column: auto;
+    }
+
+    .lifelong-course-search__actions > * {
+        flex: 1;
+    }
+
+    .lifelong-course-table-wrap {
+        overflow: visible;
+        border-top: 0;
+    }
+
+    .lifelong-course-table,
+    .lifelong-course-table tbody,
+    .lifelong-course-table tr,
+    .lifelong-course-table th,
+    .lifelong-course-table td {
+        display: block;
+        min-width: 0;
+    }
+
+    .lifelong-course-table thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+    }
+
+    .lifelong-course-table tbody {
+        display: grid;
+        gap: var(--space-3);
+    }
+
+    .lifelong-course-table tbody > tr:not(.lifelong-course-progress-row) {
+        padding: var(--space-2);
+        border: 1px solid var(--color-card-line);
+        border-radius: var(--radius-md) var(--radius-md) 0 0;
+    }
+
+    .lifelong-course-table tbody th,
+    .lifelong-course-table tbody td {
+        display: grid;
+        grid-template-columns: 6rem minmax(0, 1fr);
+        gap: var(--space-1);
+        padding: .65rem 0;
+        text-align: left;
+        border-right: 0;
+    }
+
+    .lifelong-course-table tbody th::before,
+    .lifelong-course-table tbody td::before {
+        content: attr(data-label);
+        color: var(--color-text-default-soft);
+        font-weight: 600;
+    }
+
+    .lifelong-course-progress-row {
+        margin-top: calc(var(--space-3) * -1);
+        border: 1px solid var(--color-card-line);
+        border-top: 0;
+        border-radius: 0 0 var(--radius-md) var(--radius-md);
+    }
+}

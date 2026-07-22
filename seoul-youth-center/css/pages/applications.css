@@ -74,7 +74,7 @@
     padding: var(--space-2);
     color: var(--color-text-default);
     text-align: left;
-    border: 1px dashed var(--color-purple);
+    border: 1px solid #17324D;
     border-radius: var(--radius-sm);
     background: var(--color-white);
 }
@@ -101,7 +101,7 @@
 }
 
 .application-master dd {
-    font-weight: 700;
+    font-weight: 500;
 }
 
 .application-lookup__error {
@@ -175,6 +175,18 @@
     color: var(--color-purple);
 }
 
+.applications-results {
+    display: grid;
+    gap: var(--space-6);
+    padding-block: var(--space-4) var(--section-padding-block);
+}
+
+.applications-board__empty {
+    padding-block: var(--space-5) !important;
+    color: var(--color-text-default-soft) !important;
+    text-align: center !important;
+}
+
 .application-detail-link {
     display: inline-grid;
     place-items: center;
@@ -194,6 +206,12 @@
     background: var(--color-white);
 }
 
+.application-detail-link.is-disabled {
+    color: var(--color-text-default-soft);
+    border: 1px solid var(--color-line);
+    background: var(--color-lightgray);
+}
+
 .application-status-badge {
     display: inline-grid;
     place-items: center;
@@ -201,7 +219,7 @@
     padding: .4rem .75rem;
     color: var(--color-purple);
     font-size: var(--fs-13);
-    font-weight: 700;
+    font-weight: 500;
     border-radius: var(--radius-full);
     background: var(--color-yellow-20);
 }
@@ -243,8 +261,16 @@
 .applications-board table {
     width: 100%;
     min-width: 58rem;
+    table-layout: fixed;
     border-top: 2px solid var(--color-line);
 }
+
+.applications-board :is(th, td):nth-child(1) { width: 42%; }
+.applications-board :is(th, td):nth-child(2) { width: 11%; }
+.applications-board :is(th, td):nth-child(3) { width: 15%; }
+.applications-board :is(th, td):nth-child(4) { width: 12%; }
+.applications-board :is(th, td):nth-child(5) { width: 10%; }
+.applications-board :is(th, td):nth-child(6) { width: 10%; }
 
 .applications-board th,
 .applications-board td {
@@ -259,7 +285,7 @@
     background: var(--color-beige);
 }
 
-.applications-board td:nth-child(2) {
+.applications-board td:first-child {
     text-align: left;
 }
 

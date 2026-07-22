@@ -36,4 +36,4 @@ $_SESSION['verified_application_ids'] = array_values(array_filter(
     static fn(int $verifiedId): bool => $verifiedId !== $applicationId
 ));
 
-syc_move_with_alert('신청이 취소되었습니다.', BASE_URL . '/programs.php');
+syc_move_with_alert('신청이 취소되었습니다.', BASE_URL . '/applications.php');

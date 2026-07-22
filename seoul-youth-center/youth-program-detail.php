@@ -49,7 +49,7 @@ $youthLocalCategories = getYouthProgramCategories();
             <nav class="info-breadcrumb" aria-label="현재 위치">
                 <ol>
                     <li><a href="<?= BASE_URL ?>/index.php">홈</a></li>
-                    <li><a href="<?= BASE_URL ?>/youth-program-introduction.php">청소년 프로그램</a></li>
+                    <li>청소년 프로그램</li>
                     <li><a href="<?= BASE_URL ?>/youth-program-category.php?category=<?= urlencode($category['slug']) ?>"><?= htmlspecialchars($category['name'], ENT_QUOTES, 'UTF-8') ?></a></li>
                     <li aria-current="page"><?= htmlspecialchars($program['name'], ENT_QUOTES, 'UTF-8') ?></li>
                 </ol>
@@ -69,7 +69,7 @@ $youthLocalCategories = getYouthProgramCategories();
             <?php if ($isNotFound): ?>
                 <section class="catalog-not-found">
                     <p>요청한 프로그램 정보가 없거나 이동되었습니다.</p>
-                    <a class="info-button" href="<?= BASE_URL ?>/youth-program-introduction.php">프로그램 소개로 돌아가기</a>
+                    <a class="info-button" href="<?= BASE_URL ?>/youth-program-category.php?category=participation">청소년 프로그램 보기</a>
                 </section>
             <?php else: ?>
                 <a class="catalog-back-link" href="<?= BASE_URL ?>/youth-program-category.php?category=<?= urlencode($category['slug']) ?>">
@@ -114,9 +114,9 @@ $youthLocalCategories = getYouthProgramCategories();
                 <section class="catalog-detail-cta" aria-label="모집 프로그램 확인">
                     <div>
                         <strong>현재 참여 가능한 프로그램이 궁금한가요?</strong>
-                        <p>모집 기간과 대상, 신청 가능 여부는 활동신청에서 확인할 수 있습니다.</p>
+                        <p>모집 기간과 대상, 신청 가능 여부는 청소년 프로그램 신청에서 확인할 수 있습니다.</p>
                     </div>
-                    <a class="info-button" href="<?= BASE_URL ?>/programs.php">활동신청 보기</a>
+                    <a class="info-button" href="<?= BASE_URL ?>/programs.php">청소년 프로그램 신청</a>
                 </section>
 
                 <nav class="catalog-sibling-nav" aria-label="같은 분야의 다른 프로그램">

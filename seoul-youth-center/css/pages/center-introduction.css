@@ -84,7 +84,7 @@
     max-width: 42rem;
     color: var(--color-text-default-soft);
     font-size: var(--text-body-size);
-    font-weight: 600;
+    font-weight: 400;
     line-height: 1.8;
 }
 
@@ -122,7 +122,7 @@
 .center-intro-hero__symbol p {
     color: var(--color-text-default-soft);
     font-size: var(--fs-13);
-    font-weight: 600;
+    font-weight: 400;
     line-height: 1.45;
 }
 
@@ -239,7 +239,7 @@
     gap: var(--space-4);
     color: var(--color-text-default-soft);
     font-size: var(--fs-16);
-    font-weight: 500;
+    font-weight: 400;
     line-height: 1.95;
 }
 
@@ -282,7 +282,7 @@
 .center-facts dd span {
     color: var(--color-text-default-soft);
     font-size: var(--fs-13);
-    font-weight: 500;
+    font-weight: 400;
     line-height: 1.5;
 }
 
@@ -475,7 +475,7 @@
     z-index: 1;
     color: var(--color-text-default-soft);
     font-size: var(--fs-14);
-    font-weight: 600;
+    font-weight: 400;
     line-height: 1.65;
 }
 
@@ -562,7 +562,7 @@
     max-width: 34rem;
     color: var(--color-text-default-soft);
     font-size: var(--fs-14);
-    font-weight: 600;
+    font-weight: 400;
     line-height: 1.7;
 }
 
@@ -660,7 +660,7 @@
 
 .center-history li p {
     font-size: var(--fs-14);
-    font-weight: 700;
+    font-weight: 400;
     line-height: 1.55;
 }
 
@@ -698,7 +698,7 @@
 .center-operator > p {
     color: var(--color-text-default-soft);
     font-size: var(--fs-14);
-    font-weight: 600;
+    font-weight: 400;
     line-height: 1.75;
 }
 
@@ -718,12 +718,12 @@
 .center-operator dt {
     color: var(--color-text-default-soft);
     font-size: var(--fs-13);
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .center-operator dd {
     font-size: var(--fs-14);
-    font-weight: 700;
+    font-weight: 500;
 }
 
 .center-org-chart {
@@ -1133,11 +1133,12 @@
         align-self: start;
         display: grid;
         margin-top: var(--section-padding-block);
-        padding: 0;
+        padding: .75rem;
         overflow: visible;
-        border: 0;
-        border-radius: 0;
-        background: transparent;
+        border: 1px solid #D7DEE6;
+        border-radius: var(--radius-md);
+        background: var(--color-white);
+        box-shadow: none;
         transition: top .28s ease;
     }
 
@@ -1146,31 +1147,43 @@
     }
 
     .center-local-nav h2 {
-        margin-bottom: .5rem;
-        padding: 1.4rem 1rem;
+        position: relative;
+        margin-bottom: 1rem;
+        padding: 1.2rem 1rem 1.2rem 1.35rem;
+        overflow: hidden;
         color: var(--color-white);
-        font-size: var(--fs-22);
+        font-size: var(--fs-20);
         font-weight: 700;
         line-height: 1.35;
         border: 0;
-        border-radius: var(--radius-md);
-        text-align: center;
+        border-radius: var(--radius-sm);
+        text-align: left;
+        background: #17324D;
+    }
+
+    .center-local-nav h2::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 6px;
         background: var(--color-orange);
     }
 
     .center-local-nav nav {
         display: grid;
-        gap: .25rem;
+        gap: .2rem;
     }
 
     .center-local-nav a {
         position: relative;
-        padding: .85rem 1rem;
-        color: var(--color-text-default-soft);
+        padding: .78rem .85rem .78rem 1rem;
+        color: #536274;
         font-size: var(--fs-14);
         font-weight: 600;
         border: 0;
-        border-radius: var(--radius-md);
+        border-radius: var(--radius-sm);
     }
 
     .center-local-nav a:last-child {
@@ -1180,20 +1193,32 @@
     .center-local-nav a:hover,
     .center-local-nav a:focus-visible,
     .center-local-nav a[aria-current="page"] {
-        color: var(--color-primary-dark);
-        background: var(--color-white);
+        color: #17324D;
+        background: #F3F6F8;
     }
 
     .center-local-nav a[aria-current="page"]::before {
-        display: none;
+        content: "";
+        position: absolute;
+        top: .4rem;
+        bottom: .4rem;
+        left: 0;
+        display: block;
+        width: 4px;
+        border-radius: var(--radius-full);
+        background: #17324D;
     }
 
     .center-local-nav a[aria-current="page"] {
         margin: 0;
         border: 0;
-        border-radius: var(--radius-md);
-        box-shadow: inset 0 0 0 1px var(--color-primary-20);
-        background: var(--color-white);
+        border-radius: var(--radius-sm);
+        box-shadow: none;
+        background: #F7F1EC;
+    }
+
+    .center-local-nav a[aria-current="page"]:is(:hover, :focus-visible) {
+        background: #F7F1EC;
     }
 
     .center-local-nav a[aria-current="page"] + a {

@@ -63,7 +63,7 @@ foreach ($notices as $notice) {
             <nav class="info-breadcrumb" aria-label="현재 위치">
                 <ol>
                     <li><a href="<?= BASE_URL ?>/index.php">홈</a></li>
-                    <li>소식</li>
+                    <li>열린마당</li>
                     <li aria-current="page">공지사항</li>
                 </ol>
             </nav>
@@ -89,14 +89,22 @@ foreach ($notices as $notice) {
 
         <div class="info-content">
             <?php if ($selectedNotice): ?>
+                <a class="notice-detail__top-back" href="<?= BASE_URL ?>/notices.php">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M19 12H5"></path>
+                        <path d="m11 18-6-6 6-6"></path>
+                    </svg>
+                    <span>공지사항 목록</span>
+                </a>
                 <article class="notice-detail info-card" aria-labelledby="notice-detail-title">
                     <header class="notice-detail__head">
-                        <span class="notice-row__category"><?= htmlspecialchars($selectedNotice['category'], ENT_QUOTES, 'UTF-8') ?></span>
-                        <h2 id="notice-detail-title"><?= htmlspecialchars($selectedNotice['title'], ENT_QUOTES, 'UTF-8') ?></h2>
+                        <div class="notice-detail__title-group">
+                            <span class="notice-detail__category"><?= htmlspecialchars($selectedNotice['category'], ENT_QUOTES, 'UTF-8') ?></span>
+                            <h2 id="notice-detail-title"><?= htmlspecialchars($selectedNotice['title'], ENT_QUOTES, 'UTF-8') ?></h2>
+                        </div>
                         <div class="notice-detail__meta"><span>등록일 <?= htmlspecialchars($selectedNotice['date'], ENT_QUOTES, 'UTF-8') ?></span><span>담당 시립서울청소년센터</span></div>
                     </header>
                     <div class="notice-detail__body"><?= htmlspecialchars($selectedNotice['body'], ENT_QUOTES, 'UTF-8') ?></div>
-                    <a class="info-button info-button--secondary notice-detail__back" href="<?= BASE_URL ?>/notices.php">목록으로 돌아가기</a>
                 </article>
             <?php endif; ?>
 

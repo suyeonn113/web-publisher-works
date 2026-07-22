@@ -2,25 +2,52 @@
 include __DIR__ . '/includes/config.php';
 include __DIR__ . '/includes/data/youth-programs.php';
 include __DIR__ . '/includes/functions/program.service.php';
+require_once __DIR__ . '/includes/functions/youth-program-catalog.php';
 
 $pageTitle = '청소년 활동 신청';
 $pageCss = ['info-pages.css', 'programs.css', 'program-confirm-modal.css'];
-$programContextPage = 'programs';
+$programContextPage = 'youth';
 
 $statusFilter = isset($_GET['status']) ? trim((string) $_GET['status']) : '';
 $keyword = isset($_GET['keyword']) ? trim((string) $_GET['keyword']) : '';
+$recommendFilterState = normalizeRecommendFilterState($_GET);
+$ageFilter = (string) ($recommendFilterState['age'] ?? '');
+$fieldFilter = (string) ($recommendFilterState['field'] ?? '');
 $currentPage = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 $programsPerPage = 12;
 $allowedStatuses = [
     '',
     ProgramStatus::ALWAYS,
     ProgramStatus::ONGOING,
-    ProgramStatus::CLOSED,
 ];
 
 if (!in_array($statusFilter, $allowedStatuses, true)) {
     $statusFilter = '';
 }
+
+$ageOptions = [
+    'infant' => '유아',
+    'elementary-low' => '초등 저학년',
+    'elementary-high' => '초등 고학년',
+    'early-youth' => '초기 청소년',
+    'mid-youth' => '중기 청소년',
+    'late-youth' => '후기 청소년',
+    'citizen' => '시민',
+];
+
+$fieldOptions = [
+    'career' => '진로 직업',
+    'culture-art' => '문화 예술',
+    'emotional' => '정서 관계',
+    'competency' => '역량 성장',
+    'citizen' => '시민 참여',
+];
+
+$hasActiveFilters = $statusFilter !== '' || $keyword !== '' || $ageFilter !== '' || $fieldFilter !== '';
+$facetFilterState = [
+    'age' => $ageFilter !== '' ? $ageFilter : null,
+    'field' => $fieldFilter !== '' ? $fieldFilter : null,
+];
 
 function matchesProgramKeyword(array $program, string $keyword): bool
 {
@@ -44,7 +71,13 @@ function matchesProgramKeyword(array $program, string $keyword): bool
     return false;
 }
 
-function buildProgramPageUrl(int $page, string $statusFilter, string $keyword): string
+function buildProgramPageUrl(
+    int $page,
+    string $statusFilter,
+    string $keyword,
+    string $ageFilter,
+    string $fieldFilter
+): string
 {
     $params = [];
 
@@ -56,6 +89,14 @@ function buildProgramPageUrl(int $page, string $statusFilter, string $keyword): 
         $params['keyword'] = $keyword;
     }
 
+    if ($ageFilter !== '') {
+        $params['age'] = $ageFilter;
+    }
+
+    if ($fieldFilter !== '') {
+        $params['field'] = $fieldFilter;
+    }
+
     if ($page > 1) {
         $params['page'] = $page;
     }
@@ -65,14 +106,15 @@ function buildProgramPageUrl(int $page, string $statusFilter, string $keyword): 
     return BASE_URL . '/programs.php' . ($query !== '' ? '?' . $query : '');
 }
 
-$programs = filterActivePrograms($youthPrograms);
-$programs = sortProgramsForDisplay($programs);
+$programs = getOpenProgramsForDisplay($youthPrograms);
 $programs = array_values(array_filter(
     $programs,
-    static function (array $program) use ($statusFilter, $keyword): bool {
+    static function (array $program) use ($statusFilter, $keyword, $facetFilterState): bool {
         $matchesStatus = $statusFilter === '' || getProgramStatus($program) === $statusFilter;
 
-        return $matchesStatus && matchesProgramKeyword($program, $keyword);
+        return $matchesStatus
+            && matchesProgramKeyword($program, $keyword)
+            && matchesRecommendProgram($program, $facetFilterState);
     }
 ));
 
@@ -97,56 +139,83 @@ $pagedPrograms = array_slice($programs, $pageOffset, $programsPerPage);
             <nav class="info-breadcrumb" aria-label="현재 위치">
                 <ol>
                     <li><a href="<?= BASE_URL ?>/index.php">홈</a></li>
-                    <li>청소년 프로그램</li>
-                    <li aria-current="page">활동신청</li>
+                    <li>프로그램 신청</li>
+                    <li aria-current="page">청소년 프로그램 신청</li>
                 </ol>
             </nav>
             <div class="info-hero__copy">
                 <p class="info-eyebrow">PROGRAM APPLICATION</p>
-                <h1 id="program-page-title">청소년 활동 신청</h1>
-                <p>현재 모집 중인 프로그램을 확인하고 관심 있는 활동에 바로 신청할 수 있습니다.</p>
+                <h1 id="program-page-title">청소년 프로그램 신청</h1>
+                <p>현재 접수 중인 프로그램을 확인하고 관심 있는 활동에 바로 신청할 수 있습니다.</p>
             </div>
         </div>
     </section>
 
     <?php include __DIR__ . '/includes/components/program-context-nav.php'; ?>
 
-    <section class="program-page__header inner" aria-labelledby="program-page-title">
+    <div class="program-page__content inner">
+    <section class="program-page__header" aria-labelledby="program-page-title">
         <p>
             총 <strong><?= $totalPrograms ?></strong>개의 프로그램이 등록되어 있습니다.
         </p>
 
-        <form class="program-search" action="<?= BASE_URL ?>/programs.php" method="get" role="search">
-            <label class="visually-hidden" for="program-status">모집 상태 선택</label>
-            <select id="program-status" name="status">
-                <option value=""<?= $statusFilter === '' ? ' selected' : '' ?>>전체</option>
-                <option value="<?= ProgramStatus::ONGOING ?>"<?= $statusFilter === ProgramStatus::ONGOING ? ' selected' : '' ?>>모집중</option>
-                <option value="<?= ProgramStatus::ALWAYS ?>"<?= $statusFilter === ProgramStatus::ALWAYS ? ' selected' : '' ?>>상시</option>
-                <option value="<?= ProgramStatus::CLOSED ?>"<?= $statusFilter === ProgramStatus::CLOSED ? ' selected' : '' ?>>마감</option>
-            </select>
+        <form class="program-search" action="<?= BASE_URL ?>/programs.php" method="get" role="search" aria-label="프로그램 필터 검색">
+            <div class="program-search__field">
+                <label for="program-status">모집 상태</label>
+                <select id="program-status" name="status">
+                    <option value=""<?= $statusFilter === '' ? ' selected' : '' ?>>전체</option>
+                    <option value="<?= ProgramStatus::ONGOING ?>"<?= $statusFilter === ProgramStatus::ONGOING ? ' selected' : '' ?>>접수중</option>
+                    <option value="<?= ProgramStatus::ALWAYS ?>"<?= $statusFilter === ProgramStatus::ALWAYS ? ' selected' : '' ?>>상시</option>
+                </select>
+            </div>
 
-            <label class="visually-hidden" for="program-keyword">프로그램 검색어</label>
-            <input
-                id="program-keyword"
-                name="keyword"
-                type="search"
-                value="<?= htmlspecialchars($keyword, ENT_QUOTES, 'UTF-8') ?>"
-                placeholder="검색어를 입력하세요"
-            >
+            <div class="program-search__field">
+                <label for="program-age">연령</label>
+                <select id="program-age" name="age">
+                    <option value="">전체 연령</option>
+                    <?php foreach ($ageOptions as $value => $label): ?>
+                        <option value="<?= $value ?>"<?= $ageFilter === $value ? ' selected' : '' ?>><?= $label ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-            <button class="program-search__submit button" type="submit">검색</button>
+            <div class="program-search__field">
+                <label for="program-field">분야</label>
+                <select id="program-field" name="field">
+                    <option value="">전체 분야</option>
+                    <?php foreach ($fieldOptions as $value => $label): ?>
+                        <option value="<?= $value ?>"<?= $fieldFilter === $value ? ' selected' : '' ?>><?= $label ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <div class="program-search__field program-search__field--keyword">
+                <label for="program-keyword">검색어</label>
+                <input
+                    id="program-keyword"
+                    name="keyword"
+                    type="search"
+                    value="<?= htmlspecialchars($keyword, ENT_QUOTES, 'UTF-8') ?>"
+                    placeholder="프로그램명 또는 키워드"
+                >
+            </div>
+
+            <div class="program-search__actions">
+                <button class="program-search__submit button" type="submit">검색</button>
+                <?php if ($hasActiveFilters): ?>
+                    <a class="program-search__reset" href="<?= BASE_URL ?>/programs.php">초기화</a>
+                <?php endif; ?>
+            </div>
         </form>
     </section>
 
-    <section class="program-list inner" aria-label="청소년 활동 신청 프로그램 목록">
+    <section class="program-list" aria-label="청소년 활동 신청 프로그램 목록">
         <?php if (empty($pagedPrograms)): ?>
             <p class="program-list__empty">조건에 맞는 프로그램이 없습니다.</p>
         <?php else: ?>
             <?php foreach ($pagedPrograms as $program): ?>
                 <?php
                 $programMeta = getProgramCardMeta($program);
-                $status = $programMeta['status'];
-                $isClosed = $status === ProgramStatus::CLOSED;
                 $image = $program['image'] ?? [];
                 $imageSrc = BASE_URL . ($image['src'] ?? '');
                 $imageAlt = $image['alt'] ?? ($program['title'] ?? '');
@@ -159,7 +228,7 @@ $pagedPrograms = array_slice($programs, $pageOffset, $programsPerPage);
                     ? $programMeta['activity_period']
                     : '상시 운영';
                 ?>
-                <article class="program-apply-card<?= $isClosed ? ' is-closed' : '' ?>" id="program-<?= (int) ($program['id'] ?? 0) ?>">
+                <article class="program-apply-card" id="program-<?= (int) ($program['id'] ?? 0) ?>">
                     <a class="program-apply-card__media" href="<?= BASE_URL ?>/program-detail.php?id=<?= (int) ($program['id'] ?? 0) ?>">
                         <img
                             src="<?= htmlspecialchars($imageSrc, ENT_QUOTES, 'UTF-8') ?>"
@@ -186,16 +255,12 @@ $pagedPrograms = array_slice($programs, $pageOffset, $programsPerPage);
                     </a>
 
                     <div class="program-apply-card__actions">
-                        <?php if ($isClosed): ?>
-                            <button class="program-apply-card__cta is-closed" type="button" disabled>마감</button>
-                        <?php else: ?>
-                            <a
-                                class="program-apply-card__cta is-apply"
-                                href="<?= BASE_URL ?>/program-apply.php?id=<?= (int) ($program['id'] ?? 0) ?>"
-                            >
-                                신청하기
-                            </a>
-                        <?php endif; ?>
+                        <a
+                            class="program-apply-card__cta is-apply"
+                            href="<?= BASE_URL ?>/program-apply.php?id=<?= (int) ($program['id'] ?? 0) ?>"
+                        >
+                            신청하기
+                        </a>
                         <button
                             class="program-apply-card__cta is-confirm"
                             type="button"
@@ -211,10 +276,10 @@ $pagedPrograms = array_slice($programs, $pageOffset, $programsPerPage);
     </section>
 
     <?php if ($totalPages > 1): ?>
-        <nav class="program-pagination inner" aria-label="프로그램 목록 페이지">
+        <nav class="program-pagination" aria-label="프로그램 목록 페이지">
             <?php if ($currentPage > 1): ?>
-                <a href="<?= htmlspecialchars(buildProgramPageUrl(1, $statusFilter, $keyword), ENT_QUOTES, 'UTF-8') ?>" aria-label="첫 페이지">«</a>
-                <a href="<?= htmlspecialchars(buildProgramPageUrl($currentPage - 1, $statusFilter, $keyword), ENT_QUOTES, 'UTF-8') ?>" aria-label="이전 페이지">‹</a>
+                <a href="<?= htmlspecialchars(buildProgramPageUrl(1, $statusFilter, $keyword, $ageFilter, $fieldFilter), ENT_QUOTES, 'UTF-8') ?>" aria-label="첫 페이지">«</a>
+                <a href="<?= htmlspecialchars(buildProgramPageUrl($currentPage - 1, $statusFilter, $keyword, $ageFilter, $fieldFilter), ENT_QUOTES, 'UTF-8') ?>" aria-label="이전 페이지">‹</a>
             <?php else: ?>
                 <span aria-disabled="true" aria-label="첫 페이지">«</span>
                 <span aria-disabled="true" aria-label="이전 페이지">‹</span>
@@ -224,19 +289,20 @@ $pagedPrograms = array_slice($programs, $pageOffset, $programsPerPage);
                 <?php if ($page === $currentPage): ?>
                     <strong aria-current="page"><?= $page ?></strong>
                 <?php else: ?>
-                    <a href="<?= htmlspecialchars(buildProgramPageUrl($page, $statusFilter, $keyword), ENT_QUOTES, 'UTF-8') ?>"><?= $page ?></a>
+                    <a href="<?= htmlspecialchars(buildProgramPageUrl($page, $statusFilter, $keyword, $ageFilter, $fieldFilter), ENT_QUOTES, 'UTF-8') ?>"><?= $page ?></a>
                 <?php endif; ?>
             <?php endfor; ?>
 
             <?php if ($currentPage < $totalPages): ?>
-                <a href="<?= htmlspecialchars(buildProgramPageUrl($currentPage + 1, $statusFilter, $keyword), ENT_QUOTES, 'UTF-8') ?>" aria-label="다음 페이지">›</a>
-                <a href="<?= htmlspecialchars(buildProgramPageUrl($totalPages, $statusFilter, $keyword), ENT_QUOTES, 'UTF-8') ?>" aria-label="마지막 페이지">»</a>
+                <a href="<?= htmlspecialchars(buildProgramPageUrl($currentPage + 1, $statusFilter, $keyword, $ageFilter, $fieldFilter), ENT_QUOTES, 'UTF-8') ?>" aria-label="다음 페이지">›</a>
+                <a href="<?= htmlspecialchars(buildProgramPageUrl($totalPages, $statusFilter, $keyword, $ageFilter, $fieldFilter), ENT_QUOTES, 'UTF-8') ?>" aria-label="마지막 페이지">»</a>
             <?php else: ?>
                 <span aria-disabled="true" aria-label="다음 페이지">›</span>
                 <span aria-disabled="true" aria-label="마지막 페이지">»</span>
             <?php endif; ?>
         </nav>
     <?php endif; ?>
+    </div>
 
     <?php include __DIR__ . '/includes/components/program-confirm-modal.php'; ?>
 </main>

@@ -4,7 +4,7 @@ include __DIR__ . '/includes/data/youth-programs.php';
 include __DIR__ . '/includes/functions/program.service.php';
 
 $programId = isset($_GET['id']) ? (int) $_GET['id'] : 0;
-$program = findProgramById(filterActivePrograms($youthPrograms), $programId);
+$program = findProgramById(getOpenProgramsForDisplay($youthPrograms), $programId);
 
 if (!$program) {
     http_response_code(404);

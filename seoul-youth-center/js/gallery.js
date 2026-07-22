@@ -42,22 +42,22 @@ document.addEventListener('DOMContentLoaded', () => {
      */
 
     const activityPhotos = [
-        ['participation', 5, '참여활동', '동아리 활동', 'http://www.youthc.or.kr/upload/company/comp2026020311422.jpg'],
-        ['participation', 65, '참여활동', '자치단, 동아리 연합활동', 'http://www.youthc.or.kr/upload/company/comp20250416145854.jpg'],
-        ['participation', 32, '참여활동', '청소년운영위원회 청춘', 'http://www.youthc.or.kr/upload/company/comp20250418145337.jpg'],
-        ['participation', 104, '참여활동', '청소년지도사 실습', 'http://www.youthc.or.kr/upload/company/comp2025041815150.jpg'],
-        ['participation', 130, '참여활동', '서울 유스 캠퍼스', 'http://www.youthc.or.kr/upload/company/comp20260203152651.jpg'],
-        ['participation', 9, '참여활동', '캠프기획단 온기', 'http://www.youthc.or.kr/upload/company/comp20250418143725.jpg'],
-        ['participation', 111, '참여활동', '청소년특봉대', 'http://www.youthc.or.kr/upload/company/comp20260203142841.jpg'],
-        ['participation', 23, '참여활동', '도레미에코프로젝트', 'http://www.youthc.or.kr/upload/company/comp20260203141122.jpg'],
-        ['participation', 53, '참여활동', '보이는 상담소', 'http://www.youthc.or.kr/upload/company/comp20260203141352.jpg'],
-        ['training', 129, '수련활동', '서울청소년동행캠프', 'http://www.youthc.or.kr/upload/company/comp20260203105744.jpg'],
-        ['training', 71, '수련활동', '서울-지방 청소년 역사문화교류사업', 'http://www.youthc.or.kr/upload/company/comp20250418151240.jpg'],
-        ['training', 116, '수련활동', '온(ON)밤', 'http://www.youthc.or.kr/upload/company/comp20250418151341.jpg'],
-        ['training', 67, '수련활동', '꿀밤(Honey Bomb)', 'http://www.youthc.or.kr/upload/company/comp20250418151135.jpg'],
-        ['training', 70, '수련활동', '스쿨 오브 캠핑', 'http://www.youthc.or.kr/upload/company/comp20260203112645.jpg'],
-        ['training', 54, '수련활동', '여름방학 공정무역학교', 'http://www.youthc.or.kr/upload/company/comp20260203112234.jpg'],
-        ['community', 90, '지역연계활동', '청소년코디네이터 연계사업', 'http://www.youthc.or.kr/upload/company/comp20260203144853.jpg']
+        ['participation', 5, '참여활동', '동아리 활동', 'assets/images/activity/comp2026020311422.jpg'],
+        ['participation', 65, '참여활동', '자치단, 동아리 연합활동', 'assets/images/activity/comp20250416145854.jpg'],
+        ['participation', 32, '참여활동', '청소년운영위원회 청춘', 'assets/images/activity/comp20250418145337.jpg'],
+        ['participation', 104, '참여활동', '청소년지도사 실습', 'assets/images/activity/comp2025041815150.jpg'],
+        ['participation', 130, '참여활동', '서울 유스 캠퍼스', 'assets/images/activity/comp20260203152651.jpg'],
+        ['participation', 9, '참여활동', '캠프기획단 온기', 'assets/images/activity/comp20250418143725.jpg'],
+        ['participation', 111, '참여활동', '청소년특봉대', 'assets/images/activity/comp20260203142841.jpg'],
+        ['participation', 23, '참여활동', '도레미에코프로젝트', 'assets/images/activity/comp20260203141122.jpg'],
+        ['participation', 53, '참여활동', '보이는 상담소', 'assets/images/activity/comp20260203141352.jpg'],
+        ['training', 129, '수련활동', '서울청소년동행캠프', 'assets/images/activity/comp20260203105744.jpg'],
+        ['training', 71, '수련활동', '서울-지방 청소년 역사문화교류사업', 'assets/images/activity/comp20250418151240.jpg'],
+        ['training', 116, '수련활동', '온(ON)밤', 'assets/images/activity/comp20250418151341.jpg'],
+        ['training', 67, '수련활동', '꿀밤(Honey Bomb)', 'assets/images/activity/comp20250418151135.jpg'],
+        ['training', 70, '수련활동', '스쿨 오브 캠핑', 'assets/images/activity/comp20260203112645.jpg'],
+        ['training', 54, '수련활동', '여름방학 공정무역학교', 'assets/images/activity/comp20260203112234.jpg'],
+        ['community', 90, '지역연계활동', '청소년코디네이터 연계사업', 'assets/images/activity/comp20260203144853.jpg']
     ].map(([category, id, label, title, imageSrc]) => ({
         id: `${category}-${id}`,
         title,

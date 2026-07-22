@@ -20,7 +20,6 @@ if ($category === null) {
 
 $pageTitle = $category['name'] . ' | 시립서울청소년센터';
 $pageCss = ['info-pages.css', 'youth-program-catalog.css'];
-$youthLocalPage = 'category';
 $youthLocalCategorySlug = $category['slug'];
 $youthLocalCategories = $categories;
 ?>
@@ -39,7 +38,7 @@ $youthLocalCategories = $categories;
             <nav class="info-breadcrumb" aria-label="현재 위치">
                 <ol>
                     <li><a href="<?= BASE_URL ?>/index.php">홈</a></li>
-                    <li><a href="<?= BASE_URL ?>/youth-program-introduction.php">청소년 프로그램</a></li>
+                    <li>청소년 프로그램</li>
                     <li aria-current="page"><?= htmlspecialchars($category['name'], ENT_QUOTES, 'UTF-8') ?></li>
                 </ol>
             </nav>

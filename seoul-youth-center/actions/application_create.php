@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../includes/config.php';
-require_once __DIR__ . '/../includes/dbconn.php';
+require_once __DIR__ . '/../includes/data/youth-programs.php';
+require_once __DIR__ . '/../includes/functions/program.service.php';
 require_once __DIR__ . '/../includes/functions/application.helpers.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -21,6 +22,14 @@ $school = trim($_POST['school'] ?? '');
 $agreePrivacy = isset($_POST['agree_privacy']);
 $agreeThirdParty = isset($_POST['agree_third_party']);
 $attachmentName = isset($_FILES['attachment']['name']) ? trim($_FILES['attachment']['name']) : '';
+
+$targetProgram = findProgramById(getOpenProgramsForDisplay($youthPrograms), $programId);
+
+if (!$targetProgram) {
+    syc_move_with_alert('현재 접수 중인 프로그램이 아닙니다.', BASE_URL . '/programs.php');
+}
+
+$programTitle = (string) ($targetProgram['title'] ?? '');
 
 if (
     $programId <= 0 ||
@@ -65,8 +74,11 @@ if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
 $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
+require_once __DIR__ . '/../includes/dbconn.php';
+
 $sql = '
     INSERT INTO seoul_youth_center_program_applications (
+        program_type,
         program_id,
         program_title,
         applicant_name,
@@ -78,7 +90,7 @@ $sql = '
         address,
         school,
         attachment_name
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ) VALUES (\'youth\', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 ';
 
 $stmt = mysqli_prepare($mysqli, $sql);

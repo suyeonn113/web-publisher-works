@@ -136,11 +136,26 @@ function getYouthProgramSourceImage(array $program): string
 {
     $image = trim((string) ($program['source_image'] ?? ''));
 
-    if (!str_starts_with($image, 'http://www.youthc.or.kr/')) {
+    $isAllowedSource = strpos($image, 'http://www.youthc.or.kr/') === 0
+        || strpos($image, 'https://www.youthc.or.kr/') === 0;
+
+    if (!$isAllowedSource) {
         return '';
     }
 
     $baseUrl = defined('BASE_URL') ? BASE_URL : '';
+    $sourcePath = (string) parse_url($image, PHP_URL_PATH);
+    $fileName = basename($sourcePath);
+
+    // 배포 서버가 외부 이미지 요청을 차단해도 이미지는 표시되어야 하므로
+    // 프로젝트에 저장된 원본 파일을 가장 먼저 사용한다.
+    if ($fileName !== '' && preg_match('/^[a-zA-Z0-9._-]+$/', $fileName) === 1) {
+        $localFile = dirname(__DIR__, 2) . '/assets/images/activity/' . $fileName;
+
+        if (is_file($localFile)) {
+            return $baseUrl . '/assets/images/activity/' . rawurlencode($fileName);
+        }
+    }
 
     return $baseUrl . '/api/youth-program-image.php?program=' . (int) ($program['id'] ?? 0);
 }

@@ -22,7 +22,10 @@ $programId = filter_input(INPUT_GET, 'program', FILTER_VALIDATE_INT) ?: 0;
 $program = findYouthProgramEntryById($programId);
 $source = trim((string) ($program['source_image'] ?? ''));
 
-if ($programId <= 0 || !str_starts_with($source, 'http://www.youthc.or.kr/upload/company/')) {
+$isAllowedSource = strpos($source, 'http://www.youthc.or.kr/upload/company/') === 0
+    || strpos($source, 'https://www.youthc.or.kr/upload/company/') === 0;
+
+if ($programId <= 0 || !$isAllowedSource) {
     http_response_code(404);
     outputProgramImageFallback();
 }
@@ -53,6 +56,29 @@ if (!is_file($cacheFile) || filesize($cacheFile) === 0) {
         ],
     ]);
     $image = @file_get_contents($source, false, $context);
+
+    // 일부 웹호스팅은 allow_url_fopen을 끄지만 cURL은 허용한다.
+    // 첫 번째 요청이 실패하면 cURL로 한 번 더 원본 이미지를 가져온다.
+    if ((!is_string($image) || strlen($image) < 100) && function_exists('curl_init')) {
+        $curl = curl_init($source);
+
+        if ($curl !== false) {
+            curl_setopt_array($curl, [
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_CONNECTTIMEOUT => 5,
+                CURLOPT_TIMEOUT => 12,
+                CURLOPT_USERAGENT => 'Mozilla/5.0 SeoulYouthCenterPortfolio/1.0',
+            ]);
+            $curlImage = curl_exec($curl);
+            $statusCode = (int) curl_getinfo($curl, CURLINFO_HTTP_CODE);
+            curl_close($curl);
+
+            if (is_string($curlImage) && strlen($curlImage) >= 100 && $statusCode >= 200 && $statusCode < 400) {
+                $image = $curlImage;
+            }
+        }
+    }
 
     if (!is_string($image) || strlen($image) < 100) {
         outputProgramImageFallback();

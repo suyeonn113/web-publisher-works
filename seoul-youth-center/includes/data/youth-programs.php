@@ -23,13 +23,13 @@
 $youthPrograms = [
 
     // ========================
-    // 모집중 (상시)
+    // 접수중 (상시)
     // ========================
     [
-        'id' => 1, // 모집중(상시)
+        'id' => 1, // 접수중(상시)
         'title' => '2026년 청소년 시민참여 기획 워크숍 「로컬체인지 메이커」 참여자 모집',
         'image' => [
-            'src' => '/assets/images/youth-programs/1.png',
+            'src' => '/assets/images/youth-programs/program-01-local-change-v2.png',
             'alt' => '청소년 시민참여 기획 워크숍 안내 이미지',
         ],
         'url' => '#',
@@ -53,10 +53,10 @@ $youthPrograms = [
         'sort_order' => 1,
     ],
     [
-        'id' => 2, // 모집중(상시)
+        'id' => 2, // 접수중(상시)
         'title' => '2026학년도 우리동네 참여 프로젝트 「청소년 체인지업 메이킹」 참가자 모집',
         'image' => [
-            'src' => '/assets/images/youth-programs/2.png',
+            'src' => '/assets/images/youth-programs/program-02-changeup-making-v2.png',
             'alt' => '우리동네 참여 프로젝트 메이킹 안내 이미지',
         ],
         'url' => '#',
@@ -81,13 +81,13 @@ $youthPrograms = [
     ],
 
     // ========================
-    // 모집중
+    // 접수중
     // ========================
     [
-        'id' => 3, // 모집중
+        'id' => 3, // 접수중
         'title' => '2026년 청소년 공공캠페인 기획단 「우리동네 체인지메이커 3기」 단원 모집',
         'image' => [
-            'src' => '/assets/images/youth-programs/3.png',
+            'src' => '/assets/images/youth-programs/program-03-campaign-v2.png',
             'alt' => '청소년 공공캠페인 기획단 안내 이미지',
         ],
         'url' => '#',
@@ -111,10 +111,10 @@ $youthPrograms = [
         'sort_order' => 3,
     ],
     [
-        'id' => 4, // 모집중
+        'id' => 4, // 접수중
         'title' => '2026년 청소년 성장역량 부트캠프 「스스로 업 프로젝트」 참가자 모집',
         'image' => [
-            'src' => '/assets/images/youth-programs/4.png',
+            'src' => '/assets/images/youth-programs/program-04-stepup-v2.png',
             'alt' => '성장 역량 부트캠프 안내 이미지',
         ],
         'url' => '#',
@@ -138,10 +138,10 @@ $youthPrograms = [
         'sort_order' => 4,
     ],
     [
-        'id' => 5, // 모집중
+        'id' => 5, // 접수중
         'title' => '2026년 청소년 리더십 트레이닝 「유스리더 아카데미 5기」 참여자 추가 모집',
         'image' => [
-            'src' => '/assets/images/youth-programs/5.png',
+            'src' => '/assets/images/youth-programs/program-05-youthleader-v2.png',
             'alt' => '청소년 리더십 트레이닝 안내 이미지',
         ],
         'url' => '#',
@@ -165,10 +165,10 @@ $youthPrograms = [
         'sort_order' => 5,
     ],
     [
-        'id' => 6, // 모집중
+        'id' => 6, // 접수중
         'title' => '2026년 문화예술 창작 스튜디오 「드로잉 앤 메이킹 클래스」 참가자 모집',
         'image' => [
-            'src' => '/assets/images/youth-programs/6.png',
+            'src' => '/assets/images/youth-programs/program-06-drawing-making-v2.png',
             'alt' => '문화예술 창작 스튜디오 안내 이미지',
         ],
         'url' => '#',
@@ -192,7 +192,7 @@ $youthPrograms = [
         'sort_order' => 6,
     ],
     [
-        'id' => 7, // 모집중
+        'id' => 7, // 접수중
         'title' => '2026년 마음성장 관계소통 교실 「마음 잇기 프로젝트」 참가 청소년 모집',
         'image' => [
             'src' => '/assets/images/youth-programs/7.png',
@@ -201,7 +201,7 @@ $youthPrograms = [
         'url' => '#',
 
         'recruitment_start_date' => '2026-03-22',
-        'recruitment_end_date' => '2126-04-09',
+        'recruitment_end_date' => '2026-04-09',
         'is_ongoing' => false,
 
         'activity_start_date' => '2026-04-18',
@@ -219,7 +219,7 @@ $youthPrograms = [
         'sort_order' => 7,
     ],
     [
-        'id' => 8, // 모집중
+        'id' => 8, // 접수중
         'title' => '2026년 진로직업 탐색 클래스 「미래직업 오픈랩」 참가자 모집(4월)',
         'image' => [
             'src' => '/assets/images/youth-programs/8.png',
@@ -228,7 +228,7 @@ $youthPrograms = [
         'url' => '#',
 
         'recruitment_start_date' => '2026-03-28',
-        'recruitment_end_date' => '2126-04-17',
+        'recruitment_end_date' => '2026-04-17',
         'is_ongoing' => false,
 
         'activity_start_date' => '2026-04-29',
@@ -311,7 +311,7 @@ $youthPrograms = [
     // - 랜덤 보강 2개
     // ========================
     [
-        'id' => 13, // 모집중(필터용)
+        'id' => 13, // 접수중(필터용)
         'title' => '2026년 청소년 성장탐색 통합 프로그램 「모두의 스텝업 랩」 참가자 모집',
         'image' => [
             'src' => '/assets/images/youth-programs/13.png',
@@ -320,7 +320,7 @@ $youthPrograms = [
         'url' => '#',
 
         'recruitment_start_date' => '2026-03-30',
-        'recruitment_end_date' => '2126-04-19',
+        'recruitment_end_date' => '2026-04-19',
         'is_ongoing' => false,
 
         'activity_start_date' => '2026-04-27',
@@ -338,7 +338,7 @@ $youthPrograms = [
         'sort_order' => 13,
     ],
     [
-        'id' => 14, // 모집중(필터용)
+        'id' => 14, // 접수중(필터용)
         'title' => '2026년 진로직업 확장 프로그램 「미래탐색 커리어 브릿지」 참가자 모집',
         'image' => [
             'src' => '/assets/images/youth-programs/14.png',
@@ -347,7 +347,7 @@ $youthPrograms = [
         'url' => '#',
 
         'recruitment_start_date' => '2026-03-31',
-        'recruitment_end_date' => '2126-04-20',
+        'recruitment_end_date' => '2026-04-20',
         'is_ongoing' => false,
 
         'activity_start_date' => '2026-04-30',
@@ -365,7 +365,7 @@ $youthPrograms = [
         'sort_order' => 14,
     ],
     [
-        'id' => 15, // 모집중(필터용)
+        'id' => 15, // 접수중(필터용)
         'title' => '2026년 문화예술 융합 체험 「컬러 플레이 스튜디오」 참가자 모집',
         'image' => [
             'src' => '/assets/images/youth-programs/15.png',
@@ -374,7 +374,7 @@ $youthPrograms = [
         'url' => '#',
 
         'recruitment_start_date' => '2026-04-01',
-        'recruitment_end_date' => '2126-04-21',
+        'recruitment_end_date' => '2026-04-21',
         'is_ongoing' => false,
 
         'activity_start_date' => '2026-05-03',
@@ -392,7 +392,7 @@ $youthPrograms = [
         'sort_order' => 15,
     ],
     [
-        'id' => 16, // 모집중(필터용)
+        'id' => 16, // 접수중(필터용)
         'title' => '2026년 관계소통 공감 프로그램 「마음 연결 테이블」 참여자 모집',
         'image' => [
             'src' => '/assets/images/youth-programs/16.png',
@@ -401,7 +401,7 @@ $youthPrograms = [
         'url' => '#',
 
         'recruitment_start_date' => '2026-04-02',
-        'recruitment_end_date' => '2126-04-22',
+        'recruitment_end_date' => '2026-04-22',
         'is_ongoing' => false,
 
         'activity_start_date' => '2026-05-08',

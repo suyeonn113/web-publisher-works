@@ -1,4 +1,9 @@
 
+<?php
+require_once __DIR__ . '/functions/youth-program-catalog.php';
+$globalYouthProgramCategories = getYouthProgramCategories();
+?>
+
 <!------------ Skip Link ------------>
 <div class="skip-links" aria-label="바로가기 링크">
     <a href="#menu" class="skip-links__link">메뉴 바로가기</a>
@@ -14,7 +19,8 @@
         </a>
     </h1>
     <!-- Search -->
-    <form class="search" id="search-panel" role="search" data-state="closed">
+    <form class="search" id="search-panel" role="search" data-state="closed"
+          method="get" action="<?= BASE_URL ?>/search.php">
         <label for="search__input" class="visually-hidden">검색어 입력</label>
         <button
             class="button--search__toggle button"
@@ -190,7 +196,13 @@
             <button class="main-menu__button"
                     id="tab-5"
                     aria-selected="false"
-                    aria-controls="panel-5">소식</button>
+                    aria-controls="panel-5">열린마당</button>
+        </li>
+        <li class="main-menu__item main-menu__item--application">
+            <button class="main-menu__button main-menu__button--application"
+                    id="tab-6"
+                    aria-selected="false"
+                    aria-controls="panel-6">프로그램 신청</button>
         </li>
     </ul>
 
@@ -217,15 +229,13 @@
              aria-labelledby="tab-2">
             <ul class="sub-menu">
                 <li class="sub-menu__title">청소년 프로그램</li>
-                <li class="sub-menu__item">
-                    <a class="sub-menu__link" href="<?= BASE_URL ?>/youth-program-introduction.php">프로그램 소개</a>
-                </li>
-                <li class="sub-menu__item">
-                    <a class="sub-menu__link" href="<?= BASE_URL ?>/programs.php">활동신청</a>
-                </li>
-                <li class="sub-menu__item">
-                    <a class="sub-menu__link" href="<?= BASE_URL ?>/applications.php">신청내역 조회</a>
-                </li>
+                <?php foreach ($globalYouthProgramCategories as $globalYouthCategory): ?>
+                    <li class="sub-menu__item">
+                        <a class="sub-menu__link" href="<?= BASE_URL ?>/youth-program-category.php?category=<?= urlencode((string) $globalYouthCategory['slug']) ?>">
+                            <?= htmlspecialchars((string) $globalYouthCategory['name'], ENT_QUOTES, 'UTF-8') ?>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
             </ul>
         </div>
         <div class="sub-panel__item"
@@ -264,7 +274,7 @@
              id="panel-5"
              aria-labelledby="tab-5">
             <ul class="sub-menu">
-                <li class="sub-menu__title">소식</li>
+                <li class="sub-menu__title">열린마당</li>
                 <li class="sub-menu__item">
                     <a class="sub-menu__link" href="<?= BASE_URL ?>/notices.php">공지사항</a>
                 </li>
@@ -279,6 +289,22 @@
                 </li>
                 <li class="sub-menu__item">
                     <a class="sub-menu__link" href="#">공유자료</a>
+                </li>
+            </ul>
+        </div>
+        <div class="sub-panel__item sub-panel__item--application"
+             id="panel-6"
+             aria-labelledby="tab-6">
+            <ul class="sub-menu">
+                <li class="sub-menu__title">프로그램 신청</li>
+                <li class="sub-menu__item">
+                    <a class="sub-menu__link" href="<?= BASE_URL ?>/programs.php">청소년 프로그램 신청</a>
+                </li>
+                <li class="sub-menu__item">
+                    <a class="sub-menu__link" href="<?= BASE_URL ?>/lifelong-education-apply.php">평생교육 프로그램 신청</a>
+                </li>
+                <li class="sub-menu__item">
+                    <a class="sub-menu__link" href="<?= BASE_URL ?>/applications.php">신청내역 확인</a>
                 </li>
             </ul>
         </div>
@@ -335,12 +361,12 @@
                     <path class="fill-full" d="M17.47 7.11c-.16 0-.32.02-.48.05l-1.9.41-.2.04c-1.91.4-3.87.4-5.78 0l-.2-.04-1.9-.41a2.288 2.288 0 0 0-2.76 2.23c0 .98.63 1.86 1.56 2.17l2.18.73c.13.05.22.07.28.09.04.01.05.02.05.02.09.06.13.15.12.25 0 0 0 .01-.02.06-.02.06-.05.14-.1.28l-1.25 3.24a2.21 2.21 0 0 0 1.28 2.87 2.215 2.215 0 0 0 2.72-.97h.01l.92-1.62.92 1.62c.4.69 1.14 1.12 1.93 1.12.61 0 1.17-.25 1.58-.65.4-.41.65-.96.65-1.57 0-.28-.05-.55-.15-.8l-1.25-3.24c-.03-.1-.07-.19-.1-.28-.02-.05-.02-.06-.02-.06-.01-.1.03-.19.12-.25 0 0 .01-.01.05-.02.06-.02.15-.05.28-.1s2.18-.72 2.18-.72a2.28 2.28 0 0 0 1.56-2.16c0-1.26-1.02-2.29-2.28-2.29m.25 3.03-2.18.72c-.22.08-.46.15-.65.27-.59.36-.91 1.04-.81 1.72.02.23.12.47.2.68l1.25 3.24c.14.37-.04.79-.42.93a.706.706 0 0 1-.88-.31l-1.58-2.76a.74.74 0 0 0-1.02-.28c-.12.06-.21.16-.28.28l-1.58 2.75a.72.72 0 0 1-1.3-.61l1.25-3.25c.08-.21.17-.44.2-.67.1-.68-.22-1.36-.81-1.72-.19-.12-.43-.19-.65-.27l-2.18-.72a.8.8 0 0 1-.53-.74c0-.5.46-.87.95-.77l1.89.41.22.04c2.1.44 4.28.44 6.38 0l.22-.04 1.89-.41c.43-.09.84.18.93.6.01.05.02.12.02.17 0 .33-.22.63-.53.74"/>
                     <path class="fill-none" d="M19.45 14.5c1.58.8 2.55 1.85 2.55 3 0 2.49-4.48 4.5-10 4.5S2 19.99 2 17.5c0-1.15.96-2.2 2.55-3"/>
                 </svg>
-                프로그램
+                청소년신청
             </a>
         </li>
         <li class="quick-menu__item">
             <a class="quick-menu__link" 
-               href="<?= BASE_URL ?>/lifelong-education-guide.php">
+               href="<?= BASE_URL ?>/lifelong-education-apply.php">
                 <svg class="icon--education icon--quick-menu icon" 
                      viewBox="0 0 24 24"
                      xmlns="http://www.w3.org/2000/svg"
@@ -350,7 +376,7 @@
                     <path d="M9.78272 3.49965C11.2037 2.83345 12.7962 2.83345 14.2172 3.49965L20.9084 6.63664C22.3639 7.31899 22.3639 9.68105 20.9084 10.3634L14.2173 13.5003C12.7963 14.1665 11.2038 14.1665 9.78281 13.5003L3.0916 10.3634C1.63613 9.68101 1.63614 7.31895 3.0916 6.63659L9.78272 3.49965Z"/>
                     <path d="M2 8.5V14"/>
                 </svg>
-                평생교육
+                평생신청
             </a>
         </li>
         <li class="quick-menu__item">

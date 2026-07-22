@@ -33,7 +33,7 @@
 .facility-summary__list dd {
     color: var(--color-text-default);
     font-size: var(--fs-14);
-    font-weight: 600;
+    font-weight: 400;
     line-height: 1.6;
 }
 

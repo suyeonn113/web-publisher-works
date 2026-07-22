@@ -44,6 +44,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const desktopMq = window.matchMedia('(min-width: 1248px)');
     const menuPanel = document.getElementById('menu-panel');
 
+    document.querySelectorAll('.skip-links__link').forEach((link) => {
+        link.addEventListener('click', (event) => {
+            const targetId = link.getAttribute('href');
+            const target = targetId ? document.querySelector(targetId) : null;
+
+            if (!target) return;
+
+            event.preventDefault();
+            target.setAttribute('tabindex', '-1');
+            target.focus({ preventScroll: true });
+            target.scrollIntoView({ block: 'start' });
+            history.replaceState(null, '', targetId);
+        });
+    });
+
     if (!menuPanel) return;
 
     let cleanupDrawerMenu = null;

@@ -118,7 +118,10 @@ $categoryFilters = ['전체', '건강운동', '댄스', '음악', '미술', '생
                         <strong>신청과 환불 기준을 먼저 확인해주세요.</strong>
                         <p>접수 시간, 납부 방법, 환불 시점별 기준을 접수안내에서 확인할 수 있습니다.</p>
                     </div>
-                    <a class="info-button" href="<?= BASE_URL ?>/lifelong-education-guide.php">접수안내 보기</a>
+                    <div class="service-contact__actions">
+                        <a class="info-button" href="<?= BASE_URL ?>/lifelong-education-apply.php">온라인 신청하기</a>
+                        <a class="info-button info-button--line" href="<?= BASE_URL ?>/lifelong-education-guide.php">접수안내 보기</a>
+                    </div>
                 </div>
             </section>
         </div>

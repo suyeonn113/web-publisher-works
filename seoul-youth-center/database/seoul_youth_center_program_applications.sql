@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS seoul_youth_center_program_applications (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    program_type ENUM('youth', 'lifelong') NOT NULL DEFAULT 'youth',
     program_id INT UNSIGNED NOT NULL,
     program_title VARCHAR(255) NOT NULL,
     applicant_name VARCHAR(50) NOT NULL,
@@ -15,6 +16,7 @@ CREATE TABLE IF NOT EXISTS seoul_youth_center_program_applications (
     updated_at DATETIME NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
     INDEX idx_syc_program_applications_program_id (program_id),
+    INDEX idx_syc_program_applications_program_type (program_type),
     INDEX idx_syc_program_applications_phone (phone),
     INDEX idx_syc_program_applications_created_at (created_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

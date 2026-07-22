@@ -95,7 +95,7 @@ function getProgramToday(?DateTime $today = null): DateTime
 /**
  * 모집 상태 코드
  * always   : 상시모집
- * ongoing  : 모집중
+ * ongoing  : 접수중
  * upcoming : 예정
  * closed   : 마감
  */
@@ -136,7 +136,7 @@ function getProgramStatusLabel(array $program, ?DateTime $today = null): string
         case 'always':
             return '상시';
         case 'ongoing':
-            return '모집중';
+            return '접수중';
         case 'upcoming':
             return '예정';
         default:
@@ -226,13 +226,13 @@ function getProgramDurationLabel(array $program): string
 
 /**
  * 모집기간 출력용 포맷
- * 상시는 기간 표시 없음
+ * 상시는 '상시 모집'으로 표시
  * 일반은 2026.03.10 ~ 2026.04.25
  */
 function formatProgramRecruitmentPeriod(array $program): string
 {
     if (!empty($program['is_ongoing'])) {
-        return '';
+        return '상시 모집';
     }
 
     $start = createProgramDate($program['recruitment_start_date'] ?? null);
@@ -347,7 +347,7 @@ function filterActivePrograms(array $programs): array
 }
 
 /**
- * 모집중(ongoing) 상태인 프로그램만 필터
+ * 접수중(ongoing) 상태인 프로그램만 필터
  * - 상시(always), 예정(upcoming), 마감(closed) 제외
  */
 function filterOpenPrograms(array $programs, ?DateTime $today = null): array
@@ -423,9 +423,9 @@ function sortProgramsForDisplay(array $programs, ?DateTime $today = null): array
 }
 
 /**
- * 메인 "모집 중인 프로그램" 섹션 전용 준비 함수
+ * 메인 "접수 중인 프로그램" 섹션 전용 준비 함수
  * 1) is_active 필터
- * 2) 모집중(ongoing)만 필터
+ * 2) 접수중(ongoing)만 필터
  * 3) 정렬
  *
  * DB 연결 후에는
@@ -522,7 +522,7 @@ function matchesRecommendProgram(array $program, array $state): bool
  *
  * 흐름:
  * 1) 활성
- * 2) 모집중
+ * 2) 접수중
  * 3) 추천 필터 (age + field)
  * 4) 정렬
  */

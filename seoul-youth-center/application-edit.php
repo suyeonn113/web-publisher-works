@@ -26,6 +26,7 @@ if (!$application) {
 
 $pageTitle = '신청 수정 | ' . $application['program_title'];
 $pageCss = ['program-apply.css', 'applications.css'];
+$applicationType = ($application['program_type'] ?? 'youth') === 'lifelong' ? '평생교육 프로그램 신청' : '청소년 프로그램 신청';
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +49,7 @@ $pageCss = ['program-apply.css', 'applications.css'];
             <h2 id="application-edit-info-title">신청정보</h2>
             <div class="program-apply-card">
                 <div class="program-apply-card__summary">
-                    <p>프로그램 신청</p>
+                    <p><?= htmlspecialchars($applicationType, ENT_QUOTES, 'UTF-8') ?></p>
                     <h3><?= htmlspecialchars($application['program_title'], ENT_QUOTES, 'UTF-8') ?></h3>
                 </div>
 

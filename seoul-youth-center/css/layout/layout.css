@@ -6,6 +6,8 @@
 
 :root {
 
+    --layout-max-width: 75rem;               /* 1200px */
+
     /* Spacing Tokens */
 
     --space-1: 0.5rem;   /* 8px */
@@ -38,8 +40,8 @@
 }
 
 .inner {
-    width: min(100%, 75rem);
-    max-width: 1200px;
+    width: min(100%, var(--layout-max-width));
+    max-width: var(--layout-max-width);
     padding-inline: 1rem;
 }
 
@@ -82,6 +84,25 @@ padding-inline: var(--layout-padding-inline);
 .inner {
     margin-inline: auto;
     padding-inline: var(--layout-padding-inline);
+}
+
+}
+
+
+/* ========================================
+                Wide Desktop
+======================================== */
+
+@media (min-width: 1536px) {
+
+html {
+    font-size: 106.25%;
+}
+
+:root {
+    --layout-max-width: 1440px;
+    --section-padding-block: 4.5rem;
+    --section-gap: 2.25rem;
 }
 
 }

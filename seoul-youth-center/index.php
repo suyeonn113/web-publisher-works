@@ -39,14 +39,28 @@ $programs = sortProgramsForDisplay($programs);
                             $bannerRel = $banner['rel'] ?? '';
                             $bannerImage = BASE_URL . '/' . ltrim($banner['image'] ?? '', '/');
                             $bannerAlt = $banner['alt'] ?? '';
+                            $bannerTheme = preg_replace('/[^a-z0-9-]/', '', $banner['theme'] ?? 'default');
+                            $bannerCopyPosition = ($banner['copy_position'] ?? 'left') === 'right' ? 'right' : 'left';
                             ?>
-                            <li class="banner__item" data-banner-id="<?= (int) ($banner['id'] ?? 0) ?>">
+                            <li class="banner__item banner__item--<?= htmlspecialchars($bannerTheme, ENT_QUOTES, 'UTF-8') ?> banner__item--copy-<?= $bannerCopyPosition ?>"
+                                data-banner-id="<?= (int) ($banner['id'] ?? 0) ?>">
                                 <a href="<?= htmlspecialchars($bannerLink, ENT_QUOTES, 'UTF-8') ?>"
                                 target="<?= htmlspecialchars($bannerTarget, ENT_QUOTES, 'UTF-8') ?>"
                                 <?= $bannerRel !== '' ? 'rel="' . htmlspecialchars($bannerRel, ENT_QUOTES, 'UTF-8') . '"' : '' ?>>
                                     <img class="banner__image"
                                         src="<?= htmlspecialchars($bannerImage, ENT_QUOTES, 'UTF-8') ?>"
                                         alt="<?= htmlspecialchars($bannerAlt, ENT_QUOTES, 'UTF-8') ?>">
+                                    <span class="banner__copy">
+                                        <span class="banner__eyebrow"><?= htmlspecialchars($banner['eyebrow'] ?? '', ENT_QUOTES, 'UTF-8') ?></span>
+                                        <strong class="banner__title"><?= htmlspecialchars($banner['title'] ?? '', ENT_QUOTES, 'UTF-8') ?></strong>
+                                        <span class="banner__description"><?= htmlspecialchars($banner['description'] ?? '', ENT_QUOTES, 'UTF-8') ?></span>
+                                        <span class="banner__cta">
+                                            <?= htmlspecialchars($banner['cta'] ?? '자세히 보기', ENT_QUOTES, 'UTF-8') ?>
+                                            <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+                                                <path d="M4 10h11M11 6l4 4-4 4"/>
+                                            </svg>
+                                        </span>
+                                    </span>
                                 </a>
                             </li>
                         <?php endforeach; ?>
@@ -230,152 +244,110 @@ $programs = sortProgramsForDisplay($programs);
     <section class="program-explorer wrapper padding-block">
         <div class="program-explorer__inner inner">
             <div class="program-explorer__heading">
-                <div>
-                    <p class="program-explorer__eyebrow">지금 신청 가능해요</p>
-                    <h2 class="section__title">나에게 맞는 프로그램 찾기</h2>
+                <p class="program-explorer__eyebrow">지금 신청 가능해요</p>
+                <div class="program-explorer__title-row">
+                    <h2 class="section__title">
+                        접수중인 프로그램
+                        <span class="program-explorer__count" aria-live="polite">불러오는 중</span>
+                    </h2>
+                    <a class="program-explorer__all button button--more" href="<?= BASE_URL ?>/programs.php?status=ongoing">전체 프로그램 보기</a>
                 </div>
-                <p class="program-explorer__description">연령과 관심 분야를 선택하면 모집 중인 프로그램만 바로 보여드려요.</p>
             </div>
-
-            <div class="program-explorer__tabs" role="tablist" aria-label="프로그램 유형">
-                <button class="program-explorer__tab" type="button" role="tab" aria-selected="true" data-program-type="youth">청소년 프로그램</button>
-                <button class="program-explorer__tab" type="button" role="tab" aria-selected="false" data-program-type="education">평생교육 프로그램</button>
-            </div>
-
-            <form class="recommend-filter" action="" method="get" data-has-selection="false">
-                <div class="recommend-filter__mobile">
-                    <label class="recommend-filter__select-field">
-                        <span>연령 선택</span>
-                        <select name="age" aria-label="연령 기준 선택">
-                            <option value="">전체 연령</option>
-                            <option value="infant">유아</option>
-                            <option value="elementary-low">초등 저학년</option>
-                            <option value="elementary-high">초등 고학년</option>
-                            <option value="early-youth">초기 청소년</option>
-                            <option value="mid-youth">중기 청소년</option>
-                            <option value="late-youth">후기 청소년</option>
-                            <option value="citizen">시민</option>
-                        </select>
-                    </label>
-                    <label class="recommend-filter__select-field">
-                        <span>분야 선택</span>
-                        <select name="field" aria-label="분야 기준 선택">
-                            <option value="">전체 분야</option>
-                            <option value="career">진로 직업</option>
-                            <option value="culture-art">문화 예술</option>
-                            <option value="emotional">정서 관계</option>
-                            <option value="competency">역량 성장</option>
-                            <option value="citizen">시민 참여</option>
-                        </select>
-                    </label>
-                </div>
-
-                <fieldset class="recommend-filter__group age_group_codes">
-                    <legend class="recommend-filter__title">연령 기준</legend>
-                    <div class="recommend-filter__list" role="group">
-                        <button class="button--filter button" type="button" name="age" value="infant" aria-pressed="false">유아</button>
-                        <button class="button--filter button" type="button" name="age" value="elementary-low" aria-pressed="false">초등 저학년</button>
-                        <button class="button--filter button" type="button" name="age" value="elementary-high" aria-pressed="false">초등 고학년</button>
-                        <button class="button--filter button" type="button" name="age" value="early-youth" aria-pressed="false">초기 청소년</button>
-                        <button class="button--filter button" type="button" name="age" value="mid-youth" aria-pressed="false">중기 청소년</button>
-                        <button class="button--filter button" type="button" name="age" value="late-youth" aria-pressed="false">후기 청소년</button>
-                        <button class="button--filter button" type="button" name="age" value="citizen" aria-pressed="false">시민</button>
-                    </div>
-                </fieldset>
-
-                <fieldset class="recommend-filter__group field_code">
-                    <legend class="recommend-filter__title">분야 기준</legend>
-                    <div class="recommend-filter__list" role="group">
-                        <button class="button--filter button" type="button" name="field" value="career" aria-pressed="false">진로 직업</button>
-                        <button class="button--filter button" type="button" name="field" value="culture-art" aria-pressed="false">문화 예술</button>
-                        <button class="button--filter button" type="button" name="field" value="emotional" aria-pressed="false">정서 관계</button>
-                        <button class="button--filter button" type="button" name="field" value="competency" aria-pressed="false">역량 성장</button>
-                        <button class="button--filter button" type="button" name="field" value="citizen" aria-pressed="false">시민 참여</button>
-                    </div>
-                </fieldset>
-            </form>
 
             <div class="program-explorer__result" aria-busy="true">
-                <div class="program-explorer__result-head">
-                    <p class="program-explorer__count" aria-live="polite">프로그램을 불러오는 중입니다.</p>
-                    <button class="program-explorer__reset" type="button" hidden>선택 초기화</button>
-                </div>
                 <p class="program-explorer__status">프로그램을 불러오는 중입니다.</p>
-                <div class="program-explorer__grid"></div>
-                <div class="program-explorer__actions" hidden>
-                    <button class="program-explorer__load-more button" type="button">펼쳐서 더보기</button>
-                    <a class="program-explorer__all button" href="<?= BASE_URL ?>/programs.php">전체 프로그램 보기</a>
+                <div class="program-explorer__slider"
+                     role="region"
+                     aria-roledescription="carousel"
+                     aria-label="접수 중인 프로그램">
+                    <button class="program-explorer__nav program-explorer__nav--prev"
+                            type="button"
+                            aria-label="이전 프로그램 보기">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path d="m15 18-6-6 6-6"/>
+                        </svg>
+                    </button>
+                    <div class="program-explorer__viewport">
+                        <div class="program-explorer__grid"></div>
+                    </div>
+                    <button class="program-explorer__nav program-explorer__nav--next"
+                            type="button"
+                            aria-label="다음 프로그램 보기">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path d="m9 18 6-6-6-6"/>
+                        </svg>
+                    </button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!------------ News ------------>
-    <section class="news inner">
-        <div class="news__heading">
+    <!------------ News & Schedule ------------>
+    <section class="center-updates inner" aria-labelledby="center-updates-title">
+        <div class="center-updates__heading">
             <div>
-                <p class="news__eyebrow">놓치지 말아야 할 센터 소식</p>
-                <h2 class="section__title">센터 소식 한눈에 보기</h2>
+                <p class="center-updates__eyebrow">새로운 소식부터 오늘의 일정까지</p>
+                <h2 class="section__title" id="center-updates-title">센터 소식과 일정</h2>
             </div>
             <a class="button--more button" href="<?= BASE_URL ?>/notices.php">전체 소식 보기</a>
         </div>
 
-        <article class="news-card news-card--notice">
-            <div class="news-card__heading">
-                <h3>공지사항</h3>
-                <a class="news-card__more" href="<?= BASE_URL ?>/notices.php">전체보기</a>
+        <div class="center-updates__layout">
+            <div class="news center-updates__news" aria-label="센터 소식 목록">
+                <article class="news-card news-card--notice">
+                    <div class="news-card__heading">
+                        <h3>공지사항</h3>
+                        <a class="news-card__more" href="<?= BASE_URL ?>/notices.php">전체보기</a>
+                    </div>
+                    <ul class="news-card__list news-card__list--notice">
+                        <li class="news-card__item pin">
+                            <a class="news-card__link" href="<?= BASE_URL ?>/notices.php?notice=12">홈페이지 회원 자동탈퇴(파기) 안내 및 재동의 사전 안내</a>
+                        </li>
+                        <li class="news-card__item pin">
+                            <a class="news-card__link" href="<?= BASE_URL ?>/notices.php?notice=11">홈페이지 자녀계정 로그인 방법 안내</a>
+                        </li>
+                        <li class="news-card__item">
+                            <a class="news-card__link" href="<?= BASE_URL ?>/notices.php?notice=10">[공고] 2026년 평생교육 기구필라테스 강사 채용 공고</a>
+                        </li>
+                        <li class="news-card__item">
+                            <a class="news-card__link" href="<?= BASE_URL ?>/notices.php?notice=9">[안내] 시립서울청소년센터 운영백서(2025년)</a>
+                        </li>
+                        <li class="news-card__item">
+                            <a class="news-card__link" href="<?= BASE_URL ?>/notices.php?notice=8">[고시] 수의계약 공개내역서(2026년 3월 꿈꾸는 아이들 책걸상 구매)</a>
+                        </li>
+                    </ul>
+                </article>
+
+                <article class="news-card news-card--secondary" aria-label="서울시정 및 보도자료">
+                    <section class="news-card__section">
+                        <div class="news-card__heading">
+                            <h3>서울시정</h3>
+                            <a class="news-card__more" href="#">전체보기</a>
+                        </div>
+                        <ul class="news-card__list">
+                            <li class="news-card__item"><a class="news-card__link" href="#">제1기 청년 공존·공감위원회 청년위원 모집 공고</a></li>
+                            <li class="news-card__item"><a class="news-card__link" href="#">서울특별시 청소년참여위원회 모집</a></li>
+                        </ul>
+                    </section>
+
+                    <section class="news-card__section">
+                        <div class="news-card__heading">
+                            <h3>보도자료</h3>
+                            <a class="news-card__more" href="#">전체보기</a>
+                        </div>
+                        <ul class="news-card__list news-card__list--press">
+                            <li class="news-card__item"><a class="news-card__link" href="#">[2025.02.05] 소셜임팩트뉴스-청다온 등 35건(2025년 3분기)</a></li>
+                            <li class="news-card__item"><a class="news-card__link" href="#">[2025.01.06] KNS뉴스통신-움아트 외 39건</a></li>
+                        </ul>
+                    </section>
+                </article>
             </div>
-            <ul class="news-card__list news-card__list--notice">
-                <li class="news-card__item pin">
-                    <a class="news-card__link" href="<?= BASE_URL ?>/notices.php?notice=12">홈페이지 회원 자동탈퇴(파기) 안내 및 재동의 사전 안내</a>
-                </li>
-                <li class="news-card__item pin">
-                    <a class="news-card__link" href="<?= BASE_URL ?>/notices.php?notice=11">홈페이지 자녀계정 로그인 방법 안내</a>
-                </li>
-                <li class="news-card__item">
-                    <a class="news-card__link" href="<?= BASE_URL ?>/notices.php?notice=10">[공고] 2026년 평생교육 기구필라테스 강사 채용 공고</a>
-                </li>
-                <li class="news-card__item">
-                    <a class="news-card__link" href="<?= BASE_URL ?>/notices.php?notice=9">[안내] 시립서울청소년센터 운영백서(2025년)</a>
-                </li>
-                <li class="news-card__item">
-                    <a class="news-card__link" href="<?= BASE_URL ?>/notices.php?notice=8">[고시] 수의계약 공개내역서(2026년 3월 꿈꾸는 아이들 책걸상 구매)</a>
-                </li>
-            </ul>
-        </article>
 
-        <article class="news-card news-card--city">
-            <div class="news-card__heading">
-                <h3>서울시정</h3>
-                <a class="news-card__more" href="#">전체보기</a>
-            </div>
-            <ul class="news-card__list">
-                <li class="news-card__item"><a class="news-card__link" href="#">제1기 청년 공존·공감위원회 청년위원 모집 공고</a></li>
-                <li class="news-card__item"><a class="news-card__link" href="#">서울특별시 청소년참여위원회 모집</a></li>
-            </ul>
-        </article>
-
-        <article class="news-card news-card--press">
-            <div class="news-card__heading">
-                <h3>보도자료</h3>
-                <a class="news-card__more" href="#">전체보기</a>
-            </div>
-            <ul class="news-card__list news-card__list--press">
-                <li class="news-card__item"><a class="news-card__link" href="#">[2025.02.05] 소셜임팩트뉴스-청다온 등 35건(2025년 3분기)</a></li>
-                <li class="news-card__item"><a class="news-card__link" href="#">[2025.01.06] KNS뉴스통신-움아트 외 39건</a></li>
-            </ul>
-        </article>
-    </section>
-
-    <!------------ Schedule ------------>
-    <section class="schedule inner">
-        <p class="schedule__eyebrow">센터의 하루를 확인해요</p>
-        <h2 class="section__title">센터 일정 둘러보기</h2>
-
+            <div class="schedule center-updates__schedule" aria-labelledby="center-schedule-title">
         <div class="schedule__layout">
             <!-- 달력 영역 -->
-            <div class="schedule-calendar" aria-labelledby="schedule-calendar__title">
-                <h3 id="schedule-calendar__title" class="visually-hidden">센터 일정 달력</h3>
+            <div class="schedule-calendar" aria-labelledby="center-schedule-title">
+                <h3 id="center-schedule-title" class="visually-hidden">센터 일정 달력</h3>
 
                 <div class="schedule-calendar__box">
                     <div class="schedule-calendar__header">
@@ -454,34 +426,16 @@ $programs = sortProgramsForDisplay($programs);
               <div class="schedule-agenda" aria-labelledby="schedule-agenda__title">
                 <h3 id="schedule-agenda__title" class="visually-hidden">선택한 날짜 기준 일정 목록</h3>
 
-                <div class="schedule-agenda__group yesterday">
-                    <h4 class="schedule-agenda__heading">어제</h4>
-                    <ul class="schedule-agenda__list"
-                        id="schedule-list-yesterday"
-                        aria-label="어제 일정">
-                    </ul>
-                </div>
-
                 <div class="schedule-agenda__group today">
-                    <h4 class="schedule-agenda__heading">오늘</h4>
+                    <h4 class="schedule-agenda__heading">센터 일정</h4>
                     <ul class="schedule-agenda__list"
                         id="schedule-list-today"
                         aria-label="오늘 일정">
                     </ul>
-                    <div class="schedule-agenda__scroll-hint" aria-hidden="true">
-                        <span class="schedule-agenda__scroll-icon"></span>
-                        <span>스크롤</span>
-                    </div>
-                </div>
-
-                <div class="schedule-agenda__group tomorrow">
-                    <h4 class="schedule-agenda__heading">내일</h4>
-                    <ul class="schedule-agenda__list"
-                        id="schedule-list-tomorrow"
-                        aria-label="내일 일정">
-                    </ul>
                 </div>
               </div>
+            </div>
+        </div>
             </div>
         </div>
     </section>
