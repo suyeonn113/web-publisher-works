@@ -60,14 +60,18 @@ if (empty($sizes)) {
 $isSoldOut = !empty($product['soldOut']);
 $shopItem = shop_item_from_product($product, ['size' => $sizes[0] ?? 'S']);
 $shopItemAttr = shop_item_json($shopItem);
-$sampleReviews = FRAGFARM_DEMO_MODE
-    ? require __DIR__ . '/../includes/data/product-detail-reviews.php'
-    : [];
-
 $mysqli = null;
+
 if (!FRAGFARM_DEMO_MODE) {
+    define('FRAGFARM_DB_OPTIONAL', true);
     require_once __DIR__ . '/../includes/dbconn.php';
 }
+
+$useDemoFeedback = FRAGFARM_DEMO_MODE || !($mysqli instanceof mysqli);
+
+$sampleReviews = $useDemoFeedback
+    ? require __DIR__ . '/../includes/data/product-detail-reviews.php'
+    : [];
 
 require_once __DIR__ . '/../includes/services/product-detail-view.php';
 $feedbackView = build_product_detail_feedback(
@@ -529,6 +533,8 @@ $rating = number_format($reviewAverage, 1);
 <script type="application/json" id="shop-sample-data"><?= json_encode(shop_sample_items($products), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?></script>
 <script src="<?= BASE_URL ?>/js/shop-store.js"></script>
 <script src="<?= BASE_URL ?>/js/shop-product-actions.js"></script>
-<?php if (FRAGFARM_DEMO_MODE): ?><script src="<?= BASE_URL ?>/js/demo-product-feedback.js"></script><?php endif; ?>
+<?php if ($useDemoFeedback): ?>
+    <script src="<?= BASE_URL ?>/js/demo-product-feedback.js"></script>
+<?php endif; ?>
 </body>
 </html>

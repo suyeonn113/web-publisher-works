@@ -93,7 +93,7 @@ $youthPrograms = [
         'url' => '#',
 
         'recruitment_start_date' => '2026-03-20',
-        'recruitment_end_date' => '2126-04-11',
+        'recruitment_end_date' => '2026-04-11',
         'is_ongoing' => false,
 
         'activity_start_date' => '2026-04-19',
@@ -120,7 +120,7 @@ $youthPrograms = [
         'url' => '#',
 
         'recruitment_start_date' => '2026-03-24',
-        'recruitment_end_date' => '2126-04-08',
+        'recruitment_end_date' => '2026-04-08',
         'is_ongoing' => false,
 
         'activity_start_date' => '2026-04-14',
@@ -147,7 +147,7 @@ $youthPrograms = [
         'url' => '#',
 
         'recruitment_start_date' => '2026-03-18',
-        'recruitment_end_date' => '2126-04-13',
+        'recruitment_end_date' => '2026-04-13',
         'is_ongoing' => false,
 
         'activity_start_date' => '2026-04-21',
@@ -174,7 +174,7 @@ $youthPrograms = [
         'url' => '#',
 
         'recruitment_start_date' => '2026-03-27',
-        'recruitment_end_date' => '2126-04-15',
+        'recruitment_end_date' => '2026-04-15',
         'is_ongoing' => false,
 
         'activity_start_date' => '2026-04-25',

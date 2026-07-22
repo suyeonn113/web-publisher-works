@@ -89,7 +89,7 @@ function createProgramDate(?string $date): ?DateTime
  */
 function getProgramToday(?DateTime $today = null): DateTime
 {
-    return $today ?? new DateTime('today');
+    return $today ?? new DateTime(PROGRAM_DEMO_TODAY);
 }
 
 /**
