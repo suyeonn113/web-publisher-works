@@ -52,7 +52,7 @@ $educationPrograms = [
         'url' => '#',
 
         'recruitment_start_date' => '2026-03-25',
-        'recruitment_end_date' => '2126-04-18',
+        'recruitment_end_date' => '2026-04-18',
         'is_ongoing' => false,
 
         'activity_start_date' => '2026-04-28',
@@ -75,7 +75,7 @@ $educationPrograms = [
         'url' => '#',
 
         'recruitment_start_date' => '2026-03-29',
-        'recruitment_end_date' => '2126-04-22',
+        'recruitment_end_date' => '2026-04-22',
         'is_ongoing' => false,
 
         'activity_start_date' => '2026-05-03',
@@ -98,7 +98,7 @@ $educationPrograms = [
         'url' => '#',
 
         'recruitment_start_date' => '2026-03-27',
-        'recruitment_end_date' => '2126-04-16',
+        'recruitment_end_date' => '2026-04-16',
         'is_ongoing' => false,
 
         'activity_start_date' => '2026-04-30',
@@ -121,7 +121,7 @@ $educationPrograms = [
         'url' => '#',
 
         'recruitment_start_date' => '2026-03-30',
-        'recruitment_end_date' => '2126-04-25',
+        'recruitment_end_date' => '2026-04-25',
         'is_ongoing' => false,
 
         'activity_start_date' => '2026-05-07',
@@ -144,7 +144,7 @@ $educationPrograms = [
         'url' => '#',
 
         'recruitment_start_date' => '2026-03-28',
-        'recruitment_end_date' => '2126-04-19',
+        'recruitment_end_date' => '2026-04-19',
         'is_ongoing' => false,
 
         'activity_start_date' => '2026-05-02',
@@ -167,7 +167,7 @@ $educationPrograms = [
         'url' => '#',
 
         'recruitment_start_date' => '2026-03-26',
-        'recruitment_end_date' => '2126-04-17',
+        'recruitment_end_date' => '2026-04-17',
         'is_ongoing' => false,
 
         'activity_start_date' => '2026-04-29',
@@ -190,7 +190,7 @@ $educationPrograms = [
         'url' => '#',
 
         'recruitment_start_date' => '2026-03-31',
-        'recruitment_end_date' => '2126-04-24',
+        'recruitment_end_date' => '2026-04-24',
         'is_ongoing' => false,
 
         'activity_start_date' => '2026-05-10',
@@ -213,7 +213,7 @@ $educationPrograms = [
         'url' => '#',
 
         'recruitment_start_date' => '2026-03-24',
-        'recruitment_end_date' => '2126-04-15',
+        'recruitment_end_date' => '2026-04-15',
         'is_ongoing' => false,
 
         'activity_start_date' => '2026-04-27',
@@ -236,7 +236,7 @@ $educationPrograms = [
         'url' => '#',
 
         'recruitment_start_date' => '2026-03-22',
-        'recruitment_end_date' => '2126-04-14',
+        'recruitment_end_date' => '2026-04-14',
         'is_ongoing' => false,
 
         'activity_start_date' => '2026-04-26',
@@ -259,7 +259,7 @@ $educationPrograms = [
         'url' => '#',
 
         'recruitment_start_date' => '2026-04-01',
-        'recruitment_end_date' => '2126-04-23',
+        'recruitment_end_date' => '2026-04-23',
         'is_ongoing' => false,
 
         'activity_start_date' => '2026-05-12',
@@ -282,7 +282,7 @@ $educationPrograms = [
         'url' => '#',
 
         'recruitment_start_date' => '2026-03-23',
-        'recruitment_end_date' => '2126-04-20',
+        'recruitment_end_date' => '2026-04-20',
         'is_ongoing' => false,
 
         'activity_start_date' => '2026-05-01',
@@ -305,7 +305,7 @@ $educationPrograms = [
         'url' => '#',
 
         'recruitment_start_date' => '2026-03-21',
-        'recruitment_end_date' => '2126-04-13',
+        'recruitment_end_date' => '2026-04-13',
         'is_ongoing' => false,
 
         'activity_start_date' => '2026-04-24',
