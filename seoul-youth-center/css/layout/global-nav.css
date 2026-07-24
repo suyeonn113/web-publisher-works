@@ -468,6 +468,8 @@ body.no-scroll {
     align-items: center;
     gap: 0.25rem;
 
+    width: 100%;
+
     font-size: var(--text-quick-nav-size);
     font-weight: var(--text-quick-nav-weight);
 }
