@@ -44,7 +44,7 @@
   align-items: flex-end;
   justify-content: flex-end;
 
-  padding-block: get-space(xxl) calc(#{get-space(xxl)} + var(--hero-foreground-lift));
+  padding-block: get-space(xxl) calc(#{get-space(lg)} + var(--hero-foreground-lift));
 }
 
 .hero-slider {
