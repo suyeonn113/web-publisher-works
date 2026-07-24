@@ -152,7 +152,7 @@
 }
 
 .sns__item { min-width: 0; }
-.sns__item:nth-child(n + 4) { display: none; }
+.sns__item:nth-child(n + 4) { display: block; }
 .sns__link { display: block; }
 
 .sns__thumb {
@@ -210,6 +210,7 @@
     .sns__list {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
+    .sns__item:nth-child(n + 4) { display: none; }
 }
 
 @media (min-width: 768px) {
