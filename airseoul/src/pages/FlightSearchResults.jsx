@@ -27,6 +27,10 @@ function getFlightSearchParams(searchParams) {
   };
 }
 
+const isValidDateParam = (dateText) =>
+  /^\d{4}-\d{2}-\d{2}$/.test(dateText) &&
+  !Number.isNaN(new Date(`${dateText}T00:00:00`).getTime());
+
 function FlightSearchResults() {
   const navigate = useNavigate();
   const [urlSearchParams] = useSearchParams();
@@ -49,11 +53,18 @@ function FlightSearchResults() {
     searchParams.tripType,
   ]);
 
-  if (!searchParams.from || !searchParams.to || !searchParams.departureDate) {
+  const isRoundTrip = searchParams.tripType === TRIP_TYPES.ROUND_TRIP;
+  const hasValidDates =
+    isValidDateParam(searchParams.departureDate) &&
+    (!isRoundTrip || isValidDateParam(searchParams.returnDate));
+
+  if (!searchParams.from || !searchParams.to || !hasValidDates) {
     return <Navigate to={ROUTES.booking.root} replace />;
   }
 
-  const isRoundTrip = searchParams.tripType === TRIP_TYPES.ROUND_TRIP;
+  const activeInboundDate = isValidDateParam(selectedInboundDate)
+    ? selectedInboundDate
+    : searchParams.returnDate;
   const outboundFlights = searchFlights({
     ...searchParams,
     departureDate: selectedOutboundDate,
@@ -62,7 +73,7 @@ function FlightSearchResults() {
     ? searchFlights({
         from: searchParams.to,
         to: searchParams.from,
-        departureDate: selectedInboundDate,
+        departureDate: activeInboundDate,
       })
     : [];
   const outboundDateFareItems = getDateFareBarItems({
@@ -74,7 +85,7 @@ function FlightSearchResults() {
     ? getDateFareBarItems({
         from: searchParams.to,
         to: searchParams.from,
-        baseDate: selectedInboundDate,
+        baseDate: activeInboundDate,
       })
     : [];
 

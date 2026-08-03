@@ -88,7 +88,7 @@ function DateFareBar({ items, onSelectDate }) {
         {visibleItems.map((item, index) => (
           <button
             className={`date-fare-bar__item${item.isSelected ? ' is-selected' : ''}`}
-            key={item.date}
+            key={`${item.date}-${index}`}
             aria-pressed={item.isSelected}
             onClick={() => onSelectDate?.(item.date)}
             onKeyDown={(event) => handleDateKeyDown(event, index)}

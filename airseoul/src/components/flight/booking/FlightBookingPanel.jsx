@@ -218,6 +218,16 @@ function FlightBookingPanel({ defaultValues, onSearch, variant = 'home', isColla
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    if (!departureDate) {
+      window.alert('출발일을 선택해 주세요.');
+      return;
+    }
+
+    if (tripType === TRIP_TYPES.ROUND_TRIP && !returnDate) {
+      window.alert('왕복 일정은 오는 날을 선택해 주세요.');
+      return;
+    }
+
     if (tripType === TRIP_TYPES.ROUND_TRIP && !from) {
       window.alert('출발지를 선택해 주세요.');
       return;
