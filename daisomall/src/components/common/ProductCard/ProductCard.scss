@@ -87,6 +87,13 @@
   @include icon-button(var(--icon-size-lg));
 }
 
+@media (max-width: 767px) {
+  .product-card__wish {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
 .product-card__info {
   display: grid;
   gap: get-space(1);

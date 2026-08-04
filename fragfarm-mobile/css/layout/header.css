@@ -136,7 +136,7 @@ header.is-menu-open {
     z-index: 1000;
 
     height: 100dvh;
-    width: min(80vw, 320px);
+    width: 100%;
 
     background: var(--color-white-92);
     opacity: 0;

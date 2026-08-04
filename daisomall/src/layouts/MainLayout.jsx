@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import Header from '../components/layout/Header/Header'
 import { PATHS } from '../routes/paths'
@@ -10,14 +10,28 @@ import './MainLayout.scss'
 
 function MainLayout() {
   const [isCategoryDrawerOpen, setIsCategoryDrawerOpen] = useState(false)
+  const categoryDrawerTriggerRef = useRef(null)
   const { pathname } = useLocation()
 
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [pathname])
 
-  const handleCategoryDrawerToggle = () => {
-    setIsCategoryDrawerOpen((isOpen) => !isOpen)
+  const handleCategoryDrawerClose = () => {
+    setIsCategoryDrawerOpen(false)
+    window.requestAnimationFrame(() => {
+      categoryDrawerTriggerRef.current?.focus()
+    })
+  }
+
+  const handleCategoryDrawerToggle = (event) => {
+    if (isCategoryDrawerOpen) {
+      handleCategoryDrawerClose()
+      return
+    }
+
+    categoryDrawerTriggerRef.current = event.currentTarget
+    setIsCategoryDrawerOpen(true)
   }
 
   return (
@@ -29,7 +43,7 @@ function MainLayout() {
       <Header onMenuClick={handleCategoryDrawerToggle} />
       <CategoryDrawer
         isOpen={isCategoryDrawerOpen}
-        onClose={() => setIsCategoryDrawerOpen(false)}
+        onClose={handleCategoryDrawerClose}
       />
       <main id="main-content" className="app-shell__main" tabIndex="-1">
         <Outlet />

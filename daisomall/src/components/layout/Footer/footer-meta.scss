@@ -113,7 +113,7 @@
   display: grid;
   gap: var(--space-4);
   padding-block: var(--space-4) var(--space-6);
-  color: var(--color-text-tertiary);
+  color: var(--color-text-secondary);
 
   @include text-size(caption);
 
@@ -166,7 +166,7 @@
   order: 8;
   display: grid;
   gap: var(--space-4);
-  color: var(--color-text-tertiary);
+  color: var(--color-text-secondary);
   text-align: center;
 
   @include text-size(caption);
@@ -193,7 +193,7 @@
 }
 
 .site-footer__policy-list a {
-  color: var(--color-text-tertiary);
+  color: var(--color-text-secondary);
 
   @include text-size(caption);
 }
@@ -201,6 +201,12 @@
 .site-footer__policy-list a.is-strong {
   color: var(--color-text-secondary);
   font-weight: 800;
+}
+
+@media (max-width: 767px) {
+  .site-footer__policy-list button {
+    min-height: 44px;
+  }
 }
 
 .site-footer__info p span {
@@ -243,7 +249,7 @@
   padding: var(--space-1);
   border: var(--line-thin) solid var(--color-border-secondary);
   border-radius: var(--radius-circle);
-  color: var(--color-text-tertiary);
+  color: var(--color-text-secondary);
   font-size: 8px;
   font-weight: 700;
   line-height: var(--line-height-tight);
@@ -276,7 +282,7 @@
 
 @include respond-up(laptop) {
     display: inline;
-    color: var(--color-text-tertiary);
+    color: var(--color-text-secondary);
     font-weight: 500;
 
     @include text-size(caption);
@@ -286,7 +292,7 @@
 .site-footer__copy {
   order: 9;
   margin-top: var(--space-5);
-  color: var(--color-text-tertiary);
+  color: var(--color-text-secondary);
   text-align: center;
 
   @include text-size(caption);

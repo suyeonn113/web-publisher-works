@@ -14,6 +14,41 @@ function syc_move_with_alert($message, $url = null)
     exit;
 }
 
+function syc_ensure_program_type_column($mysqli)
+{
+    $checkColumn = static function () use ($mysqli) {
+        $result = mysqli_query(
+            $mysqli,
+            "SHOW COLUMNS FROM seoul_youth_center_program_applications LIKE 'program_type'"
+        );
+
+        if (!$result) {
+            return false;
+        }
+
+        $hasColumn = mysqli_num_rows($result) > 0;
+        mysqli_free_result($result);
+
+        return $hasColumn;
+    };
+
+    if ($checkColumn()) {
+        return true;
+    }
+
+    $altered = mysqli_query(
+        $mysqli,
+        "ALTER TABLE seoul_youth_center_program_applications
+            ADD COLUMN program_type ENUM('youth', 'lifelong') NOT NULL DEFAULT 'youth' AFTER id"
+    );
+
+    if ($altered) {
+        return true;
+    }
+
+    return $checkColumn();
+}
+
 function syc_mask_name($name)
 {
     $name = trim((string) $name);

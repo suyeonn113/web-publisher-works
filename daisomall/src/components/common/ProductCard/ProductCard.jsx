@@ -11,7 +11,6 @@ function ProductCard({ product, rank }) {
     return (
       <article
         className="product-card"
-        role="listitem"
         tabIndex="0"
         aria-label={cardLabel}
       >
@@ -23,7 +22,7 @@ function ProductCard({ product, rank }) {
   }
 
   return (
-    <article className="product-card" role="listitem" tabIndex="0" aria-label={cardLabel}>
+    <article className="product-card" tabIndex="0" aria-label={cardLabel}>
       <ProductCardImage product={product} imageAlt="" />
       <ProductCardInfo product={product} />
     </article>

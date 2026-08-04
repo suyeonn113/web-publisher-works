@@ -186,3 +186,9 @@
 .site-footer__submenu button:focus-visible {
   outline-offset: var(--focus-ring-width);
 }
+
+@media (max-width: 767px) {
+  .site-footer__submenu button {
+    min-height: 44px;
+  }
+}

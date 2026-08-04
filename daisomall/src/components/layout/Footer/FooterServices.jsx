@@ -20,10 +20,11 @@ function FooterServiceSummary({ column, phone }) {
       <button
         type="button"
         className="site-footer__service-toggle"
+        aria-label={`${column.title} 메뉴 ${isOpen ? '접기' : '펼치기'}`}
         aria-expanded={isOpen}
         onClick={() => setIsOpen((current) => !current)}
       >
-        <PlusIcon size={iconSize.xs} />
+        <PlusIcon size={iconSize.xs} focusable="false" />
       </button>
       <ul>
         {column.links.map((link) => (

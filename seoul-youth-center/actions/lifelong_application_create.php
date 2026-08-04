@@ -53,6 +53,13 @@ $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 $attachmentName = '';
 
 require_once __DIR__ . '/../includes/dbconn.php';
+
+if (!syc_ensure_program_type_column($mysqli)) {
+    error_log('Seoul Youth Center program_type migration failed: ' . mysqli_error($mysqli));
+    mysqli_close($mysqli);
+    syc_move_with_alert('신청 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+}
+
 $sql = '
     INSERT INTO seoul_youth_center_program_applications (
         program_type, program_id, program_title, applicant_name, birthdate, gender,

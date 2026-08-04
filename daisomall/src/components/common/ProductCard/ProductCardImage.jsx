@@ -15,7 +15,7 @@ function ProductCardImage({ product, showWish = true, imageAlt = product.name })
         <button
           type="button"
           className="product-card__wish"
-          aria-label={isWished ? '찜 해제' : '찜하기'}
+          aria-label={`${product.name} ${isWished ? '찜 해제' : '찜하기'}`}
           aria-pressed={isWished}
           onClick={() => setIsWished((current) => !current)}
         >
@@ -25,6 +25,7 @@ function ProductCardImage({ product, showWish = true, imageAlt = product.name })
             outerOpacity={0.9}
             innerOpacity={isWished ? 1 : 0.1}
             size={iconSize.sm}
+            focusable="false"
           />
         </button>
       ) : null}

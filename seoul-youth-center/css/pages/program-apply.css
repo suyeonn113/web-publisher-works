@@ -23,6 +23,10 @@
     margin-inline: auto;
 }
 
+.info-page.program-apply-page .program-apply-form {
+    margin-block-start: var(--space-4);
+}
+
 .program-apply-section-title {
     display: flex;
     align-items: center;
@@ -116,7 +120,7 @@
 }
 
 .program-apply-card__summary h3 {
-    color: var(--color-purple);
+    color: #000;
     font-size: clamp(1.5rem, 4vw, 2rem);
     font-weight: 700;
     line-height: 1.25;

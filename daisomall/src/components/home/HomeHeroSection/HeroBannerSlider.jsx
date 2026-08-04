@@ -29,6 +29,7 @@ function HeroBannerSlider({ banners }) {
       .map((offset) => ({
         banner: getBannerAtOffset(offset),
         bannerIndex: (activeIndex + offset + banners.length) % banners.length,
+        offset,
       }))
       .filter(
         ({ banner }, index, previewBanners) =>
@@ -145,23 +146,45 @@ function HeroBannerSlider({ banners }) {
     >
       <div className="hero-banner__stage">
         {hasMultipleBanners &&
-          getPreviewBanners().map(({ banner, bannerIndex }) => (
-            <Link
-              key={banner.id}
-              to={getBannerPath(banner)}
-              className={`hero-banner__preview`}
-              onClick={(event) => {
-                handlePreviewClick(event, banner, bannerIndex)
-              }}
-            >
-              <img src={getPublicAssetPath(banner.image)} alt="" />
-              <div className="hero-banner__preview-title">
-                {banner.title.split('\n').map((line) => (
-                  <strong key={line}>{line}</strong>
-                ))}
-              </div>
-            </Link>
-          ))}
+          getPreviewBanners().map(({ banner, bannerIndex, offset }) => {
+            const previewContent = (
+              <>
+                <img src={getPublicAssetPath(banner.image)} alt="" loading="lazy" />
+                <div className="hero-banner__preview-title">
+                  {banner.title.split('\n').map((line) => (
+                    <strong key={line}>{line}</strong>
+                  ))}
+                </div>
+              </>
+            )
+
+            if (!isTabletUp) {
+              return (
+                <button
+                  key={banner.id}
+                  type="button"
+                  className="hero-banner__preview"
+                  aria-label={offset < 0 ? '이전 배너 보기' : '다음 배너 보기'}
+                  onClick={() => setActiveIndex(bannerIndex)}
+                >
+                  {previewContent}
+                </button>
+              )
+            }
+
+            return (
+              <Link
+                key={banner.id}
+                to={getBannerPath(banner)}
+                className="hero-banner__preview"
+                onClick={(event) => {
+                  handlePreviewClick(event, banner, bannerIndex)
+                }}
+              >
+                {previewContent}
+              </Link>
+            )
+          })}
         <Link
           to={getBannerPath(getBannerAtOffset(0))}
           className="hero-banner__poster"
@@ -174,6 +197,8 @@ function HeroBannerSlider({ banners }) {
             src={getPublicAssetPath(getBannerAtOffset(0).image)}
             alt=""
             className="hero-banner__image"
+            loading={activeIndex === 0 ? 'eager' : 'lazy'}
+            fetchPriority={activeIndex === 0 ? 'high' : undefined}
           />
           <div className="hero-banner__content">
             {getBannerAtOffset(0).title.split('\n').map((line) => (

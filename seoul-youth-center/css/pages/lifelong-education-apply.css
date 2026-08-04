@@ -121,7 +121,7 @@
 
 .lifelong-course-table {
     width: 100%;
-    min-width: 76rem;
+    min-width: 0;
     color: var(--color-text-default);
 }
 
@@ -226,35 +226,24 @@
     }
 }
 
-@media (max-width: 767px) {
-    .lifelong-course-search,
-    .lifelong-apply-content {
-        gap: var(--space-3);
+@media (min-width: 1248px) {
+    .lifelong-course-table {
+        table-layout: fixed;
     }
 
-    .lifelong-course-search {
-        padding: var(--space-3) var(--space-2);
-    }
+    .lifelong-course-table :is(th, td):nth-child(1) { width: 20%; }
+    .lifelong-course-table :is(th, td):nth-child(2) { width: 8%; }
+    .lifelong-course-table :is(th, td):nth-child(3) { width: 8%; }
+    .lifelong-course-table :is(th, td):nth-child(4) { width: 7%; }
+    .lifelong-course-table :is(th, td):nth-child(5) { width: 12%; }
+    .lifelong-course-table :is(th, td):nth-child(6) { width: 12%; }
+    .lifelong-course-table :is(th, td):nth-child(7) { width: 9%; }
+    .lifelong-course-table :is(th, td):nth-child(8) { width: 8%; }
+    .lifelong-course-table :is(th, td):nth-child(9) { width: 8%; }
+    .lifelong-course-table :is(th, td):nth-child(10) { width: 8%; }
+}
 
-    .lifelong-course-search__heading,
-    .lifelong-course-results__heading {
-        display: grid;
-        align-items: start;
-    }
-
-    .lifelong-course-search form {
-        grid-template-columns: 1fr;
-    }
-
-    .lifelong-course-search__keyword,
-    .lifelong-course-search__actions {
-        grid-column: auto;
-    }
-
-    .lifelong-course-search__actions > * {
-        flex: 1;
-    }
-
+@media (max-width: 1247px) {
     .lifelong-course-table-wrap {
         overflow: visible;
         border-top: 0;
@@ -311,4 +300,35 @@
         border-top: 0;
         border-radius: 0 0 var(--radius-md) var(--radius-md);
     }
+}
+
+@media (max-width: 767px) {
+    .lifelong-course-search,
+    .lifelong-apply-content {
+        gap: var(--space-3);
+    }
+
+    .lifelong-course-search {
+        padding: var(--space-3) var(--space-2);
+    }
+
+    .lifelong-course-search__heading,
+    .lifelong-course-results__heading {
+        display: grid;
+        align-items: start;
+    }
+
+    .lifelong-course-search form {
+        grid-template-columns: 1fr;
+    }
+
+    .lifelong-course-search__keyword,
+    .lifelong-course-search__actions {
+        grid-column: auto;
+    }
+
+    .lifelong-course-search__actions > * {
+        flex: 1;
+    }
+
 }

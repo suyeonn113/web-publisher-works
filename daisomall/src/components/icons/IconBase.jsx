@@ -25,6 +25,7 @@ function IconBase({
       strokeLinecap="square"
       strokeLinejoin="round"
       color="currentColor"
+      focusable="false"
       {...accessibilityProps}
       {...props}
     >

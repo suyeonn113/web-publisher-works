@@ -1,10 +1,10 @@
 import { getPublicAssetPath } from '../../../utils/getPublicAssetPath'
 
 const deliveryServiceImages = {
-  delivery: '/images/delivery/delivery.png',
-  pickup: '/images/delivery/pickup.png',
-  today: '/images/delivery/today.png',
-  bulk: '/images/delivery/bulk.png',
+  delivery: '/images/delivery/delivery.webp',
+  pickup: '/images/delivery/pickup.webp',
+  today: '/images/delivery/today.webp',
+  bulk: '/images/delivery/bulk.webp',
 }
 
 const deliveryServiceIconSize = 'var(--delivery-service-card-icon-size)'

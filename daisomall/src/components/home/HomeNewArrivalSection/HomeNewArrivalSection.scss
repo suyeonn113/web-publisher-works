@@ -111,6 +111,13 @@
   }
 }
 
+@media (max-width: 767px) {
+  .new-arrival-card__product-toggle {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
 .new-arrival-card__products {
   position: absolute;
   inset: 0;

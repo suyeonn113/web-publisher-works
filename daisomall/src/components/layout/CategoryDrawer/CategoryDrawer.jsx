@@ -11,6 +11,7 @@ function CategoryDrawer({ isOpen, onClose }) {
   const [activeMenu, setActiveMenu] = useState(categoryDrawerData.menuTabs[0]?.id)
   const [activeCategoryIndex, setActiveCategoryIndex] = useState(0)
   const scrollContainerRef = useRef(null)
+  const drawerRef = useRef(null)
   const sectionRefs = useRef([])
   const panelRefs = useRef([])
   const isAutoScrollingRef = useRef(false)
@@ -82,15 +83,51 @@ function CategoryDrawer({ isOpen, onClose }) {
       return undefined
     }
 
+    const drawer = drawerRef.current
+    const focusableSelector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    const getFocusableElements = () =>
+      Array.from(drawer?.querySelectorAll(focusableSelector) ?? []).filter(
+        (element) => element.tabIndex >= 0 && element.getClientRects().length > 0,
+      )
+    const focusFrameId = window.requestAnimationFrame(() => {
+      drawer?.querySelector('.category-drawer__close')?.focus()
+    })
+
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') {
+        event.preventDefault()
         onClose()
+        return
+      }
+
+      if (event.key !== 'Tab') {
+        return
+      }
+
+      const focusableElements = getFocusableElements()
+      const firstFocusableElement = focusableElements[0]
+      const lastFocusableElement = focusableElements[focusableElements.length - 1]
+
+      if (!firstFocusableElement || !lastFocusableElement) {
+        return
+      }
+
+      if (event.shiftKey && document.activeElement === firstFocusableElement) {
+        event.preventDefault()
+        lastFocusableElement.focus()
+        return
+      }
+
+      if (!event.shiftKey && document.activeElement === lastFocusableElement) {
+        event.preventDefault()
+        firstFocusableElement.focus()
       }
     }
 
     window.addEventListener('keydown', handleKeyDown)
 
     return () => {
+      window.cancelAnimationFrame(focusFrameId)
       window.removeEventListener('keydown', handleKeyDown)
     }
   }, [isOpen, onClose])
@@ -171,11 +208,12 @@ function CategoryDrawer({ isOpen, onClose }) {
   }
 
   return (
-    <div className="category-drawer" role="dialog" aria-modal="true">
+    <div ref={drawerRef} className="category-drawer" role="dialog" aria-modal="true">
       <button
         type="button"
         className="category-drawer__dim"
         aria-label="카테고리 닫기"
+        tabIndex="-1"
         onClick={onClose}
       />
       <section className="category-drawer__panel">
