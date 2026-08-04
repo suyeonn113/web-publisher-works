@@ -1,4 +1,4 @@
-﻿import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+﻿import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { TRIP_TYPES } from '../../../constants/tripType';
 import { 
   formatKoreanMonthDay,
@@ -8,6 +8,7 @@ import {
 import { getAirport } from '../../../utils/airports';
 import { sortSelectedDates } from '../../../utils/searchParams';
 import useBodyScrollLock from '../../../hooks/useBodyScrollLock';
+import useDialogAccessibility from '../../../hooks/useDialogAccessibility';
 import XIcon from '../../icons/XIcon';
 import AirportSelectionPanel from '../shared/AirportSelectionPanel';
 import FlightDateField from '../shared/FlightDateField';
@@ -65,6 +66,7 @@ function FlightSchedulePanel({
   const [secondDate, setSecondDate] = useState(getAppDateText());
   const [activePanel, setActivePanel] = useState(null);
   const popupRef = useRef(null);
+  const popupTitleId = `flight-schedule-popup-${useId().replace(/:/g, '')}`;
   const {
     containerRef: searchRef,
     popupPosition,
@@ -78,6 +80,14 @@ function FlightSchedulePanel({
     setActivePanel(null);
     triggerRef.current?.focus();
   }, [triggerRef]);
+
+  useDialogAccessibility({
+    dialogRef: popupRef,
+    isModal: isFullScreenDatePicker,
+    isOpen: Boolean(activePanel),
+    onClose: closePanel,
+    triggerRef,
+  });
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(max-width: 768px)');
@@ -95,28 +105,6 @@ function FlightSchedulePanel({
     };
   }, []);
   
-  useEffect(() => {
-    if (activePanel) {
-      popupRef.current?.focus();
-    }
-  }, [activePanel]);
-
-  useEffect(() => {
-    if (!activePanel) return undefined;
-
-    const handleEscapeKey = (event) => {
-      if (event.key === 'Escape') {
-        closePanel();
-      }
-    };
-
-    window.addEventListener('keydown', handleEscapeKey);
-
-    return () => {
-      window.removeEventListener('keydown', handleEscapeKey);
-    };
-  }, [activePanel, closePanel]);
-
   const openPanel = (panelType, event) => {
     updatePopupPosition(panelType, event);
     setActivePanel(panelType);
@@ -133,7 +121,7 @@ function FlightSchedulePanel({
       setTo(code);
     }
 
-    setActivePanel(null);
+    closePanel();
   };
 
   const handleDateChange = (nextFirstDate, nextSecondDate) => {
@@ -204,11 +192,14 @@ function FlightSchedulePanel({
         }}
         ref={popupRef}
         role="dialog"
-        aria-modal="false"
+        aria-labelledby={popupTitleId}
+        aria-modal={isFullScreenDatePicker}
         tabIndex="-1"
       >
         <header className="flight-service-popup__header">
-          <strong>{activePanel === PANEL_TYPES.DATE ? '출발일' : '공항 선택'}</strong>
+          <strong id={popupTitleId}>
+            {activePanel === PANEL_TYPES.DATE ? '출발일' : '공항 선택'}
+          </strong>
           <button type="button" aria-label="선택 창 닫기" onClick={closePanel}>
             <XIcon size={20} />
           </button>
@@ -267,6 +258,7 @@ function FlightSchedulePanel({
         {searchType === SEARCH_TYPES.WEEKLY && (
           <div className="flight-service-chips" role="group" aria-label="여정 유형">
             <button
+              aria-pressed={tripType === TRIP_TYPES.ROUND_TRIP}
               className={tripType === TRIP_TYPES.ROUND_TRIP ? 'is-active' : ''}
               type="button"
               onClick={() => handleTripTypeChange(TRIP_TYPES.ROUND_TRIP)}
@@ -274,6 +266,7 @@ function FlightSchedulePanel({
               왕복
             </button>
             <button
+              aria-pressed={tripType === TRIP_TYPES.ONE_WAY}
               className={tripType === TRIP_TYPES.ONE_WAY ? 'is-active' : ''}
               type="button"
               onClick={() => handleTripTypeChange(TRIP_TYPES.ONE_WAY)}

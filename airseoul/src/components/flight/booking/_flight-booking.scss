@@ -79,7 +79,7 @@
     border-radius: 0;
 
     &::placeholder {
-      color: var(--color-text-tertiary);
+      color: var(--color-text-muted-accessible);
     }
   }
 }
@@ -87,9 +87,12 @@
 .flight-booking-panel__help {
   position: relative;
   display: inline-flex;
-  width: 16px;
-  height: 16px;
-  color: var(--color-text-tertiary);
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin: -14px;
+  color: var(--color-text-muted-accessible);
 
   > [role='tooltip'] {
     position: absolute;
@@ -133,7 +136,7 @@
   color: var(--color-text-inverse);
   font-weight: 800;
   white-space: nowrap;
-  background: var(--color-point-primary);
+  background: var(--color-mint-accessible);
   border-radius: var(--radius-full);
 }
 
@@ -384,7 +387,7 @@
     }
 
     &.is-accent {
-      color: var(--color-point-primary);
+      color: var(--color-mint-accessible);
     }
   }
 }

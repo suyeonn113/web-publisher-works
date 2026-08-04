@@ -1,4 +1,4 @@
-﻿import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+﻿import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import AdultIcon from '../../icons/AdultIcon';
 import ChildIcon from '../../icons/ChildIcon';
 import ChevronDownIcon from '../../icons/ChevronDownIcon';
@@ -15,6 +15,7 @@ import {
   sortSelectedDates,
 } from '../../../utils/searchParams';
 import useBodyScrollLock from '../../../hooks/useBodyScrollLock';
+import useDialogAccessibility from '../../../hooks/useDialogAccessibility';
 import AirportSelectionPanel from '../shared/AirportSelectionPanel';
 import FlightDateField from '../shared/FlightDateField';
 import FlightDatePicker from '../shared/FlightDatePicker';
@@ -104,6 +105,7 @@ function FlightBookingPanel({ defaultValues, onSearch, variant = 'home', isColla
   const [birthDay, setBirthDay] = useState('');
   const [hasPendingRoundTripDate, setHasPendingRoundTripDate] = useState(false);
   const popupRef = useRef(null);
+  const popupTitleId = `flight-booking-popup-${useId().replace(/:/g, '')}`;
   const {
     containerRef: searchRef,
     popupPosition,
@@ -165,6 +167,17 @@ function FlightBookingPanel({ defaultValues, onSearch, variant = 'home', isColla
     setActivePanel(null);
     triggerRef.current?.focus();
   }, [activePanel, hasPendingRoundTripDate, triggerRef, tripType]);
+  const closePanelWithValidation = useCallback(() => {
+    closePanel({ shouldValidateDate: true });
+  }, [closePanel]);
+
+  useDialogAccessibility({
+    dialogRef: popupRef,
+    isModal: isFullScreenDatePicker,
+    isOpen: Boolean(activePanel),
+    onClose: closePanelWithValidation,
+    triggerRef,
+  });
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(max-width: 768px)');
@@ -181,30 +194,6 @@ function FlightBookingPanel({ defaultValues, onSearch, variant = 'home', isColla
       mediaQuery.removeEventListener('change', handleChange);
     };
   }, []);
-
-  useEffect(() => {
-    if (activePanel) {
-      popupRef.current?.focus();
-    }
-  }, [activePanel]);
-
-  useEffect(() => {
-    if (!activePanel) {
-      return undefined;
-    }
-
-    const handleEscapeKey = (event) => {
-      if (event.key === 'Escape') {
-        closePanel({ shouldValidateDate: true });
-      }
-    };
-
-    window.addEventListener('keydown', handleEscapeKey);
-
-    return () => {
-      window.removeEventListener('keydown', handleEscapeKey);
-    };
-  }, [activePanel, closePanel]);
 
   const openPanel = (panelType, event) => {
     updatePopupPosition(panelType, event);
@@ -295,7 +284,7 @@ function FlightBookingPanel({ defaultValues, onSearch, variant = 'home', isColla
       setTo(code);
     }
 
-    setActivePanel(null);
+    closePanel();
   };
 
   const handleSwapRoute = () => {
@@ -303,10 +292,10 @@ function FlightBookingPanel({ defaultValues, onSearch, variant = 'home', isColla
     setTo(from);
   };
 
-  const renderPassengerTooltip = (key) => {
+  const renderPassengerTooltip = (key, tooltipId) => {
     if (key === 'child') {
       return (
-        <span role="tooltip">
+        <span id={tooltipId} role="tooltip">
           국내선: 만 2세 이상 ~ 만 13세 미만
           <br />
           국제선: 만 2세 이상 ~ 만 12세 미만
@@ -315,44 +304,59 @@ function FlightBookingPanel({ defaultValues, onSearch, variant = 'home', isColla
     }
 
     if (key === 'infant') {
-      return <span role="tooltip">만 2세 미만은 유아 운임이 적용됩니다.</span>;
+      return <span id={tooltipId} role="tooltip">만 2세 미만은 유아 운임이 적용됩니다.</span>;
     }
 
-    return <span role="tooltip">만 12세 이상은 성인 운임이 적용됩니다.</span>;
+    return <span id={tooltipId} role="tooltip">만 12세 이상은 성인 운임이 적용됩니다.</span>;
   };
 
   const renderPassengersPanel = () => (
     <div className="flight-passenger-picker">
       <div className="flight-passenger-picker__counters">
-        {PASSENGER_TYPES.map((type) => (
-          <div className="flight-passenger-picker__counter" key={type.key}>
-            <span className="flight-passenger-picker__counter-label">
-              {type.label}
-              <button className="flight-booking-panel__help" type="button">
-                <span className="flight-booking-panel__help-hit">
-                  <CircleQuestionMarkIcon size={16} />
-                </span>
-                {renderPassengerTooltip(type.key)}
-              </button>
-            </span>
-            <div className="flight-passenger-picker__counter-controls">
-              <button
-                type="button"
-                disabled={passengers[type.key] <= type.min}
-                onClick={() => updatePassenger(type.key, -1)}
-              >
-                <MinusIcon size={20} />
-              </button>
-              <strong>{passengers[type.key]}</strong>
-              <button type="button" onClick={() => updatePassenger(type.key, 1)}>
-                <PlusIcon size={20} />
-              </button>
+        {PASSENGER_TYPES.map((type) => {
+          const tooltipId = `${popupTitleId}-${type.key}-help`;
+
+          return (
+            <div className="flight-passenger-picker__counter" key={type.key}>
+              <span className="flight-passenger-picker__counter-label">
+                {type.label}
+                <button
+                  aria-describedby={tooltipId}
+                  aria-label={`${type.label} 연령 기준 안내`}
+                  className="flight-booking-panel__help"
+                  type="button"
+                >
+                  <span className="flight-booking-panel__help-hit">
+                    <CircleQuestionMarkIcon size={16} />
+                  </span>
+                  {renderPassengerTooltip(type.key, tooltipId)}
+                </button>
+              </span>
+              <div className="flight-passenger-picker__counter-controls">
+                <button
+                  aria-label={`${type.label} 수 감소`}
+                  type="button"
+                  disabled={passengers[type.key] <= type.min}
+                  onClick={() => updatePassenger(type.key, -1)}
+                >
+                  <MinusIcon size={20} />
+                </button>
+                <strong aria-live="polite">{passengers[type.key]}</strong>
+                <button
+                  aria-label={`${type.label} 수 증가`}
+                  type="button"
+                  onClick={() => updatePassenger(type.key, 1)}
+                >
+                  <PlusIcon size={20} />
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       <button
+        aria-expanded={isAgeCalculatorOpen}
         className="flight-passenger-picker__age-toggle"
         type="button"
         onClick={() => setIsAgeCalculatorOpen((isOpen) => !isOpen)}
@@ -506,11 +510,12 @@ function FlightBookingPanel({ defaultValues, onSearch, variant = 'home', isColla
         }}
         ref={popupRef}
         role="dialog"
-        aria-modal="false"
+        aria-labelledby={popupTitleId}
+        aria-modal={isFullScreenDatePicker}
         tabIndex="-1"
       >
         <header className="flight-service-popup__header">
-          <strong>{getPanelTitle()}</strong>
+          <strong id={popupTitleId}>{getPanelTitle()}</strong>
           <button
             type="button"
             aria-label="선택 창 닫기"
@@ -532,6 +537,7 @@ function FlightBookingPanel({ defaultValues, onSearch, variant = 'home', isColla
       <div className="flight-booking-panel__options">
         <div className="flight-service-chips" role="group" aria-label="여정 유형">
           <button
+            aria-pressed={tripType === TRIP_TYPES.ROUND_TRIP}
             className={tripType === TRIP_TYPES.ROUND_TRIP ? 'is-active' : ''}
             type="button"
             onClick={() => handleTripTypeClick(TRIP_TYPES.ROUND_TRIP)}
@@ -539,6 +545,7 @@ function FlightBookingPanel({ defaultValues, onSearch, variant = 'home', isColla
             왕복
           </button>
           <button
+            aria-pressed={tripType === TRIP_TYPES.ONE_WAY}
             className={tripType === TRIP_TYPES.ONE_WAY ? 'is-active' : ''}
             type="button"
             onClick={() => handleTripTypeClick(TRIP_TYPES.ONE_WAY)}
@@ -585,9 +592,11 @@ function FlightBookingPanel({ defaultValues, onSearch, variant = 'home', isColla
               />
 
               <button
+                aria-controls="flight-booking-collapsible-details"
                 className="flight-booking-panel__toggle"
                 type="button"
                 aria-expanded={isSearchOpen}
+                aria-label={isSearchOpen ? '검색 조건 접기' : '검색 조건 펼치기'}
                 onClick={() => setIsSearchOpen((prev) => !prev)}
               >
                 {isSearchOpen ? (
@@ -598,7 +607,10 @@ function FlightBookingPanel({ defaultValues, onSearch, variant = 'home', isColla
               </button>
             </div>
 
-            <div className={`flight-booking-panel__details${isSearchOpen ? ' is-open' : ''}`}>
+            <div
+              className={`flight-booking-panel__details${isSearchOpen ? ' is-open' : ''}`}
+              id="flight-booking-collapsible-details"
+            >
               <FlightDateField
                 departureDateLabel={departureDateLabel}
                 returnDateLabel={returnDateLabel}

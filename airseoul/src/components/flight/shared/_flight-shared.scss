@@ -22,7 +22,7 @@
     @include button-hover-primary;
 
     color: var(--color-text-inverse);
-    background: var(--color-point-primary);
+    background: var(--color-mint-accessible);
   }
 }
 
@@ -72,7 +72,7 @@
   @include flex-center;
   @include button-hover-subtle;
 
-  width: 40px;
+  width: 44px;
   aspect-ratio: 1 / 1;
   color: var(--color-text-primary);
   border: var(--line-thin) solid var(--color-border-primary);
@@ -153,8 +153,8 @@
   button {
     @include flex-center;
 
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     color: var(--color-text-primary);
     border-radius: var(--radius-full);
 
@@ -199,7 +199,7 @@
       @include button-hover-gray;
 
       color: var(--color-text-inverse);
-      background: var(--color-point-primary);
+      background: var(--color-mint-accessible);
     }
 
     &:disabled {
@@ -339,7 +339,7 @@
   &:focus-visible,
   &.is-active {
     color: var(--color-text-inverse);
-    background: var(--color-point-primary);
+    background: var(--color-mint-accessible);
   }
 }
 
@@ -351,7 +351,7 @@
   padding: 0 get-space(lg);
   color: var(--color-text-inverse);
   font-weight: 700;
-  background: var(--color-point-primary);
+  background: var(--color-mint-accessible);
   border-radius: var(--radius-full);
 }
 

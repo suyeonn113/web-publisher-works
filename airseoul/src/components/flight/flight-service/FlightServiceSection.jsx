@@ -1,15 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import FlightBookingPanel from '../booking/FlightBookingPanel';
 import FlightCheckInPanel from '../check-in/FlightCheckInPanel';
 import FlightMyTripPanel from '../my-trip/FlightMyTripPanel';
 import FlightSchedulePanel from '../schedule/FlightSchedulePanel';
 import FlightServiceTabs from './FlightServiceTabs';
-import { FLIGHT_SERVICE_TAB_IDS } from './flightServiceTabsData';
+import { FLIGHT_SERVICE_TAB_IDS, FLIGHT_SERVICE_TABS } from './flightServiceTabsData';
 
 const ACTIVE_TAB_STORAGE_KEY = 'flightServiceActiveTab';
 
 function FlightServiceSection({ defaultValues, onSearch, variant = 'home' }) {
   const isBookingPage = variant === 'booking';
+  const tabIdPrefix = `flight-service-${useId().replace(/:/g, '')}`;
   const [activeTab, setActiveTab] = useState(() => {
     return sessionStorage.getItem(ACTIVE_TAB_STORAGE_KEY) ?? FLIGHT_SERVICE_TAB_IDS.BOOKING;
   });
@@ -75,12 +76,36 @@ function FlightServiceSection({ defaultValues, onSearch, variant = 'home' }) {
       className={`flight-service-section flight-service-section--${variant}`}
       aria-labelledby="flight-service-title"
     >
+      <h2 className="sr-only" id="flight-service-title">항공 서비스</h2>
       <div className="flight-service-section__inner">
         <div className="flight-service-shell">
           {!isBookingPage && (
-            <FlightServiceTabs activeTab={activeTab} onTabChange={handleTabChange} />
+            <FlightServiceTabs
+              activeTab={activeTab}
+              idPrefix={tabIdPrefix}
+              onTabChange={handleTabChange}
+            />
           )}
-          <div className="flight-service-shell__body">{renderActivePanel()}</div>
+          {isBookingPage ? (
+            <div className="flight-service-shell__body">{renderActivePanel()}</div>
+          ) : (
+            FLIGHT_SERVICE_TABS.map((tab) => {
+              const isActive = tab.id === activeTab;
+
+              return (
+                <div
+                  aria-labelledby={`${tabIdPrefix}-tab-${tab.id}`}
+                  className="flight-service-shell__body"
+                  hidden={!isActive}
+                  id={`${tabIdPrefix}-panel-${tab.id}`}
+                  key={tab.id}
+                  role="tabpanel"
+                >
+                  {isActive ? renderActivePanel() : null}
+                </div>
+              );
+            })
+          )}
         </div>
       </div>
     </section>

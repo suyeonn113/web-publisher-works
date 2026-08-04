@@ -59,7 +59,7 @@
   &.is-start,
   &.is-end {
     color: var(--color-text-inverse);
-    background: var(--color-point-primary);
+    background: var(--color-mint-accessible);
   }
 
   &.is-connected-start {
@@ -87,8 +87,8 @@
 .flight-date-picker__nav {
   position: absolute;
 
-  width: 8%;
-  height: 40px;
+  width: max(8%, 44px);
+  height: 44px;
   border-radius: 50%;
 
   &--next {

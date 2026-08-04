@@ -104,6 +104,12 @@ i {
   border-radius: var(--radius-focus);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 ::selection {
   color: var(--color-text-primary);
   background: color-mix(in srgb, var(--color-bg-mint-soft) 72%, var(--color-white));

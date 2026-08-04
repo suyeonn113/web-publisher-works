@@ -30,6 +30,10 @@ function AboutAirSeoulCard() {
         src={`${import.meta.env.BASE_URL}images/home-info/about-airseoul-v2.png`}
         alt=""
         aria-hidden="true"
+        decoding="async"
+        height="768"
+        loading="lazy"
+        width="2048"
       />
 
       <ul className="home-info-about__stats">

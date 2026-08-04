@@ -30,7 +30,7 @@
   @include text-size(caption);
 
   margin-bottom: get-space(md);
-  color: var(--color-mint);
+  color: var(--color-mint-accessible);
   font-weight: 800;
   letter-spacing: 0;
 }
@@ -67,7 +67,7 @@
   align-items: center;
   gap: get-space(xs);
   margin-top: get-space(lg);
-  color: var(--color-point-primary);
+  color: var(--color-mint-accessible);
   font-weight: 700;
 }
 

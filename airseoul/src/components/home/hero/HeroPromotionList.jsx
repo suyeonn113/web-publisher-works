@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { heroPromotions } from '../../../data/heroPromotions';
+import useReducedMotion from '../../../hooks/useReducedMotion';
 import AppLink from '../../common/AppLink';
 
 const PROMOTION_AUTOPLAY_DELAY = 5200;
@@ -12,6 +13,8 @@ function HeroPromotionList() {
   const shouldResetSwipeRef = useRef(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isSwipeLayout, setIsSwipeLayout] = useState(false);
+  const [isInteractionPaused, setIsInteractionPaused] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
   const swipePromotions = heroPromotions.map((_, index) => {
     return heroPromotions[(activeIndex + index) % heroPromotions.length];
   });
@@ -51,7 +54,9 @@ function HeroPromotionList() {
   }, []);
 
   useEffect(() => {
-    if (heroPromotions.length <= 1) return undefined;
+    if (heroPromotions.length <= 1 || prefersReducedMotion || isInteractionPaused) {
+      return undefined;
+    }
 
     let swipeAdvanceTimer;
     const timer = window.setInterval(() => {
@@ -85,7 +90,7 @@ function HeroPromotionList() {
       window.clearInterval(timer);
       window.clearTimeout(swipeAdvanceTimer);
     };
-  }, [activeIndex, isSwipeLayout]);
+  }, [activeIndex, isInteractionPaused, isSwipeLayout, prefersReducedMotion]);
 
   useEffect(() => {
     const list = listRef.current;
@@ -106,6 +111,14 @@ function HeroPromotionList() {
       ref={listRef}
       className="hero-promotion-list"
       aria-label="프로모션 선택"
+      aria-live="off"
+      role="group"
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setIsInteractionPaused(false);
+      }}
+      onFocusCapture={() => setIsInteractionPaused(true)}
+      onMouseEnter={() => setIsInteractionPaused(true)}
+      onMouseLeave={() => setIsInteractionPaused(false)}
     >
       {visiblePromotions.map((promotion, index) => (
         <AppLink
@@ -131,6 +144,7 @@ function HeroPromotionList() {
       <div
         className="hero-promotion-list__pagination"
         aria-label="프로모션 슬라이드 선택"
+        role="group"
       >
         {heroPromotions.map((promotion, index) => (
           <button

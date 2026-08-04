@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import { TRIP_TYPES } from '../../../constants/tripType';
 import { formatKoreanMonthDay, getAppDateText } from '../../../utils/date';
 import XIcon from '../../icons/XIcon';
@@ -6,6 +6,7 @@ import FlightDatePicker from '../shared/FlightDatePicker';
 import FlightLookupField from '../shared/FlightLookupField';
 import { passengerLookupFields } from '../../../data/lookupFields';
 import useBodyScrollLock from '../../../hooks/useBodyScrollLock';
+import useDialogAccessibility from '../../../hooks/useDialogAccessibility';
 import useFlightServicePopupPosition from '../shared/useFlightServicePopupPosition';
 
 const POPUP_WIDTHS = {
@@ -18,6 +19,7 @@ function FlightMyTripPanel() {
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const [isFullScreenDatePicker, setIsFullScreenDatePicker] = useState(false);
   const popupRef = useRef(null);
+  const popupTitleId = `flight-my-trip-popup-${useId().replace(/:/g, '')}`;
   const {
     containerRef: lookupFormRef,
     popupPosition,
@@ -31,6 +33,14 @@ function FlightMyTripPanel() {
     setIsDatePickerOpen(false);
     triggerRef.current?.focus();
   }, [triggerRef]);
+
+  useDialogAccessibility({
+    dialogRef: popupRef,
+    isModal: isFullScreenDatePicker,
+    isOpen: isDatePickerOpen,
+    onClose: closeDatePicker,
+    triggerRef,
+  });
 
   const openDatePicker = (event) => {
     updatePopupPosition('date', event);
@@ -52,30 +62,6 @@ function FlightMyTripPanel() {
       mediaQuery.removeEventListener('change', handleChange);
     };
   }, []);
-
-  useEffect(() => {
-    if (isDatePickerOpen) {
-      popupRef.current?.focus();
-    }
-  }, [closeDatePicker, isDatePickerOpen]);
-
-  useEffect(() => {
-    if (!isDatePickerOpen) {
-      return undefined;
-    }
-
-    const handleEscapeKey = (event) => {
-      if (event.key === 'Escape') {
-        closeDatePicker();
-      }
-    };
-
-    window.addEventListener('keydown', handleEscapeKey);
-
-    return () => {
-      window.removeEventListener('keydown', handleEscapeKey);
-    };
-  }, [closeDatePicker, isDatePickerOpen]);
 
   const handleDateChange = (nextDepartureDate) => {
     setDepartureDate(nextDepartureDate);
@@ -105,11 +91,12 @@ function FlightMyTripPanel() {
             }}
             ref={popupRef}
             role="dialog"
-            aria-modal="false"
+            aria-labelledby={popupTitleId}
+            aria-modal={isFullScreenDatePicker}
             tabIndex="-1"
           >
             <header className="flight-service-popup__header">
-              <strong>출발일</strong>
+              <strong id={popupTitleId}>출발일</strong>
               <button type="button" aria-label="선택 창 닫기" onClick={closeDatePicker}>
                 <XIcon size={20} />
               </button>

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { ROUTES } from '../../../constants/routes';
+import useReducedMotion from '../../../hooks/useReducedMotion';
 import { PLACEHOLDER_LINK } from '../../../utils/link';
 import { createOneWaySearchParams } from '../../../utils/searchParams';
 import AppLink from '../../common/AppLink';
@@ -26,13 +27,15 @@ function getBookingLink(flight) {
 
 function HeroSlider({ slides = [], autoPlayDelay = 5000 }) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isInteractionPaused, setIsInteractionPaused] = useState(false);
   const videoRefs = useRef([]);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     videoRefs.current.forEach((video, index) => {
       if (!video) return;
 
-      if (index !== activeIndex) {
+      if (index !== activeIndex || prefersReducedMotion) {
         video.pause();
         video.currentTime = 0;
         return;
@@ -41,10 +44,10 @@ function HeroSlider({ slides = [], autoPlayDelay = 5000 }) {
       video.currentTime = 0;
       video.play().catch(() => {});
     });
-  }, [activeIndex]);
+  }, [activeIndex, prefersReducedMotion]);
 
   useEffect(() => {
-    if (slides.length <= 1) return undefined;
+    if (slides.length <= 1 || prefersReducedMotion || isInteractionPaused) return undefined;
 
     const timer = window.setInterval(() => {
       setActiveIndex((prevIndex) => {
@@ -55,14 +58,23 @@ function HeroSlider({ slides = [], autoPlayDelay = 5000 }) {
     return () => {
       window.clearInterval(timer);
     };
-  }, [slides.length, autoPlayDelay]);
+  }, [slides.length, autoPlayDelay, isInteractionPaused, prefersReducedMotion]);
 
   if (slides.length === 0) return null;
 
   return (
     <div
       className="hero-slider"
+      aria-label="특가 항공권 슬라이더"
+      aria-live="off"
       aria-roledescription="carousel"
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setIsInteractionPaused(false);
+      }}
+      onFocusCapture={() => setIsInteractionPaused(true)}
+      onMouseEnter={() => setIsInteractionPaused(true)}
+      onMouseLeave={() => setIsInteractionPaused(false)}
+      role="group"
     >
       <div className="hero-slider__track">
         {slides.map((slide, index) => {
@@ -78,6 +90,7 @@ function HeroSlider({ slides = [], autoPlayDelay = 5000 }) {
           return (
             <article
               className={`hero-slider__slide ${isActive ? 'is-active' : ''}`}
+              id={`hero-slide-${slide.id}`}
               key={slide.id}
               aria-hidden={!isActive}
             >
@@ -119,7 +132,11 @@ function HeroSlider({ slides = [], autoPlayDelay = 5000 }) {
                   </p>
                 )}
 
-                <AppLink className="hero-slider__cta" to={getBookingLink(slide.flight)}>
+                <AppLink
+                  className="hero-slider__cta"
+                  tabIndex={isActive ? 0 : -1}
+                  to={getBookingLink(slide.flight)}
+                >
                   지금 예약하기
                 </AppLink>
               </div>
@@ -128,16 +145,19 @@ function HeroSlider({ slides = [], autoPlayDelay = 5000 }) {
         })}
       </div>
 
-      <div className="hero-slider__pagination" aria-label="히어로 슬라이드">
+      <div className="hero-slider__pagination" aria-label="히어로 슬라이드" role="group">
         {slides.map((slide, index) => (
           <button
             type="button"
+            aria-controls={`hero-slide-${slide.id}`}
             key={slide.id}
             className={index === activeIndex ? 'is-active' : ''}
             onClick={() => setActiveIndex(index)}
             aria-label={`${slide.visual.subtitle} 특가 보기`}
             aria-pressed={index === activeIndex}
-          />
+          >
+            <span aria-hidden="true" />
+          </button>
         ))}
       </div>
     </div>
