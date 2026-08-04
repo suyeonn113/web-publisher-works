@@ -123,11 +123,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isPlaying) startAutoSlide();
     });
 
-    banner.addEventListener('focusin', stopAutoSlide);
-    banner.addEventListener('focusout', (event) => {
-        if (!banner.contains(event.relatedTarget) && isPlaying) {
-            startAutoSlide();
-        }
+    banner.addEventListener('focusin', () => {
+        if (!isPlaying) return;
+        isPlaying = false;
+        stopAutoSlide();
+        updatePauseButton();
     });
 
     banner.addEventListener('touchstart', (e) => {

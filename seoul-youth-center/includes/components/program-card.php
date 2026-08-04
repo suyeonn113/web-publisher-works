@@ -79,6 +79,8 @@ foreach ($dataAttributes as $name => $value) {
                 <img
                     src="<?= htmlspecialchars(BASE_URL . $imageSrc, ENT_QUOTES, 'UTF-8') ?>"
                     alt="<?= htmlspecialchars($imageAlt, ENT_QUOTES, 'UTF-8') ?>"
+                    loading="lazy"
+                    decoding="async"
                 >
             <?php else: ?>
                 <span class="card__image-placeholder" aria-hidden="true">
@@ -100,9 +102,9 @@ foreach ($dataAttributes as $name => $value) {
         <div class="card__body">
 
             <!-- 제목 (공통) -->
-            <h4 class="card__title">
+            <h3 class="card__title">
                 <?= htmlspecialchars($title, ENT_QUOTES, 'UTF-8') ?>
-            </h4>
+            </h3>
 
             <!-- 모집기간 (공통) -->
             <p class="card__date">

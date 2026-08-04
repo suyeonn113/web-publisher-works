@@ -23,6 +23,7 @@ html {
     /* Brand */
     --color-primary: #EF8A36;
     --color-primary-dark: #C66624;
+    --color-primary-accessible: #B95516;
     --color-primary-70: rgb(239 138 54 / 70%);
     --color-primary-20: rgb(239 138 54 / 20%);
     --color-primary-10: rgb(239 138 54 / 10%);

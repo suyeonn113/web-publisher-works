@@ -352,6 +352,18 @@ function initSnsTabs() {
                 let nextIndex = index;
 
                 switch (key) {
+                    case 'Tab': {
+                        if (event.shiftKey) break;
+                        const activePanel = getPanelByTab(selectedTab);
+                        const firstPanelTarget = activePanel?.querySelector(
+                            'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+                        );
+                        if (!firstPanelTarget) break;
+                        event.preventDefault();
+                        firstPanelTarget.focus();
+                        break;
+                    }
+
                     case 'ArrowRight':
                     case 'Right':
                         event.preventDefault();
@@ -391,6 +403,22 @@ function initSnsTabs() {
                     default:
                         break;
                 }
+            });
+        });
+    }
+
+    function bindPanelEvents() {
+        panels.forEach((panel) => {
+            panel.addEventListener('keydown', (event) => {
+                if (event.key !== 'Tab' || !event.shiftKey) return;
+
+                const firstPanelTarget = panel.querySelector(
+                    'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+                );
+                if (event.target !== firstPanelTarget) return;
+
+                event.preventDefault();
+                selectedTab?.focus();
             });
         });
     }
@@ -448,6 +476,7 @@ function initSnsTabs() {
 
     setupInitialState();
     bindTabEvents();
+    bindPanelEvents();
     bindKakaoEvents();
     bindTablistEvents();
     bindVideoPreviewEvents();

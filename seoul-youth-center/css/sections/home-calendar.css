@@ -124,29 +124,26 @@
     background: var(--color-gray);
 }
 
-/* ===== Weekdays / Grid ===== */
+/* ===== Calendar Table ===== */
 
-.schedule-calendar__weekdays,
-.schedule-calendar__grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-
+.schedule-calendar__table {
     width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
 }
 
-.schedule-calendar__weekdays {
-    margin-bottom: var(--space-2);
-}
-
-.schedule-calendar__weekdays span {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+.schedule-calendar__table th {
+    height: 2rem;
+    padding: 0;
+    color: var(--color-text-default-soft);
     font-size: var(--text-quick-nav-size);
     font-weight: 600;
     text-align: center;
-    color: var(--color-text-default-soft);
+}
+
+.schedule-calendar__cell {
+    padding: 0;
+    text-align: center;
 }
 
 /* ===== Date Cell ===== */
@@ -168,7 +165,7 @@
     transition: background-color .2s ease, color .2s ease;
 }
 
-.schedule-calendar__date:not(.is-selected):is(:hover, :focus-visible) {
+.schedule-calendar__date.is-interactive:not(.is-selected):is(:hover, :focus-visible) {
     background: var(--color-lightgray);
 }
 
@@ -332,10 +329,6 @@
     .schedule-calendar__header {
         margin-bottom: var(--space-4);
         padding-bottom: var(--space-3);
-    }
-
-    .schedule-calendar__weekdays {
-        margin-bottom: var(--space-2);
     }
 
     .schedule-agenda {

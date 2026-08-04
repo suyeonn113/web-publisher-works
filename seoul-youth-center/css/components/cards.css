@@ -87,7 +87,7 @@
 
     color: var(--color-text-on);
     border-radius: var(--radius-sm);
-    background: var(--color-orange);
+    background: var(--color-primary-accessible);
 }
 
 .card__body {

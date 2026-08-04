@@ -116,7 +116,6 @@ $globalYouthProgramCategories = getYouthProgramCategories();
         <button class="button--close button"
                 type="button"
                 aria-label="메뉴 닫기"
-                aria-expanded="true"
                 aria-controls="menu-panel">
             <svg class="icon icon-close" 
                 viewBox="0 0 24 24" 
@@ -154,19 +153,19 @@ $globalYouthProgramCategories = getYouthProgramCategories();
         <li class="main-menu__item">
             <button class="main-menu__button"
                     id="tab-1"
-                    aria-selected="true"
+                    aria-expanded="false"
                     aria-controls="panel-1">청소년센터 안내</button>
         </li>
         <li class="main-menu__item">
             <button class="main-menu__button"
                     id="tab-2"
-                    aria-selected="false"
+                    aria-expanded="false"
                     aria-controls="panel-2">청소년 프로그램</button>
         </li>
         <li class="main-menu__item">
             <button class="main-menu__button"
                     id="tab-3"
-                    aria-selected="false"
+                    aria-expanded="false"
                     aria-controls="panel-3">평생교육 프로그램</button>
         </li>
         <li class="main-menu__item">
@@ -189,19 +188,19 @@ $globalYouthProgramCategories = getYouthProgramCategories();
         <li class="main-menu__item">
             <button class="main-menu__button"
                     id="tab-4"
-                    aria-selected="false"
+                    aria-expanded="false"
                     aria-controls="panel-4">이용 안내</button>
         </li>
         <li class="main-menu__item">
             <button class="main-menu__button"
                     id="tab-5"
-                    aria-selected="false"
+                    aria-expanded="false"
                     aria-controls="panel-5">열린마당</button>
         </li>
         <li class="main-menu__item main-menu__item--application">
             <button class="main-menu__button main-menu__button--application"
                     id="tab-6"
-                    aria-selected="false"
+                    aria-expanded="false"
                     aria-controls="panel-6">프로그램 신청</button>
         </li>
     </ul>
@@ -333,8 +332,7 @@ $globalYouthProgramCategories = getYouthProgramCategories();
             <button class="quick-menu__button quick-menu__button--menu"
                     type="button"
                     aria-controls="menu-panel"
-                    aria-expanded="false"
-                    aria-label="전체 메뉴 열기">
+                    aria-expanded="false">
                 <svg class="icon--menu-all icon--quick-menu icon" 
                      viewBox="0 0 24 24" 
                      xmlns="http://www.w3.org/2000/svg"

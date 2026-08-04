@@ -605,7 +605,7 @@
     background-color: #fffaf3;
     background-image:
         linear-gradient(rgb(255 255 255 / 24%), rgb(255 255 255 / 24%)),
-        url("../../assets/images/backgrounds/program-live-signal-v1.png");
+        url("../../assets/images/backgrounds/program-live-signal-v1.webp");
     background-position: center;
     background-size: cover;
 }
@@ -1179,7 +1179,7 @@
 
 .center-updates__eyebrow {
     margin-bottom: .375rem;
-    color: var(--color-orange);
+    color: var(--color-primary-accessible);
     font-size: var(--fs-14);
     font-weight: 700;
 }
@@ -1910,6 +1910,8 @@
 /* ===== Quick menu ===== */
 
 .quick-menu--home {
+    position: relative;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     flex: 0 0 19.666rem;

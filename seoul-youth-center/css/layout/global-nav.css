@@ -371,7 +371,7 @@ body.no-scroll {
     padding: var(--space-1) var(--space-2);
 }
 
-.main-menu__button[aria-selected="true"],
+.main-menu__button[aria-expanded="true"],
 .main-menu__button:focus-visible {
     font-weight: var(--text-nav-main-current-weight);
 
@@ -735,7 +735,7 @@ main {
     transform: translateX(-50%);
 }
 
-.main-menu__button[aria-selected="true"],
+.main-menu__button[aria-expanded="true"],
 .main-menu__button:focus-visible {
     position: relative;
     -webkit-background-clip: text;
@@ -752,7 +752,7 @@ main {
 .main-menu__button:is(
     :hover,
     :focus-visible,
-    [aria-selected="true"],
+    [aria-expanded="true"],
     [data-current="true"]
 ),
 .main-menu__link:is(
@@ -789,7 +789,7 @@ main {
 .main-menu__button:is(
     :hover,
     :focus-visible,
-    [aria-selected="true"],
+    [aria-expanded="true"],
     [data-current="true"]
 )::after,
 .main-menu__link:is(
@@ -1129,7 +1129,7 @@ body.is-header-hidden #menu-panel[data-menu-mode="mega"] {
 .main-menu__button--application:is(
     :hover,
     :focus-visible,
-    [aria-selected="true"],
+    [aria-expanded="true"],
     [data-current="true"]
 ) {
     font-weight: 600;

@@ -32,7 +32,7 @@ $programs = sortProgramsForDisplay($programs);
             <div class="banner__gallery">
                 <ul class="banner__list">
                     <?php if (!empty($heroBanners)): ?>
-                        <?php foreach ($heroBanners as $banner): ?>
+                        <?php foreach ($heroBanners as $bannerIndex => $banner): ?>
                             <?php
                             $bannerLink = $banner['link'] ?? '#';
                             $bannerTarget = $banner['target'] ?? '_self';
@@ -49,7 +49,11 @@ $programs = sortProgramsForDisplay($programs);
                                 <?= $bannerRel !== '' ? 'rel="' . htmlspecialchars($bannerRel, ENT_QUOTES, 'UTF-8') . '"' : '' ?>>
                                     <img class="banner__image"
                                         src="<?= htmlspecialchars($bannerImage, ENT_QUOTES, 'UTF-8') ?>"
-                                        alt="<?= htmlspecialchars($bannerAlt, ENT_QUOTES, 'UTF-8') ?>">
+                                        alt="<?= htmlspecialchars($bannerAlt, ENT_QUOTES, 'UTF-8') ?>"
+                                        width="1536"
+                                        height="1024"
+                                        decoding="async"
+                                        <?= $bannerIndex === 0 ? 'fetchpriority="high"' : 'loading="lazy"' ?>>
                                     <span class="banner__copy">
                                         <span class="banner__eyebrow"><?= htmlspecialchars($banner['eyebrow'] ?? '', ENT_QUOTES, 'UTF-8') ?></span>
                                         <strong class="banner__title"><?= htmlspecialchars($banner['title'] ?? '', ENT_QUOTES, 'UTF-8') ?></strong>
@@ -106,7 +110,7 @@ $programs = sortProgramsForDisplay($programs);
                             xmlns="http://www.w3.org/2000/svg"
                             aria-hidden="true"
                             focusable="false">
-                            <path class="icon__circle" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/>
+                            <path class="icon__circle" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/>
                             <path class="icon__symbol" d="M10 8V15.6M14 15.6V8"/>
                         </svg>
                     </button>
@@ -399,23 +403,21 @@ $programs = sortProgramsForDisplay($programs);
 
                     <div class="schedule-calendar__body">
                         <div class="schedule-calendar__grid-wrap">
-                            <!-- 요일 헤더 -->
-                            <div class="schedule-calendar__weekdays" aria-hidden="true">
-                                <span>일</span>
-                                <span>월</span>
-                                <span>화</span>
-                                <span>수</span>
-                                <span>목</span>
-                                <span>금</span>
-                                <span>토</span>
-                            </div>
-
-                            <!-- JS가 날짜 셀 생성 -->
-                            <div class="schedule-calendar__grid"
-                                 id="schedule-calendar-grid"
-                                 role="grid"
-                                 aria-label="센터 일정 달력">
-                            </div>
+                            <table class="schedule-calendar__table">
+                                <caption class="visually-hidden">센터 일정 달력</caption>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">일</th>
+                                        <th scope="col">월</th>
+                                        <th scope="col">화</th>
+                                        <th scope="col">수</th>
+                                        <th scope="col">목</th>
+                                        <th scope="col">금</th>
+                                        <th scope="col">토</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="schedule-calendar-body"></tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -576,7 +578,7 @@ $programs = sortProgramsForDisplay($programs);
                            rel="noopener noreferrer"
                            aria-label="인스타그램 새 창 열기: 서울특별시립 서울청소년센터 움 이용 안내">
                             <div class="sns__thumb">
-                                <img src="<?= BASE_URL ?>/assets/images/sns/instagram-01.png" alt="">
+                                <img src="<?= BASE_URL ?>/assets/images/sns/instagram-01.webp" alt="" loading="lazy" decoding="async">
                             </div>
                         </a>
                     </li>
@@ -587,7 +589,7 @@ $programs = sortProgramsForDisplay($programs);
                            rel="noopener noreferrer"
                            aria-label="인스타그램 새 창 열기: 공감시네마 4월 프로그램 안내">
                             <div class="sns__thumb">
-                                <img src="<?= BASE_URL ?>/assets/images/sns/instagram-02.png" alt="">
+                                <img src="<?= BASE_URL ?>/assets/images/sns/instagram-02.webp" alt="" loading="lazy" decoding="async">
                             </div>
                         </a>
                     </li>
@@ -598,7 +600,7 @@ $programs = sortProgramsForDisplay($programs);
                            rel="noopener noreferrer"
                            aria-label="인스타그램 새 창 열기: 2026년 청소년 연합 발대식">
                             <div class="sns__thumb">
-                                <img src="<?= BASE_URL ?>/assets/images/sns/instagram-03.png" alt="">
+                                <img src="<?= BASE_URL ?>/assets/images/sns/instagram-03.webp" alt="" loading="lazy" decoding="async">
                             </div>
                         </a>
                     </li>
@@ -609,7 +611,7 @@ $programs = sortProgramsForDisplay($programs);
                            rel="noopener noreferrer"
                            aria-label="인스타그램 새 창 열기: 23기 청소년운영위원회 청춘 12월 소식">
                             <div class="sns__thumb">
-                                <img src="<?= BASE_URL ?>/assets/images/sns/instagram-04.png" alt="">
+                                <img src="<?= BASE_URL ?>/assets/images/sns/instagram-04.webp" alt="" loading="lazy" decoding="async">
                             </div>
                         </a>
                     </li>
@@ -632,7 +634,7 @@ $programs = sortProgramsForDisplay($programs);
                         aria-label="유튜브 영상 새 창 열기: 2026년 해외탐방 서서투어2 영상"
                         data-preview-video="<?= BASE_URL ?>/assets/videos/sns/youtube-02.mp4">
                             <div class="sns__thumb">
-                                <img src="https://i.ytimg.com/vi/qMk9KHPnli0/maxresdefault.jpg" alt="">
+                                <img src="https://i.ytimg.com/vi/qMk9KHPnli0/maxresdefault.jpg" alt="" loading="lazy" decoding="async">
                                 <span class="sns__preview" aria-hidden="true"></span>
                                 <span class="sns__play" aria-hidden="true"></span>
                             </div>
@@ -646,7 +648,7 @@ $programs = sortProgramsForDisplay($programs);
                         aria-label="유튜브 쇼츠 새 창 열기: 2025 서울청소년센터 페스티벌 영상"
                         data-preview-video="<?= BASE_URL ?>/assets/videos/sns/youtube-03.mp4">
                             <div class="sns__thumb">
-                                <img src="https://i.ytimg.com/vi/_DtdWr4o1hQ/hqdefault.jpg" alt="">
+                                <img src="https://i.ytimg.com/vi/_DtdWr4o1hQ/hqdefault.jpg" alt="" loading="lazy" decoding="async">
                                 <span class="sns__preview" aria-hidden="true"></span>
                                 <span class="sns__play" aria-hidden="true"></span>
                             </div>
@@ -660,7 +662,7 @@ $programs = sortProgramsForDisplay($programs);
                         aria-label="유튜브 쇼츠 새 창 열기: 2025년 1차 특성화사업 움트리밍 밸런스게임"
                         data-preview-video="<?= BASE_URL ?>/assets/videos/sns/youtube-04.mp4">
                             <div class="sns__thumb">
-                                <img src="https://i.ytimg.com/vi/7b4La3bsh84/hqdefault.jpg" alt="">
+                                <img src="https://i.ytimg.com/vi/7b4La3bsh84/hqdefault.jpg" alt="" loading="lazy" decoding="async">
                                 <span class="sns__preview" aria-hidden="true"></span>
                                 <span class="sns__play" aria-hidden="true"></span>
                             </div>
@@ -684,7 +686,7 @@ $programs = sortProgramsForDisplay($programs);
                         rel="noopener noreferrer"
                         aria-label="페이스북 게시글 새 창 열기: 신학기 대비 안전정보">
                             <div class="sns__thumb">
-                                <img src="<?= BASE_URL ?>/assets/images/sns/facebook-01.jpg" alt="">
+                                <img src="<?= BASE_URL ?>/assets/images/sns/facebook-01.jpg" alt="" loading="lazy" decoding="async">
                             </div>
                         </a>
                     </li>
@@ -695,7 +697,7 @@ $programs = sortProgramsForDisplay($programs);
                         rel="noopener noreferrer"
                         aria-label="페이스북 게시글 새 창 열기: 역사로움과 움니버스의 연합 OT">
                             <div class="sns__thumb">
-                                <img src="<?= BASE_URL ?>/assets/images/sns/facebook-02.jpg" alt="">
+                                <img src="<?= BASE_URL ?>/assets/images/sns/facebook-02.jpg" alt="" loading="lazy" decoding="async">
                             </div>
                         </a>
                     </li>
@@ -706,7 +708,7 @@ $programs = sortProgramsForDisplay($programs);
                         rel="noopener noreferrer"
                         aria-label="페이스북 게시글 새 창 열기: 방과후아카데미 ‘폴리’ 생일파티">
                             <div class="sns__thumb">
-                                <img src="<?= BASE_URL ?>/assets/images/sns/facebook-03.jpg" alt="">
+                                <img src="<?= BASE_URL ?>/assets/images/sns/facebook-03.jpg" alt="" loading="lazy" decoding="async">
                             </div>
                         </a>
                     </li>
@@ -717,7 +719,7 @@ $programs = sortProgramsForDisplay($programs);
                         rel="noopener noreferrer"
                         aria-label="페이스북 게시글 새 창 열기: 방과후아카데미 ‘폴리’ 미션수행활동">
                             <div class="sns__thumb">
-                                <img src="<?= BASE_URL ?>/assets/images/sns/facebook-04.jpg" alt="">
+                                <img src="<?= BASE_URL ?>/assets/images/sns/facebook-04.jpg" alt="" loading="lazy" decoding="async">
                             </div>
                         </a>
                     </li>
@@ -739,7 +741,7 @@ $programs = sortProgramsForDisplay($programs);
                         rel="noopener noreferrer"
                         aria-label="네이버 블로그 게시글 새 창 열기: 평생교육 프로그램 안내">
                             <div class="sns__thumb">
-                                <img src="<?= BASE_URL ?>/assets/images/sns/naverblog-01.jpg" alt="">
+                                <img src="<?= BASE_URL ?>/assets/images/sns/naverblog-01.jpg" alt="" loading="lazy" decoding="async">
                             </div>
                         </a>
                     </li>
@@ -750,7 +752,7 @@ $programs = sortProgramsForDisplay($programs);
                         rel="noopener noreferrer"
                         aria-label="네이버 블로그 게시글 새 창 열기: 종합체력실 일회권 안내">
                             <div class="sns__thumb">
-                                <img src="<?= BASE_URL ?>/assets/images/sns/naverblog-02.jpg" alt="">
+                                <img src="<?= BASE_URL ?>/assets/images/sns/naverblog-02.jpg" alt="" loading="lazy" decoding="async">
                             </div>
                         </a>
                     </li>
@@ -761,7 +763,7 @@ $programs = sortProgramsForDisplay($programs);
                         rel="noopener noreferrer"
                         aria-label="네이버 블로그 게시글 새 창 열기: 2026 설 연휴 휴관 안내">
                             <div class="sns__thumb">
-                                <img src="<?= BASE_URL ?>/assets/images/sns/naverblog-03.png" alt="">
+                                <img src="<?= BASE_URL ?>/assets/images/sns/naverblog-03.png" alt="" loading="lazy" decoding="async">
                             </div>
                         </a>
                     </li>
@@ -772,7 +774,7 @@ $programs = sortProgramsForDisplay($programs);
                         rel="noopener noreferrer"
                         aria-label="네이버 블로그 게시글 새 창 열기: 뉴스레터 194호">
                             <div class="sns__thumb">
-                                <img src="<?= BASE_URL ?>/assets/images/sns/naverblog-04.png" alt="">
+                                <img src="<?= BASE_URL ?>/assets/images/sns/naverblog-04.png" alt="" loading="lazy" decoding="async">
                             </div>
                         </a>
                     </li>
@@ -787,8 +789,7 @@ $programs = sortProgramsForDisplay($programs);
             <button id="related-links__toggle" 
                     class="related-links__toggle"
                     aria-expanded="false" 
-                    aria-controls="related-links__list"
-                    aria-label="유관기관 목록 열기">
+                    aria-controls="related-links__list">
                 <span class="related-links__toggle-title">유관기관 보기</span>
                 <svg class="icon--toggle icon" 
                         viewBox="0 0 24 24"

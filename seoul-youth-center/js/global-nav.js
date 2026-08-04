@@ -239,7 +239,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const mainButtons = menuPanel.querySelectorAll('.main-menu__button[aria-controls]');
 
             mainButtons.forEach((button) => {
-                button.setAttribute('aria-selected', String(button === currentButton));
+                if (button === currentButton) {
+                    button.setAttribute('data-current', 'true');
+                } else {
+                    button.removeAttribute('data-current');
+                }
             });
         }
 
@@ -332,8 +336,6 @@ document.addEventListener('DOMContentLoaded', () => {
             menuPanel.dataset.mobileMenuState = 'open';
 
             mobileMenuButton.setAttribute('aria-expanded', 'true');
-            mobileMenuButton.setAttribute('aria-label', '전체 메뉴 닫기');
-            closeButton.setAttribute('aria-expanded', 'true');
 
             if (mobileMq.matches) {
                 document.body.classList.add('no-scroll');
@@ -347,8 +349,6 @@ document.addEventListener('DOMContentLoaded', () => {
             menuPanel.dataset.mobileMenuState = 'closed';
 
             mobileMenuButton.setAttribute('aria-expanded', 'false');
-            mobileMenuButton.setAttribute('aria-label', '전체 메뉴 열기');
-            closeButton.setAttribute('aria-expanded', 'false');
 
             document.body.classList.remove('no-scroll');
 
@@ -395,8 +395,28 @@ document.addEventListener('DOMContentLoaded', () => {
         );
 
         cleanups.push(
+            addListenerWithCleanup(mobileMenuButton, 'keydown', (event) => {
+                if (desktopMq.matches) return;
+                if (event.key !== 'Enter' && event.key !== ' ' && event.key !== 'Spacebar') return;
+                event.preventDefault();
+                event.stopPropagation();
+                toggleMobileTabletMenu();
+            })
+        );
+
+        cleanups.push(
             addListenerWithCleanup(closeButton, 'click', (event) => {
                 if (desktopMq.matches) return;
+                event.preventDefault();
+                event.stopPropagation();
+                closeMobileTabletMenu();
+            })
+        );
+
+        cleanups.push(
+            addListenerWithCleanup(closeButton, 'keydown', (event) => {
+                if (desktopMq.matches) return;
+                if (event.key !== 'Enter' && event.key !== ' ' && event.key !== 'Spacebar') return;
                 event.preventDefault();
                 event.stopPropagation();
                 closeMobileTabletMenu();
@@ -465,7 +485,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     event.key === 'Enter' ||
                     event.key === ' ' ||
                     event.key === 'Spacebar' ||
-                    event.key === 'ArrowDown';
+                    event.key === 'ArrowDown' ||
+                    event.key === 'ArrowRight';
 
                 if (!isOpenKey) return;
 
@@ -493,6 +514,36 @@ document.addEventListener('DOMContentLoaded', () => {
         );
 
         cleanups.push(
+            addListenerWithCleanup(menuPanel, 'keydown', (event) => {
+                if (desktopMq.matches || !isMobileTabletMenuOpen()) return;
+
+                const subLink = event.target.closest('.sub-menu__link');
+                if (!subLink) return;
+                const panelItem = subLink.closest('.sub-panel__item');
+                if (!panelItem) return;
+
+                if (event.key === 'ArrowLeft') {
+                    const parentButton = menuPanel.querySelector(
+                        `.main-menu__button[aria-controls="${panelItem.id}"]`
+                    );
+                    if (!parentButton) return;
+                    event.preventDefault();
+                    parentButton.focus();
+                    return;
+                }
+
+                if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
+                const links = Array.from(panelItem.querySelectorAll('.sub-menu__link'));
+                const currentIndex = links.indexOf(subLink);
+                if (currentIndex < 0) return;
+                const offset = event.key === 'ArrowDown' ? 1 : -1;
+                const nextIndex = (currentIndex + offset + links.length) % links.length;
+                event.preventDefault();
+                links[nextIndex].focus();
+            })
+        );
+
+        cleanups.push(
             addListenerWithCleanup(window, 'scroll', handleQuickMenuScroll, { passive: true })
         );
 
@@ -516,7 +567,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const mainButtons = menuPanel.querySelectorAll('.main-menu__button');
 
                 mainButtons.forEach((button) => {
-                    button.setAttribute('aria-selected', 'false');
+                    button.setAttribute('aria-expanded', 'false');
+                    button.removeAttribute('data-current');
                 });
 
                 panelItems.forEach((panel) => {
@@ -557,6 +609,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!subPanel || !mainButtons.length || !panelItems.length) return () => {};
 
         const cleanups = [];
+        let activeButton = null;
 
         /* --- 4-1. Open / Close / Sync (열기/닫기/동기화) --- */
         // openPanel
@@ -568,8 +621,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             mainButtons.forEach((btn) => {
                 const isCurrent = btn === button;
-                btn.setAttribute('aria-selected', String(isCurrent));
+                btn.setAttribute('aria-expanded', String(isCurrent));
             });
+            activeButton = button;
 
             panelItems.forEach((panel) => {
                 panel.hidden = panel !== targetPanel;
@@ -590,11 +644,13 @@ document.addEventListener('DOMContentLoaded', () => {
             menuPanel.dataset.pcMenuState = 'open';
         }
 
-        function closePanel() {
+        function closePanel({ restoreFocus = false } = {}) {
             if (!desktopMq.matches || menuPanel.dataset.menuMode !== 'drawer') return;
 
+            const buttonToRestore = activeButton;
+
             mainButtons.forEach((btn) => {
-                btn.setAttribute('aria-selected', 'false');
+                btn.setAttribute('aria-expanded', 'false');
             });
 
             panelItems.forEach((panel) => {
@@ -606,6 +662,11 @@ document.addEventListener('DOMContentLoaded', () => {
             subPanel.style.left = '';
             subPanel.style.top = '';
             menuPanel.dataset.pcMenuState = 'closed';
+            activeButton = null;
+
+            if (restoreFocus && buttonToRestore) {
+                requestAnimationFrame(() => buttonToRestore.focus());
+            }
         }
 
         function syncMenuByViewport() {
@@ -617,7 +678,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             mainButtons.forEach((btn) => {
-                btn.setAttribute('aria-selected', 'false');
+                btn.setAttribute('aria-expanded', 'false');
             });
 
             panelItems.forEach((panel) => {
@@ -651,7 +712,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             e.key === 'Enter' ||
                             e.key === ' ' ||
                             e.key === 'Spacebar' ||
-                            e.key === 'ArrowDown';
+                            e.key === 'ArrowDown' ||
+                            e.key === 'ArrowRight';
 
                         if (!isOpenKey) return;
 
@@ -672,7 +734,40 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!targetPanel) return;
 
                 const subLinks = targetPanel.querySelectorAll('.sub-menu__link');
+                const firstSubLink = subLinks[0];
                 const lastSubLink = subLinks[subLinks.length - 1];
+
+                subLinks.forEach((subLink, index) => {
+                    cleanups.push(
+                        addListenerWithCleanup(subLink, 'keydown', (e) => {
+                            if (!desktopMq.matches || menuPanel.dataset.menuMode !== 'drawer') return;
+
+                            if (e.key === 'Escape') {
+                                e.preventDefault();
+                                closePanel({ restoreFocus: true });
+                                return;
+                            }
+
+                            if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                                e.preventDefault();
+                                const offset = e.key === 'ArrowDown' ? 1 : -1;
+                                const nextIndex = (index + offset + subLinks.length) % subLinks.length;
+                                subLinks[nextIndex].focus();
+                            }
+                        })
+                    );
+                });
+
+                if (firstSubLink) {
+                    cleanups.push(
+                        addListenerWithCleanup(firstSubLink, 'keydown', (e) => {
+                            if (!desktopMq.matches || e.key !== 'Tab' || !e.shiftKey) return;
+                            e.preventDefault();
+                            closePanel();
+                            button.focus();
+                        })
+                    );
+                }
 
                 if (lastSubLink) {
                     cleanups.push(
@@ -693,6 +788,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             }
 
                             e.preventDefault();
+                            closePanel();
                             nextButton.focus();
                         })
                     );
@@ -762,7 +858,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (event.key !== 'Escape') return;
 
                     event.preventDefault();
-                    closePanel();
+                    closePanel({ restoreFocus: true });
                 })
             );
         }
@@ -1051,11 +1147,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // ESC / 외부 클릭 / X 버튼
         function setupMegaMenuDismiss() {
             const closeButton = menuPanel.querySelector('.button--close');
+            const megaButton = menuPanel.querySelector('.button--mega-menu');
 
             if (closeButton) {
                 cleanups.push(
                     addListenerWithCleanup(closeButton, 'click', () => {
                         switchMenuMode('drawer');
+                        requestAnimationFrame(() => megaButton?.focus());
                     })
                 );
             }
@@ -1067,6 +1165,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     event.preventDefault();
                     switchMenuMode('drawer');
+                    requestAnimationFrame(() => megaButton?.focus());
                 })
             );
 
@@ -1100,7 +1199,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const subPanel = menuPanel.querySelector('.sub-panel');
 
         mainButtons.forEach((btn) => {
-            btn.setAttribute('aria-selected', 'false');
+            btn.setAttribute('aria-expanded', 'false');
             btn.removeAttribute('data-current');
         });
 
@@ -1124,6 +1223,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.toggle('is-mega-menu-open', nextMode === 'mega');
 
         if (nextMode === 'drawer') {
+            menuPanel.querySelector('.button--mega-menu')?.setAttribute('aria-expanded', 'false');
             resetDrawerStateForMega();
         }
 
@@ -1151,8 +1251,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (closeButton) {
                 if (!desktopMq.matches) return;
 
-                closeButton.setAttribute('aria-expanded', 'false');
+                const opener = menuPanel.querySelector('.button--mega-menu');
                 switchMenuMode('drawer');
+                requestAnimationFrame(() => opener?.focus());
                 return;
             }
 

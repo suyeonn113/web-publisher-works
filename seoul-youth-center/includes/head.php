@@ -2,6 +2,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($pageTitle ?? '시립서울청소년센터') ?></title>
+    <meta name="description" content="<?= htmlspecialchars($pageDescription ?? '시립서울청소년센터의 청소년 프로그램, 평생교육, 시설 이용과 센터 소식을 확인하세요.', ENT_QUOTES, 'UTF-8') ?>">
     <!-- Base -->
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/base/reset.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/base/base.css">

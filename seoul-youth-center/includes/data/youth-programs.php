@@ -29,7 +29,7 @@ $youthPrograms = [
         'id' => 1, // 접수중(상시)
         'title' => '2026년 청소년 시민참여 기획 워크숍 「로컬체인지 메이커」 참여자 모집',
         'image' => [
-            'src' => '/assets/images/youth-programs/program-01-local-change-v2.png',
+            'src' => '/assets/images/youth-programs/program-01-local-change-v2.webp',
             'alt' => '청소년 시민참여 기획 워크숍 안내 이미지',
         ],
         'url' => '#',
@@ -56,7 +56,7 @@ $youthPrograms = [
         'id' => 2, // 접수중(상시)
         'title' => '2026학년도 우리동네 참여 프로젝트 「청소년 체인지업 메이킹」 참가자 모집',
         'image' => [
-            'src' => '/assets/images/youth-programs/program-02-changeup-making-v2.png',
+            'src' => '/assets/images/youth-programs/program-02-changeup-making-v2.webp',
             'alt' => '우리동네 참여 프로젝트 메이킹 안내 이미지',
         ],
         'url' => '#',
@@ -87,7 +87,7 @@ $youthPrograms = [
         'id' => 3, // 접수중
         'title' => '2026년 청소년 공공캠페인 기획단 「우리동네 체인지메이커 3기」 단원 모집',
         'image' => [
-            'src' => '/assets/images/youth-programs/program-03-campaign-v2.png',
+            'src' => '/assets/images/youth-programs/program-03-campaign-v2.webp',
             'alt' => '청소년 공공캠페인 기획단 안내 이미지',
         ],
         'url' => '#',
@@ -114,7 +114,7 @@ $youthPrograms = [
         'id' => 4, // 접수중
         'title' => '2026년 청소년 성장역량 부트캠프 「스스로 업 프로젝트」 참가자 모집',
         'image' => [
-            'src' => '/assets/images/youth-programs/program-04-stepup-v2.png',
+            'src' => '/assets/images/youth-programs/program-04-stepup-v2.webp',
             'alt' => '성장 역량 부트캠프 안내 이미지',
         ],
         'url' => '#',
@@ -141,7 +141,7 @@ $youthPrograms = [
         'id' => 5, // 접수중
         'title' => '2026년 청소년 리더십 트레이닝 「유스리더 아카데미 5기」 참여자 추가 모집',
         'image' => [
-            'src' => '/assets/images/youth-programs/program-05-youthleader-v2.png',
+            'src' => '/assets/images/youth-programs/program-05-youthleader-v2.webp',
             'alt' => '청소년 리더십 트레이닝 안내 이미지',
         ],
         'url' => '#',
@@ -168,7 +168,7 @@ $youthPrograms = [
         'id' => 6, // 접수중
         'title' => '2026년 문화예술 창작 스튜디오 「드로잉 앤 메이킹 클래스」 참가자 모집',
         'image' => [
-            'src' => '/assets/images/youth-programs/program-06-drawing-making-v2.png',
+            'src' => '/assets/images/youth-programs/program-06-drawing-making-v2.webp',
             'alt' => '문화예술 창작 스튜디오 안내 이미지',
         ],
         'url' => '#',
@@ -195,7 +195,7 @@ $youthPrograms = [
         'id' => 7, // 접수중
         'title' => '2026년 마음성장 관계소통 교실 「마음 잇기 프로젝트」 참가 청소년 모집',
         'image' => [
-            'src' => '/assets/images/youth-programs/7.png',
+            'src' => '/assets/images/youth-programs/7.webp',
             'alt' => '마음성장 관계소통 교실 안내 이미지',
         ],
         'url' => '#',
@@ -222,7 +222,7 @@ $youthPrograms = [
         'id' => 8, // 접수중
         'title' => '2026년 진로직업 탐색 클래스 「미래직업 오픈랩」 참가자 모집(4월)',
         'image' => [
-            'src' => '/assets/images/youth-programs/8.png',
+            'src' => '/assets/images/youth-programs/8.webp',
             'alt' => '진로직업 탐색 클래스 안내 이미지',
         ],
         'url' => '#',
@@ -253,7 +253,7 @@ $youthPrograms = [
         'id' => 11, // 마감
         'title' => '2026년 청소년 성장 챌린지 프로젝트 「스텝업 챌린지 1기」 참가자 모집',
         'image' => [
-            'src' => '/assets/images/youth-programs/11.png',
+            'src' => '/assets/images/youth-programs/11.webp',
             'alt' => '청소년 성장 챌린지 프로젝트 안내 이미지',
         ],
         'url' => '#',
@@ -280,7 +280,7 @@ $youthPrograms = [
         'id' => 12, // 마감
         'title' => '2026년 시민참여 네트워크 포럼 「유스 보이스 라운드테이블」 참여자 모집',
         'image' => [
-            'src' => '/assets/images/youth-programs/12.png',
+            'src' => '/assets/images/youth-programs/12.webp',
             'alt' => '시민참여 네트워크 포럼 안내 이미지',
         ],
         'url' => '#',
@@ -314,7 +314,7 @@ $youthPrograms = [
         'id' => 13, // 접수중(필터용)
         'title' => '2026년 청소년 성장탐색 통합 프로그램 「모두의 스텝업 랩」 참가자 모집',
         'image' => [
-            'src' => '/assets/images/youth-programs/13.png',
+            'src' => '/assets/images/youth-programs/13.webp',
             'alt' => '청소년 성장탐색 통합 프로그램 안내 이미지',
         ],
         'url' => '#',
@@ -341,7 +341,7 @@ $youthPrograms = [
         'id' => 14, // 접수중(필터용)
         'title' => '2026년 진로직업 확장 프로그램 「미래탐색 커리어 브릿지」 참가자 모집',
         'image' => [
-            'src' => '/assets/images/youth-programs/14.png',
+            'src' => '/assets/images/youth-programs/14.webp',
             'alt' => '진로직업 확장 프로그램 안내 이미지',
         ],
         'url' => '#',
@@ -368,7 +368,7 @@ $youthPrograms = [
         'id' => 15, // 접수중(필터용)
         'title' => '2026년 문화예술 융합 체험 「컬러 플레이 스튜디오」 참가자 모집',
         'image' => [
-            'src' => '/assets/images/youth-programs/15.png',
+            'src' => '/assets/images/youth-programs/15.webp',
             'alt' => '문화예술 융합 체험 프로그램 안내 이미지',
         ],
         'url' => '#',
@@ -395,7 +395,7 @@ $youthPrograms = [
         'id' => 16, // 접수중(필터용)
         'title' => '2026년 관계소통 공감 프로그램 「마음 연결 테이블」 참여자 모집',
         'image' => [
-            'src' => '/assets/images/youth-programs/16.png',
+            'src' => '/assets/images/youth-programs/16.webp',
             'alt' => '관계소통 공감 프로그램 안내 이미지',
         ],
         'url' => '#',
