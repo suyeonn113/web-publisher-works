@@ -35,8 +35,6 @@
 
 .chat-launcher img {
     position: relative;
-    display: block;
-    cursor: pointer;
 
     width: 100%; 
 }

@@ -39,6 +39,15 @@ function build_product_detail_feedback(
         }
         unset($reviewItem);
 
+        // The product catalog supplies the existing review total. On production,
+        // retain the showcase reviews when there are not yet enough persisted
+        // reviews, while never hiding real database reviews that exceed it.
+        $reviewItems = build_demo_product_reviews(
+            $reviewItems,
+            max($catalogReviewCount, count($reviewItems)),
+            $catalogRating
+        );
+
         $productQnaItems = feedback_fetch_qna($mysqli, (string) ($product['id'] ?? ''), $memberId);
     } else {
         $reviewItems = build_demo_product_reviews($reviewItems, $catalogReviewCount, $catalogRating);

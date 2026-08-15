@@ -48,7 +48,10 @@
             <img src="${escapeHtml(baseUrl + (item.image || ''))}" alt="">
             <div>
                 <h4>${escapeHtml(item.name)}</h4>
-                <p>${escapeHtml(item.option || `SIZE: ${item.size || '-'}`)} · ${Number(item.quantity || 1)}개</p>
+                <div class="checkout-product__options">
+                    <p>${escapeHtml(item.option || `SIZE: ${item.size || '-'}`)}</p>
+                    <p>수량: ${Number(item.quantity || 1)}개</p>
+                </div>
                 <strong>${formatPrice(Number(item.price || 0) * Number(item.quantity || 1))}</strong>
             </div>
         </li>

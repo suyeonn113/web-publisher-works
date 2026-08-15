@@ -17,12 +17,13 @@ $sampleItems = shop_sample_items($products);
     <?php include __DIR__ . '/../includes/header.php'; ?>
 
     <main id="main" class="bag-page" data-shop-page="wishlist" data-wishlist-page="<?= $page ?>">
-        <nav class="bag-tabs" aria-label="장바구니와 찜목록">
+        <nav class="section-tabs" aria-label="장바구니와 찜목록">
             <a href="<?= BASE_URL ?>/pages/cart.php">CART (<span data-cart-count>0</span>)</a>
             <a href="<?= BASE_URL ?>/pages/wishlist.php" aria-current="page">WISHLIST (<span data-wishlist-count>0</span>)</a>
         </nav>
 
         <div class="bag-control">
+            <button class="bag-control__action" type="button" data-wishlist-clear>전체 삭제하기</button>
             <label class="visually-hidden" for="wishlist-sort">찜목록 정렬</label>
             <select class="bag-sort" id="wishlist-sort" data-wishlist-sort>
                 <option value="latest">최신순</option>
@@ -30,6 +31,7 @@ $sampleItems = shop_sample_items($products);
             </select>
         </div>
 
+        <h2 class="visually-hidden">찜한 상품 목록</h2>
         <ul class="bag-list" data-wishlist-list></ul>
         <p class="empty-message" data-wishlist-empty hidden>찜한 상품이 없습니다.</p>
 

@@ -103,7 +103,6 @@ const ensureCartLayers = () => {
                 <div class="cart-option-sheet__size-list" data-cart-option-sizes></div>
             </fieldset>
             <div class="cart-option-sheet__actions">
-                <button class="cart-option-sheet__buy" type="button" data-cart-option-buy disabled>구매하기</button>
                 <button type="button" data-cart-option-add disabled>장바구니에 담기</button>
             </div>
         </section>`;
@@ -128,23 +127,13 @@ const ensureCartLayers = () => {
     cartOptionLayer.querySelectorAll('[data-cart-layer-close]').forEach((button) => button.addEventListener('click', closeCartLayers));
     cartOptionLayer.addEventListener('change', (event) => {
         if (!event.target.matches('input[name="cart_option_size"]')) return;
-        cartOptionLayer.querySelectorAll('[data-cart-option-buy], [data-cart-option-add]').forEach((button) => {
-            button.disabled = false;
-        });
+        cartOptionLayer.querySelector('[data-cart-option-add]').disabled = false;
     });
     cartOptionLayer.querySelector('[data-cart-option-add]').addEventListener('click', () => {
         const size = cartOptionLayer.querySelector('input[name="cart_option_size"]:checked')?.value;
         if (!pendingOptionItem || !size) return;
         requestCartAdd({ ...pendingOptionItem, size });
     });
-    cartOptionLayer.querySelector('[data-cart-option-buy]').addEventListener('click', () => {
-        const size = cartOptionLayer.querySelector('input[name="cart_option_size"]:checked')?.value;
-        if (!pendingOptionItem || !size) return;
-        const item = normalizeItem({ ...pendingOptionItem, size });
-        window.localStorage.setItem(CHECKOUT_KEY, JSON.stringify({ source: 'product', items: [item] }));
-        window.location.href = `${window.FRAGFARM_BASE_URL || ''}/pages/checkout.php`;
-    });
-
     cartDuplicateLayer.querySelectorAll('[data-cart-duplicate-close]').forEach((button) => button.addEventListener('click', closeCartLayers));
     cartDuplicateLayer.querySelector('[data-cart-duplicate-add]').addEventListener('click', () => {
         if (!pendingDuplicateItem) return;
@@ -199,9 +188,7 @@ const openCartOptions = (item, trigger) => {
             <input type="radio" name="cart_option_size" value="${escapeHtml(size)}">
             <span>${escapeHtml(size)}</span>
         </label>`).join('');
-    cartOptionLayer.querySelectorAll('[data-cart-option-buy], [data-cart-option-add]').forEach((button) => {
-        button.disabled = true;
-    });
+    cartOptionLayer.querySelector('[data-cart-option-add]').disabled = true;
     cartOptionLayer.hidden = false;
     cartDuplicateLayer.hidden = true;
     document.body.classList.add('is-cart-option-open');

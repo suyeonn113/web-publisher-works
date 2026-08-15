@@ -75,8 +75,12 @@
             const reviewKey = `demo-${String(review.id).replace(/[^a-zA-Z0-9_-]/g, '')}`;
             item.className = 'review-item';
             item.dataset.demoReview = review.id;
+            item.dataset.reviewItem = '';
+            item.dataset.reviewScoreValue = String(review.rating);
+            item.dataset.reviewHasPhoto = 'false';
+            item.dataset.reviewTimestamp = String(new Date(review.created_at).getTime() || 0);
             item.id = `review-demo-${String(review.id).replace(/[^a-zA-Z0-9_-]/g, '')}`;
-            item.innerHTML = `<summary class="review-item__summary"><span class="review-stars" aria-label="${review.rating}점">${Array.from({ length: 5 }, (_, index) => `<span class="${index < review.rating ? 'is-filled' : ''}" aria-hidden="true"></span>`).join('')}</span><span class="review-item__meta"><b>마**</b><time>${new Date(review.created_at).toLocaleString('ko-KR')}</time></span><span class="review-item__text review-item__text--preview">${escapeHtml(review.content)}</span><span class="review-item__text review-item__text--full">${escapeHtml(review.content)}</span></summary><div class="review-item__body">${isMasterLoggedIn ? `<button type="button" class="feedback-demo-delete" data-demo-review-delete="${review.id}">내 리뷰 삭제</button>` : ''}<div class="review-comments" aria-label="리뷰 댓글" data-review-comments="${reviewKey}"><h3 data-review-comment-count data-base-count="0">COMMENTS (0)</h3><div data-review-comment-list></div><form class="review-comment-form" action="#" method="post" data-demo-review-comment><input type="hidden" name="product_id" value="${escapeHtml(productId)}"><input type="hidden" name="review_key" value="${reviewKey}"><textarea name="comment" rows="2" maxlength="500" placeholder="댓글을 남겨주세요."></textarea><button type="submit">등록</button></form></div></div>`;
+            item.innerHTML = `<summary class="review-item__summary"><span class="review-stars" aria-label="${review.rating}점">${Array.from({ length: 5 }, (_, index) => `<span class="${index < review.rating ? 'is-filled' : ''}" aria-hidden="true"></span>`).join('')}</span><span class="review-item__meta"><b>마**</b><time>${new Date(review.created_at).toLocaleString('ko-KR')}</time></span><span class="review-item__text">${escapeHtml(review.content)}</span></summary><div class="review-item__body">${isMasterLoggedIn ? `<button type="button" class="feedback-demo-delete" data-demo-review-delete="${review.id}">내 리뷰 삭제</button>` : ''}<div class="review-comments" aria-label="리뷰 댓글" data-review-comments="${reviewKey}"><h3 data-review-comment-count data-base-count="0">COMMENTS (0)</h3><div data-review-comment-list></div><form class="review-comment-form" action="#" method="post" data-demo-review-comment><input type="hidden" name="product_id" value="${escapeHtml(productId)}"><input type="hidden" name="review_key" value="${reviewKey}"><textarea class="form-textarea form-textarea--compact" name="comment" rows="2" maxlength="500" placeholder="댓글을 남겨주세요."></textarea><button class="feedback-submit" type="submit">댓글 등록하기</button></form></div></div>`;
             list.prepend(item);
         });
         const score = document.querySelector('[data-review-score]');
@@ -87,14 +91,13 @@
             const totalSum = baseSum + reviews.reduce((sum, review) => sum + Number(review.rating || 0), 0);
             const average = totalCount ? (totalSum / totalCount).toFixed(1) : '0.0';
             score.querySelector('strong').textContent = `${average} / 5`;
-            score.querySelector('span').textContent = `(${totalCount}개의 후기)`;
+            score.querySelector('span').textContent = `(${totalCount})`;
 
-            const summary = document.querySelector('[data-product-review-summary]');
-            if (summary) {
-                summary.querySelector('[data-product-review-average]').textContent = average;
-                summary.querySelector('[data-product-review-count]').textContent = `(${totalCount}개의 후기)`;
-                summary.setAttribute('aria-label', `평점 ${average}점, 후기 ${totalCount}개`);
-            }
+        }
+        const reviewTabCount = document.querySelector('[data-feedback-count="review"]');
+        if (reviewTabCount) {
+            const baseCount = Number(reviewTabCount.dataset.baseCount || 0);
+            reviewTabCount.textContent = `(${baseCount + reviews.length})`;
         }
         list.querySelectorAll('[data-demo-review-delete]').forEach((button) => button.addEventListener('click', () => {
             write(REVIEW_KEY, read(REVIEW_KEY).filter((item) => item.id !== button.dataset.demoReviewDelete));
@@ -103,7 +106,7 @@
         }));
         syncAuthoringState();
         renderComments();
-        document.dispatchEvent(new CustomEvent('product-reviews:updated'));
+        window.refreshProductReviewList?.({ resetPage: true });
     };
 
     const renderComments = () => {
@@ -133,7 +136,8 @@
         const list = document.querySelector('[data-product-qna-list]');
         if (!list) return;
         list.querySelectorAll('[data-demo-qna]').forEach((item) => item.remove());
-        read(QNA_KEY).filter((item) => item.product_id === productId).reverse().forEach((qna) => {
+        const qnaItems = read(QNA_KEY).filter((item) => item.product_id === productId);
+        [...qnaItems].reverse().forEach((qna) => {
             const article = document.createElement('article');
             article.className = 'product-qna-item';
             article.dataset.demoQna = qna.id;
@@ -141,6 +145,11 @@
             article.innerHTML = `<div><strong>마**</strong><time>${new Date(qna.created_at).toLocaleDateString('ko-KR')}</time></div><p>${escapeHtml(qna.content)}</p>${qna.answer_content ? `<div class="product-qna-answer"><strong>답변</strong><p>${escapeHtml(qna.answer_content)}</p>${qna.answered_at ? `<time>${new Date(qna.answered_at).toLocaleDateString('ko-KR')}</time>` : ''}</div>` : ''}${isMasterLoggedIn ? `<button type="button" class="feedback-demo-delete" data-demo-qna-delete="${qna.id}">내 문의 삭제</button>` : ''}`;
             list.prepend(article);
         });
+        const qnaTabCount = document.querySelector('[data-feedback-count="qna"]');
+        if (qnaTabCount) {
+            const baseCount = Number(qnaTabCount.dataset.baseCount || 0);
+            qnaTabCount.textContent = `(${baseCount + qnaItems.length})`;
+        }
         list.querySelectorAll('[data-demo-qna-delete]').forEach((button) => button.addEventListener('click', () => {
             write(QNA_KEY, read(QNA_KEY).filter((item) => item.id !== button.dataset.demoQnaDelete));
             renderQna();

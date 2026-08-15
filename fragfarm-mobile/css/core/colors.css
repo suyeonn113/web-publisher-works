@@ -9,24 +9,17 @@
     --color-text-dark: #222;
     --color-text-slate: #33363f;
     --color-text-mid: #555;
-    --color-text-secondary: #666;
     --color-text-dim: #777;
     --color-text-inverse: var(--color-white);
     --color-text-muted: #888;
-    --color-text-caption: #8a8a8a;
     --color-text-subtle: #6f6f6f;
     --color-text-disabled: #999;
     --color-text-quiet: #aaa;
     --color-text-placeholder: #c5c5c5;
 
-    /* Brand and status */
-    --color-accent: #f25c74;
-    --color-accent-soft: #f88d9b;
-    --color-accent-strong: #a42136;
-    --color-status-new: #58ad9a;
-    --color-status-new-text: #ffffff;
-    --color-status-sale: #aa3345;
-    --color-success: #6cb988;
+    /* Status and external brands */
+    --color-sale: #9f3240;
+    --color-status-new: #66705c;
     --color-brand-naver: #00c73c;
     --color-brand-kakao: #ffdf00;
     --color-brand-facebook: #1877f2;
@@ -38,7 +31,6 @@
     --color-line-control: #d0d0d0;
     --color-line-disabled: #ccc;
     --color-line-pale: #e4e4e4;
-    --color-line-faint: #e5e5e5;
     --color-focus: #1f2937;
 
     /* Surfaces */
@@ -46,11 +38,8 @@
     --color-surface-muted: #f5f5f5;
     --color-surface-soft: #f7f7f7;
     --color-surface-notice: #f1f1f1;
-    --color-surface-error: #fff0f3;
     --color-surface-disabled: #d1d1d1;
     --color-surface-warm: #f8f7f5;
-    --color-surface-warm-muted: #f4f2ee;
-    --color-surface-hero: #e8e3df;
     --color-surface-warm-card: #d7c7b5;
 
     /* Warm editorial palette */
@@ -60,7 +49,6 @@
 
     /* Transparent colors, shadows and overlays */
     --color-shadow: rgb(0 0 0 / 12%);
-    --color-shadow-05: rgb(0 0 0 / 5%);
     --color-shadow-08: rgb(0 0 0 / 8%);
     --color-shadow-22: rgb(0 0 0 / 22%);
     --color-shadow-45: rgb(0 0 0 / 45%);
@@ -73,26 +61,9 @@
     --color-text-48: rgb(14 14 14 / 48%);
     --color-text-55: rgb(14 14 14 / 55%);
     --color-text-64: rgb(14 14 14 / 64%);
-    --color-text-68: rgb(14 14 14 / 68%);
     --color-text-70: rgb(14 14 14 / 70%);
     --color-text-72: rgb(14 14 14 / 72%);
-    --color-white-0: rgb(255 255 255 / 0%);
     --color-white-50: rgb(255 255 255 / 50%);
-    --color-white-60: rgb(255 255 255 / 60%);
-    --color-white-75: rgb(255 255 255 / 75%);
-    --color-white-85: rgb(255 255 255 / 85%);
     --color-white-92: rgb(255 255 255 / 92%);
     --color-white-95: rgb(255 255 255 / 95%);
-    --color-white-96: rgb(255 255 255 / 96%);
-    --color-home-scrim-0: rgb(15 12 10 / 0%);
-    --color-home-scrim-08: rgb(15 12 10 / 8%);
-    --color-home-scrim-55: rgb(15 12 10 / 55%);
-    --color-glow-warm-20: rgb(255 245 200 / 20%);
-    --color-glow-warm-80: rgb(255 245 200 / 80%);
-    --color-card-muted-92: rgb(245 245 245 / 92%);
-    --color-card-gray-92: rgb(232 232 232 / 92%);
-    --color-card-gray-deep-95: rgb(220 220 220 / 95%);
-    --color-card-warm-shadow-35: rgb(205 185 155 / 35%);
-    --color-card-warm-line-25: rgb(205 185 155 / 25%);
-    --color-card-warm-shadow-25: rgb(190 170 140 / 25%);
 }

@@ -83,11 +83,11 @@ $pageCss = 'orders.css';
                         <a class="order-card__link" href="<?= BASE_URL ?>/pages/order-detail.php?number=<?= rawurlencode($order['order_number']) ?>">
                         <div class="order-card__head">
                             <time datetime="<?= e($order['created_at']) ?>"><?= date('Y.m.d', strtotime($order['created_at'])) ?></time>
-                            <span><?= e(order_status_label($order['order_status'])) ?></span>
+                            <span class="status-badge order-card__status"><?= e(order_status_label($order['order_status'])) ?></span>
                         </div>
                         <div class="order-card__body">
                             <?php if (!empty($order['first_product_image'])): ?>
-                                <img src="<?= BASE_URL . e($order['first_product_image']) ?>" alt="">
+                                <img src="<?= BASE_URL . e($order['first_product_image']) ?>" alt="<?= e($order['first_product_name']) ?> 상품 이미지">
                             <?php endif; ?>
                             <div>
                                 <p class="order-card__number">주문번호 <?= e($order['order_number']) ?></p>

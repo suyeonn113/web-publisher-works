@@ -71,10 +71,12 @@ $pageCss = 'checkout.css';
                 <label>상세 주소<input name="address_line2" type="text" value="<?= e($member['address_line2']) ?>" required></label>
                 <label>배송 메시지<input name="delivery_message" type="text" maxlength="255" placeholder="배송 요청사항을 입력해주세요."></label>
             </section>
-            <section class="checkout-section" aria-labelledby="payment-title">
+            <section class="checkout-section checkout-payment" aria-labelledby="payment-title" data-payment-section>
                 <h3 id="payment-title">결제 수단</h3>
-                <label class="checkout-radio"><input name="payment_method" type="radio" value="demo_card" checked> 신용카드 모의 결제</label>
-                <label class="checkout-radio"><input name="payment_method" type="radio" value="demo_bank"> 무통장입금 모의 결제</label>
+                <div class="checkout-payment__options">
+                    <label class="checkout-radio"><input name="payment_method" type="radio" value="demo_card"><span>신용카드 모의 결제</span></label>
+                    <label class="checkout-radio"><input name="payment_method" type="radio" value="demo_bank"><span>무통장입금 모의 결제</span></label>
+                </div>
             </section>
             <section class="checkout-total" aria-label="결제 금액">
                 <dl>

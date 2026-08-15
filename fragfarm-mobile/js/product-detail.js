@@ -2,27 +2,49 @@ document.addEventListener('DOMContentLoaded', () => {
     initProductDetailThumbs();
     initSelectedProduct();
     initWishToggle();
-    initReviewSummaryScroll();
+    initFeedbackTabs();
     initReviewSection();
-    initProductReviewPagination();
+    initProductReviewList();
+    initReviewMedia();
+    initReviewImageModal();
     initReviewWrite();
     initQnaSection();
     initPlaceholderActions();
     initFeedbackAnchor();
 });
 
-function initReviewSummaryScroll() {
-    const reviewLink = document.querySelector('[data-review-summary-link]');
-    const reviewTitle = document.getElementById('review-title');
+function selectFeedbackTab(tabName, moveFocus = false) {
+    const tabs = Array.from(document.querySelectorAll('[data-feedback-tab]'));
+    const panels = Array.from(document.querySelectorAll('[data-feedback-panel]'));
+    const selectedTab = tabs.find((tab) => tab.dataset.feedbackTab === tabName);
 
-    if (!reviewLink || !reviewTitle) return;
+    if (!selectedTab) return;
 
-    reviewLink.addEventListener('click', (event) => {
-        event.preventDefault();
-        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        reviewTitle.scrollIntoView({
-            behavior: reduceMotion ? 'auto' : 'smooth',
-            block: 'start',
+    tabs.forEach((tab) => {
+        const isSelected = tab === selectedTab;
+        tab.setAttribute('aria-selected', String(isSelected));
+        tab.tabIndex = isSelected ? 0 : -1;
+    });
+
+    panels.forEach((panel) => {
+        panel.hidden = panel.dataset.feedbackPanel !== tabName;
+    });
+
+    if (moveFocus) selectedTab.focus();
+}
+
+function initFeedbackTabs() {
+    const tabs = Array.from(document.querySelectorAll('[data-feedback-tab]'));
+
+    tabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => selectFeedbackTab(tab.dataset.feedbackTab));
+        tab.addEventListener('keydown', (event) => {
+            if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+
+            event.preventDefault();
+            const direction = event.key === 'ArrowRight' ? 1 : -1;
+            const nextIndex = (index + direction + tabs.length) % tabs.length;
+            selectFeedbackTab(tabs[nextIndex].dataset.feedbackTab, true);
         });
     });
 }
@@ -37,6 +59,9 @@ function initFeedbackAnchor() {
         return;
     }
     if (!target || (!target.classList.contains('review-item') && !target.classList.contains('product-qna-item'))) return;
+
+    const feedbackPanel = target.closest('[data-feedback-panel]');
+    if (feedbackPanel) selectFeedbackTab(feedbackPanel.dataset.feedbackPanel);
 
     const parentDetails = target.closest('details');
     if (parentDetails) parentDetails.open = true;
@@ -256,97 +281,218 @@ function initReviewSection() {
     });
 }
 
-function initProductReviewPagination() {
-    const list = document.querySelector('.review-list');
-    const pagination = document.querySelector('[data-product-review-pagination]');
+function initProductReviewList() {
+    const list = document.querySelector('[data-review-list]');
+    const sort = document.querySelector('[data-review-sort]');
+    const photoFilter = document.querySelector('[data-review-photo-filter]');
+    const pagination = document.querySelector('[data-review-pagination]');
 
-    if (!list || !pagination) return;
+    if (!list || !sort || !photoFilter || !pagination) return;
 
-    const reviewsPerPage = 5;
+    const pageSize = 16;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const initialOrder = new WeakMap();
+    let nextOrder = 0;
     let currentPage = 1;
+    let revealObserver = null;
 
-    const pageFromHash = () => {
-        if (!window.location.hash) return 1;
+    const collectItems = () => {
+        const items = Array.from(list.querySelectorAll('[data-review-item]'));
 
-        const targetId = decodeURIComponent(window.location.hash.slice(1));
-        const items = Array.from(list.querySelectorAll(':scope > .review-item'));
-        const targetIndex = items.findIndex((item) => item.id === targetId);
-
-        return targetIndex >= 0 ? Math.floor(targetIndex / reviewsPerPage) + 1 : 1;
-    };
-
-    const pageControl = (page, label, className = '') => `
-        <a class="${className}" href="#review-title" data-product-review-page="${page}">
-            ${label}
-        </a>
-    `;
-
-    const disabledControl = (label) => `
-        <span class="pagination__disabled" aria-disabled="true">${label}</span>
-    `;
-
-    const render = () => {
-        const items = Array.from(list.querySelectorAll(':scope > .review-item'));
-        const totalPages = Math.max(1, Math.ceil(items.length / reviewsPerPage));
-        currentPage = Math.min(Math.max(1, currentPage), totalPages);
-
-        items.forEach((item, index) => {
-            const itemPage = Math.floor(index / reviewsPerPage) + 1;
-            item.hidden = itemPage !== currentPage;
-            if (item.hidden) item.open = false;
+        items.forEach((item) => {
+            if (!initialOrder.has(item)) {
+                initialOrder.set(item, nextOrder);
+                nextOrder += 1;
+            }
         });
 
-        if (totalPages <= 1) {
-            pagination.hidden = true;
-            pagination.innerHTML = '';
+        return items;
+    };
+
+    const compareByLatest = (left, right) => {
+        const timestampDifference = Number(right.dataset.reviewTimestamp || 0) - Number(left.dataset.reviewTimestamp || 0);
+        return timestampDifference || initialOrder.get(left) - initialOrder.get(right);
+    };
+
+    const getSortedItems = (items) => items.filter((item) => (
+        !photoFilter.checked || item.dataset.reviewHasPhoto === 'true'
+    )).sort((left, right) => {
+        const scoreDifference = Number(right.dataset.reviewScoreValue || 0) - Number(left.dataset.reviewScoreValue || 0);
+
+        if (sort.value === 'rating-desc') return scoreDifference || compareByLatest(left, right);
+        if (sort.value === 'rating-asc') return -scoreDifference || compareByLatest(left, right);
+        return compareByLatest(left, right);
+    });
+
+    const revealItems = (items) => {
+        revealObserver?.disconnect();
+        items.forEach((item) => item.classList.remove('is-revealed'));
+
+        if (reducedMotion.matches || !('IntersectionObserver' in window)) {
+            list.classList.remove('is-scroll-reveal-ready');
+            items.forEach((item) => item.classList.add('is-revealed'));
             return;
         }
 
-        const iconBase = window.FRAGFARM_BASE_URL || '';
-        const firstIcon = `<img src="${iconBase}/assets/icons/double-arrow-left.svg" alt=""><span class="visually-hidden">첫 후기 페이지로 이동</span>`;
-        const lastIcon = `<img class="icon-rotate-180" src="${iconBase}/assets/icons/double-arrow-left.svg" alt=""><span class="visually-hidden">마지막 후기 페이지로 이동</span>`;
-        let startPage = Math.max(1, currentPage - 2);
-        let endPage = Math.min(totalPages, startPage + 4);
-        startPage = Math.max(1, endPage - 4);
-        const numberLinks = [];
-
-        for (let page = startPage; page <= endPage; page += 1) {
-            numberLinks.push(`
-                <a href="#review-title" data-product-review-page="${page}" ${page === currentPage ? 'aria-current="page"' : ''}>
-                    ${page}
-                </a>
-            `);
-        }
-
-        pagination.hidden = false;
-        pagination.innerHTML = [
-            currentPage > 1
-                ? pageControl(1, firstIcon, 'pagination__btn')
-                : disabledControl(firstIcon),
-            ...numberLinks,
-            currentPage < totalPages
-                ? pageControl(totalPages, lastIcon, 'pagination__btn')
-                : disabledControl(lastIcon),
-        ].join('');
+        list.classList.add('is-scroll-reveal-ready');
+        revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('is-revealed');
+                observer.unobserve(entry.target);
+            });
+        }, {
+            threshold: .08,
+            rootMargin: '0px 0px -8% 0px',
+        });
+        items.forEach((item) => revealObserver.observe(item));
     };
 
-    pagination.addEventListener('click', (event) => {
-        const control = event.target.closest('[data-product-review-page]');
-        if (!control) return;
+    const createPageButton = (label, page, options = {}) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.textContent = label;
+        button.setAttribute('aria-label', options.ariaLabel || `${page}페이지`);
 
-        event.preventDefault();
-        currentPage = Number(control.dataset.productReviewPage || 1);
-        render();
-        document.getElementById('review-title')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (options.control) button.classList.add('pagination__btn');
+        if (page === currentPage) button.setAttribute('aria-current', 'page');
+
+        button.addEventListener('click', () => {
+            if (page === currentPage) return;
+            currentPage = page;
+            render();
+            document.querySelector('.review-head')?.scrollIntoView({
+                behavior: reducedMotion.matches ? 'auto' : 'smooth',
+                block: 'start',
+            });
+        });
+
+        return button;
+    };
+
+    const renderPagination = (pageCount) => {
+        pagination.replaceChildren();
+        pagination.hidden = pageCount <= 1;
+        if (pageCount <= 1) return;
+
+        const start = Math.max(1, Math.min(currentPage - 2, pageCount - 4));
+        const end = Math.min(pageCount, start + 4);
+
+        if (currentPage > 1) {
+            pagination.append(createPageButton('«', 1, { control: true, ariaLabel: '첫 페이지로 이동' }));
+        }
+
+        for (let page = start; page <= end; page += 1) {
+            pagination.append(createPageButton(String(page), page));
+        }
+
+        if (currentPage < pageCount) {
+            pagination.append(createPageButton('»', pageCount, { control: true, ariaLabel: '마지막 페이지로 이동' }));
+        }
+    };
+
+    function render(options = {}) {
+        const allItems = collectItems();
+        const items = getSortedItems(allItems);
+        const pageCount = Math.max(1, Math.ceil(items.length / pageSize));
+
+        if (options.resetPage) currentPage = 1;
+        currentPage = Math.min(currentPage, pageCount);
+
+        const hashId = window.location.hash ? decodeURIComponent(window.location.hash.slice(1)) : '';
+        const hashIndex = hashId ? items.findIndex((item) => item.id === hashId) : -1;
+        if (options.followHash && hashIndex >= 0) currentPage = Math.floor(hashIndex / pageSize) + 1;
+
+        items.forEach((item) => list.append(item));
+        const pageStart = (currentPage - 1) * pageSize;
+        const visibleItems = items.slice(pageStart, pageStart + pageSize);
+        const visibleSet = new Set(visibleItems);
+
+        allItems.forEach((item) => {
+            item.hidden = !visibleSet.has(item);
+        });
+
+        renderPagination(pageCount);
+        revealItems(visibleItems);
+    }
+
+    sort.addEventListener('change', () => render({ resetPage: true }));
+    photoFilter.addEventListener('change', () => render({ resetPage: true }));
+    reducedMotion.addEventListener?.('change', () => render());
+    window.refreshProductReviewList = (options = {}) => render(options);
+    render({ followHash: true });
+}
+
+function initReviewMedia() {
+    const previews = Array.from(document.querySelectorAll('[data-review-media-preview]'));
+
+    if (previews.length === 0) return;
+
+    const updateOverflowState = () => {
+        previews.forEach((preview) => {
+            const track = preview.querySelector('[data-review-media-preview-track]');
+            if (!track) return;
+
+            preview.classList.toggle('is-overflowing', track.scrollWidth > preview.clientWidth + 1);
+        });
+    };
+
+    previews.forEach((preview) => {
+        preview.querySelectorAll('img').forEach((image) => {
+            if (!image.complete) image.addEventListener('load', updateOverflowState, { once: true });
+        });
     });
 
-    document.addEventListener('product-reviews:updated', () => {
-        currentPage = 1;
-        render();
+    window.addEventListener('resize', updateOverflowState);
+    window.requestAnimationFrame(updateOverflowState);
+}
+
+function initReviewImageModal() {
+    const modal = document.querySelector('[data-review-modal]');
+
+    if (!modal) return;
+
+    const modalImage = modal.querySelector('[data-review-modal-image]');
+    const dialog = modal.querySelector('[role="dialog"]');
+    const closeButton = modal.querySelector('.review-image-modal__close');
+    const closeButtons = modal.querySelectorAll('[data-review-modal-close]');
+    let lastFocused = null;
+
+    const closeModal = () => {
+        if (modal.hidden) return;
+
+        modal.hidden = true;
+        modalImage.removeAttribute('src');
+        document.body.classList.remove('is-review-image-modal-open');
+        lastFocused?.focus();
+    };
+
+    document.addEventListener('click', (event) => {
+        const imageButton = event.target.closest('[data-review-image]');
+        if (!imageButton) return;
+
+        const src = imageButton.dataset.reviewImage;
+        if (!src) return;
+
+        lastFocused = imageButton;
+        modalImage.src = src;
+        modal.hidden = false;
+        document.body.classList.add('is-review-image-modal-open');
+        closeButton.focus();
     });
 
-    currentPage = pageFromHash();
-    render();
+    closeButtons.forEach((button) => button.addEventListener('click', closeModal));
+
+    document.addEventListener('keydown', (event) => {
+        if (modal.hidden) return;
+
+        if (event.key === 'Escape') {
+            closeModal();
+            return;
+        }
+
+        window.FragfarmA11y?.trapFocus(dialog, event);
+    });
 }
 
 function initReviewWrite() {
@@ -362,25 +508,13 @@ function initReviewWrite() {
         const textarea = reviewForm.querySelector('textarea[name="review"]');
         const ratingInputs = Array.from(reviewForm.querySelectorAll('input[name="rating"]'));
         const ratingLabels = Array.from(reviewForm.querySelectorAll('.review-write__rating label'));
-        const photoReviewToast = reviewForm.querySelector('[data-photo-review-toast]');
-        let photoReviewToastTimer;
         const hasInput = () => Boolean(textarea?.value.trim() || ratingInputs.some((input) => input.checked));
-
-        const showPhotoReviewToast = () => {
-            if (!photoReviewToast) return;
-
-            window.clearTimeout(photoReviewToastTimer);
-            photoReviewToast.hidden = false;
-            photoReviewToastTimer = window.setTimeout(() => {
-                photoReviewToast.hidden = true;
-            }, 3000);
-        };
 
         const renderButton = () => {
             const isOpen = !panel.hidden;
             const isReady = isOpen && hasInput();
 
-            toggleButton.textContent = !isOpen ? '리뷰쓰기' : isReady ? '등록하기' : '닫기';
+            toggleButton.textContent = !isOpen ? '후기 작성하기' : isReady ? '등록하기' : '닫기';
             toggleButton.classList.toggle('is-active', isReady);
             toggleButton.setAttribute('aria-expanded', String(isOpen));
         };
@@ -440,7 +574,6 @@ function initReviewWrite() {
             if (panel.hidden) {
                 panel.hidden = false;
                 renderButton();
-                showPhotoReviewToast();
                 textarea?.focus();
                 return;
             }

@@ -19,7 +19,7 @@ function shop_find_product(array $products, string $id): ?array
 function shop_item_from_product(array $product, array $overrides = []): array
 {
     $images = $product['images'] ?? [];
-    $image = $images[0]['src'] ?? '';
+    $image = $product['cardImage']['src'] ?? $images[0]['src'] ?? '';
     $originalPrice = (int) ($product['originalPrice'] ?? $product['price'] ?? 0);
     $price = (int) ($product['price'] ?? 0);
     $sizeText = (string) ($product['details']['size'] ?? 'One Size');

@@ -36,7 +36,7 @@ $pageCss = 'notice.css';
             <a class="page-heading__back" href="<?= BASE_URL ?>/pages/notice.php" aria-label="공지사항 목록으로 돌아가기">
                 <img src="<?= BASE_URL ?>/assets/icons/arrow-left.svg" alt="">
             </a>
-            <h2 class="page-heading__title">NOTICE</h2>
+            <h2 class="page-heading__title">목록으로 돌아가기</h2>
         </div>
 
         <article class="notice-detail__article">
@@ -47,7 +47,7 @@ $pageCss = 'notice.css';
 
             <div class="notice-detail__body">
                 <?php if (!empty($post['image_src'])): ?>
-                    <img src="<?= BASE_URL . e($post['image_src']) ?>" alt="">
+                    <img src="<?= BASE_URL . e($post['image_src']) ?>" alt="<?= e($post['title']) ?> 공지 이미지">
                 <?php endif; ?>
                 <p><?= nl2br(e($post['content'])) ?></p>
             </div>

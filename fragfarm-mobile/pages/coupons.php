@@ -34,7 +34,7 @@ $pageCss = 'mypage-detail.css';
             <p class="mypage-detail__notice">포트폴리오 화면용 데모 쿠폰이며 주문 결제에는 적용되지 않습니다.</p>
         <?php endif; ?>
 
-        <dl class="mypage-summary">
+        <dl class="mypage-summary coupon-summary">
             <dt>사용 가능 쿠폰</dt>
             <dd><?= count($coupons) ?>장</dd>
         </dl>
@@ -45,7 +45,7 @@ $pageCss = 'mypage-detail.css';
                 <ul class="coupon-list">
                     <?php foreach ($coupons as $coupon): ?>
                         <li class="coupon-card">
-                            <div class="coupon-card__head"><strong><?= htmlspecialchars($coupon['benefit'], ENT_QUOTES, 'UTF-8') ?></strong><span>사용 가능</span></div>
+                            <div class="coupon-card__head"><strong><?= htmlspecialchars($coupon['benefit'], ENT_QUOTES, 'UTF-8') ?></strong><span class="status-badge coupon-card__badge">사용 가능</span></div>
                             <h3><?= htmlspecialchars($coupon['name'], ENT_QUOTES, 'UTF-8') ?></h3>
                             <p><?= htmlspecialchars($coupon['condition'], ENT_QUOTES, 'UTF-8') ?></p>
                             <time datetime="<?= htmlspecialchars($coupon['expires_at'], ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($coupon['expires_at'], ENT_QUOTES, 'UTF-8') ?>까지</time>

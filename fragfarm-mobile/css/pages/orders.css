@@ -63,9 +63,9 @@
     font-size: var(--font-size-caption);
 }
 
-.order-card__head span {
-    color: var(--color-accent);
-    font-weight: 700;
+.order-card__status {
+    padding: var(--space-1) var(--space-2);
+    font-size: var(--font-size-caption);
 }
 
 .order-card__body {
@@ -92,7 +92,6 @@
 .order-card h3 {
     margin-bottom: .5rem;
     font-size: var(--font-size-body);
-    font-weight: 500;
 }
 
 .order-card strong {

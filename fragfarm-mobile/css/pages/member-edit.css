@@ -4,16 +4,11 @@
     min-height: 34rem;
 }
 
-.member-edit__inner {
-    padding: 0;
-}
-
 .password-panel__title {
     padding: 0 var(--page-gutter);
     margin-bottom: var(--space-4);
 
     font-size: var(--font-size-title);
-    font-weight: 500;
 }
 
 .member-form {
@@ -37,7 +32,6 @@
 .member-form__label,
 .member-form__legend {
     font-size: var(--font-size-body);
-    font-weight: 400;
 }
 
 .member-form__label-row {
@@ -55,12 +49,11 @@
 .member-form__legend.is-required::after {
     content: "*";
     padding-left: 4px;
-    color: var(--color-accent);
+    color: var(--color-text);
 }
 
 .member-form__input {
     width: 100%;
-    min-height: var(--field-height-small);
     padding: var(--space-1) 0 var(--space-2);
 
     color: var(--font-color-default);
@@ -79,10 +72,6 @@
     margin-top: var(--space-6);
     padding-top: var(--space-3);
     border-bottom: 0;
-}
-
-.member-form__address .member-form__legend {
-    padding: 0;
 }
 
 .member-form__address .member-form__group {
@@ -172,14 +161,12 @@
     border-radius: var(--radius-control);
 
     font-size: var(--font-size-title);
-    font-weight: 400;
 }
 
 .member-form__button--primary {
     color: var(--color-white);
-    border-color: var(--color-accent);
-    background: var(--color-accent);
-    font-weight: 700;
+    border-color: var(--color-text);
+    background: var(--color-text);
 }
 
 .password-panel {

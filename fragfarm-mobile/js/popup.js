@@ -1,69 +1,60 @@
-const popup = document.querySelector('.popup');
-const dim = document.querySelector('.popup__dim');
-const dismiss = document.querySelector('.popup__dismiss');
-const menuBtn = document.querySelector('#header-menu');
-const popupDialog = popup?.querySelector('[role="dialog"]');
-let popupLastFocused = null;
+(function () {
+    const popup = document.querySelector('[data-scroll-popup]');
+    if (!popup) return;
 
-// 오늘 다시 보지 않기
-function setCookie(name, value, days) {
-    const date = new Date();
-    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    const dismiss = popup.querySelector('.popup__dismiss');
+    const closeButton = popup.querySelector('.popup__close');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let hasOpened = false;
+    let closeTimer = 0;
 
-    document.cookie =
-        name + "=" + value +
-        "; expires=" + date.toUTCString() +
-        "; path=/";
-}
+    const setCookie = (name, value, days) => {
+        const date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        document.cookie = `${name}=${value}; expires=${date.toUTCString()}; path=/; SameSite=Lax`;
+    };
 
-function getCookie(name) {
-    const cookies = document.cookie.split(';');
+    const getCookie = (name) => document.cookie
+        .split(';')
+        .map((cookie) => cookie.trim())
+        .find((cookie) => cookie.startsWith(`${name}=`))
+        ?.substring(name.length + 1) || null;
 
-    for (let c of cookies) {
-        c = c.trim();
-        if (c.startsWith(name + '=')) {
-            return c.substring(name.length + 1);
-        }
+    const openPopup = () => {
+        if (hasOpened || getCookie('popupClosed')) return;
+        hasOpened = true;
+        popup.hidden = false;
+        if (reducedMotion.matches) popup.classList.add('is-visible');
+        else window.requestAnimationFrame(() => popup.classList.add('is-visible'));
+    };
+
+    const closePopup = () => {
+        if (popup.hidden) return;
+        popup.classList.remove('is-visible');
+        window.clearTimeout(closeTimer);
+        closeTimer = window.setTimeout(() => {
+            popup.hidden = true;
+        }, reducedMotion.matches ? 0 : 350);
+    };
+
+    const handleScroll = () => {
+        const revealPoint = Math.min(240, window.innerHeight * 0.22);
+        if (window.scrollY < revealPoint) return;
+        openPopup();
+        window.removeEventListener('scroll', handleScroll);
+    };
+
+    if (!getCookie('popupClosed')) {
+        window.addEventListener('scroll', handleScroll, { passive: true });
     }
-    return null;
-}
 
-// Popup Open
-function openPopup() {
-    popupLastFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-    popup.hidden = false;
-    document.body.classList.add('no-scroll');
-    menuBtn?.setAttribute('disabled', '');
-    window.requestAnimationFrame(() => dismiss?.focus());
-}
-
-// Popup Closed
-function closePopup() {
-    popup.hidden = true;
-    document.body.classList.remove('no-scroll');
-    menuBtn?.removeAttribute('disabled');
-    popupLastFocused?.focus();
-}
-
-if (!getCookie('popupClosed')) {
-    openPopup();
-}
-
-// dim Click
-dim?.addEventListener('click', closePopup);
-
-// dismiss Click
-dismiss?.addEventListener('click', () => {
-    setCookie('popupClosed', 'true', 1); // 1일
-    closePopup();
-});
-
-// ESC Click
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !popup.hidden) {
+    dismiss?.addEventListener('click', () => {
+        setCookie('popupClosed', 'true', 1);
         closePopup();
-        return;
-    }
+    });
+    closeButton?.addEventListener('click', closePopup);
 
-    if (!popup.hidden) window.FragfarmA11y?.trapFocus(popupDialog, e);
-});
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !popup.hidden) closePopup();
+    });
+}());

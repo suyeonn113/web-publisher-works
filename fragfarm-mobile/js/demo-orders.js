@@ -29,7 +29,7 @@
                 <a class="order-card__link" href="${baseUrl}/pages/order-detail.php?number=${encodeURIComponent(order.order_number)}">
                 <div class="order-card__head">
                     <time>${new Date(order.created_at).toLocaleDateString('ko-KR')}</time>
-                    <span>주문 완료</span>
+                    <span class="status-badge order-card__status">주문 완료</span>
                 </div>
                 <div class="order-card__body">
                     <img src="${escapeHtml(baseUrl + (first.image || ''))}" alt="">

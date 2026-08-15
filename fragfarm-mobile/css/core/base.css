@@ -4,10 +4,6 @@ html {
   font-size: 16px;
 }
 
-body {
-  margin: 0;
-}
-
 button {
     border-radius: var(--radius-control);
 }
@@ -18,37 +14,20 @@ button {
   box-sizing: border-box;
 }
 
-button,
-input,
-select,
-textarea {
-  font-family: inherit;
-  font-size: inherit;
-}
-
 /* Input */
 input::placeholder {
-  color: var(--color-line-disabled);
+  color: var(--color-text-subtle);
 }
 
 /* Keyboard-Focus */
 :focus-visible {
   outline: 2px dashed var(--color-focus);
-  outline-offset: -2px;
+  outline-offset: 2px;
 }
 
 /* Not Keyboard */
 :focus:not(:focus-visible) {
   outline: none;
-}
-
-/* Touch devices do not need a persistent keyboard focus ring. */
-@media (hover: none) and (pointer: coarse) {
-  :focus,
-  :focus-visible {
-    outline: none !important;
-    outline-offset: 0;
-  }
 }
 
 /* Scroll */
@@ -107,11 +86,8 @@ html::-webkit-scrollbar {
   padding: .5rem .75rem;
 
   border-radius: var(--radius-medium);
-  text-decoration: none;
 
   font-size: var(--font-size-body);
-  font-weight: 600;
-  color: inherit;
 }
 
 /* Popup Scroll Lock */

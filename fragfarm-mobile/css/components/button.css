@@ -6,17 +6,30 @@
     border-radius: var(--radius-control);
 
     font-size: var(--font-size-title);
-    font-weight: 700;
+}
+
+.feedback-submit {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: var(--button-height-default);
+
+    border: 1px solid var(--color-text-strong);
+    border-radius: var(--radius-control);
+
+    font-size: var(--font-size-small);
 }
  
 .product__btn {
-    padding: .5rem;
+    display: grid;
+    place-items: center;
+    width: var(--icon-control-size);
+    height: var(--icon-control-size);
 }
 
 .product__btn svg {
-    width: 1rem;
-    height: 1rem;
-
+    width: var(--space-4);
+    height: var(--space-4);
     fill: none;
     stroke: currentColor;
     stroke-linecap: round;
@@ -24,23 +37,22 @@
 }
 
 .product__btn--cart svg {
-    stroke-width: 1.5;
+    stroke-width: 1.25;
 }
 
 .product__btn--wish svg {
-    stroke-width: 1.0;
+    stroke-width: 1;
 }
 
 .product__btn--wish[aria-pressed="true"] svg {
-    fill: var(--color-accent);
-    stroke: var(--color-accent);
+    fill: currentColor;
 }
 
 /* Join - Button */
 .btn-signup {
     width: 100%;
     color: var(--color-white);
-    background: var(--color-accent);
+    background: var(--color-text);
 
     margin: 1.5rem 0;
 }
@@ -65,6 +77,7 @@
 }
 
 .pagination a,
+.pagination button,
 .pagination__disabled {
     display: inline-flex;
     align-items: center;
@@ -73,9 +86,7 @@
     min-width: var(--icon-control-size);
     height: var(--icon-control-size);
 
-    border: 0;
     border-radius: var(--radius-round);
-    background: transparent;
 
     font-size: var(--font-size-body);
 }
@@ -90,7 +101,6 @@
 
 .pagination__btn img,
 .pagination__disabled img {
-    display: block;
     width: 1rem;
     height: 1rem;
 }
@@ -99,7 +109,8 @@
     transform: rotate(180deg);
 }
 
-.pagination a[aria-current="page"] {
+.pagination a[aria-current="page"],
+.pagination button[aria-current="page"] {
     color: var(--color-white);
     background: var(--font-color-default);
 }

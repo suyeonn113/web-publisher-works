@@ -4,10 +4,6 @@
     min-height: 34rem;
 }
 
-.account-help__inner {
-    padding: 0;
-}
-
 .account-help__lead,
 .account-help__result {
     padding: 0 var(--page-gutter);
@@ -18,7 +14,6 @@
 
 .account-help__result strong {
     font-size: var(--font-size-title);
-    font-weight: 600;
 }
 
 .account-help-form {
@@ -37,12 +32,10 @@
 
 .account-help-form__label {
     font-size: var(--font-size-body);
-    font-weight: 400;
 }
 
 .account-help-form__input {
     width: 100%;
-    min-height: var(--field-height-small);
     padding: var(--space-1) 0 var(--space-2);
 
     color: var(--font-color-default);
@@ -62,14 +55,12 @@
     border-radius: var(--radius-control);
 
     font-size: var(--font-size-title);
-    font-weight: 400;
 }
 
 .account-help-form__button--primary {
     color: var(--color-white);
-    border-color: var(--color-accent);
-    background: var(--color-accent);
-    font-weight: 700;
+    border-color: var(--color-text);
+    background: var(--color-text);
 }
 
 .account-help__actions {

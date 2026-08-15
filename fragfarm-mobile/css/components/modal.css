@@ -1,52 +1,70 @@
 @charset "utf-8";
 
-/* Popup */
+/* Scroll reveal promotion card */
 .popup {
     position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    right: 50%;
+    bottom: var(--space-3);
     z-index: 20000;
-
-    width: min(100%, var(--shell-width, 480px));
+    width: min(calc(100% - (var(--space-4) * 2)), calc(var(--shell-width, 480px) - (var(--space-4) * 2)));
+    transform: translate(50%, calc(100% + var(--space-6)));
+    opacity: 0;
+    pointer-events: none;
+    transition:
+        transform var(--motion-duration-base) cubic-bezier(.22, 1, .36, 1),
+        opacity var(--motion-duration-base) ease;
 }
 
-.popup__dim {
-    position: absolute;
-    inset: 0;
-    background: var(--color-overlay-50);
+.popup.is-visible {
+    transform: translate(50%, 0);
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .popup__dialog {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    width: 100%;
+    overflow: hidden;
+    background: var(--color-white);
+    box-shadow: 0 .75rem 2rem var(--color-shadow-22);
+}
 
-    width: min(calc(100% - 2rem), 24rem);
-    max-height: calc(100dvh - 2rem);
-    aspect-ratio: 1300 / 1021;
-    padding: 1.5rem;
+.popup__media {
+    width: 100%;
+    height: auto;
+}
 
-    background-image: url(../../assets/images/popup.png);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
+.popup__actions {
+    display: grid;
+    grid-template-columns: 1fr auto;
+}
+
+.popup__dismiss,
+.popup__close {
+    min-height: var(--button-height-default);
+    padding: var(--space-2) var(--space-3);
+    color: var(--color-text);
+    background: var(--color-white);
+    font-size: var(--font-size-caption);
 }
 
 .popup__dismiss {
-    position: absolute;
-    right: .75rem;
-    bottom: .75rem;
-
-    font-size: var(--font-size-caption);
-    text-decoration: underline;
-
-    color: var(--color-white);
+    text-align: left;
 }
 
-.popup__dismiss:focus-visible {
-    outline-color: var(--color-white);
-    background: var(--color-overlay-72);
+.popup__close {
+    text-align: right;
+}
+
+.popup__dismiss:hover,
+.popup__dismiss:focus-visible,
+.popup__close:hover,
+.popup__close:focus-visible {
+    color: var(--color-white);
+    background: var(--color-text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .popup {
+        transition: none;
+    }
 }

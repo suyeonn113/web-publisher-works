@@ -41,12 +41,11 @@
     grid-column: 1 / -1;
     width: 100%;
 
-    min-height: var(--button-height-emphasis);
     padding: 0 var(--control-padding-default);
     margin-top: var(--space-6);
 
-    border: 1px solid var(--font-color-default);
-    border-radius: var(--radius-control);
+    color: var(--color-text-inverse);
+    background: var(--color-text-strong);
 }
 
 .join-link {
@@ -55,7 +54,7 @@
     justify-content: center;
 
     width: auto;
-    min-height: var(--button-height-default);
+    min-height: var(--button-height-emphasis);
     padding: 0 var(--control-padding-default);
     margin-inline: var(--space-4);
 
@@ -125,10 +124,6 @@
     background: var(--color-surface);
 }
 
-.social-login__link--google svg {
-    width: 1.25rem;
-    height: 1.25rem;
-}
 
 .social-login__link--naver svg {
     width: 1.125rem;

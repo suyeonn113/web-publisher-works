@@ -94,7 +94,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+    .effect-fairy::after,
+    .motion-wobble,
     .motion-card-float {
         animation: none;
+        will-change: auto;
     }
 }

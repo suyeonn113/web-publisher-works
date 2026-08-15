@@ -29,14 +29,12 @@
 }
 
 .page-heading__back img {
-    display: block;
-    width: 1.25rem;
-    height: 1.25rem;
+    width: var(--font-size-caption);
+    height: var(--font-size-caption);
 }
 
 .page-heading__title {
     min-width: 0;
-    font-size: var(--font-size-title);
-    font-weight: 500;
+    font-size: var(--font-size-caption);
     line-height: 1.25;
 }

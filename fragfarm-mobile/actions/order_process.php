@@ -32,10 +32,14 @@ $postcode = trim($_POST['postcode'] ?? '');
 $addressLine1 = trim($_POST['address_line1'] ?? '');
 $addressLine2 = trim($_POST['address_line2'] ?? '');
 $deliveryMessage = trim($_POST['delivery_message'] ?? '');
-$paymentMethod = in_array($_POST['payment_method'] ?? '', ['demo_card', 'demo_bank'], true) ? $_POST['payment_method'] : 'demo_card';
+$paymentMethod = (string) ($_POST['payment_method'] ?? '');
 
 if ($recipientName === '' || $recipientPhone === '' || $postcode === '' || $addressLine1 === '' || $addressLine2 === '') {
     order_fail('배송 정보를 모두 입력해주세요.');
+}
+
+if (!in_array($paymentMethod, ['demo_card', 'demo_bank'], true)) {
+    order_fail('결제 수단을 선택해주세요.');
 }
 
 $validatedItems = [];

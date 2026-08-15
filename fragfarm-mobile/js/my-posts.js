@@ -77,7 +77,7 @@
             return `<article class="my-post" id="my-review-${id}"><div class="my-post__head"><a href="${productLink(productId, fragment)}">${escapeHtml(name)}</a><time>${escapeHtml(formatDate(review.updated_at || review.created_at))}</time></div><p class="my-post__rating" aria-label="평점 ${rating}점">★ ${rating} / 5</p><p class="my-post__content">${escapeHtml(review.content)}</p><div class="my-post__actions"><a href="${productLink(productId, fragment)}">상품에서 보기</a><button type="button" data-post-edit-toggle>수정</button></div><form class="my-post__edit" data-post-edit-form data-demo-review-edit="${escapeHtml(review.id)}" hidden><label>별점<select name="rating">${options}</select></label><label>후기 내용<textarea name="review" rows="5" maxlength="2000" required>${escapeHtml(review.content)}</textarea></label><button type="submit">수정 저장</button></form></article>`;
         }).join('');
         if (empty) empty.hidden = reviews.length > 0;
-        if (count) count.textContent = String(reviews.length);
+        if (count) count.textContent = `(${reviews.length})`;
     };
 
     const renderQna = () => {
@@ -96,7 +96,7 @@
             return `<article class="my-post" id="my-qna-${id}"><div class="my-post__head"><a href="${productLink(productId, fragment)}">${escapeHtml(name)}</a><time>${escapeHtml(formatDate(qna.updated_at || qna.created_at))}</time></div><p class="my-post__content">${escapeHtml(qna.content)}</p><p class="my-post__secret">${qna.is_secret ? '비밀글' : '공개글'}</p><div class="my-post__answer ${hasAnswer ? 'is-complete' : ''}"><strong>${hasAnswer ? '답변 완료' : '답변 대기'}</strong>${answer}</div><div class="my-post__actions"><a href="${productLink(productId, fragment)}">상품에서 보기</a><button type="button" data-post-edit-toggle>수정</button></div><form class="my-post__edit" data-post-edit-form data-demo-qna-edit="${escapeHtml(qna.id)}" hidden><label>문의 내용<textarea name="qna" rows="5" maxlength="2000" required>${escapeHtml(qna.content)}</textarea></label><label class="my-post__secret-check"><input type="checkbox" name="is_secret" value="1" ${qna.is_secret ? 'checked' : ''}> 비밀글</label><button type="submit">수정 저장</button></form></article>`;
         }).join('');
         if (empty) empty.hidden = items.length > 0;
-        if (count) count.textContent = String(items.length);
+        if (count) count.textContent = `(${items.length})`;
     };
 
     const renderComments = () => {
@@ -113,7 +113,7 @@
             return `<article class="my-post" id="my-comment-${id}"><div class="my-post__head"><a href="${link}">${escapeHtml(name)}</a><time>${escapeHtml(formatDate(comment.updated_at || comment.created_at))}</time></div><p class="my-post__content">${escapeHtml(comment.content)}</p><div class="my-post__actions"><a href="${link}">댓글 위치 보기</a><button type="button" data-post-edit-toggle>수정</button></div><form class="my-post__edit" data-post-edit-form data-demo-comment-edit="${escapeHtml(comment.id)}" hidden><label>댓글 내용<textarea name="comment" rows="4" maxlength="500" required>${escapeHtml(comment.content)}</textarea></label><button type="submit">수정 저장</button></form></article>`;
         }).join('');
         if (empty) empty.hidden = comments.length > 0;
-        if (count) count.textContent = String(comments.length);
+        if (count) count.textContent = `(${comments.length})`;
     };
 
     const bindDemoForms = () => {

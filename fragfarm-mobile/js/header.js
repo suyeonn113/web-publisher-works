@@ -1,109 +1,96 @@
-    /* Main Menu */
-    const menuButton = document.querySelector('#header-menu');
-    const mobileMenu = document.querySelector('#gnb');
-    const iconOpen = menuButton?.querySelector('[data-state="open"]');
-    const iconClosed = menuButton?.querySelector('[data-state="closed"]');
-    const header = document.querySelector('header');
+(function () {
+    const header = document.querySelector('.site-header');
+    const drawerPairs = [
+        {
+            button: document.querySelector('#header-shop'),
+            drawer: document.querySelector('#shop-drawer'),
+            openLabel: 'SHOP 메뉴 닫기',
+            closedLabel: 'SHOP 메뉴 열기',
+        },
+        {
+            button: document.querySelector('#header-menu'),
+            drawer: document.querySelector('#gnb'),
+            openLabel: 'MENU 닫기',
+            closedLabel: 'MENU 열기',
+        },
+    ].filter(({ button, drawer }) => button && drawer);
 
-    if (menuButton && mobileMenu && iconOpen && iconClosed) {
-        function setMenuState(isOpen) {
-            menuButton.setAttribute('aria-expanded', String(isOpen));
-            menuButton.setAttribute('aria-label', isOpen ? '메뉴 닫기' : '메뉴 열기');
+    const setDrawerState = (pair, isOpen, returnFocus = false) => {
+        pair.button.setAttribute('aria-expanded', String(isOpen));
+        pair.button.setAttribute('aria-label', isOpen ? pair.openLabel : pair.closedLabel);
+        pair.drawer.dataset.state = isOpen ? 'open' : '';
+        header?.classList.toggle('is-drawer-open', drawerPairs.some(({ button }) => button.getAttribute('aria-expanded') === 'true'));
 
-            header?.classList.toggle('is-menu-open', isOpen);
-            mobileMenu.dataset.state = isOpen ? 'open' : '';
+        if (!isOpen && returnFocus) pair.button.focus();
+    };
 
-            iconOpen.hidden = !isOpen;
-            iconClosed.hidden = isOpen;
-        }
+    const closeOtherDrawers = (activePair) => {
+        drawerPairs.forEach((pair) => {
+            if (pair !== activePair) setDrawerState(pair, false);
+        });
+    };
 
-        setMenuState(false);
+    const getDrawerItems = (drawer) => Array.from(
+        drawer.querySelectorAll('.header-drawer__list > li > a[href], .header-drawer__search input:not([disabled])')
+    ).filter((item) => item.getClientRects().length > 0);
 
-        menuButton.addEventListener('click', () => {
-            const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
-            setMenuState(!isOpen);
+    drawerPairs.forEach((pair) => {
+        setDrawerState(pair, false);
+
+        pair.button.addEventListener('click', (event) => {
+            const nextState = pair.button.getAttribute('aria-expanded') !== 'true';
+            closeOtherDrawers(pair);
+            setDrawerState(pair, nextState);
+
+            if (nextState && event.detail === 0) {
+                window.requestAnimationFrame(() => getDrawerItems(pair.drawer)[0]?.focus());
+            }
         });
 
-        const getMenuItems = () => Array.from(mobileMenu.querySelectorAll('a[href], button:not([disabled]), input:not([disabled])'))
-            .filter((item) => !item.closest('[hidden]') && item.getClientRects().length > 0);
-
-        menuButton.addEventListener('keydown', (event) => {
+        pair.button.addEventListener('keydown', (event) => {
             if (event.key !== 'ArrowDown') return;
 
             event.preventDefault();
-            setMenuState(true);
-            window.requestAnimationFrame(() => getMenuItems()[0]?.focus());
+            closeOtherDrawers(pair);
+            setDrawerState(pair, true);
+            window.requestAnimationFrame(() => getDrawerItems(pair.drawer)[0]?.focus());
         });
 
-        mobileMenu.addEventListener('keydown', (event) => {
-            if (event.target.matches('input, textarea, select')) return;
-            if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return;
-
-            const items = getMenuItems();
+        pair.drawer.addEventListener('keydown', (event) => {
+            const items = getDrawerItems(pair.drawer);
             const currentIndex = items.indexOf(document.activeElement);
             if (currentIndex < 0 || items.length === 0) return;
 
+            if (event.key === 'Tab' && event.shiftKey) {
+                event.preventDefault();
+                setDrawerState(pair, false, true);
+                return;
+            }
+
+            if (!['ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+
             event.preventDefault();
             let nextIndex = currentIndex;
-
-            if (event.key === 'ArrowDown') nextIndex = (currentIndex + 1) % items.length;
-            if (event.key === 'ArrowUp') nextIndex = (currentIndex - 1 + items.length) % items.length;
+            if (event.key === 'ArrowDown' || event.key === 'ArrowRight') nextIndex = (currentIndex + 1) % items.length;
+            if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') nextIndex = (currentIndex - 1 + items.length) % items.length;
             if (event.key === 'Home') nextIndex = 0;
             if (event.key === 'End') nextIndex = items.length - 1;
-
             items[nextIndex].focus();
         });
+    });
 
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
-                if (!isOpen) return;
-
-                setMenuState(false);
-                menuButton.focus();
-            }
+    document.addEventListener('click', (event) => {
+        drawerPairs.forEach((pair) => {
+            if (pair.button.contains(event.target) || pair.drawer.contains(event.target)) return;
+            setDrawerState(pair, false);
         });
-    }
+    });
 
-    /* Sub Menu */
-    const mainMenus = document.querySelectorAll('.gnb__item--has-sub');
-    mainMenus.forEach((mainMenu) => {
-        const toggleButton = mainMenu.querySelector('.gnb__toggle');
-        const subMenu = mainMenu.querySelector('.gnb__sublist');
-        const toggleIcon = mainMenu.querySelector('.toggle-btn');
+    document.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape') return;
 
-        if (!toggleButton || !subMenu) return;
-
-        const isOpen = toggleButton.getAttribute('aria-expanded') === 'true';
-        subMenu.hidden = !isOpen;
-        toggleIcon?.classList.toggle('is-sub-open', isOpen);
-
-        toggleButton.addEventListener('click', () => {
-            const isOpen = toggleButton.getAttribute('aria-expanded') === 'true';
-            const nextState = !isOpen;
-
-            toggleButton.setAttribute('aria-expanded', String(nextState));
-            toggleIcon?.classList.toggle('is-sub-open', nextState);
-            subMenu.hidden = !nextState;
-        });
-
-        toggleButton.addEventListener('keydown', (event) => {
-            if (event.key === 'ArrowRight') {
-                event.preventDefault();
-                toggleButton.setAttribute('aria-expanded', 'true');
-                toggleIcon?.classList.add('is-sub-open');
-                subMenu.hidden = false;
-                subMenu.querySelector('a[href], button:not([disabled])')?.focus();
-            }
-
-            if (event.key === 'ArrowLeft' && !subMenu.hidden) {
-                event.preventDefault();
-                toggleButton.setAttribute('aria-expanded', 'false');
-                toggleIcon?.classList.remove('is-sub-open');
-                subMenu.hidden = true;
-                toggleButton.focus();
-            }
-        });
+        const openPair = drawerPairs.find(({ button }) => button.getAttribute('aria-expanded') === 'true');
+        if (openPair) setDrawerState(openPair, false, true);
     });
 
     const placeholderButtons = document.querySelectorAll('[data-global-placeholder]');
@@ -136,3 +123,4 @@
             showPlaceholderToast(button.dataset.placeholderMessage);
         });
     });
+}());

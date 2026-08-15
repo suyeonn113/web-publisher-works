@@ -11,10 +11,11 @@ $documentTitle = $pageName === '' || strcasecmp($pageName, 'Fragfarm') === 0
 
     <title><?= htmlspecialchars($documentTitle, ENT_QUOTES, 'UTF-8') ?></title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
     <?php if (!empty($useFlowerFont)): ?>
         <!-- Google Fonts: season title glyph -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400&amp;display=swap" rel="stylesheet">
     <?php endif; ?>
 
@@ -39,12 +40,15 @@ $documentTitle = $pageName === '' || strcasecmp($pageName, 'Fragfarm') === 0
     <!-- components -->
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/components/button.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/components/form-field.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/css/components/status-badge.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/components/card.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/components/check-box.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/components/modal.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/components/cart-option.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/components/motion.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/components/page-head.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/css/components/section-tabs.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/css/components/list-controls.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/components/chat-launcher.css">
 
     <!-- pages -->

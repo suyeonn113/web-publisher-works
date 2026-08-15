@@ -50,7 +50,7 @@ $pageCss = 'mypage-detail.css';
         <section aria-labelledby="address-list-title">
             <h3 id="address-list-title" class="mypage-detail__section-title">배송지 목록</h3>
             <article class="address-card">
-                <div class="address-card__head"><h3 data-address-name><?= e($member['user_name']) ?></h3><span class="address-card__badge">기본 배송지</span></div>
+                <div class="address-card__head"><h3 data-address-name><?= e($member['user_name']) ?></h3><span class="status-badge status-badge--inverse address-card__badge">기본 배송지</span></div>
                 <p data-address-phone><?= e($member['phone']) ?></p>
                 <address><span data-address-postcode>[<?= e($member['postcode']) ?>]</span> <span data-address-line1><?= e($member['address_line1']) ?></span> <span data-address-line2><?= e($member['address_line2']) ?></span></address>
                 <a class="address-card__edit" href="<?= BASE_URL ?>/pages/member_edit.php">회원정보에서 수정</a>

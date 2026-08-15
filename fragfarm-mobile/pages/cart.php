@@ -16,18 +16,20 @@ $sampleItems = shop_sample_items($products);
     <?php include __DIR__ . '/../includes/header.php'; ?>
 
     <main id="main" class="bag-page" data-shop-page="cart">
-        <nav class="bag-tabs" aria-label="장바구니와 찜목록">
+        <nav class="section-tabs" aria-label="장바구니와 찜목록">
             <a href="<?= BASE_URL ?>/pages/cart.php" aria-current="page">CART (<span data-cart-count>0</span>)</a>
             <a href="<?= BASE_URL ?>/pages/wishlist.php">WISHLIST (<span data-wishlist-count>0</span>)</a>
         </nav>
 
         <div class="bag-control">
+            <button class="bag-control__action" type="button" data-cart-remove-selected>선택 삭제하기</button>
             <label class="check-box">
                 <span>전체 선택</span>
-                <input class="check-box__input" type="checkbox" data-cart-check-all checked>
+                <input class="check-box__input check-box__input--bag" type="checkbox" data-cart-check-all checked>
             </label>
         </div>
 
+        <h2 class="visually-hidden">장바구니 상품 목록</h2>
         <ul class="bag-list" data-cart-list></ul>
         <p class="empty-message" data-cart-empty hidden>장바구니에 담긴 상품이 없습니다.</p>
 

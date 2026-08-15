@@ -83,7 +83,7 @@ $pageCss = 'checkout.css';
 
         <div data-order-detail-content <?= (!$order && !FRAGFARM_DEMO_MODE) ? 'hidden' : '' ?>>
             <section class="order-detail__summary">
-                <div><span data-detail-date><?= $order ? date('Y.m.d H:i', strtotime($order['created_at'])) : '' ?></span><strong data-detail-status><?= $order ? e(order_detail_status($order['order_status'])) : '' ?></strong></div>
+                <div><span data-detail-date><?= $order ? date('Y.m.d H:i', strtotime($order['created_at'])) : '' ?></span><strong class="status-badge order-detail__status" data-detail-status><?= $order ? e(order_detail_status($order['order_status'])) : '' ?></strong></div>
                 <p>주문번호 <b data-detail-number><?= $order ? e($order['order_number']) : '' ?></b></p>
             </section>
 
@@ -92,10 +92,13 @@ $pageCss = 'checkout.css';
                 <ul class="checkout-products" data-detail-items>
                     <?php foreach ($orderItems as $item): ?>
                         <li class="checkout-product">
-                            <img src="<?= BASE_URL . e($item['product_image']) ?>" alt="">
+                            <img src="<?= BASE_URL . e($item['product_image']) ?>" alt="<?= e($item['product_name']) ?> 상품 이미지">
                             <div>
                                 <h4><?= e($item['product_name']) ?></h4>
-                                <p><?= e($item['product_option'] ?: 'SIZE: ' . $item['size']) ?> · <?= (int) $item['quantity'] ?>개</p>
+                                <div class="checkout-product__options">
+                                    <p><?= e($item['product_option'] ?: 'SIZE: ' . $item['size']) ?></p>
+                                    <p>수량: <?= (int) $item['quantity'] ?>개</p>
+                                </div>
                                 <strong><?= number_format((int) $item['line_total']) ?>원</strong>
                             </div>
                         </li>

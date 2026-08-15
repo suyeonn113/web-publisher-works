@@ -16,14 +16,26 @@
     };
 
     const updateHeaderCounts = () => {
-        const cart = readItems(CART_KEY, sampleData.cart || []);
-        const wishlist = readItems(WISHLIST_KEY, sampleData.wishlist || []);
-        document.querySelectorAll('[data-cart-count], .cart__badge').forEach((element) => {
-            element.textContent = String(cart.reduce((sum, item) => sum + Number(item.quantity || 1), 0));
-        });
-        document.querySelectorAll('[data-wishlist-count]').forEach((element) => {
-            element.textContent = String(wishlist.length);
-        });
+        const storedCart = parseJson(window.localStorage.getItem(CART_KEY), null);
+        const storedWishlist = parseJson(window.localStorage.getItem(WISHLIST_KEY), null);
+        const cartFallback = sampleData.cart || [];
+        const wishlistFallback = sampleData.wishlist || [];
+
+        if (Array.isArray(storedCart) || cartFallback.length > 0) {
+            const cart = readItems(CART_KEY, cartFallback);
+            const cartCount = cart.reduce((sum, item) => sum + Number(item.quantity || 1), 0);
+            document.querySelectorAll('[data-cart-count], .cart__badge').forEach((element) => {
+                element.textContent = String(cartCount);
+                element.closest('.cart')?.setAttribute('aria-label', `CART(${cartCount}), 장바구니 상품 ${cartCount}개`);
+            });
+        }
+
+        if (Array.isArray(storedWishlist) || wishlistFallback.length > 0) {
+            const wishlist = readItems(WISHLIST_KEY, wishlistFallback);
+            document.querySelectorAll('[data-wishlist-count]').forEach((element) => {
+                element.textContent = String(wishlist.length);
+            });
+        }
     };
 
     const writeItems = (key, items) => {
@@ -31,9 +43,13 @@
         updateHeaderCounts();
     };
 
+    const normalizeProductName = (name) => String(name || '')
+        .replace(/\s*\(/g, ' (')
+        .trim();
+
     const normalizeItem = (item) => ({
         id: item.id,
-        name: item.name,
+        name: normalizeProductName(item.name),
         price: Number(item.price || 0),
         originalPrice: Number(item.originalPrice || item.price || 0),
         discount: Number(item.discount || 0),

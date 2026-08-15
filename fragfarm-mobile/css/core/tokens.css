@@ -14,14 +14,14 @@
     --space-12: 3rem;
 
     /* Type scale */
-    --font-size-caption: .75rem;
-    --font-size-small: .8125rem;
-    --font-size-body: .875rem;
-    --font-size-subtitle: .9375rem;
-    --font-size-title: 1rem;
-    --font-size-title-medium: 1.125rem;
-    --font-size-title-large: 1.25rem;
-    --font-size-display: 1.5rem;
+    --font-size-caption: 12px;
+    --font-size-small: 13px;
+    --font-size-body: 14px;
+    --font-size-subtitle: 15px;
+    --font-size-title: 16px;
+    --font-size-title-medium: 18px;
+    --font-size-title-large: 20px;
+    --font-size-display: 24px;
 
     /* Controls */
     --button-height-default: 2.5rem;
@@ -48,7 +48,8 @@
     --radius-round: 50%;
 
     /* Page rhythm */
-    --page-title-padding-block: 1.75rem 1.5rem;
+    --page-content-start-gap: var(--space-7);
+    --page-title-padding-block: 0 var(--space-6);
     --section-gap: 2.5rem;
     --media-grid-column-gap: var(--space-2);
 
@@ -56,5 +57,14 @@
     --divider-rule: 1px solid var(--color-line-soft);
     --list-row-padding-compact: var(--space-3);
     --list-row-padding-default: var(--space-4);
-    --list-row-padding-roomy: var(--space-5);
+    --list-row-padding-roomy: var(--space-4);
+
+    /* Global navigation */
+    --header-brand-height: 3.5rem;
+    --header-bar-height: 2.75rem;
+    --header-total-height: calc(var(--header-brand-height) + var(--header-bar-height));
+
+    /* Motion */
+    --motion-duration-fast: .2s;
+    --motion-duration-base: .35s;
 }

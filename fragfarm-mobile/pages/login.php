@@ -41,7 +41,7 @@ $pageCss = 'login.css';
                    autocomplete="current-password"
                    required>
 
-            <button class="login__button" type="submit">LOGIN</button>
+            <button class="btn login__button" type="submit">LOGIN</button>
         </form>
         <a class="join-link"
            href="<?= BASE_URL ?>/pages/join.php">
@@ -110,6 +110,7 @@ $pageCss = 'login.css';
 
     <!-- Footer -->
     <?php include __DIR__ . '/../includes/footer.php'; ?>
+    <?php include __DIR__ . '/../includes/chat-launcher.php'; ?>
 </div>
 
 <script src="<?= BASE_URL ?>/js/header.js"></script>

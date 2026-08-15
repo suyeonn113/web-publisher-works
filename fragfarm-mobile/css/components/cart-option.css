@@ -39,19 +39,15 @@ body.is-cart-option-open {
     padding-bottom: var(--list-row-padding-default);
     border-bottom: var(--divider-rule);
     font-size: var(--font-size-title);
-    font-weight: 500;
-    line-height: 1.5;
 }
 
 .cart-option-sheet__options {
     margin: var(--space-4) 0 var(--space-6);
-    border: 0;
 }
 
 .cart-option-sheet__options legend {
     margin-bottom: .75rem;
     font-size: var(--font-size-small);
-    font-weight: 500;
 }
 
 .cart-option-sheet__size-list {
@@ -88,8 +84,15 @@ body.is-cart-option-open {
 .cart-option-sheet__actions,
 .cart-duplicate-dialog__actions {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--control-gap);
+}
+
+.cart-option-sheet__actions {
+    grid-template-columns: 1fr;
+}
+
+.cart-duplicate-dialog__actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .cart-option-sheet__actions button,
@@ -100,11 +103,14 @@ body.is-cart-option-open {
     font-size: var(--font-size-body);
 }
 
-.cart-option-sheet__buy,
+.cart-option-sheet__actions button {
+    width: 100%;
+}
+
 .cart-duplicate-dialog__add {
     color: var(--color-white);
-    border-color: var(--color-accent) !important;
-    background: var(--color-accent);
+    border-color: var(--color-text);
+    background: var(--color-text);
 }
 
 .cart-option-sheet__actions button:disabled {
@@ -126,7 +132,6 @@ body.is-cart-option-open {
 
 .cart-duplicate-dialog h2 {
     font-size: var(--font-size-subtitle);
-    font-weight: 600;
 }
 
 .cart-duplicate-dialog p {

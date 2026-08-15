@@ -37,7 +37,7 @@ $sampleItems = shop_sample_items($products);
         <nav class="category-nav" aria-label="상품 카테고리">
             <ul class="category-nav__list">
                 <li>
-                    <a href="<?= buildProductListUrl($state, ['category' => 'sale', 'page' => 1, 'focus' => 'catalog']) ?>"
+                    <a class="category-nav__sale" href="<?= buildProductListUrl($state, ['category' => 'sale', 'page' => 1, 'focus' => 'catalog']) ?>"
                     data-category="sale"
                     <?= $currentCategory === 'sale' ? 'aria-current="page"' : '' ?>>
                         SALE
@@ -51,44 +51,37 @@ $sampleItems = shop_sample_items($products);
                     </a>
                 </li>
                 <li>
-                    <a href="<?= buildProductListUrl($state, ['category' => 'new', 'page' => 1, 'focus' => 'catalog']) ?>"
-                    data-category="new"
-                    <?= $currentCategory === 'new' ? 'aria-current="page"' : '' ?>>
-                        NEW
-                    </a>
-                </li>
-                <li>
                     <a href="<?= buildProductListUrl($state, ['category' => 'skirt', 'page' => 1, 'focus' => 'catalog']) ?>"
                     data-category="skirt"
                     <?= $currentCategory === 'skirt' ? 'aria-current="page"' : '' ?>>
-                        Skirts
-                    </a>
-                </li>
-                <li>
-                    <a href="<?= buildProductListUrl($state, ['category' => 'bottom', 'page' => 1, 'focus' => 'catalog']) ?>"
-                    data-category="bottom"
-                    <?= $currentCategory === 'bottom' ? 'aria-current="page"' : '' ?>>
-                        Bottoms
+                        SKIRTS
                     </a>
                 </li>
                 <li>
                     <a href="<?= buildProductListUrl($state, ['category' => 'top', 'page' => 1, 'focus' => 'catalog']) ?>"
                     data-category="top"
                     <?= $currentCategory === 'top' ? 'aria-current="page"' : '' ?>>
-                        Tops
+                        TOPS
+                    </a>
+                </li>
+                <li>
+                    <a href="<?= buildProductListUrl($state, ['category' => 'bottom', 'page' => 1, 'focus' => 'catalog']) ?>"
+                    data-category="bottom"
+                    <?= $currentCategory === 'bottom' ? 'aria-current="page"' : '' ?>>
+                        PANTS
                     </a>
                 </li>
                 <li>
                     <a href="<?= buildProductListUrl($state, ['category' => 'accessory', 'page' => 1, 'focus' => 'catalog']) ?>"
                     data-category="accessory"
                     <?= $currentCategory === 'accessory' ? 'aria-current="page"' : '' ?>>
-                        Accessories
+                        ACC
                     </a>
                 </li>
             </ul>
         </nav>
         <!--  -->
-        <section class="catalog-toolbar" aria-label="상품 목록 제어" tabindex="-1" data-catalog-focus-target>
+        <section class="catalog-toolbar" aria-label="상품 목록 제어">
             <!-- View Toggle -->
             <div class="view-toggle" role="group" aria-label="한 줄에 표시할 상품 수">
                 <span class="view-toggle__label">상품 보기</span>
@@ -97,6 +90,7 @@ $sampleItems = shop_sample_items($products);
                     href="<?= buildProductListUrl($state, ['view' => '1col', 'page' => 1]) ?>"
                     <?= $currentView === '1col' ? 'aria-current="true"' : '' ?>
                     aria-label="한 줄에 상품 1개 보기"
+                    data-catalog-focus-target
                     data-view="1col">
                     1
                 </a>
@@ -116,7 +110,7 @@ $sampleItems = shop_sample_items($products);
                 <input type="hidden" name="page" value="1">
 
                 <label class="visually-hidden" for="sort">정렬 기준</label>
-                <select id="sort" name="sort" class="catalog-sort">
+                <select id="sort" name="sort" class="catalog-sort list-sort">
                     <option value="latest" <?= $state['sort'] === 'latest' ? 'selected' : '' ?>>최신순</option>
                     <option value="review" <?= $state['sort'] === 'review' ? 'selected' : '' ?>>후기 많은 순</option>
                     <option value="discount" <?= $state['sort'] === 'discount' ? 'selected' : '' ?>>높은 할인율 순</option>
@@ -124,6 +118,7 @@ $sampleItems = shop_sample_items($products);
             </form>
         </section>
         <section class="catalog">
+            <h2 class="visually-hidden">상품 목록</h2>
             <p class="product-toast" data-product-toast role="status" aria-live="polite" hidden></p>
             <!-- Product Card -->
             <ul id="product-list" class="catalog__list" data-view="<?= htmlspecialchars($currentView, ENT_QUOTES, 'UTF-8') ?>">

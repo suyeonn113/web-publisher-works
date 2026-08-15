@@ -18,7 +18,7 @@ $products = [
         'rating' => 4.9,
         'reviewCount' => 97,
 
-        'createdAt' => '2024-5-30',
+        'createdAt' => '2024-05-30',
 
         // 상세페이지 핵심 콘텐츠
         'description' => '14수 고밀도 코튼 원단으로 탄탄한 착용감
@@ -68,7 +68,7 @@ $products = [
         'rating' => 4.8,
         'reviewCount' => 78,
 
-        'createdAt' => '2024-5-30',
+        'createdAt' => '2024-05-30',
 
         // 상세페이지 핵심 콘텐츠
         'description' => '부드러운 소재와 여유로운 핏의 티셔츠
@@ -118,7 +118,7 @@ $products = [
         'rating' => 4.9,
         'reviewCount' => 7,
 
-        'createdAt' => '2024-5-30',
+        'createdAt' => '2024-05-30',
 
         // 상세페이지 핵심 콘텐츠
         'description' => '부드러운 소재와 여유로운 핏의 티셔츠
@@ -201,7 +201,7 @@ $products = [
     [
         'id' => 'accessory-002-bk', // SKU (유일값, URL/이미지 기준)
 
-        'name' => 'Fragfarm Winter Muffler(Black)',
+        'name' => 'Fragfarm Winter Muffler (Black)',
         'category' => 'accessory',
 
         'price' => 34800,
@@ -251,7 +251,7 @@ $products = [
     [
         'id' => 'accessory-002-pk', // SKU (유일값, URL/이미지 기준)
 
-        'name' => 'Fragfarm Winter Muffler(Pink)',
+        'name' => 'Fragfarm Winter Muffler (Pink)',
         'category' => 'accessory',
 
         'price' => 34800,
@@ -301,7 +301,7 @@ $products = [
     [
         'id' => 'accessory-002-bl', // SKU (유일값, URL/이미지 기준)
 
-        'name' => 'Fragfarm Winter Muffler(Blue)',
+        'name' => 'Fragfarm Winter Muffler (Blue)',
         'category' => 'accessory',
 
         'price' => 34800,
@@ -351,7 +351,7 @@ $products = [
     [
         'id' => 'top-009-bk', // SKU (유일값, URL/이미지 기준)
 
-        'name' => 'Pink Gaura Scarf Set Long Sleeve(Black)',
+        'name' => 'Pink Gaura Scarf Set Long Sleeve (Black)',
         'category' => 'top',
 
         'price' => 43000,
@@ -396,7 +396,7 @@ $products = [
     [
         'id' => 'top-009-wh', // SKU (유일값, URL/이미지 기준)
 
-        'name' => 'Pink Gaura Scarf Set Long Sleeve(White)',
+        'name' => 'Pink Gaura Scarf Set Long Sleeve (White)',
         'category' => 'top',
 
         'price' => 43000,
@@ -441,7 +441,7 @@ $products = [
     [
         'id' => 'top-009-br', // SKU (유일값, URL/이미지 기준)
 
-        'name' => 'Pink Gaura Scarf Set Long Sleeve(Brown)',
+        'name' => 'Pink Gaura Scarf Set Long Sleeve (Brown)',
         'category' => 'top',
 
         'price' => 43000,
@@ -486,7 +486,7 @@ $products = [
     [
         'id' => 'top-009-cc', // SKU (유일값, URL/이미지 기준)
 
-        'name' => 'Pink Gaura Scarf Set Long Sleeve(Charcoal)',
+        'name' => 'Pink Gaura Scarf Set Long Sleeve (Charcoal)',
         'category' => 'top',
 
         'price' => 43000,
@@ -531,7 +531,7 @@ $products = [
     [
         'id' => 'bottom-004-sb', // SKU (유일값, URL/이미지 기준)
 
-        'name' => 'Iris Bermuda Pants(Sand Blue)',
+        'name' => 'Iris Bermuda Pants (Sand Blue)',
         'category' => 'bottom',
 
         'price' => 43000,
@@ -581,7 +581,7 @@ $products = [
     [
         'id' => 'bottom-004-bk', // SKU (유일값, URL/이미지 기준)
 
-        'name' => 'Iris Bermuda Pants(Black)',
+        'name' => 'Iris Bermuda Pants (Black)',
         'category' => 'bottom',
 
         'price' => 43000,
@@ -631,7 +631,7 @@ $products = [
     [
         'id' => 'bottom-003-bk', // SKU (유일값, URL/이미지 기준)
 
-        'name' => 'Trumpet Flower Wide Pants(Black)',
+        'name' => 'Trumpet Flower Wide Pants (Black)',
         'category' => 'bottom',
 
         'price' => 88000,
@@ -685,7 +685,7 @@ $products = [
     [
         'id' => 'bottom-003-wh', // SKU (유일값, URL/이미지 기준)
 
-        'name' => 'Trumpet Flower Wide Pants(White)',
+        'name' => 'Trumpet Flower Wide Pants (White)',
         'category' => 'bottom',
 
         'price' => 88000,
@@ -793,7 +793,7 @@ $products = [
     [
         'id' => 'skirt-002-bk', // SKU (유일값, URL/이미지 기준)
 
-        'name' => 'Angela Rose Unbalanced Skirt(Black)',
+        'name' => 'Angela Rose Unbalanced Skirt (Black)',
         'category' => 'skirt',
 
         'price' => 83000,
@@ -839,7 +839,7 @@ $products = [
     [
         'id' => 'skirt-002-gy', // SKU (유일값, URL/이미지 기준)
 
-        'name' => 'Angela Rose Unbalanced Skirt(Grey)',
+        'name' => 'Angela Rose Unbalanced Skirt (Grey)',
         'category' => 'skirt',
 
         'price' => 83000,
@@ -889,7 +889,7 @@ $products = [
     [
         'id' => 'bottom-002-gy', // SKU (유일값, URL/이미지 기준)
 
-        'name' => 'Butterfly Floral Pants(Grey)',
+        'name' => 'Butterfly Floral Pants (Grey)',
         'category' => 'bottom',
 
         'price' => 68000,
@@ -935,7 +935,7 @@ $products = [
     [
         'id' => 'bottom-002-wh', // SKU (유일값, URL/이미지 기준)
 
-        'name' => 'Butterfly Floral Pants(White)',
+        'name' => 'Butterfly Floral Pants (White)',
         'category' => 'bottom',
 
         'price' => 68000,
@@ -981,7 +981,7 @@ $products = [
     [
         'id' => 'bottom-002-bk', // SKU (유일값, URL/이미지 기준)
 
-        'name' => 'Butterfly Floral Pants(Black)',
+        'name' => 'Butterfly Floral Pants (Black)',
         'category' => 'bottom',
 
         'price' => 68000,
@@ -1025,9 +1025,9 @@ $products = [
     ],
 
     [
-        'id' => 'top-009-bk', // SKU (유일값, URL/이미지 기준)
+        'id' => 'top-002-br', // SKU (유일값, URL/이미지 기준)
 
-        'name' => 'F lettering Cardigan(Black)',
+        'name' => 'F lettering Cardigan (Brown)',
         'category' => 'top',
 
         'price' => 53000,
@@ -1036,7 +1036,7 @@ $products = [
 
         'state' => ['soldout'], // ['new'], ['sale'], ['soldout']
 
-        'color' => 'Black',
+        'color' => 'Brown',
 
         'rating' => 4.6,
         'reviewCount' => 13,
@@ -1060,16 +1060,16 @@ $products = [
         // 이미지 (파일명 규칙 = id 기반)
         'images' => [
             [
-                'src' => '/assets/images/products/top-009-bk-1.jpg',
-                'alt' => 'F lettering Cardigan(Black) 정면'
+                'src' => '/assets/images/products/top-002-br-1.jpg',
+                'alt' => 'F lettering Cardigan(Brown) 정면'
             ]
         ],
     ],
 
     [
-        'id' => 'top-009-wh', // SKU (유일값, URL/이미지 기준)
+        'id' => 'top-002-dp', // SKU (유일값, URL/이미지 기준)
 
-        'name' => 'F lettering Cardigan(White)',
+        'name' => 'F lettering Cardigan (Deep Pink)',
         'category' => 'top',
 
         'price' => 53000,
@@ -1078,7 +1078,7 @@ $products = [
 
         'state' => ['soldout'], // ['new'], ['sale'], ['soldout']
 
-        'color' => 'White',
+        'color' => 'Deep Pink',
 
         'rating' => 4.6,
         'reviewCount' => 13,
@@ -1102,16 +1102,16 @@ $products = [
         // 이미지 (파일명 규칙 = id 기반)
         'images' => [
             [
-                'src' => '/assets/images/products/top-009-wh-1.jpg',
-                'alt' => 'F lettering Cardigan(White) 정면'
+                'src' => '/assets/images/products/top-002-dp-1.jpg',
+                'alt' => 'F lettering Cardigan(Deep Pink) 정면'
             ]
         ],
     ],
 
     [
-        'id' => 'top-009-cc', // SKU (유일값, URL/이미지 기준)
+        'id' => 'top-002-cc', // SKU (유일값, URL/이미지 기준)
 
-        'name' => 'F lettering Cardigan(Charcoal)',
+        'name' => 'F lettering Cardigan (Charcoal)',
         'category' => 'top',
 
         'price' => 53000,
@@ -1144,7 +1144,7 @@ $products = [
         // 이미지 (파일명 규칙 = id 기반)
         'images' => [
             [
-                'src' => '/assets/images/products/top-009-cc-1.jpg',
+                'src' => '/assets/images/products/top-002-cc-1.jpg',
                 'alt' => 'F lettering Cardigan(Charcoal) 정면'
             ]
         ],
@@ -1153,7 +1153,7 @@ $products = [
     [
         'id' => 'top-005-gy', // SKU (유일값, URL/이미지 기준)
 
-        'name' => 'Seashell Earrings Tee(Grey)',
+        'name' => 'Seashell Earrings Tee (Grey)',
         'category' => 'top',
 
         'price' => 38000,
@@ -1195,7 +1195,7 @@ $products = [
     [
         'id' => 'top-005-wh', // SKU (유일값, URL/이미지 기준)
     
-        'name' => 'Seashell Earrings Tee(White)',
+        'name' => 'Seashell Earrings Tee (White)',
         'category' => 'top',
 
         'price' => 38000,
@@ -1237,7 +1237,7 @@ $products = [
     [
         'id' => 'top-005-sb', // SKU (유일값, URL/이미지 기준)
     
-        'name' => 'Seashell Earrings Tee(Sky Blue)',
+        'name' => 'Seashell Earrings Tee (Sky Blue)',
         'category' => 'top',
 
         'price' => 38000,
@@ -1283,7 +1283,7 @@ $products = [
     [
         'id' => 'top-004-wh', // SKU (유일값, URL/이미지 기준)
     
-        'name' => 'Seashell Keyring Sleeveless(White)',
+        'name' => 'Seashell Keyring Sleeveless (White)',
         'category' => 'top',
 
         'price' => 30000,
@@ -1325,7 +1325,7 @@ $products = [
     [
         'id' => 'top-004-bk', // SKU (유일값, URL/이미지 기준)
     
-        'name' => 'Seashell Keyring Sleeveless(Black)',
+        'name' => 'Seashell Keyring Sleeveless (Black)',
         'category' => 'top',
 
         'price' => 30000,
@@ -1425,7 +1425,7 @@ $products = [
     [
         'id' => 'skirt-003-bk', // SKU (유일값, URL/이미지 기준)
     
-        'name' => 'Sentimental Rose Skirts(Black)',
+        'name' => 'Sentimental Rose Skirts (Black)',
         'category' => 'skirt',
 
         'price' => 88000,
@@ -1477,7 +1477,7 @@ $products = [
     [
         'id' => 'skirt-003-wh', // SKU (유일값, URL/이미지 기준)
     
-        'name' => 'Sentimental Rose Skirts(White)',
+        'name' => 'Sentimental Rose Skirts (White)',
         'category' => 'skirt',
 
         'price' => 88000,
@@ -1577,7 +1577,7 @@ $products = [
     [
         'id' => 'accessory-001-bk', // SKU (유일값, URL/이미지 기준)
     
-        'name' => 'Flower Corsage Wool Beanie(Black)',
+        'name' => 'Flower Corsage Wool Beanie (Black)',
         'category' => 'accessory',
 
         'price' => 43000-12900,
@@ -1626,7 +1626,7 @@ $products = [
     [
         'id' => 'accessory-001-cc', // SKU (유일값, URL/이미지 기준)
     
-        'name' => 'Flower Corsage Wool Beanie(Charcoal)',
+        'name' => 'Flower Corsage Wool Beanie (Charcoal)',
         'category' => 'accessory',
 
         'price' => 43000-12900,
@@ -1727,7 +1727,7 @@ $products = [
     [
         'id' => 'accessory-003-bl', // SKU (유일값, URL/이미지 기준)
     
-        'name' => 'Sentimental Rose Wool Gloves(Blue)',
+        'name' => 'Sentimental Rose Wool Gloves (Blue)',
         'category' => 'accessory',
 
         'price' => 19500,
@@ -1770,7 +1770,7 @@ $products = [
     [
         'id' => 'accessory-003-br', // SKU (유일값, URL/이미지 기준)
     
-        'name' => 'Sentimental Rose Wool Gloves(Brown)',
+        'name' => 'Sentimental Rose Wool Gloves (Brown)',
         'category' => 'accessory',
 
         'price' => 19500,
@@ -1813,7 +1813,7 @@ $products = [
     [
         'id' => 'accessory-003-gy', // SKU (유일값, URL/이미지 기준)
     
-        'name' => 'Sentimental Rose Wool Gloves(Grey)',
+        'name' => 'Sentimental Rose Wool Gloves (Grey)',
         'category' => 'accessory',
 
         'price' => 19500,
@@ -1856,7 +1856,7 @@ $products = [
     [
         'id' => 'accessory-003-wh', // SKU (유일값, URL/이미지 기준)
     
-        'name' => 'Sentimental Rose Wool Gloves(White)',
+        'name' => 'Sentimental Rose Wool Gloves (White)',
         'category' => 'accessory',
 
         'price' => 19950,
@@ -1899,7 +1899,7 @@ $products = [
     [
         'id' => 'accessory-003-bk', // SKU (유일값, URL/이미지 기준)
     
-        'name' => 'Sentimental Rose Wool Gloves(Black)',
+        'name' => 'Sentimental Rose Wool Gloves (Black)',
         'category' => 'accessory',
 
         'price' => 19950,
@@ -1942,7 +1942,7 @@ $products = [
     [
         'id' => 'accessory-004-bk', // SKU (유일값, URL/이미지 기준)
     
-        'name' => 'Sentimental Rose Muffler(Black)',
+        'name' => 'Sentimental Rose Muffler (Black)',
         'category' => 'accessory',
 
         'price' => 21000,
@@ -1989,7 +1989,7 @@ $products = [
     [
         'id' => 'accessory-004-wh', // SKU (유일값, URL/이미지 기준)
     
-        'name' => 'Sentimental Rose Muffler(White)',
+        'name' => 'Sentimental Rose Muffler (White)',
         'category' => 'accessory',
 
         'price' => 21000,
@@ -2036,7 +2036,7 @@ $products = [
     [
         'id' => 'accessory-004-gy', // SKU (유일값, URL/이미지 기준)
     
-        'name' => 'Sentimental Rose Muffler(Grey)',
+        'name' => 'Sentimental Rose Muffler (Grey)',
         'category' => 'accessory',
 
         'price' => 21000,
@@ -2083,7 +2083,7 @@ $products = [
     [
         'id' => 'accessory-005-bk', // SKU (유일값, URL/이미지 기준)
     
-        'name' => 'Cherry Blossom Embroidered Chiffon Scarf(Black)',
+        'name' => 'Cherry Blossom Embroidered Chiffon Scarf (Black)',
         'category' => 'accessory',
 
         'price' => 31000,
@@ -2130,7 +2130,7 @@ $products = [
     [
         'id' => 'accessory-005-wh', // SKU (유일값, URL/이미지 기준)
     
-        'name' => 'Cherry Blossom Embroidered Chiffon Scarf(White)',
+        'name' => 'Cherry Blossom Embroidered Chiffon Scarf (White)',
         'category' => 'accessory',
 
         'price' => 31000,
@@ -2177,7 +2177,7 @@ $products = [
     [
         'id' => 'accessory-007-bk', // SKU (유일값, URL/이미지 기준)
     
-        'name' => 'Floral Lace Scarf(Black)',
+        'name' => 'Floral Lace Scarf (Black)',
         'category' => 'accessory',
 
         'price' => 31000,
@@ -2228,7 +2228,7 @@ $products = [
     [
         'id' => 'accessory-007-wh', // SKU (유일값, URL/이미지 기준)
     
-        'name' => 'Floral Lace Scarf(White)',
+        'name' => 'Floral Lace Scarf (White)',
         'category' => 'accessory',
 
         'price' => 31000,
@@ -2275,7 +2275,7 @@ $products = [
     [
         'id' => 'skirt-005-wh', // SKU (유일값, URL/이미지 기준)
     
-        'name' => 'Floral Lace Wrap Skirt(White)',
+        'name' => 'Floral Lace Wrap Skirt (White)',
         'category' => 'skirt',
 
         'price' => 68000-3500,
@@ -2327,7 +2327,7 @@ $products = [
     [
         'id' => 'skirt-005-bk', // SKU (유일값, URL/이미지 기준)
     
-        'name' => 'Floral Lace Wrap Skirt(Black)',
+        'name' => 'Floral Lace Wrap Skirt (Black)',
         'category' => 'skirt',
 
         'price' => 68000-3500,
@@ -2375,7 +2375,7 @@ $products = [
     [
         'id' => 'top-011-bk', // SKU (유일값, URL/이미지 기준)
     
-        'name' => 'Peony Flower Wrap T-Shirt(Black)',
+        'name' => 'Peony Flower Wrap T-Shirt (Black)',
         'category' => 'top',
 
         'price' => 48000-2400,
@@ -2427,7 +2427,7 @@ $products = [
     [
         'id' => 'top-011-wh', // SKU (유일값, URL/이미지 기준)
     
-        'name' => 'Peony Flower Wrap T-Shirt(White)',
+        'name' => 'Peony Flower Wrap T-Shirt (White)',
         'category' => 'top',
 
         'price' => 48000-2400,
@@ -2475,7 +2475,7 @@ $products = [
     [
         'id' => 'top-011-cc', // SKU (유일값, URL/이미지 기준)
     
-        'name' => 'Peony Flower Wrap T-Shirt(Charcoal)',
+        'name' => 'Peony Flower Wrap T-Shirt (Charcoal)',
         'category' => 'top',
 
         'price' => 48000-2400,
@@ -2523,7 +2523,7 @@ $products = [
     [
         'id' => 'top-010-bk', // SKU (유일값, URL/이미지 기준)
     
-        'name' => 'Peony Flower Short-Sleeve T-Shirt(Black)',
+        'name' => 'Peony Flower Short-Sleeve T-Shirt (Black)',
         'category' => 'top',
 
         'price' => 38000-2000,
@@ -2570,7 +2570,7 @@ $products = [
     [
         'id' => 'top-010-wh', // SKU (유일값, URL/이미지 기준)
     
-        'name' => 'Peony Flower Short-Sleeve T-Shirt(White)',
+        'name' => 'Peony Flower Short-Sleeve T-Shirt (White)',
         'category' => 'top',
 
         'price' => 38000-2000,
@@ -2667,5 +2667,285 @@ $products = [
                 'alt' => 'FR Angel Graphic Check Shoulder Bag 뒷면'
             ]
         ],
-    ]
+    ],
+
+    [
+        'id' => 'skirt-006-iv',
+        'name' => 'Floral Satin Midi Skirt (Ivory)',
+        'category' => 'skirt',
+        'price' => 118000,
+        'originalPrice' => 118000,
+        'discount' => 0,
+        'state' => ['new'],
+        'color' => 'Ivory',
+        'rating' => 0,
+        'reviewCount' => 0,
+        'createdAt' => '2026-07-01',
+        'description' => '플로럴 디테일을 더한 새틴 미디 스커트',
+        'details' => [
+            'material' => '상세 정보 준비 중',
+            'size' => 'One Size',
+        ],
+        'stock' => 3,
+        'soldOut' => false,
+        'images' => [
+            [
+                'src' => '/assets/images/products/skirt-006-card.png',
+                'alt' => 'Floral Satin Midi Skirt(Ivory) 상품 단독 이미지',
+            ],
+        ],
+    ],
+
+    [
+        'id' => 'bottom-005-na',
+        'name' => 'Peony Flower Short Pants (Black)',
+        'category' => 'bottom',
+        'price' => 53000,
+        'originalPrice' => 53000,
+        'discount' => 0,
+        'state' => ['new'],
+        'color' => 'Black',
+        'rating' => 0,
+        'reviewCount' => 0,
+        'createdAt' => '2026-07-01',
+        'description' => '피오니 플라워 그래픽을 더한 쇼트 팬츠',
+        'details' => [
+            'material' => '상세 정보 준비 중',
+            'size' => 'One Size',
+        ],
+        'stock' => 3,
+        'soldOut' => false,
+        'images' => [
+            [
+                'src' => '/assets/images/products/bottom-005-card.png',
+                'alt' => 'Peony Flower Short Pants(Black) 상품 단독 이미지',
+            ],
+        ],
+    ],
+
+    [
+        'id' => 'top-012-bk',
+        'name' => 'Orchid Sleeveless Top (Black)',
+        'category' => 'top',
+        'price' => 43000,
+        'originalPrice' => 43000,
+        'discount' => 0,
+        'state' => ['new'],
+        'color' => 'Black',
+        'rating' => 0,
+        'reviewCount' => 0,
+        'createdAt' => '2026-07-01',
+        'description' => '오키드 그래픽을 더한 슬리브리스 탑',
+        'details' => [
+            'material' => '상세 정보 준비 중',
+            'size' => 'One Size',
+        ],
+        'stock' => 3,
+        'soldOut' => false,
+        'images' => [
+            [
+                'src' => '/assets/images/products/top-012-card.png',
+                'alt' => 'Orchid Sleeveless Top(Black) 상품 단독 이미지',
+            ],
+        ],
+    ],
+
+    [
+        'id' => 'top-013-na',
+        'name' => 'Orchid Oriental Blouse (Black)',
+        'category' => 'top',
+        'price' => 128000,
+        'originalPrice' => 128000,
+        'discount' => 0,
+        'state' => ['new'],
+        'color' => 'Black',
+        'rating' => 0,
+        'reviewCount' => 0,
+        'createdAt' => '2026-07-01',
+        'description' => '오키드 플라워 디테일을 더한 오리엔탈 블라우스',
+        'details' => [
+            'material' => '상세 정보 준비 중',
+            'size' => 'One Size',
+        ],
+        'stock' => 3,
+        'soldOut' => false,
+        'images' => [
+            [
+                'src' => '/assets/images/products/top-013-card.png',
+                'alt' => 'Orchid Oriental Blouse(Black) 상품 단독 이미지',
+            ],
+        ],
+    ],
 ];
+
+$currentProductCatalog = [
+    'top-001' => ['price' => 28000, 'cardImage' => 'top-001-card.png'],
+    'top-003' => ['price' => 88000, 'cardImage' => 'top-003-card.png'],
+    'top-004' => ['price' => 30000, 'cardImage' => 'top-004-card.png'],
+    'top-006' => ['price' => 43000, 'cardImage' => 'top-006-card.png'],
+    'top-007' => ['price' => 38000, 'cardImage' => 'top-007-card.png'],
+    'top-008' => ['price' => 38000, 'cardImage' => 'top-008-card.png'],
+    'top-009' => ['price' => 43000, 'cardImage' => 'top-009-card.png'],
+    'top-010' => ['price' => 38000, 'cardImage' => 'top-010-card.png'],
+    'top-011' => ['price' => 48000, 'cardImage' => 'top-011-card.png'],
+    'top-012' => ['price' => 43000, 'cardImage' => 'top-012-card.png'],
+    'top-013' => ['price' => 128000, 'cardImage' => 'top-013-card.png'],
+    'bottom-002' => ['price' => 68000, 'cardImage' => 'bottom-002-card.png'],
+    'bottom-003' => ['price' => 88000, 'cardImage' => 'bottom-003-card.png'],
+    'bottom-004' => ['price' => 43000, 'cardImage' => 'bottom-004-card.png'],
+    'bottom-005' => ['price' => 53000, 'cardImage' => 'bottom-005-card.png'],
+    'skirt-001' => ['price' => 88000, 'cardImage' => 'skirt-001-card.png'],
+    'skirt-002' => ['price' => 83000, 'cardImage' => 'skirt-002-card.png'],
+    'skirt-003' => ['price' => 88000, 'cardImage' => 'skirt-003-card.png'],
+    'skirt-004' => ['price' => 118000, 'cardImage' => 'skirt-004-card.png'],
+    'skirt-005' => ['price' => 68000, 'cardImage' => 'skirt-005-card.png'],
+    'skirt-006' => ['price' => 118000, 'cardImage' => 'skirt-006-card.png'],
+    'accessory-001' => ['price' => 43000, 'cardImage' => 'accessory-001-card.png'],
+    'accessory-005' => ['price' => 33000, 'cardImage' => 'accessory-005-card.png'],
+    'accessory-006' => ['price' => 43000, 'cardImage' => 'accessory-006-card.png'],
+    'accessory-007' => ['price' => 33000, 'cardImage' => 'accessory-007-card.png'],
+];
+
+$officialCardProductIds = [
+    'top-001-na',
+    'top-003-na',
+    'top-004-bk',
+    'top-006-na',
+    'top-007-na',
+    'top-008-na',
+    'top-009-cc',
+    'top-010-bk',
+    'top-011-bk',
+    'top-012-bk',
+    'top-013-na',
+    'bottom-002-gy',
+    'bottom-003-wh',
+    'bottom-004-sb',
+    'bottom-005-na',
+    'skirt-001-na',
+    'skirt-002-bk',
+    'skirt-003-bk',
+    'skirt-004-na',
+    'skirt-005-bk',
+    'skirt-006-iv',
+    'accessory-001-bk',
+    'accessory-005-wh',
+    'accessory-006-na',
+    'accessory-007-bk',
+];
+
+$soldOutProductIds = [
+    'top-001-na',
+    'top-009-cc',
+    'bottom-002-gy',
+    'bottom-004-sb',
+    'skirt-001-na',
+    'skirt-002-bk',
+    'accessory-001-bk',
+    'accessory-005-wh',
+];
+
+$productVariantImages = [];
+foreach ($products as $catalogEntry) {
+    if (preg_match('/^(.*-\d+)-[^-]+$/', $catalogEntry['id'] ?? '', $matches) !== 1) {
+        continue;
+    }
+
+    foreach ($catalogEntry['images'] ?? [] as $image) {
+        $src = (string) ($image['src'] ?? '');
+        if ($src === '' || str_ends_with($src, '-card.png')) {
+            continue;
+        }
+
+        $productVariantImages[$matches[1]][$src] = $image;
+    }
+}
+
+$officialDetailImages = [
+    'top-003' => ['top-003-detail-01.jpg'],
+    'top-004' => ['top-004-bk-2.jpg', 'top-004-wh-2.jpg'],
+    'top-006' => ['top-006-detail-01.jpg', 'top-006-detail-02.jpg', 'top-006-detail-03.jpg'],
+    'top-012' => ['top-012-detail-01.jpg', 'top-012-detail-02.jpg', 'top-012-detail-03.jpg', 'top-012-detail-04.jpg'],
+    'top-013' => ['top-013-detail-01.jpg', 'top-013-detail-02.jpg', 'top-013-detail-03.jpg', 'top-013-detail-04.jpg'],
+    'bottom-005' => ['bottom-005-detail-01.jpg', 'bottom-005-detail-02.jpg', 'bottom-005-detail-03.jpg'],
+    'skirt-006' => ['skirt-006-detail-01.jpg', 'skirt-006-detail-02.jpg', 'skirt-006-detail-03.jpg', 'skirt-006-detail-04.jpg'],
+];
+
+$products = array_values(array_filter(
+    $products,
+    static fn ($product) => in_array($product['id'] ?? '', $officialCardProductIds, true)
+));
+
+foreach ($products as &$product) {
+    if (preg_match('/^(.*-\d+)-[^-]+$/', $product['id'], $matches) !== 1) {
+        continue;
+    }
+
+    $catalogId = $matches[1];
+    $catalogProduct = $currentProductCatalog[$catalogId] ?? null;
+    if ($catalogProduct !== null) {
+        $isSaleProduct = in_array('sale', $product['state'] ?? [], true);
+
+        if (!$isSaleProduct) {
+            $product['price'] = $catalogProduct['price'];
+            $product['originalPrice'] = $catalogProduct['price'];
+            $product['discount'] = 0;
+        }
+
+        $product['state'] = array_values(array_filter(
+            $product['state'] ?? [],
+            static fn ($state) => $state !== 'soldout'
+        ));
+        $product['stock'] = max(3, (int) ($product['stock'] ?? 0));
+        $product['soldOut'] = false;
+    }
+
+    if (in_array($product['id'], $soldOutProductIds, true)) {
+        $product['state'][] = 'soldout';
+        $product['state'] = array_values(array_unique($product['state']));
+        $product['stock'] = 0;
+        $product['soldOut'] = true;
+    }
+
+    $cardImageFile = $catalogProduct['cardImage'];
+    $product['cardImage'] = [
+        'src' => '/assets/images/products/' . $cardImageFile,
+        'alt' => $product['name'] . ' 상품 단독 이미지',
+    ];
+    $product['images'] = array_values(array_filter(
+        $product['images'] ?? [],
+        static fn ($image) => ($image['src'] ?? '') !== $product['cardImage']['src']
+    ));
+
+    if (!$product['soldOut']) {
+        $product['images'] = array_merge(
+            $product['images'],
+            array_values($productVariantImages[$catalogId] ?? []),
+            array_map(
+                static fn ($file, $index) => [
+                    'src' => '/assets/images/products/' . $file,
+                    'alt' => $product['name'] . ' 상세 이미지 ' . ($index + 1),
+                ],
+                $officialDetailImages[$catalogId] ?? [],
+                array_keys($officialDetailImages[$catalogId] ?? [])
+            )
+        );
+
+        $seenImagePaths = [];
+        $product['images'] = array_values(array_filter(
+            $product['images'],
+            static function ($image) use (&$seenImagePaths) {
+                $src = (string) ($image['src'] ?? '');
+                if ($src === '' || isset($seenImagePaths[$src])) {
+                    return false;
+                }
+
+                $seenImagePaths[$src] = true;
+                return true;
+            }
+        ));
+    }
+
+    array_unshift($product['images'], $product['cardImage']);
+}
+unset($product);

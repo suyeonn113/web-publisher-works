@@ -5,14 +5,12 @@ if (!isset($product) || !is_array($product)) {
 }
 
 $id = htmlspecialchars($product['id'] ?? '', ENT_QUOTES, 'UTF-8');
-$name = htmlspecialchars($product['name'] ?? '', ENT_QUOTES, 'UTF-8');
-$category = htmlspecialchars($product['category'] ?? '', ENT_QUOTES, 'UTF-8');
-$color = htmlspecialchars($product['color'] ?? '', ENT_QUOTES, 'UTF-8');
 $price = (int) ($product['price'] ?? 0);
 $originalPrice = (int) ($product['originalPrice'] ?? 0);
 $discount = (int) ($product['discount'] ?? 0);
 $images = $product['images'] ?? [];
 $image = $images[0] ?? null;
+$highlightedName = highlightProductSearchTerm((string) ($product['name'] ?? ''), (string) ($keyword ?? ''));
 
 if (!$image) {
     return;
@@ -29,10 +27,7 @@ if (!$image) {
         </span>
 
         <span class="search-card__body">
-            <span class="search-card__meta">
-                <?= strtoupper($category) ?><?= $color !== '' ? ' / ' . $color : '' ?>
-            </span>
-            <strong class="search-card__name"><?= $name ?></strong>
+            <strong class="search-card__name"><?= $highlightedName ?></strong>
             <span class="search-card__price">
                 <?php if ($discount > 0): ?>
                     <span class="search-card__discount"><?= $discount ?>%</span>

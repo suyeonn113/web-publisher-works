@@ -6,14 +6,12 @@
 
 .mypage__inner {
     padding-inline: var(--page-gutter);
-    padding-bottom: 0;
 }
 
 .order-status__title {
     margin-bottom: .5rem;
 
     font-size: var(--font-size-small);
-    font-weight: 400;
 }
 
 .order-status__title span {
@@ -35,7 +33,7 @@
     justify-content: center;
     gap: var(--space-1);
 
-    min-height: 3.5rem;
+    min-height: calc(var(--button-height-emphasis) + var(--space-4));
 }
 
 .order-status__item:nth-child(n + 5) {
@@ -45,7 +43,6 @@
 .order-status__item dt,
 .order-status__item dd {
     font-size: var(--font-size-small);
-    font-weight: 400;
 }
 
 .order-status__item:last-child {
@@ -121,5 +118,4 @@
     border-radius: var(--radius-control);
 
     font-size: var(--font-size-small);
-    font-weight: 400;
 }

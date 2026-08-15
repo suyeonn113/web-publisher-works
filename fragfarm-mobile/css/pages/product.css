@@ -3,24 +3,39 @@
 /* Category Nav */
 .category-nav__list {
     display: flex;
-    justify-items: flex-start;
+    justify-content: safe center;
     align-items: center;
-    gap: 1.5rem;
-
+    gap: var(--space-1);
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior-x: contain;
-
     white-space: nowrap;
-    padding: 1rem var(--page-gutter);
+    padding-block: var(--space-1) var(--space-4);
+    padding-inline: var(--space-3);
+    font-size: var(--font-size-small);
 }
 
-.category-nav__list::-webkit-scrollbar {
-    display: none;
+.category-nav__list a {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-width: var(--field-height-default);
+    min-height: var(--field-height-default);
+    padding-inline: var(--space-2);
 }
 
 .category-nav__list a[aria-current="page"] {
     font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: .2em;
+}
+
+.category-nav__sale {
+    color: var(--color-sale);
+}
+
+.category-nav__list::-webkit-scrollbar {
+    display: none;
 }
 
 /* Catalog Toolbar */
@@ -44,27 +59,12 @@
 .view-toggle__btn {
     padding: .5rem;
 
-    font-weight: 400;
 }
 
 .view-toggle__btn[aria-current="true"] {
     font-weight: 700;
-}
-
-/* Catalog Sort*/
-.catalog-sort {
-    padding: 0 var(--space-8) 0 var(--space-3);
-    
-    font-size: var(--font-size-small);
-    
-    background-image:
-        linear-gradient(45deg, transparent 50%, var(--color-text) 50%),
-        linear-gradient(135deg, var(--color-text) 50%, transparent 50%);
-    background-repeat: no-repeat;
-    background-position:
-        calc(100% - .9rem) center,
-        calc(100% - .65rem) center;
-    background-size: .25rem .25rem;
+    text-decoration: underline;
+    text-underline-offset: .2em;
 }
 
 /* Catalog */
@@ -72,7 +72,7 @@
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 3rem var(--media-grid-column-gap);
-    padding-inline: var(--page-gutter);
+    padding-inline: var(--space-2);
 }
 
 .catalog__list[data-view="1col"] {

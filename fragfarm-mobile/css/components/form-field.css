@@ -24,7 +24,7 @@
 }
 
 .form-textarea::placeholder {
-    color: var(--color-text-placeholder);
+    color: var(--color-text-subtle);
 }
 
 .form-textarea:focus {
@@ -33,7 +33,7 @@
 
 .form-textarea[readonly],
 .form-textarea:disabled {
-    color: var(--color-text-muted);
+    color: var(--color-text-subtle);
     border-color: var(--color-line-pale);
     background: var(--color-surface-soft);
 }
@@ -72,4 +72,11 @@
 .form-textarea--embedded[readonly],
 .form-textarea--embedded:disabled {
     background: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .form-textarea,
+    .form-textarea-shell {
+        transition: none;
+    }
 }

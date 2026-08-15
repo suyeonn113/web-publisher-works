@@ -73,10 +73,10 @@ unset($_SESSION['my_posts_error']);
             <p class="my-posts__error" role="alert"><?= e($flashError) ?></p>
         <?php endif; ?>
 
-        <nav class="my-posts__tabs" aria-label="내가 쓴 글 종류">
-            <a href="<?= BASE_URL ?>/pages/my-posts.php?tab=reviews" <?= $activeTab === 'reviews' ? 'aria-current="page"' : '' ?>>리뷰 <span data-my-review-count><?= count($reviewItems) ?></span></a>
-            <a href="<?= BASE_URL ?>/pages/my-posts.php?tab=comments" <?= $activeTab === 'comments' ? 'aria-current="page"' : '' ?>>댓글 <span data-my-comment-count><?= count($commentItems) ?></span></a>
-            <a href="<?= BASE_URL ?>/pages/my-posts.php?tab=qna" <?= $activeTab === 'qna' ? 'aria-current="page"' : '' ?>>Q&amp;A <span data-my-qna-count><?= count($qnaItems) ?></span></a>
+        <nav class="section-tabs" aria-label="내가 쓴 글 종류">
+            <a href="<?= BASE_URL ?>/pages/my-posts.php?tab=reviews" <?= $activeTab === 'reviews' ? 'aria-current="page"' : '' ?>>리뷰 <span data-my-review-count>(<?= count($reviewItems) ?>)</span></a>
+            <a href="<?= BASE_URL ?>/pages/my-posts.php?tab=comments" <?= $activeTab === 'comments' ? 'aria-current="page"' : '' ?>>댓글 <span data-my-comment-count>(<?= count($commentItems) ?>)</span></a>
+            <a href="<?= BASE_URL ?>/pages/my-posts.php?tab=qna" <?= $activeTab === 'qna' ? 'aria-current="page"' : '' ?>>Q&amp;A <span data-my-qna-count>(<?= count($qnaItems) ?>)</span></a>
         </nav>
 
         <section class="my-posts__panel" data-my-posts-panel="reviews" <?= $activeTab !== 'reviews' ? 'hidden' : '' ?>>

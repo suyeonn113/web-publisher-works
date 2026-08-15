@@ -12,6 +12,8 @@
     const list = document.querySelector('[data-checkout-items]');
     const form = document.querySelector('[data-checkout-form]');
     const empty = document.querySelector('[data-checkout-empty]');
+    const paymentSection = document.querySelector('[data-payment-section]');
+    const paymentInputs = form ? [...form.querySelectorAll('input[name="payment_method"]')] : [];
 
     if (!list || !form) return;
 
@@ -49,7 +51,10 @@
             <img src="${escapeHtml((window.FRAGFARM_BASE_URL || '') + (item.image || ''))}" alt="">
             <div>
                 <h4>${escapeHtml(item.name)}</h4>
-                <p>${escapeHtml(item.option || `SIZE: ${item.size || '-'}`)} · ${Number(item.quantity || 1)}개</p>
+                <div class="checkout-product__options">
+                    <p>${escapeHtml(item.option || `SIZE: ${item.size || '-'}`)}</p>
+                    <p>수량: ${Number(item.quantity || 1)}개</p>
+                </div>
                 <strong>${formatPrice(Number(item.price || 0) * Number(item.quantity || 1))}</strong>
             </div>
         </li>
@@ -68,6 +73,19 @@
     })));
 
     form.addEventListener('submit', (event) => {
+        const selectedPayment = form.querySelector('input[name="payment_method"]:checked');
+
+        if (!selectedPayment) {
+            event.preventDefault();
+            window.showGlobalToast?.('결제 수단을 선택해주세요.');
+            paymentSection?.scrollIntoView({
+                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+                block: 'center',
+            });
+            window.requestAnimationFrame(() => paymentInputs[0]?.focus({ preventScroll: true }));
+            return;
+        }
+
         if (isDemoMode) {
             event.preventDefault();
             const formData = new FormData(form);

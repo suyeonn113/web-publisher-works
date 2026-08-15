@@ -1,0 +1,23 @@
+@charset "utf-8";
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+
+    color: var(--color-warm-muted);
+    background: var(--color-white-92);
+    border: 1px solid currentColor;
+    border-radius: 1px;
+    box-shadow: 0 1px 3px var(--color-shadow-08);
+
+    line-height: 1;
+    text-shadow: none;
+}
+
+.status-badge--inverse {
+    color: var(--color-text-inverse);
+    background: var(--color-text);
+    border-color: var(--color-text);
+}

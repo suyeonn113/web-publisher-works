@@ -1,4 +1,35 @@
 (function () {
+    const page = document.querySelector('.lookbook-page');
+    const revealItems = Array.from(document.querySelectorAll('[data-lookbook-reveal]'));
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (page && revealItems.length > 0) {
+        if (reduceMotion || !('IntersectionObserver' in window)) {
+            revealItems.forEach((item) => item.classList.add('is-visible'));
+        } else {
+            page.classList.add('is-lookbook-motion-ready');
+
+            revealItems.forEach((item, index) => {
+                item.style.setProperty('--lookbook-stagger', String(index % 4));
+            });
+
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries
+                    .filter((entry) => entry.isIntersecting)
+                    .sort((entryA, entryB) => revealItems.indexOf(entryA.target) - revealItems.indexOf(entryB.target))
+                    .forEach((entry) => {
+                        entry.target.classList.add('is-visible');
+                        revealObserver.unobserve(entry.target);
+                    });
+            }, {
+                threshold: 0.08,
+                rootMargin: '0px 0px -5% 0px',
+            });
+
+            revealItems.forEach((item) => revealObserver.observe(item));
+        }
+    }
+
     const modal = document.querySelector('[data-lookbook-modal]');
 
     if (!modal) {

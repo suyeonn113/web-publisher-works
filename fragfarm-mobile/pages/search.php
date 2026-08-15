@@ -49,9 +49,7 @@ $escapedKeyword = htmlspecialchars($keyword, ENT_QUOTES, 'UTF-8');
                         <p class="search-result__text">
                             <strong>"<?= $escapedKeyword ?>"</strong> 검색 결과
                         </p>
-                        <p class="search-result__count">
-                            총 <?= $searchResult['totalProducts'] ?>개 상품
-                        </p>
+                        <span class="search-result__count">총 <?= $searchResult['totalProducts'] ?>개의 상품</span>
                     </div>
                 <?php else: ?>
                     <p class="search-result__text">

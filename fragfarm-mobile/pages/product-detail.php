@@ -69,9 +69,10 @@ if (!FRAGFARM_DEMO_MODE) {
 
 $useDemoFeedback = FRAGFARM_DEMO_MODE || !($mysqli instanceof mysqli);
 
-$sampleReviews = $useDemoFeedback
-    ? require __DIR__ . '/../includes/data/product-detail-reviews.php'
-    : [];
+// Catalog review totals describe the product's existing feedback, including the
+// seeded showcase reviews. Keep those seeds available on the hosted site too;
+// database reviews are merged in by the view builder and take priority.
+$sampleReviews = require __DIR__ . '/../includes/data/product-detail-reviews.php';
 
 require_once __DIR__ . '/../includes/services/product-detail-view.php';
 $feedbackView = build_product_detail_feedback(
@@ -90,9 +91,16 @@ if ($mysqli) {
 $reviewItems = $feedbackView['reviews'];
 $productQnaItems = $feedbackView['qna'];
 $reviewCount = $feedbackView['count'];
+$qnaCount = count($productQnaItems);
 $reviewScoreSum = $feedbackView['score_sum'];
 $reviewAverage = $feedbackView['average'];
-$rating = number_format($reviewAverage, 1);
+$reviewGalleryImages = [];
+
+foreach ($reviewItems as $galleryReview) {
+    foreach (array_values(array_filter($galleryReview['images'] ?? [])) as $galleryImage) {
+        $reviewGalleryImages[] = (string) $galleryImage;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -120,7 +128,7 @@ $rating = number_format($reviewAverage, 1);
             </div>
 
             <?php if (count($images) > 1): ?>
-                <div class="product-detail__thumbs" role="list" aria-label="상품 이미지 선택">
+                <div class="product-detail__thumbs" role="group" aria-label="상품 이미지 선택">
                     <?php foreach ($images as $index => $image): ?>
                         <button
                             class="product-detail__thumb<?= $index === 0 ? ' is-current' : '' ?>"
@@ -160,11 +168,6 @@ $rating = number_format($reviewAverage, 1);
                     </svg>
                 </button>
             </div>
-
-            <a class="product-detail__rating" href="#review-title" data-product-review-summary data-review-summary-link aria-label="평점 <?= $rating ?>점, 후기 <?= $reviewCount ?>개. 리뷰로 이동">
-                <strong data-product-review-average><?= $rating ?></strong>
-                <span data-product-review-count>(<?= $reviewCount ?>개의 후기)</span>
-            </a>
 
             <p class="product-detail__price<?= $discount > 0 ? ' has-discount' : '' ?>">
                 <?php if ($discount > 0): ?>
@@ -325,170 +328,47 @@ $rating = number_format($reviewAverage, 1);
 
                 <p class="product-detail__feedback" role="status" aria-live="polite"></p>
             </form>
-        </section>
 
-        <section class="product-detail__reviews" aria-labelledby="review-title">
-            <div class="review-head">
-                <h2 id="review-title">REVIEW</h2>
-                <div class="review-benefit">
-                    <img
-                        src="<?= BASE_URL ?>/assets/images/review/review-benefit-banner-curled-v2.png"
-                        alt="리뷰 작성 시 3,000 point, Photo 리뷰 작성 시 5,000 point">
-                </div>
-                <div class="review-score" data-review-score data-base-count="<?= $reviewCount ?>" data-base-sum="<?= $reviewScoreSum ?>">
-                    <strong><?= number_format($reviewAverage, 1) ?> / 5</strong>
-                    <span>(<?= $reviewCount ?>개의 후기)</span>
-                </div>
-            </div>
-
-            <div class="review-list">
-                <?php foreach ($reviewItems as $reviewIndex => $review): ?>
-                    <?php include __DIR__ . '/../includes/components/product-review-item.php'; ?>
-                <?php endforeach; ?>
-            </div>
-
-            <nav class="pagination review-list__pagination" data-product-review-pagination aria-label="상품 후기 페이지 이동" hidden></nav>
-
-            <form class="review-write" action="<?= BASE_URL ?>/actions/review_create.php" method="post" data-review-write data-demo-product-feedback>
-                <?= csrf_input('product_feedback') ?>
-                <input type="hidden" name="product_id" value="<?= $id ?>">
-                <div class="review-write__box form-textarea-shell" id="review-write-panel" data-review-write-panel hidden>
-                    <textarea
-                        class="form-textarea form-textarea--large form-textarea--embedded"
-                        name="review"
-                        rows="5"
-                        aria-label="리뷰 내용"
-                        placeholder="<?= $isLoggedIn ? '후기를 남겨주세요.' : '로그인 후 이용해주세요.' ?>"
-                        <?= $isLoggedIn ? '' : 'readonly data-login-required' ?>></textarea>
-
-                    <div class="review-write__tools">
-                        <div class="review-write__photo-field">
-                            <button
-                                class="review-write__photo"
-                                type="button"
-                                data-placeholder="true"
-                                data-toast-message="사진 첨부 기능은 데모에서 지원하지 않습니다."
-                                aria-label="사진 첨부 (데모 미지원)">
-                                <img src="<?= BASE_URL ?>/assets/icons/camera.svg" alt="">
-                                <span class="visually-hidden">사진 첨부</span>
-                            </button>
-                            <span class="review-write__photo-toast" role="status" data-photo-review-toast hidden>포토 리뷰 작성 시 5,000 point 적립</span>
-                        </div>
-
-                        <fieldset class="review-write__rating" aria-label="별점 선택">
-                            <?php for ($star = 5; $star >= 1; $star--): ?>
-                                <input
-                                    id="review-rating-<?= $star ?>"
-                                    type="radio"
-                                    name="rating"
-                                    value="<?= $star ?>"
-                                    <?= $isLoggedIn ? '' : 'disabled' ?>>
-                                <label for="review-rating-<?= $star ?>" aria-label="<?= $star ?>점"></label>
-                            <?php endfor; ?>
-                        </fieldset>
+            <section class="product-detail__policies" aria-label="배송 및 교환 안내">
+                <details class="detail-toggle">
+                    <summary>
+                        <span>DELIVERY</span>
+                        <svg class="detail-toggle__icon" viewBox="0 0 10 5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                            <path d="M1.41406 6.18106e-08L4.85352 3.43945L8.31856 3.63616e-07L9.70703 4.24308e-07L4.85352 4.85352L2.12154e-07 0L1.41406 6.18106e-08Z"/>
+                        </svg>
+                    </summary>
+                    <div class="detail-toggle__body">
+                        <ul>
+                            <li>구매 금액 70,000원 이상 주문 시 무료 배송해 드립니다.</li>
+                            <li>제주 및 도서산간 지역은 추가 배송비 2,000원이 발생할 수 있습니다.</li>
+                            <li>생산처 사정에 따라 배송이 지연될 수 있으며 최대 1~2주 정도 소요될 수 있습니다.</li>
+                            <li>배송 기간에 여유를 두고 주문해 주세요.</li>
+                        </ul>
                     </div>
-                </div>
+                </details>
 
-                <button
-                    class="review-write__submit"
-                    type="button"
-                    aria-expanded="false"
-                    aria-controls="review-write-panel"
-                    <?= $isLoggedIn ? 'data-review-write-toggle' : 'data-login-required' ?>>
-                    리뷰쓰기
-                </button>
-            </form>
-        </section>
-
-        <section class="product-detail__accordions" aria-label="상품 상세 정보">
-            <details class="detail-toggle">
-                <summary>
-                    <span>EXCHANGE / RETURN</span>
-                    <svg class="detail-toggle__icon" viewBox="0 0 10 5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-                        <path d="M1.41406 6.18106e-08L4.85352 3.43945L8.31856 3.63616e-07L9.70703 4.24308e-07L4.85352 4.85352L2.12154e-07 0L1.41406 6.18106e-08Z"/>
-                    </svg>
-                </summary>
-                <div class="detail-toggle__body">
-                    <ul>
-                        <li>단순 변심의 경우 상품 수령일로부터 7일 이내 교환 및 반품을 신청해 주세요. (배송비 고객 부담)</li>
-                        <li>제품 불량의 경우 상품 수령 후 24시간 이내 동일 상품으로 교환해 드리며 배송비는 fragfarm에서 부담합니다.</li>
-                        <li>부주의로 인한 제품 오염 및 파손, 사용 흔적이 발견된 경우 교환 및 반품이 어렵습니다.</li>
-                        <li>세탁, 향수, 착용 흔적 및 오염이 발견될 경우 반송 처리되며 배송비는 고객 부담입니다.</li>
-                        <li>반품 및 교환 요청은 상품 상세 Q&amp;A 또는 채팅 상담을 통해 접수해 주세요.</li>
-                        <li>교환 시 왕복 배송비가 발생하며 제주 및 도서산간 지역은 추가 비용이 발생할 수 있습니다.</li>
-                        <li>사이즈 및 품목 교환은 상품 상세 Q&amp;A에 원하는 옵션을 함께 남겨 주세요.</li>
-                        <li>반품 시 배송비 3,000원, 무료배송 주문 건은 총 6,000원이 차감 후 환불 처리됩니다.</li>
-                        <li>세일 상품은 교환 및 반품이 불가합니다.</li>
-                    </ul>
-                </div>
-            </details>
-
-            <details class="detail-toggle">
-                <summary>
-                    <span>DELIVERY</span>
-                    <svg class="detail-toggle__icon" viewBox="0 0 10 5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-                        <path d="M1.41406 6.18106e-08L4.85352 3.43945L8.31856 3.63616e-07L9.70703 4.24308e-07L4.85352 4.85352L2.12154e-07 0L1.41406 6.18106e-08Z"/>
-                    </svg>
-                </summary>
-                <div class="detail-toggle__body">
-                    <ul>
-                        <li>구매 금액 70,000원 이상 주문 시 무료 배송해 드립니다.</li>
-                        <li>제주 및 도서산간 지역은 추가 배송비 2,000원이 발생할 수 있습니다.</li>
-                        <li>생산처 사정에 따라 배송이 지연될 수 있으며 최대 1~2주 정도 소요될 수 있습니다.</li>
-                        <li>배송 기간에 여유를 두고 주문해 주세요.</li>
-                    </ul>
-                </div>
-            </details>
-        </section>
-
-        <section id="product-qna" class="product-detail__qna" aria-labelledby="qna-title">
-            <details class="detail-toggle">
-                <summary>
-                    <span id="qna-title">Q&amp;A</span>
-                    <svg class="detail-toggle__icon" viewBox="0 0 10 5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-                        <path d="M1.41406 6.18106e-08L4.85352 3.43945L8.31856 3.63616e-07L9.70703 4.24308e-07L4.85352 4.85352L2.12154e-07 0L1.41406 6.18106e-08Z"/>
-                    </svg>
-                </summary>
-                <div class="detail-toggle__body">
-                    <div class="product-qna-list" data-product-qna-list>
-                        <?php foreach ($productQnaItems as $qnaItem): ?>
-                            <article class="product-qna-item" id="qna-<?= (int) $qnaItem['id'] ?>">
-                                <div><strong><?= e($qnaItem['display_name']) ?></strong><time><?= e(date('Y.m.d', strtotime($qnaItem['created_at']))) ?></time></div>
-                                <p><?= !empty($qnaItem['is_secret']) && empty($qnaItem['own']) ? '비밀글입니다.' : nl2br(e($qnaItem['content'])) ?></p>
-                                <?php if ((empty($qnaItem['is_secret']) || !empty($qnaItem['own'])) && trim((string) ($qnaItem['answer_content'] ?? '')) !== ''): ?>
-                                    <div class="product-qna-answer">
-                                        <strong>답변</strong>
-                                        <p><?= nl2br(e($qnaItem['answer_content'])) ?></p>
-                                        <?php if (!empty($qnaItem['answered_at'])): ?><time><?= e(date('Y.m.d', strtotime($qnaItem['answered_at']))) ?></time><?php endif; ?>
-                                    </div>
-                                <?php endif; ?>
-                                <?php if (!empty($qnaItem['own'])): ?>
-                                    <form action="<?= BASE_URL ?>/actions/product_qna_delete.php" method="post" class="feedback-delete-form">
-                                        <?= csrf_input('product_feedback') ?>
-                                        <input type="hidden" name="product_id" value="<?= $id ?>">
-                                        <input type="hidden" name="qna_id" value="<?= (int) $qnaItem['id'] ?>">
-                                        <button type="submit">내 문의 삭제</button>
-                                    </form>
-                                <?php endif; ?>
-                            </article>
-                        <?php endforeach; ?>
+                <details class="detail-toggle">
+                    <summary>
+                        <span>EXCHANGE / RETURN</span>
+                        <svg class="detail-toggle__icon" viewBox="0 0 10 5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                            <path d="M1.41406 6.18106e-08L4.85352 3.43945L8.31856 3.63616e-07L9.70703 4.24308e-07L4.85352 4.85352L2.12154e-07 0L1.41406 6.18106e-08Z"/>
+                        </svg>
+                    </summary>
+                    <div class="detail-toggle__body">
+                        <ul>
+                            <li>단순 변심의 경우 상품 수령일로부터 7일 이내 교환 및 반품을 신청해 주세요. (배송비 고객 부담)</li>
+                            <li>제품 불량의 경우 상품 수령 후 24시간 이내 동일 상품으로 교환해 드리며 배송비는 fragfarm에서 부담합니다.</li>
+                            <li>부주의로 인한 제품 오염 및 파손, 사용 흔적이 발견된 경우 교환 및 반품이 어렵습니다.</li>
+                            <li>세탁, 향수, 착용 흔적 및 오염이 발견될 경우 반송 처리되며 배송비는 고객 부담입니다.</li>
+                            <li>반품 및 교환 요청은 상품 상세 Q&amp;A 또는 채팅 상담을 통해 접수해 주세요.</li>
+                            <li>교환 시 왕복 배송비가 발생하며 제주 및 도서산간 지역은 추가 비용이 발생할 수 있습니다.</li>
+                            <li>사이즈 및 품목 교환은 상품 상세 Q&amp;A에 원하는 옵션을 함께 남겨 주세요.</li>
+                            <li>반품 시 배송비 3,000원, 무료배송 주문 건은 총 6,000원이 차감 후 환불 처리됩니다.</li>
+                            <li>세일 상품은 교환 및 반품이 불가합니다.</li>
+                        </ul>
                     </div>
-                    <form class="qna-form" action="<?= BASE_URL ?>/actions/product_qna_create.php" method="post" data-demo-product-qna>
-                        <?= csrf_input('product_feedback') ?>
-                        <input type="hidden" name="product_id" value="<?= $id ?>">
-                        <label for="qna-content">문의 내용</label>
-                        <textarea
-                            class="form-textarea"
-                            id="qna-content"
-                            name="qna"
-                            rows="5"
-                            placeholder="<?= $isLoggedIn ? '상품 문의를 남겨주세요.' : '로그인 후 이용해주세요.' ?>"
-                            <?= $isLoggedIn ? '' : 'readonly data-login-required' ?>></textarea>
-                        <label class="qna-secret"><input type="checkbox" name="is_secret" value="1"> 비밀글</label>
-                        <button type="submit" <?= $isLoggedIn ? '' : 'data-login-required' ?>>작성하기</button>
-                    </form>
-                </div>
-            </details>
+                </details>
+            </section>
         </section>
 
         <section class="product-detail__related" aria-labelledby="related-title">
@@ -522,7 +402,203 @@ $rating = number_format($reviewAverage, 1);
                 <?php endforeach; ?>
             </ul>
         </section>
+
+        <section class="product-detail__community" aria-label="상품 리뷰 및 문의">
+            <div class="product-detail__community-tabs section-tabs" role="tablist" aria-label="상품 리뷰 및 문의 선택">
+                <button
+                    id="product-review-tab"
+                    type="button"
+                    role="tab"
+                    aria-selected="true"
+                    aria-controls="product-review-panel"
+                    data-feedback-tab="review">
+                    REVIEW <span data-feedback-count="review" data-base-count="<?= $reviewCount ?>">(<?= $reviewCount ?>)</span>
+                </button>
+                <button
+                    id="product-qna-tab"
+                    type="button"
+                    role="tab"
+                    aria-selected="false"
+                    aria-controls="product-qna-panel"
+                    tabindex="-1"
+                    data-feedback-tab="qna">
+                    Q&amp;A <span data-feedback-count="qna" data-base-count="<?= $qnaCount ?>">(<?= $qnaCount ?>)</span>
+                </button>
+            </div>
+
+            <div id="product-review-panel" class="product-detail__community-panel" role="tabpanel" aria-labelledby="product-review-tab" data-feedback-panel="review">
+        <section class="product-detail__reviews" aria-labelledby="review-title">
+            <div class="review-head">
+                <h2 id="review-title" class="visually-hidden">REVIEW</h2>
+            </div>
+
+            <form class="review-write" action="<?= BASE_URL ?>/actions/review_create.php" method="post" data-review-write data-demo-product-feedback>
+                <?= csrf_input('product_feedback') ?>
+                <input type="hidden" name="product_id" value="<?= $id ?>">
+                <div class="review-write__actions">
+                    <a class="review-write__all" href="<?= BASE_URL ?>/pages/review.php">후기 전체보기</a>
+                    <button
+                        class="review-write__submit feedback-submit"
+                        type="button"
+                        aria-expanded="false"
+                        aria-controls="review-write-panel"
+                        <?= $isLoggedIn ? 'data-review-write-toggle' : 'data-login-required' ?>>
+                        후기 작성하기
+                    </button>
+                </div>
+
+                <div class="review-write__box form-textarea-shell" id="review-write-panel" data-review-write-panel hidden>
+                    <textarea
+                        class="form-textarea form-textarea--large form-textarea--embedded"
+                        name="review"
+                        rows="5"
+                        aria-label="리뷰 내용"
+                        placeholder="<?= $isLoggedIn ? '후기를 남겨주세요.' : '로그인 후 이용해주세요.' ?>"
+                        <?= $isLoggedIn ? '' : 'readonly data-login-required' ?>></textarea>
+
+                    <div class="review-write__tools">
+                        <div class="review-write__photo-field">
+                            <button
+                                class="review-write__photo"
+                                type="button"
+                                data-placeholder="true"
+                                data-toast-message="사진 첨부 기능은 데모에서 지원하지 않습니다."
+                                aria-label="사진 첨부 (데모 미지원)">
+                                <img src="<?= BASE_URL ?>/assets/icons/camera.svg" alt="">
+                                <span class="visually-hidden">사진 첨부</span>
+                            </button>
+                        </div>
+
+                        <fieldset class="review-write__rating" aria-label="별점 선택">
+                            <?php for ($star = 5; $star >= 1; $star--): ?>
+                                <input
+                                    id="review-rating-<?= $star ?>"
+                                    type="radio"
+                                    name="rating"
+                                    value="<?= $star ?>"
+                                    <?= $isLoggedIn ? '' : 'disabled' ?>>
+                                <label for="review-rating-<?= $star ?>" aria-label="<?= $star ?>점"></label>
+                            <?php endfor; ?>
+                        </fieldset>
+                    </div>
+                </div>
+
+            </form>
+
+            <div class="review-score review-score--summary" data-review-score data-base-count="<?= $reviewCount ?>" data-base-sum="<?= $reviewScoreSum ?>">
+                <strong><?= number_format($reviewAverage, 1) ?> / 5</strong>
+                <span>(<?= $reviewCount ?>)</span>
+            </div>
+
+            <div class="review-filter-bar">
+                <label class="review-photo-filter check-box">
+                    <input class="check-box__input" type="checkbox" data-review-photo-filter>
+                    <span>포토리뷰만 보기</span>
+                </label>
+                <div class="review-sort-control">
+                    <label class="visually-hidden" for="product-review-sort">후기 정렬</label>
+                    <select id="product-review-sort" class="list-sort" data-review-sort>
+                        <option value="latest">최신순</option>
+                        <option value="rating-desc">별점 높은 순</option>
+                        <option value="rating-asc">별점 낮은 순</option>
+                    </select>
+                </div>
+            </div>
+
+            <?php if ($reviewGalleryImages): ?>
+                <section class="review-photo-gallery" aria-labelledby="review-photo-gallery-title">
+                    <div class="review-photo-gallery__head">
+                        <h3 id="review-photo-gallery-title">PHOTO REVIEW</h3>
+                        <span>(<?= count($reviewGalleryImages) ?>)</span>
+                    </div>
+                    <div class="review-photo-gallery__track" aria-label="포토 리뷰 이미지 모아보기">
+                        <?php foreach ($reviewGalleryImages as $galleryImageIndex => $galleryImage): ?>
+                            <button
+                                class="review-photo-gallery__button"
+                                type="button"
+                                data-review-image="<?= e($galleryImage) ?>"
+                                aria-haspopup="dialog"
+                                aria-label="포토 리뷰 이미지 <?= $galleryImageIndex + 1 ?> 크게 보기">
+                                <img src="<?= e($galleryImage) ?>" alt="" loading="lazy">
+                            </button>
+                        <?php endforeach; ?>
+                    </div>
+                </section>
+            <?php endif; ?>
+
+            <div class="review-list" data-review-list>
+                <?php foreach ($reviewItems as $reviewIndex => $review): ?>
+                    <?php include __DIR__ . '/../includes/components/product-review-item.php'; ?>
+                <?php endforeach; ?>
+            </div>
+
+            <nav class="pagination review-list__pagination" data-review-pagination aria-label="상품 후기 페이지" hidden></nav>
+        </section>
+            </div>
+
+            <div id="product-qna-panel" class="product-detail__community-panel" role="tabpanel" aria-labelledby="product-qna-tab" data-feedback-panel="qna" hidden>
+                <section id="product-qna" class="product-detail__qna" aria-labelledby="qna-title">
+                    <h2 id="qna-title" class="visually-hidden">Q&amp;A</h2>
+                    <div class="product-qna-list" data-product-qna-list>
+                        <?php foreach ($productQnaItems as $qnaItem): ?>
+                            <article class="product-qna-item" id="qna-<?= (int) $qnaItem['id'] ?>">
+                                <div><strong><?= e($qnaItem['display_name']) ?></strong><time><?= e(date('Y.m.d', strtotime($qnaItem['created_at']))) ?></time></div>
+                                <p><?= !empty($qnaItem['is_secret']) && empty($qnaItem['own']) ? '비밀글입니다.' : nl2br(e($qnaItem['content'])) ?></p>
+                                <?php if ((empty($qnaItem['is_secret']) || !empty($qnaItem['own'])) && trim((string) ($qnaItem['answer_content'] ?? '')) !== ''): ?>
+                                    <div class="product-qna-answer">
+                                        <strong>답변</strong>
+                                        <p><?= nl2br(e($qnaItem['answer_content'])) ?></p>
+                                        <?php if (!empty($qnaItem['answered_at'])): ?><time><?= e(date('Y.m.d', strtotime($qnaItem['answered_at']))) ?></time><?php endif; ?>
+                                    </div>
+                                <?php endif; ?>
+                                <?php if (!empty($qnaItem['own'])): ?>
+                                    <form action="<?= BASE_URL ?>/actions/product_qna_delete.php" method="post" class="feedback-delete-form">
+                                        <?= csrf_input('product_feedback') ?>
+                                        <input type="hidden" name="product_id" value="<?= $id ?>">
+                                        <input type="hidden" name="qna_id" value="<?= (int) $qnaItem['id'] ?>">
+                                        <button type="submit">내 문의 삭제</button>
+                                    </form>
+                                <?php endif; ?>
+                            </article>
+                        <?php endforeach; ?>
+                    </div>
+                    <form class="qna-form" action="<?= BASE_URL ?>/actions/product_qna_create.php" method="post" data-demo-product-qna>
+                        <?= csrf_input('product_feedback') ?>
+                        <input type="hidden" name="product_id" value="<?= $id ?>">
+                        <p class="qna-form__guide">
+                            문의 답변은 영업일 기준 1~2일 정도 소요될 수 있습니다.<br>
+                            고객센터 운영시간은 평일 오전 9시부터 오후 6시까지이며, 주말과 공휴일은 휴무입니다.<br>
+                            더 빠른 상담이 필요하시면 실시간 채팅을 이용해주세요.
+                        </p>
+                        <label class="qna-form__label" for="qna-content">문의 내용</label>
+                        <textarea
+                            class="form-textarea"
+                            id="qna-content"
+                            name="qna"
+                            rows="5"
+                            placeholder="<?= $isLoggedIn ? '상품 문의를 남겨주세요.' : '로그인 후 이용해주세요.' ?>"
+                            <?= $isLoggedIn ? '' : 'readonly data-login-required' ?>></textarea>
+                        <div class="qna-form__actions">
+                            <label class="qna-secret check-box">
+                                <input class="check-box__input check-box__input--bag" type="checkbox" name="is_secret" value="1" checked>
+                                <span>비밀글</span>
+                            </label>
+                            <button class="feedback-submit" type="submit" <?= $isLoggedIn ? '' : 'data-login-required' ?>>작성하기</button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </section>
+
     </main>
+
+    <div class="review-image-modal" data-review-modal hidden>
+        <button class="review-image-modal__dim" type="button" data-review-modal-close aria-label="큰 이미지 닫기"></button>
+        <div class="review-image-modal__dialog" role="dialog" aria-modal="true" aria-label="리뷰 이미지 크게 보기">
+            <button class="review-image-modal__close" type="button" data-review-modal-close aria-label="닫기"><img src="<?= BASE_URL ?>/assets/icons/close.svg" alt=""></button>
+            <img class="review-image-modal__image" data-review-modal-image src="" alt="">
+        </div>
+    </div>
 
     <?php include __DIR__ . '/../includes/footer.php'; ?>
     <?php include __DIR__ . '/../includes/chat-launcher.php'; ?>

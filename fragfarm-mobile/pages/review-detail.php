@@ -16,6 +16,7 @@ $pageCss = 'review.css';
 $isLoggedIn = isset($_SESSION['member_id']);
 $productId = (string) ($review['product_id'] ?? '');
 $comments = $review['comments'] ?? [];
+$reviewAuthor = trim((string) ($review['author'] ?? ''));
 
 if (!FRAGFARM_DEMO_MODE) {
     require_once __DIR__ . '/../includes/dbconn.php';
@@ -49,14 +50,16 @@ if (!FRAGFARM_DEMO_MODE) {
                     <?= htmlspecialchars($review['product'], ENT_QUOTES, 'UTF-8') ?>
                 </a>
             </h1>
-            <p class="review-stars review-detail__stars" aria-label="평점 <?= (int) $review['rating'] ?>점">
+            <p class="review-stars review-detail__stars" role="img" aria-label="평점 <?= (int) $review['rating'] ?>점">
                 <?php for ($star = 1; $star <= 5; $star++): ?>
                     <span class="<?= $star <= (int) $review['rating'] ? 'is-filled' : '' ?>" aria-hidden="true"></span>
                 <?php endfor; ?>
             </p>
             <p class="review-detail__meta">
-                <?= htmlspecialchars($review['author'], ENT_QUOTES, 'UTF-8') ?>
-                <span><?= htmlspecialchars($review['date'], ENT_QUOTES, 'UTF-8') ?></span>
+                <span class="review-detail__author<?= $reviewAuthor === '' ? ' is-placeholder' : '' ?>">
+                    <?= htmlspecialchars($reviewAuthor !== '' ? $reviewAuthor : 'REVIEWER', ENT_QUOTES, 'UTF-8') ?>
+                </span>
+                <span class="review-detail__date"><?= htmlspecialchars($review['date'], ENT_QUOTES, 'UTF-8') ?></span>
             </p>
             <p class="review-detail__body">
                 <?= nl2br(htmlspecialchars($review['body'], ENT_QUOTES, 'UTF-8')) ?>
@@ -106,7 +109,7 @@ if (!FRAGFARM_DEMO_MODE) {
                 <input type="hidden" name="review_key" value="<?= htmlspecialchars($reviewId, ENT_QUOTES, 'UTF-8') ?>">
                 <label class="visually-hidden" for="review-comment">댓글 입력</label>
                 <textarea class="form-textarea form-textarea--compact" id="review-comment" name="comment" maxlength="500" placeholder="<?= $isLoggedIn ? '후기에 관한 의견을 남겨주세요.' : '로그인 후 이용해주세요.' ?>" <?= $isLoggedIn ? '' : 'readonly' ?>></textarea>
-                <button type="submit">댓글쓰기</button>
+                <button class="feedback-submit" type="submit">댓글 등록하기</button>
             </form>
         </section>
     </main>

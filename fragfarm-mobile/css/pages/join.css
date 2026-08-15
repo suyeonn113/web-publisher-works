@@ -5,7 +5,6 @@
     justify-content: center;
     align-items: center;
 
-    padding-top: 0;
     padding-bottom: 1rem;
     
     font-size: var(--font-size-body);
@@ -16,7 +15,6 @@
     padding: 1rem var(--page-gutter) 0;
 
     font-size: var(--font-size-small);
-    font-weight: 500;
 }
 
 /* Account */
@@ -42,7 +40,7 @@
 .field-title.is-required::after {
     content: "*";
     padding-left: 4px;
-    color: var(--color-accent);
+    color: var(--color-text);
 }
 
 /* Address */

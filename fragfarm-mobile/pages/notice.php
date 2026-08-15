@@ -33,8 +33,9 @@ if (notice_database_is_configured()) {
 
         <section class="notice-board" aria-label="공지사항 목록">
             <ul class="notice-list">
-                <?php foreach ($state['items'] as $post): ?>
-                    <li>
+                <?php foreach ($state['items'] as $postIndex => $post): ?>
+                    <?php $isPinned = $keyword === '' && $state['currentPage'] === 1 && $postIndex < 2; ?>
+                    <li<?= $isPinned ? ' class="notice-list__item--pinned"' : '' ?>>
                         <a href="<?= BASE_URL ?>/pages/notice-detail.php?id=<?= (int) $post['id'] ?>">
                             <span><?= e($post['title']) ?></span>
                             <time datetime="<?= e(date('Y-m-d', strtotime($post['created_at']))) ?>"><?= e(date('Y.m.d', strtotime($post['created_at']))) ?></time>

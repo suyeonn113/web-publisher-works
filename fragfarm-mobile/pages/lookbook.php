@@ -1,31 +1,17 @@
 <?php
 include __DIR__ . '/../includes/config.php';
+include __DIR__ . '/../includes/data/lookbooks.php';
 
-$pageTitle = 'Lookbook | Fragfarm';
+$requestedLookbookKey = (string) ($_GET['season'] ?? $latestLookbookKey);
+$currentLookbookKey = array_key_exists($requestedLookbookKey, $lookbooks)
+    ? $requestedLookbookKey
+    : $latestLookbookKey;
+$currentLookbook = $lookbooks[$currentLookbookKey];
+
+$pageTitle = $currentLookbook['season'] . ' ' . $currentLookbook['collection'] . ' | Fragfarm';
 $pageCss = 'lookbook.css';
-$lookbookItems = [
-    ['image' => '/assets/images/lookbook/lookbook-25ss-01.jpg', 'variant' => 'tall'],
-    ['image' => '/assets/images/lookbook/lookbook-25ss-02.jpg', 'variant' => 'portrait'],
-    ['image' => '/assets/images/lookbook/lookbook-25ss-03.jpg', 'variant' => 'wide'],
-    ['text' => "25SS\nSENTIMENTAL ROSE"],
-    ['image' => '/assets/images/lookbook/lookbook-25ss-04.jpg', 'variant' => 'square'],
-    ['image' => '/assets/images/lookbook/lookbook-25ss-05.jpg', 'variant' => 'tall'],
-    ['image' => '/assets/images/lookbook/lookbook-25ss-06.jpg', 'variant' => 'portrait'],
-    ['image' => '/assets/images/lookbook/lookbook-25ss-07.jpg', 'variant' => 'square'],
-    ['image' => '/assets/images/lookbook/lookbook-25ss-08.jpg', 'variant' => 'wide'],
-    ['image' => '/assets/images/lookbook/lookbook-25ss-09.jpg', 'variant' => 'portrait'],
-    ['image' => '/assets/images/lookbook/lookbook-25ss-10.jpg', 'variant' => 'square'],
-    ['image' => '/assets/images/lookbook/lookbook-25ss-11.jpg', 'variant' => 'tall'],
-    ['image' => '/assets/images/lookbook/lookbook-25ss-12.jpg', 'variant' => 'portrait'],
-    ['image' => '/assets/images/lookbook/lookbook-25ss-13.jpg', 'variant' => 'square'],
-    ['text' => "PHOTO BOOKS & ALBUMS"],
-    ['image' => '/assets/images/lookbook/lookbook-25ss-14.jpg', 'variant' => 'wide'],
-    ['text' => "FRAGFARMHOUSE"],
-    ['image' => '/assets/images/lookbook/lookbook-25ss-15.jpg', 'variant' => 'portrait'],
-    ['image' => '/assets/images/lookbook/lookbook-25ss-16.jpg', 'variant' => 'square'],
-    ['text' => "JULY 2025\nIN THE MIDDLE OF SUMMER"],
-    ['image' => '/assets/images/lookbook/lookbook-25ss-17.jpg', 'variant' => 'tall'],
-];
+$useFlowerFont = true;
+$lookbookItems = $currentLookbook['items'];
 ?>
 
 <!DOCTYPE html>
@@ -35,22 +21,35 @@ $lookbookItems = [
 <div class="mobile-shell">
     <?php include __DIR__ . '/../includes/header.php'; ?>
 
-    <main id="main" class="lookbook-page" aria-label="Lookbook">
-        <h2 class="visually-hidden">LOOKBOOK</h2>
-        <div class="lookbook-grid">
+    <main id="main" class="lookbook-page" aria-labelledby="lookbook-page-title">
+        <h1 id="lookbook-page-title" class="visually-hidden">SEASON BOOK</h1>
+        <nav class="lookbook-tabs" aria-label="시즌북 선택">
+            <ul class="lookbook-tabs__list">
+                <?php foreach ($lookbooks as $lookbookKey => $lookbook): ?>
+                    <li>
+                        <a href="?season=<?= urlencode($lookbookKey) ?>"
+                           <?= $lookbookKey === $currentLookbookKey ? 'aria-current="page"' : '' ?>>
+                            <span><?= htmlspecialchars($lookbook['season'], ENT_QUOTES, 'UTF-8') ?></span>
+                            <span<?= $lookbookKey === '26ss-2' ? ' class="font-flower"' : '' ?>><?= htmlspecialchars($lookbook['collection'], ENT_QUOTES, 'UTF-8') ?></span>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </nav>
+        <div class="lookbook-grid lookbook-grid--<?= htmlspecialchars($currentLookbookKey, ENT_QUOTES, 'UTF-8') ?>">
             <?php foreach ($lookbookItems as $index => $item): ?>
                 <?php if (isset($item['text'])): ?>
-                    <p class="lookbook-text"><?= nl2br(htmlspecialchars($item['text'], ENT_QUOTES, 'UTF-8')) ?></p>
+                    <p class="lookbook-text" data-lookbook-reveal><?= nl2br(htmlspecialchars($item['text'], ENT_QUOTES, 'UTF-8')) ?></p>
                 <?php else: ?>
                     <?php $imageUrl = BASE_URL . htmlspecialchars($item['image'], ENT_QUOTES, 'UTF-8'); ?>
-                    <figure class="lookbook-card lookbook-card--<?= htmlspecialchars($item['variant'] ?? 'portrait', ENT_QUOTES, 'UTF-8') ?>">
+                    <figure class="lookbook-card lookbook-card--<?= htmlspecialchars($item['variant'] ?? 'portrait', ENT_QUOTES, 'UTF-8') ?>" data-lookbook-reveal>
                         <button
                             class="lookbook-card__button"
                             type="button"
                             data-lookbook-image="<?= $imageUrl ?>"
                             aria-haspopup="dialog"
                             aria-label="룩북 이미지 <?= $index + 1 ?> 크게 보기">
-                            <img src="<?= $imageUrl ?>" alt="">
+                            <img src="<?= $imageUrl ?>" alt="" loading="lazy">
                         </button>
                     </figure>
                 <?php endif; ?>

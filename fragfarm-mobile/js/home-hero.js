@@ -2,103 +2,83 @@
     const hero = document.querySelector('[data-hero-slider]');
     if (!hero) return;
 
-    const pageHeader = document.querySelector('.home-page header');
-    let headerFrame = 0;
-
-    const updateHeaderTheme = () => {
-        headerFrame = 0;
-        if (!pageHeader) return;
-
-        const heroBottom = hero.getBoundingClientRect().bottom;
-        const isOverHero = heroBottom > pageHeader.offsetHeight;
-        pageHeader.classList.toggle('is-over-hero', isOverHero);
-    };
-
-    const requestHeaderUpdate = () => {
-        if (headerFrame) return;
-        headerFrame = window.requestAnimationFrame(updateHeaderTheme);
-    };
-
-    window.addEventListener('scroll', requestHeaderUpdate, { passive: true });
-    window.addEventListener('resize', requestHeaderUpdate);
-    updateHeaderTheme();
-
     const slides = Array.from(hero.querySelectorAll('[data-hero-slide]'));
-    const dots = Array.from(hero.querySelectorAll('[data-hero-dot]'));
+    const currentCounter = hero.querySelector('[data-hero-current]');
+    const totalCounter = hero.querySelector('[data-hero-total]');
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let currentIndex = 0;
-    let autoplayTimer = 0;
-    let pointerStartX = 0;
-    let pointerStartY = 0;
 
-    const showSlide = (index) => {
-        currentIndex = (index + slides.length) % slides.length;
+    let currentIndex = 0;
+    let autoPlayTimer = 0;
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    const setActiveSlide = (index) => {
+        if (!slides.length || index < 0 || index >= slides.length) return;
+
         slides.forEach((slide, slideIndex) => {
-            const isCurrent = slideIndex === currentIndex;
-            slide.classList.toggle('is-active', isCurrent);
-            slide.setAttribute('aria-hidden', String(!isCurrent));
+            const isActive = slideIndex === index;
+            slide.classList.toggle('is-active', isActive);
+            slide.setAttribute('aria-hidden', String(!isActive));
         });
-        dots.forEach((dot, dotIndex) => {
-            if (dotIndex === currentIndex) dot.setAttribute('aria-current', 'true');
-            else dot.removeAttribute('aria-current');
-        });
+
+        if (currentCounter) currentCounter.textContent = String(index + 1);
+        if (totalCounter) totalCounter.textContent = String(slides.length);
+        currentIndex = index;
     };
 
-    const stopAutoplay = () => window.clearTimeout(autoplayTimer);
-    const startAutoplay = () => {
-        stopAutoplay();
-        if (reducedMotion.matches || document.hidden || slides.length < 2) return;
-        autoplayTimer = window.setTimeout(() => {
-            showSlide(currentIndex + 1);
-            startAutoplay();
+    const stopAutoPlay = () => {
+        window.clearInterval(autoPlayTimer);
+        autoPlayTimer = 0;
+    };
+
+    const startAutoPlay = () => {
+        stopAutoPlay();
+        if (reducedMotion.matches || slides.length < 2) return;
+
+        autoPlayTimer = window.setInterval(() => {
+            setActiveSlide((currentIndex + 1) % slides.length);
         }, 4500);
     };
 
-    dots.forEach((dot) => {
-        dot.addEventListener('click', () => {
-            showSlide(Number(dot.dataset.heroDot || 0));
-            startAutoplay();
-        });
+    hero.addEventListener('touchstart', (event) => {
+        const touch = event.changedTouches[0];
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+        stopAutoPlay();
+    }, { passive: true });
 
-        dot.addEventListener('keydown', (event) => {
-            if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key)) return;
+    hero.addEventListener('touchend', (event) => {
+        const touch = event.changedTouches[0];
+        const deltaX = touch.clientX - touchStartX;
+        const deltaY = touch.clientY - touchStartY;
 
-            event.preventDefault();
-            const dotIndex = dots.indexOf(dot);
-            let nextIndex = dotIndex;
-            if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') nextIndex = (dotIndex - 1 + dots.length) % dots.length;
-            if (event.key === 'ArrowRight' || event.key === 'ArrowDown') nextIndex = (dotIndex + 1) % dots.length;
-            if (event.key === 'Home') nextIndex = 0;
-            if (event.key === 'End') nextIndex = dots.length - 1;
-
-            showSlide(nextIndex);
-            dots[nextIndex].focus();
-            stopAutoplay();
-        });
-    });
-
-    hero.addEventListener('pointerdown', (event) => {
-        pointerStartX = event.clientX;
-        pointerStartY = event.clientY;
-        stopAutoplay();
-    });
-
-    hero.addEventListener('pointerup', (event) => {
-        const distanceX = event.clientX - pointerStartX;
-        const distanceY = event.clientY - pointerStartY;
-        if (Math.abs(distanceX) > 45 && Math.abs(distanceX) > Math.abs(distanceY)) {
-            showSlide(currentIndex + (distanceX < 0 ? 1 : -1));
+        if (Math.abs(deltaX) >= 40 && Math.abs(deltaX) > Math.abs(deltaY)) {
+            const direction = deltaX < 0 ? 1 : -1;
+            setActiveSlide((currentIndex + direction + slides.length) % slides.length);
         }
-        startAutoplay();
+        startAutoPlay();
+    }, { passive: true });
+
+    hero.addEventListener('mouseenter', stopAutoPlay);
+    hero.addEventListener('mouseleave', startAutoPlay);
+    hero.addEventListener('focusin', stopAutoPlay);
+    hero.addEventListener('focusout', startAutoPlay);
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) stopAutoPlay();
+        else startAutoPlay();
     });
 
-    hero.addEventListener('pointercancel', startAutoplay);
+    const handleReducedMotion = (event) => {
+        if (event.matches) stopAutoPlay();
+        else startAutoPlay();
+    };
 
-    hero.addEventListener('focusin', stopAutoplay);
-    hero.addEventListener('focusout', startAutoplay);
-    document.addEventListener('visibilitychange', startAutoplay);
-    reducedMotion.addEventListener('change', startAutoplay);
+    if (typeof reducedMotion.addEventListener === 'function') {
+        reducedMotion.addEventListener('change', handleReducedMotion);
+    } else if (typeof reducedMotion.addListener === 'function') {
+        reducedMotion.addListener(handleReducedMotion);
+    }
 
-    showSlide(0);
-    startAutoplay();
+    setActiveSlide(0);
+    startAutoPlay();
 }());

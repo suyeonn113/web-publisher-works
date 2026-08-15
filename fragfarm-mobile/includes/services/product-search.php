@@ -19,6 +19,30 @@ function normalizeSearchText($value): string
     return trim($text);
 }
 
+function highlightProductSearchTerm(string $value, string $keyword): string
+{
+    $keyword = trim($keyword);
+
+    if ($keyword === '') {
+        return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+    }
+
+    $pattern = '/(' . preg_quote($keyword, '/') . ')/iu';
+    $parts = preg_split($pattern, $value, -1, PREG_SPLIT_DELIM_CAPTURE);
+
+    if ($parts === false) {
+        return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+    }
+
+    return implode('', array_map(static function (string $part) use ($pattern): string {
+        $escapedPart = htmlspecialchars($part, ENT_QUOTES, 'UTF-8');
+
+        return preg_match($pattern, $part) === 1
+            ? '<mark class="search-highlight">' . $escapedPart . '</mark>'
+            : $escapedPart;
+    }, $parts));
+}
+
 function getProductCategorySearchTerms($category): array
 {
     $aliasMap = [
@@ -79,7 +103,7 @@ function buildProductSearchHaystack(array $product): string
 
 function searchProducts(array $products, array $state): array
 {
-    $itemsPerPage = 10;
+    $itemsPerPage = 16;
     $keyword = normalizeSearchText($state['q']);
 
     if ($keyword === '') {
