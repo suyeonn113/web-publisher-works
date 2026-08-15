@@ -47,7 +47,9 @@ $descriptionLines = array_values(array_filter(
         },
         preg_split('/\R+/', (string) ($product['description'] ?? ''))
     ),
-    static fn($line) => preg_match('/[\p{L}\p{N}]/u', $line) === 1
+    static function ($line) {
+        return preg_match('/[\p{L}\p{N}]/u', $line) === 1;
+    }
 ));
 $details = $product['details'] ?? [];
 $images = $product['images'] ?? [];

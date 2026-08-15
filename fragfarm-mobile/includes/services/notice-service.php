@@ -124,7 +124,7 @@ function notice_fetch_posts(mysqli $mysqli, string $keyword = '', int $page = 1,
         $mysqli,
         "SELECT id, title, content, image_src, created_at FROM fragfarm_posts {$where} ORDER BY created_at DESC, id DESC LIMIT ? OFFSET ?"
     );
-    $listParams = [...$params, $perPage, $offset];
+    $listParams = array_merge($params, [$perPage, $offset]);
     $listTypes = $types . 'ii';
 
     mysqli_stmt_bind_param($listStmt, $listTypes, ...$listParams);
@@ -162,7 +162,9 @@ function notice_fetch_post(mysqli $mysqli, int $id): ?array
 
 function notice_build_url(array $params = []): string
 {
-    $query = array_filter($params, static fn($value) => $value !== '' && $value !== null);
+    $query = array_filter($params, static function ($value) {
+        return $value !== '' && $value !== null;
+    });
 
     return empty($query) ? 'notice.php' : 'notice.php?' . http_build_query($query);
 }

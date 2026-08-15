@@ -2873,7 +2873,9 @@ $officialDetailImages = [
 
 $products = array_values(array_filter(
     $products,
-    static fn ($product) => in_array($product['id'] ?? '', $officialCardProductIds, true)
+    static function ($product) use ($officialCardProductIds) {
+        return in_array($product['id'] ?? '', $officialCardProductIds, true);
+    }
 ));
 
 foreach ($products as &$product) {
@@ -2894,7 +2896,9 @@ foreach ($products as &$product) {
 
         $product['state'] = array_values(array_filter(
             $product['state'] ?? [],
-            static fn ($state) => $state !== 'soldout'
+            static function ($state) {
+                return $state !== 'soldout';
+            }
         ));
         $product['stock'] = max(3, (int) ($product['stock'] ?? 0));
         $product['soldOut'] = false;
@@ -2914,7 +2918,9 @@ foreach ($products as &$product) {
     ];
     $product['images'] = array_values(array_filter(
         $product['images'] ?? [],
-        static fn ($image) => ($image['src'] ?? '') !== $product['cardImage']['src']
+        static function ($image) use ($product) {
+            return ($image['src'] ?? '') !== $product['cardImage']['src'];
+        }
     ));
 
     if (!$product['soldOut']) {
@@ -2922,10 +2928,12 @@ foreach ($products as &$product) {
             $product['images'],
             array_values($productVariantImages[$catalogId] ?? []),
             array_map(
-                static fn ($file, $index) => [
-                    'src' => '/assets/images/products/' . $file,
-                    'alt' => $product['name'] . ' 상세 이미지 ' . ($index + 1),
-                ],
+                static function ($file, $index) use ($product) {
+                    return [
+                        'src' => '/assets/images/products/' . $file,
+                        'alt' => $product['name'] . ' 상세 이미지 ' . ($index + 1),
+                    ];
+                },
                 $officialDetailImages[$catalogId] ?? [],
                 array_keys($officialDetailImages[$catalogId] ?? [])
             )
