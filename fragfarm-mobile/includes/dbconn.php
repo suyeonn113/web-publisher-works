@@ -38,6 +38,11 @@ if (!$mysqli && $dbConfig['host'] === 'localhost') {
 
 if (!$mysqli) {
     error_log('Fragfarm DB connection failed: ' . mysqli_connect_error());
+    if (defined('FRAGFARM_DB_OPTIONAL') && FRAGFARM_DB_OPTIONAL === true) {
+        $mysqli = null;
+        return;
+    }
+
     header('Location: ' . BASE_URL . '/error.php');
     exit;
 }

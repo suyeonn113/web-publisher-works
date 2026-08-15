@@ -2,8 +2,8 @@
 
 function notice_database_is_configured(): bool
 {
-    if (!defined('FRAGFARM_DEMO_MODE') || !FRAGFARM_DEMO_MODE) {
-        return true;
+    if (!defined('FRAGFARM_DEMO_MODE')) {
+        return false;
     }
 
     $config = [
