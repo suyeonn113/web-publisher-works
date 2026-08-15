@@ -72,7 +72,7 @@ foreach ($products as $product) {
                     $productThumbnail = $reviewThumbnail;
 
                     foreach ($reviewImages as $reviewImage) {
-                        if (str_contains((string) $reviewImage, '/assets/images/products/')) {
+                        if (strpos((string) $reviewImage, '/assets/images/products/') !== false) {
                             $productThumbnail = $reviewImage;
                             break;
                         }

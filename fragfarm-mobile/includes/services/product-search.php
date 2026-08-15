@@ -117,7 +117,7 @@ function searchProducts(array $products, array $state): array
     }
 
     $matchedProducts = array_values(array_filter($products, function ($product) use ($keyword) {
-        return str_contains(buildProductSearchHaystack($product), $keyword);
+        return strpos(buildProductSearchHaystack($product), $keyword) !== false;
     }));
 
     usort($matchedProducts, function ($a, $b) {

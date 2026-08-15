@@ -2853,7 +2853,7 @@ foreach ($products as $catalogEntry) {
 
     foreach ($catalogEntry['images'] ?? [] as $image) {
         $src = (string) ($image['src'] ?? '');
-        if ($src === '' || str_ends_with($src, '-card.png')) {
+        if ($src === '' || substr($src, -9) === '-card.png') {
             continue;
         }
 

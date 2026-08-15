@@ -24,7 +24,7 @@ function notice_database_is_configured(): bool
     foreach (['host', 'user', 'database'] as $key) {
         $value = trim((string) ($config[$key] ?? ''));
 
-        if ($value === '' || str_starts_with($value, 'DOTHOME_')) {
+        if ($value === '' || strpos($value, 'DOTHOME_') === 0) {
             return false;
         }
     }
