@@ -1,5 +1,7 @@
 <?php
 $isLoggedIn = isset($_SESSION['member_id']);
+$accountHref = $isLoggedIn ? BASE_URL . '/pages/mypage.php' : BASE_URL . '/pages/login.php';
+$accountLabel = $isLoggedIn ? 'MYPAGE' : 'LOGIN';
 ?>
 
 <!-- Skip Link -->
@@ -50,7 +52,7 @@ $isLoggedIn = isset($_SESSION['member_id']);
 <nav class="header-drawer" id="gnb" aria-label="사이트 메뉴" data-header-drawer hidden>
     <ul class="header-drawer__list">
         <li><a href="<?= BASE_URL ?>/pages/lookbook.php">SEASON BOOK</a></li>
-        <li class="header-drawer__item--right"><a href="<?= BASE_URL ?>/pages/mypage.php">MYPAGE</a></li>
+        <li class="header-drawer__item--right"><a href="<?= $accountHref ?>" aria-label="<?= $accountLabel ?>" data-demo-login-link><?= $accountLabel ?></a></li>
         <li><a href="<?= BASE_URL ?>/pages/about.php">ABOUT US</a></li>
         <li class="header-drawer__item--right"><a href="<?= BASE_URL ?>/pages/notice.php">NOTICE</a></li>
         <li><a href="https://www.instagram.com/fragfarm.house/" target="_blank" rel="noopener noreferrer">INSTAGRAM</a></li>

@@ -2,7 +2,7 @@
 
 function notice_database_is_configured(): bool
 {
-    if (!defined('FRAGFARM_DEMO_MODE')) {
+    if (!defined('FRAGFARM_DEMO_MODE') || FRAGFARM_DEMO_MODE) {
         return false;
     }
 
@@ -11,7 +11,7 @@ function notice_database_is_configured(): bool
         'user' => getenv('FRAGFARM_DB_USER') ?: '',
         'database' => getenv('FRAGFARM_DB_NAME') ?: '',
     ];
-    $localConfigPath = __DIR__ . '/../db.local.php';
+    $localConfigPath = __DIR__ . '/../../db.local.php';
 
     if (is_file($localConfigPath)) {
         $localConfig = require $localConfigPath;

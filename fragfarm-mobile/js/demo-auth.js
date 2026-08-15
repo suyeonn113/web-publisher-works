@@ -16,6 +16,7 @@
         link.dataset.state = loggedIn ? 'logged-in' : 'logged-out';
         link.href = loggedIn ? `${baseUrl}/pages/mypage.php` : `${baseUrl}/pages/login.php`;
         link.setAttribute('aria-label', loggedIn ? '마이페이지' : '로그인');
+        link.textContent = loggedIn ? 'MYPAGE' : 'LOGIN';
     };
 
     document.addEventListener('DOMContentLoaded', () => {

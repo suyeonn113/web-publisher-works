@@ -10,7 +10,7 @@ $dbConfig = [
     'database' => getenv('FRAGFARM_DB_NAME') ?: '',
 ];
 
-$localConfigPath = __DIR__ . '/db.local.php';
+$localConfigPath = __DIR__ . '/../db.local.php';
 
 if (is_file($localConfigPath)) {
     $localConfig = require $localConfigPath;
