@@ -3,11 +3,11 @@
 /* Scroll reveal promotion card */
 .popup {
     position: fixed;
-    right: 50%;
+    right: max(var(--space-3), calc((100vw - var(--shell-width, 480px)) / 2 + var(--space-3)));
     bottom: var(--space-3);
     z-index: 20000;
-    width: min(calc(100% - (var(--space-4) * 2)), calc(var(--shell-width, 480px) - (var(--space-4) * 2)));
-    transform: translate(50%, calc(100% + var(--space-6)));
+    width: min(70vw, 336px);
+    transform: translateY(calc(100% + var(--space-6)));
     opacity: 0;
     pointer-events: none;
     transition:
@@ -16,7 +16,7 @@
 }
 
 .popup.is-visible {
-    transform: translate(50%, 0);
+    transform: translateY(0);
     opacity: 1;
     pointer-events: auto;
 }

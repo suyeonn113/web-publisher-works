@@ -122,7 +122,7 @@ $saleProducts = array_values(array_filter($products, function ($product) {
             role="dialog"
             aria-modal="false"
             aria-label="프래그팜 프로모션 안내">
-                <img class="popup__media" src="<?= BASE_URL ?>/assets/images/popup.png" alt="프래그팜 프로모션 안내">
+                <img class="popup__media" src="<?= BASE_URL ?>/assets/images/popup-new-season.webp" alt="꽃밭에서 토끼를 만나는 소녀와 프래그팜 뉴 시즌 안내">
                 <div class="popup__actions">
                     <button class="popup__dismiss" type="button">오늘 다시 보지 않기</button>
                     <button class="popup__close" type="button" aria-label="팝업 닫기">닫기</button>
