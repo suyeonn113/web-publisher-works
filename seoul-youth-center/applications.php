@@ -98,7 +98,7 @@ $lifelongApplications = array_values(array_filter($applications, static fn(array
 function renderApplicationRows(array $items, string $type, array $openYouthIds, array $openLifelongIds): void
 {
     if ($items === []) {
-        echo '<tr><td colspan="6" class="applications-board__empty">조회된 신청내역이 없습니다.</td></tr>';
+        echo '<tr><td colspan="6" class="applications-board__empty"><div class="empty-state">조회된 신청내역이 없습니다.</div></td></tr>';
         return;
     }
 
@@ -151,7 +151,7 @@ function renderApplicationRows(array $items, string $type, array $openYouthIds, 
             <button class="control control--search" type="submit">나의 신청현황</button>
         </form>
         <?php if (ENV === 'local'): ?><aside class="application-master type-label" aria-label="로컬 테스트용 마스터 조회 정보"><strong>로컬 테스트용 마스터</strong><dl><div><dt>신청자명</dt><dd>마스터</dd></div><div><dt>휴대전화</dt><dd>01000000000</dd></div><div><dt>비밀번호</dt><dd>1234</dd></div></dl></aside><?php endif; ?>
-        <?php if ($lookupError !== ''): ?><p class="application-lookup__error type-body" role="alert"><?= htmlspecialchars($lookupError, ENT_QUOTES, 'UTF-8') ?></p><?php endif; ?>
+        <?php if ($lookupError !== ''): ?><p class="application-lookup__error empty-state type-body" role="alert"><?= htmlspecialchars($lookupError, ENT_QUOTES, 'UTF-8') ?></p><?php endif; ?>
         <aside class="application-lookup-guide type-body" aria-labelledby="application-lookup-guide-title"><h2 id="application-lookup-guide-title"><span aria-hidden="true">i</span>신청내역 조회 전 꼭 확인해 주세요</h2><ul><li>신청할 때 입력한 신청자명, 휴대전화, 비밀번호가 모두 일치해야 합니다.</li><li>청소년 프로그램과 평생교육 프로그램 신청내역이 구분되어 표시됩니다.</li><li>진행 상태에 따라 신청 정보 수정과 취소가 제한될 수 있습니다.</li></ul></aside>
     </section>
 

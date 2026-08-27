@@ -211,7 +211,7 @@ $pagedPrograms = array_slice($programs, $pageOffset, $programsPerPage);
 
     <section class="program-list" aria-label="청소년 활동 신청 프로그램 목록">
         <?php if (empty($pagedPrograms)): ?>
-            <p class="program-list__empty type-body">조건에 맞는 프로그램이 없습니다.</p>
+            <p class="program-list__empty empty-state type-body">조건에 맞는 프로그램이 없습니다.</p>
         <?php else: ?>
             <?php foreach ($pagedPrograms as $program): ?>
                 <?php

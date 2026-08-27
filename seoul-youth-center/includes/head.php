@@ -23,6 +23,7 @@
     <!-- Components -->
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/components/controls.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/components/icons.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/css/components/empty-state.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/css/components/program-card.css">
     
     <!-- pages -->

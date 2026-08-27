@@ -1,0 +1,14 @@
+@charset "utf-8";
+
+/* ========================================
+   Shared Empty State
+======================================== */
+
+.empty-state {
+    padding: var(--section-space) var(--gap-m);
+    color: var(--color-text-muted);
+    text-align: center;
+    background: var(--color-surface-subtle);
+    border: 0;
+    border-radius: var(--radius-md);
+}

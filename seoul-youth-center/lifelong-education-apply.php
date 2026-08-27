@@ -86,7 +86,7 @@ $hasFilters = $groupFilter !== '' || $categoryFilter !== '' || $keyword !== '';
             <p class="lifelong-course-results__count type-body">총 <strong><?= count($classes) ?></strong>개</p>
 
             <?php if ($classes === []): ?>
-                <p class="lifelong-course-results__empty type-body">조건에 맞는 강좌가 없습니다.</p>
+                <p class="lifelong-course-results__empty empty-state type-body">조건에 맞는 강좌가 없습니다.</p>
             <?php else: ?>
                 <div class="lifelong-course-table-wrap">
                     <table class="lifelong-course-table">

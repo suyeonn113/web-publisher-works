@@ -136,12 +136,6 @@
 
 .application-lookup__error {
     width: min(100%, 54rem);
-    padding: var(--gap-m);
-    color: var(--color-error);
-    text-align: left;
-    border: 1px solid #f3b4ad;
-    border-radius: var(--radius-sm);
-    background: #fff4f2;
 }
 
 .application-lookup-guide {
@@ -204,9 +198,8 @@
 }
 
 .applications-board td.applications-board__empty {
-    padding-block: calc(var(--gap-l) + var(--gap-m));
-    color: var(--color-text-muted);
-    text-align: center;
+    padding: 0;
+    border-bottom: 0;
 }
 
 .application-detail-link {
@@ -266,6 +259,10 @@
     min-width: 58rem;
     table-layout: fixed;
     border-top: 2px solid var(--color-line);
+}
+
+.applications-board table:has(.applications-board__empty) {
+    border-top: 0;
 }
 
 .applications-board :is(th, td):nth-child(1) { width: 37%; }
@@ -338,6 +335,11 @@
         border-radius: var(--radius-sm);
         overflow: hidden;
         background: var(--color-background);
+    }
+
+    .applications-board tr:has(> .applications-board__empty) {
+        border: 0;
+        border-radius: var(--radius-md);
     }
 
     .applications-board td {
