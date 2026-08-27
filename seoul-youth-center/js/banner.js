@@ -1,14 +1,13 @@
-
 document.addEventListener('DOMContentLoaded', () => {
     const banner = document.querySelector('.banner');
     if (!banner) return;
 
-    const bannerList = document.querySelector('.banner__list');
+    const bannerList = banner.querySelector('.banner__list');
     const bannerItems = Array.from(banner.querySelectorAll('.banner__item'));
-    const prevButton = document.querySelector('.banner__prev');
-    const nextButton = document.querySelector('.banner__next');
-    const pauseButton = document.querySelector('.banner__pause');
-    const countText = document.querySelector('.banner__count');
+    const prevButton = banner.querySelector('.banner__prev');
+    const nextButton = banner.querySelector('.banner__next');
+    const pauseButton = banner.querySelector('.banner__pause');
+    const countText = banner.querySelector('.banner__count');
 
     if (
         !bannerList ||
@@ -20,19 +19,16 @@ document.addEventListener('DOMContentLoaded', () => {
     ) return;
 
     const total = bannerItems.length;
+    const autoDelay = 3000;
+    const threshold = 50;
+
     let currentIndex = 0;
     let autoSlideId = null;
     let isPlaying = true;
-    const autoDelay = 3000;
-    
     let startX = 0;
     let endX = 0;
-    const threshold = 50;
 
     function updatePauseButton() {
-        const PAUSE_PATH = 'M10 8V15.6M14 15.6V8';
-        const PLAY_PATH = 'M9 12.0157V9.95824C9 7.7193 10.0813 7.61459 11.737 8.57416L13.3417 9.50602L14.7582 10.4195C16.4139 11.3791 16.4139 12.6893 14.7582 13.6488L13.3417 14.5438L11.737 15.3916C10.0813 16.3512 9 16.3491 9 14.1102V12.0157';
-
         pauseButton.setAttribute(
             'aria-label',
             isPlaying ? '자동재생 일시정지' : '자동재생 다시 시작'
@@ -43,9 +39,13 @@ document.addEventListener('DOMContentLoaded', () => {
         );
         pauseButton.dataset.state = isPlaying ? 'playing' : 'paused';
 
-        const symbolPath = pauseButton.querySelector('.icon__symbol');
-        if (symbolPath) {
-            symbolPath.setAttribute('d', isPlaying ? PAUSE_PATH : PLAY_PATH);
+        const iconUse = pauseButton.querySelector('use');
+        if (iconUse) {
+            const baseUrl = window.APP_BASE_URL || '';
+            iconUse.setAttribute(
+                'href',
+                `${baseUrl}/assets/icons/lucide-ui.svg#${isPlaying ? 'pause' : 'play'}`
+            );
         }
     }
 
@@ -68,24 +68,43 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function updateBanner() {
-        bannerList.style.transform = `translateX(-${currentIndex * 100}%)`;
+    function setActiveItem(index, animate = true) {
+        bannerItems.forEach((item, itemIndex) => {
+            item.style.transition = animate ? '' : 'none';
+            item.dataset.active = itemIndex === index ? 'true' : 'false';
+        });
+
+        if (!animate) {
+            bannerList.getBoundingClientRect();
+            bannerItems.forEach((item) => {
+                item.style.removeProperty('transition');
+            });
+        }
+    }
+
+    function updateBanner(animate = true) {
+        setActiveItem(currentIndex, animate);
         updateCount();
         updateItemsA11y();
     }
 
     function goNext() {
+        if (total <= 1) return;
+
         currentIndex = (currentIndex + 1) % total;
         updateBanner();
     }
 
     function goPrev() {
+        if (total <= 1) return;
+
         currentIndex = (currentIndex - 1 + total) % total;
         updateBanner();
     }
 
     function startAutoSlide() {
         stopAutoSlide();
+        if (total <= 1) return;
         autoSlideId = window.setInterval(goNext, autoDelay);
     }
 
@@ -130,29 +149,31 @@ document.addEventListener('DOMContentLoaded', () => {
         updatePauseButton();
     });
 
-    banner.addEventListener('touchstart', (e) => {
-        startX = e.touches[0].clientX;
+    banner.addEventListener('touchstart', (event) => {
+        startX = event.touches[0].clientX;
     });
 
-    banner.addEventListener('touchend', (e) => {
-        endX = e.changedTouches[0].clientX;
+    banner.addEventListener('touchend', (event) => {
+        endX = event.changedTouches[0].clientX;
 
         const diff = startX - endX;
-
         if (Math.abs(diff) < threshold) return;
 
         if (diff > 0) {
-            goNext(); // 왼쪽으로 밀면 다음
+            goNext();
         } else {
-            goPrev(); // 오른쪽으로 밀면 이전
+            goPrev();
         }
 
         if (isPlaying) startAutoSlide();
     });
 
-    // 초기값
-    bannerList.style.transition = 'transform 0.4s ease';
+    if (total <= 1) {
+        prevButton.disabled = true;
+        nextButton.disabled = true;
+    }
+
     updatePauseButton();
-    updateBanner();
+    updateBanner(false);
     startAutoSlide();
 });

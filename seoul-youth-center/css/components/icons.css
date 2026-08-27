@@ -1,116 +1,158 @@
 @charset "utf-8";
 
-:root {
-
-    /* ========================
-        Icon Tokens
-    ======================== */
-
-    --icon-size-2xs: var(--fs-6);
-    --icon-size-xs: var(--fs-8);
-    --icon-size-sm: var(--fs-14);
-    --icon-size-md: var(--fs-16);
-    --icon-size-lg: var(--fs-28);
-}
-
-@media (min-width: 768px) {
+/* ========================================
+   Icon: Compact
+======================================== */
 
 :root {
-    --icon-size-xs: var(--fs-10);
-    --icon-size-sm: var(--fs-16);
-    --icon-size-md: var(--fs-28);
-    --icon-size-lg: var(--fs-36);
-}
-}
-
-@media (min-width: 1248px) {
-
-:root {
-    --icon-size-xs: var(--fs-12);
-    --icon-size-sm: var(--fs-16);
-    --icon-size-md: var(--fs-32);
-    --icon-size-lg: var(--fs-48);
-}
+    --icon-s: 1rem;
+    --icon-m: 1.25rem;
+    --icon-l: 1.5rem;
+    --icon-xl: 2rem;
+    --icon-glyph-inset: 0.0625em;
+    --icon-text-gap: 0.375em;
+    --icon-stroke-regular: 1.75;
+    --icon-stroke-strong: 2;
+    --icon-stroke-heavy: 2.5;
+    --icon-action-frame-size: 2.5rem;
+    --more-icon-frame-size: 2rem;
 }
 
+/* ========================================
+   Icon: Standard
+======================================== */
 
+@media (min-width: 48rem) {
+    :root {
+        --icon-s: 1.125rem;
+        --icon-m: 1.375rem;
+        --icon-l: 1.75rem;
+        --icon-xl: 2.25rem;
+    }
+}
 
-/* ==================== Moblie - Base ==================== */
+/* ========================================
+   Icon: Wide
+======================================== */
+
+@media (min-width: 96rem) {
+    :root {
+        --icon-s: 1.25rem;
+        --icon-m: 1.5rem;
+        --icon-l: 2rem;
+        --icon-xl: 2.5rem;
+    }
+}
+
+/* ========================================
+   Shared Icon Base
+======================================== */
 
 .button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    
-    padding-block: .625rem;
 }
 
 .icon {
     display: block;
-
-    width: var(--fs-16);
+    flex: 0 0 auto;
+    width: var(--icon-s);
+    height: auto;
     aspect-ratio: 1 / 1;
+    padding: var(--icon-inset, var(--icon-glyph-inset));
+    overflow: visible;
 
     fill: none;
-    stroke: var(--color-text-default);
-    
-    stroke-width: 1.5;
+    stroke: currentColor;
+    stroke-width: var(--icon-stroke, var(--icon-stroke-regular));
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-miterlimit: 10;
 }
 
+/* 글자 옆 기능 아이콘: 글자 크기를 따라가고 동일한 간격과 굵기를 쓴다. */
+.icon--text {
+    width: 1em;
+    height: 1em;
+    padding: var(--icon-text-inset, var(--icon-glyph-inset));
+    overflow: visible;
+    stroke-width: var(--text-icon-stroke, var(--icon-stroke-strong));
+}
+
+/* PNG/SVG 이미지 아이콘도 같은 정사각 작업 영역을 사용한다. */
+.icon-image {
+    display: block;
+    flex: 0 0 auto;
+    width: var(--icon-image-size, 1em);
+    height: var(--icon-image-size, 1em);
+    padding: var(--icon-image-inset, var(--icon-glyph-inset));
+    object-fit: contain;
+    object-position: center;
+    border-radius: var(--icon-image-radius, var(--radius-sm));
+}
+
+/* 아이콘만 있는 조작 요소의 공통 프레임. 크기와 배경은 각 컴포넌트가 결정한다. */
+.icon-frame {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1 / 1;
+    border-radius: var(--icon-frame-radius, var(--radius-sm));
+}
+
+.icon-frame--round {
+    --icon-frame-radius: var(--radius-full);
+}
+
+/* 더보기 계열은 Lucide Plus 원본 SVG와 공통 정사각 프레임을 사용한다. */
+.button--more__icon {
+    width: var(--more-icon-frame-size);
+    height: var(--more-icon-frame-size);
+    padding: calc((var(--more-icon-frame-size) - var(--icon-s)) / 2);
+    overflow: visible;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-sm);
+    background: var(--color-background);
+    transition:
+        transform 200ms ease,
+        border-color 180ms ease,
+        background-color 180ms ease,
+        box-shadow 180ms ease;
+}
+
+.button--more:focus-visible .button--more__icon {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px var(--color-primary-20);
+}
+
 /* ========== Gloval-nav ========== */
 
 .icon--search {
-    stroke: var(--color-text-on);
+    stroke: var(--color-text);
+    transition: width 180ms ease;
 }
 
 .search[data-state="open"] .icon--search {
-    width: var(--fs-18);
+    width: var(--icon-m);
     aspect-ratio: 1 / 1;
-    stroke-width: 1.8;
+    stroke-width: var(--icon-stroke-regular);
 }
 
 .icon--export {
-    stroke-width: 2;
-}
-.main-menu__link:hover .icon--export,
-.main-menu__link:focus-visible .icon--export {
-    stroke: var(--color-text-on);
-    stroke-width: 4;
+    stroke-width: var(--text-icon-stroke, var(--icon-stroke-strong));
 }
 
-/* FIXED: resolves SVG glitch */
-.fill-full {
-    fill: var(--color-text-default);
-    stroke-width: 0;
+.main-menu__link .icon--export {
+    stroke-width: var(--header-menu-icon-stroke);
+}
+
+.main-menu__link:is(:hover, :focus-visible) .icon--export {
+    stroke: var(--color-text);
 }
 
 .icon--quick-menu {
-    width: var(--fs-20);
+    width: var(--icon-m);
     aspect-ratio: 1 / 1;
-}
-
-.icon--home {
-    width: var(--fs-18);
-    aspect-ratio: 1 / 1;
-}
-.icon--home__background {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 1.5rem;
-    aspect-ratio: 1 / 1;
-    background: var(--color-yellow);
-    border-radius: var(--radius-full);
-}
-
-.quick-menu .icon--menu-all,
-.quick-menu .icon--education,
-.quick-menu .icon--contact {
-    fill: var(--color-white);
 }
 
 
@@ -118,188 +160,109 @@
 
 /* ===== Quick Menu ===== */
 .quick-menu--home__link .icon--youth {
-    width: var(--fs-40);
+    width: var(--icon-xl);
     aspect-ratio: 1 / 1;
 }
 /* FIXED: resolves SVG glitch */
 .stroke {
-    stroke-width: 2.5;
+    --icon-stroke: var(--icon-stroke-heavy);
 }
 .no-stroke {
-    stroke-width: 0;
+    --icon-stroke: 0;
 }
 
 /* ===== Banner ===== */
 
 .banner .icon--prev,
-.banner .icon--next,
-.banner .icon--pause,
-.banner .icon--play {
-    width: var(--fs-36);
-    aspect-ratio: 1 / 1;
-
-    fill: var(--color-text-default-70);
-    stroke: var(--color-text-on);
-    stroke-width: 2;
-}
-.icon__symbol {
+.banner .icon--next {
+    width: var(--icon-s);
+    height: var(--icon-s);
     fill: none;
+    stroke: currentColor;
+    stroke-width: var(--icon-stroke-heavy);
 }
 
-
-/* ===== Programs ===== */
-@media (min-width: 480px) {
-.programs__prev .icon--prev,
-.programs__next .icon--next,
-.education__prev .icon--prev,
-.education__next .icon--next,
-.gallery__prev .icon--prev,
-.gallery__next .icon--next {
-    width: var(--fs-28);
-    aspect-ratio: 1 / 1;
-
-    fill: transparent;
-    stroke: var(--color-orange);
+.banner .icon--pause {
+    width: var(--icon-s);
+    height: var(--icon-s);
 }
-
-.programs__prev[data-available="true"] .icon--prev,
-.programs__next[data-available="true"] .icon--next,
-.education__prev[data-available="true"] .icon--prev,
-.education__next[data-available="true"] .icon--next,
-.gallery__prev[data-available="true"] .icon--prev,
-.gallery__next[data-available="true"] .icon--next {
-    fill: var(--color-orange-20);
-}
-
-.programs__prev:disabled .icon--prev,
-.programs__next:disabled .icon--next,
-.education__prev:disabled .icon--prev,
-.education__next:disabled .icon--next,
-.gallery__prev:disabled .icon--prev,
-.gallery__next:disabled .icon--next {
-    stroke: var(--color-orange);
-    opacity: 0.45;
-}
-}
-
 /* ===== Related Links ===== */
 .icon--toggle {
-    stroke: var(--color-text-default-soft);
+    --text-icon-stroke: var(--icon-stroke-heavy);
+
+    width: var(--icon-m);
+    height: var(--icon-m);
+    padding: 0;
+    stroke: var(--color-text-muted);
 }
 
 
 /* ==================== Tablet ==================== */
 
-@media (min-width: 768px) {
+@media (min-width: 48rem) {
 
 /* ========== Gloval-nav ========== */
 
-.search[data-state="open"] .icon--search {
-    width: var(--fs-20);
-    aspect-ratio: 1 / 1;
-    stroke-width: 2;
+.search[data-state="inline"]:focus-within .icon--search {
+    width: var(--icon-m);
 }
 
-.icon--export {
-    stroke-width: 2.5;
+.search[data-state="open"] .icon--search {
+    width: var(--icon-m);
+    aspect-ratio: 1 / 1;
+    stroke-width: var(--icon-stroke-strong);
 }
 
 .icon--quick-menu {
-    width: var(--fs-28);
+    width: var(--icon-l);
     aspect-ratio: 1 / 1;
 }
 
-.icon--home__background {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: var(--fs-36);
-    height: var(--fs-36);
-}
-.icon--home {
-    width: 1.5rem;
-    height: 1.5rem;
-}
    
 
-/* ========== Home ========== */
-
-.banner .icon--prev,
-.banner .icon--next,
-.banner .icon--pause,
-.banner .icon--play {
-    width: var(--fs-44);
-    aspect-ratio: 1 / 1;
-}
-
-/* ===== Programs ===== */
-.programs__prev .icon--prev,
-.programs__next .icon--next,
-.education__prev .icon--prev,
-.education__next .icon--next,
-.gallery__prev .icon--prev,
-.gallery__next .icon--next {
-    width: var(--fs-32);
-    aspect-ratio: 1 / 1;
-}
-
 }
 
 
-/* ==================== PC ==================== */
+/* ==================== Default Header ==================== */
 
-@media (min-width: 1248px) {
+@media (min-width: 48rem) {
 
 /* ========== Gloval-nav ========== */
 
-.search[data-state="open"] .icon--search {
-    width: var(--fs-16);
+.search .icon--search {
+    width: var(--icon-m);
     aspect-ratio: 1 / 1;
-    stroke-width: 2;
+    stroke-width: var(--icon-stroke-strong);
 }
 
 .icon--menu-all {
-    width: var(--fs-20);
-    aspect-ratio: 1 / 1;
+    --icon-inset: 0;
+    --icon-stroke: 1.5;
+
+    stroke-linecap: butt;
+    stroke-linejoin: miter;
 }
 
-.main-menu__link:hover .icon--export,
-.main-menu__link:focus-visible .icon--export {
-    stroke: var(--color-primary);
-    stroke-width: 3.5;
-}
-
-#menu-panel[data-menu-mode="mega"] .icon--export:hover {
-    stroke-width: 3.5;
-}
-
-
-.button--mega-menu:hover .icon--menu-all,
 .button--mega-menu:focus-visible .icon--menu-all {
-    stroke: var(--color-white);
-    stroke-width: 2;
+    stroke: var(--color-background);
 }
 
 .icon-close {
-    width: var(--fs-20);
+    width: var(--icon-m);
     aspect-ratio: 1 / 1;
-    stroke-width: 2;
+    stroke-width: var(--icon-stroke-strong);
+}
+
 }
 
 
-/* ========== Home ========== */
+/* ==================== PC Home ==================== */
 
-.banner .icon--prev,
-.banner .icon--next,
-.banner .icon--pause,
-.banner .icon--play {
-    width: var(--fs-44);
-    aspect-ratio: 1 / 1;
-}
+@media (min-width: 80rem) {
+
 
 .icon--quick-menu.icon {
-    width: var(--fs-36);
+    width: var(--icon-xl);
     aspect-ratio: 1 / 1;
 }
 }

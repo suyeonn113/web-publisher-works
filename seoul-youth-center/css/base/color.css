@@ -1,73 +1,86 @@
 @charset "utf-8";
 
-html {
-    color: var(--color-text-default);
-}
-
 :root {
+    /* ========================================
+       Brand
+    ======================================== */
 
-    /* ========================
-        Color Tokens
-    ======================== */
-
-    /* Text */
-    --color-text-default: #1F2937;
-    --color-text-default-70: rgb(31 41 55 / 70%);
-    --color-text-default-soft: #4B5563;
-
-    --color-text-primary-disabled: #757575; 
-    --color-text-secondary-disabled: #9CA3AF;
-
-    --color-text-on: #fff;
-
-    /* Brand */
     --color-primary: #EF8A36;
-    --color-primary-dark: #C66624;
-    --color-primary-accessible: #B95516;
+    --color-primary-text: #BA5612;
+    --color-primary-soft: rgb(239 138 54 / 10%);
     --color-primary-70: rgb(239 138 54 / 70%);
     --color-primary-20: rgb(239 138 54 / 20%);
     --color-primary-10: rgb(239 138 54 / 10%);
-    --color-primary-soft: rgb(205 173 147 / 10%);
+
     --color-secondary: #F6B25D;
+    --color-yellow-soft: rgb(250 204 21 / 14%);
+    --color-brand-gradient:
+        linear-gradient(
+            135deg,
+            var(--color-secondary) 0%,
+            var(--color-primary) 100%
+        );
+    --color-accent: #3C94EF;
+    --color-accent-text: #2A76BE;
+    --color-accent-20: rgb(60 148 239 / 20%);
+    --color-accent-soft: #F2F5F8;
 
-    /* Supporting accent - small informational elements only */
-    --color-accent-blue: #368FEF;
-    --color-accent-blue-dark: #2473D4;
-    --color-accent-blue-20: rgb(54 143 239 / 20%);
-    --color-accent-blue-soft: #F2F5F8;
+    /* ========================================
+       Controls
+    ======================================== */
 
-    /* Gradient - 제한된 강조 요소에만 사용 */
-    --color-accent-gradient: linear-gradient(135deg, #F6B25D 0%, #EF8A36 100%);
+    --color-control-primary: var(--color-primary);
 
-    /* Line */
+    /* ========================================
+       Text
+    ======================================== */
+
+    --color-text: #1F2937;
+    --color-text-70: rgb(31 41 55 / 70%);
+    --color-text-muted: #4B5563;
+    --color-text-disabled: #757575;
+    --color-text-subtle: #9CA3AF;
+    --color-text-inverse: #FFFFFF;
+
+    /* ========================================
+       Background & Surface
+    ======================================== */
+
+    --color-background: #FFFFFF;
+    --color-surface: #F2F5F8;
+    --color-surface-subtle: #F8FAFC;
+
+    /* ========================================
+       Line & Focus
+    ======================================== */
+
     --color-line: #E7EBEF;
-    --color-card-line: #E7EBEF;
     --color-stroke: #A9B2BB;
+    --color-focus: #17324D;
 
-    /* Legacy accent aliases - 기존 컴포넌트를 새 브랜드 팔레트로 통일 */
-    --color-orange: var(--color-primary);
-    --color-orange-70: var(--color-primary-70);
-    --color-orange-20: var(--color-primary-20);
+    /* ========================================
+       Status
+    ======================================== */
 
-    --color-yellow: var(--color-secondary);
-    --color-yellow-20: var(--color-primary-soft);
+    --color-success: #0A6847;
+    --color-success-soft: #E6F7F0;
+    --color-error: #B42318;
+    --color-error-soft: #FEE4E2;
 
-    --color-lightyellow: var(--color-primary-soft);
+    /* ========================================
+       SNS
+    ======================================== */
 
-    --color-purple: var(--color-accent-blue);
-
-    --color-gray: #9CA3AF;
-
-    /* Background */
-    --color-lightblue: var(--color-accent-blue-soft);
-    --color-lightgray: #E7EBEF;
-    --color-beige: var(--color-primary-soft);
-    --color-white: #fff;
-
-    /* SNS */
-    --color-instagram: linear-gradient(90deg,#F58529 0%, #DD2A7B 50%, #8134AF 100%);
+    --color-instagram:
+        linear-gradient(
+            90deg,
+            #F58529 0%,
+            #DD2A7B 50%,
+            #8134AF 100%
+        );
     --color-youtube: #FF0000;
     --color-facebook: #4267B2;
-    --color-naverblog: #2AA800;
+    --color-naver-blog: #2AA800;
     --color-kakao: #F9E000;
+
 }

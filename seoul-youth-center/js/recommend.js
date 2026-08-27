@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const AUTOPLAY_DELAY = 5200;
+    const SWIPE_THRESHOLD = 50;
 
     let programCount = 0;
     let currentIndex = 0;
@@ -23,9 +24,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let isPointerInside = false;
     let isFocusInside = false;
     let requestController = null;
+    let swipePointerId = null;
+    let swipeStartX = 0;
+    let swipeStartY = 0;
+    let suppressClick = false;
 
     function getSlideStep() {
-        const firstCard = grid.querySelector('.card:not([data-carousel-clone="true"])');
+        const firstCard = grid.querySelector('.program-card:not([data-carousel-clone="true"])');
         if (!firstCard) return 0;
 
         const styles = window.getComputedStyle(grid);
@@ -98,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function prepareCarousel() {
-        const cards = [...grid.querySelectorAll('.card')];
+        const cards = [...grid.querySelectorAll('.program-card')];
         programCount = cards.length;
         currentIndex = 0;
         isAnimating = false;
@@ -191,6 +196,60 @@ document.addEventListener('DOMContentLoaded', () => {
         moveNext();
         startAutoplay();
     });
+
+    slider.addEventListener('pointerdown', (event) => {
+        if (event.pointerType === 'mouse' || programCount <= 1 || isAnimating) return;
+
+        swipePointerId = event.pointerId;
+        swipeStartX = event.clientX;
+        swipeStartY = event.clientY;
+        stopAutoplay();
+        slider.setPointerCapture?.(event.pointerId);
+    });
+
+    slider.addEventListener('pointerup', (event) => {
+        if (event.pointerId !== swipePointerId) return;
+
+        const deltaX = event.clientX - swipeStartX;
+        const deltaY = event.clientY - swipeStartY;
+        const isHorizontalSwipe =
+            Math.abs(deltaX) >= SWIPE_THRESHOLD &&
+            Math.abs(deltaX) > Math.abs(deltaY);
+
+        swipePointerId = null;
+        slider.releasePointerCapture?.(event.pointerId);
+
+        if (!isHorizontalSwipe) {
+            startAutoplay();
+            return;
+        }
+
+        suppressClick = true;
+
+        if (deltaX < 0) {
+            moveNext();
+        } else {
+            movePrevious();
+        }
+
+        window.setTimeout(() => {
+            suppressClick = false;
+        }, 0);
+
+        startAutoplay();
+    });
+
+    slider.addEventListener('pointercancel', () => {
+        swipePointerId = null;
+        startAutoplay();
+    });
+
+    slider.addEventListener('click', (event) => {
+        if (!suppressClick) return;
+
+        event.preventDefault();
+        event.stopPropagation();
+    }, true);
 
     slider.addEventListener('pointerenter', () => {
         isPointerInside = true;

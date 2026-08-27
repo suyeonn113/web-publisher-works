@@ -12,10 +12,10 @@ $categoryFilter = trim((string) ($_GET['category'] ?? ''));
 $keyword = trim((string) ($_GET['keyword'] ?? ''));
 $groups = array_values(array_unique(array_column($lifelongEducationClasses, 'group')));
 $categories = array_values(array_unique(array_column($lifelongEducationClasses, 'category')));
-$classes = array_values(array_filter(
-    getOpenLifelongEducationClasses($lifelongEducationClasses),
+$classes = sortLifelongEducationClassesByAvailability(array_values(array_filter(
+    $lifelongEducationClasses,
     static fn(array $class): bool => matchesLifelongEducationFilters($class, $groupFilter, $categoryFilter, $keyword)
-));
+)));
 $hasFilters = $groupFilter !== '' || $categoryFilter !== '' || $keyword !== '';
 ?>
 
@@ -28,33 +28,31 @@ $hasFilters = $groupFilter !== '' || $categoryFilter !== '' || $keyword !== '';
 <main id="main" class="info-page lifelong-apply-page">
     <section class="info-hero" aria-labelledby="lifelong-apply-title">
         <div class="info-hero__inner inner">
-            <nav class="info-breadcrumb" aria-label="현재 위치">
+            <nav class="info-breadcrumb type-caption" aria-label="현재 위치">
                 <ol>
                     <li><a href="<?= BASE_URL ?>/index.php">홈</a></li>
-                    <li>프로그램 신청</li>
+                    <li>통합신청</li>
                     <li aria-current="page">평생교육 프로그램 신청</li>
                 </ol>
             </nav>
             <div class="info-hero__copy">
-                <p class="info-eyebrow">LIFELONG EDUCATION APPLICATION</p>
-                <h1 id="lifelong-apply-title">평생교육 프로그램 신청</h1>
-                <p>접수 가능한 강좌의 일정과 잔여 정원을 확인하고 온라인으로 신청하세요.</p>
+                <p class="info-eyebrow type-label">LIFELONG EDUCATION APPLICATION</p>
+                <h1 class="type-page-title" id="lifelong-apply-title">평생교육 프로그램 신청</h1>
+                <p class="type-body-lg">강좌별 일정과 접수 상태를 확인하고 온라인으로 신청하세요.</p>
             </div>
         </div>
     </section>
 
     <?php include __DIR__ . '/includes/components/program-context-nav.php'; ?>
 
-    <div class="lifelong-apply-content inner">
-        <section class="lifelong-course-search" aria-labelledby="lifelong-search-title">
+    <div class="program-context-content lifelong-apply-content inner">
+        <section class="lifelong-course-search" aria-label="평생교육 강좌 검색">
             <div class="lifelong-course-search__heading">
-                <div>
-                    <p>COURSE SEARCH</p>
-                    <h2 id="lifelong-search-title">강좌 찾기</h2>
-                </div>
-                <span>마감되었거나 정원이 찬 강좌는 목록에서 제외됩니다.</span>
+                <p class="lifelong-course-search__notice type-body-lg">
+                    <strong><span class="lifelong-course-search__term"><?= htmlspecialchars($currentEducationTerm['label'] . '(' . $currentEducationTerm['period'] . ')', ENT_QUOTES, 'UTF-8') ?></span> 평생교육 프로그램을 접수 중입니다.</strong>
+                </p>
             </div>
-            <form action="<?= BASE_URL ?>/lifelong-education-apply.php" method="get" role="search">
+            <form class="program-filter type-label" action="<?= BASE_URL ?>/lifelong-education-apply.php" method="get" role="search">
                 <label>
                     <span>종목</span>
                     <select name="group">
@@ -78,36 +76,38 @@ $hasFilters = $groupFilter !== '' || $categoryFilter !== '' || $keyword !== '';
                     <input name="keyword" type="search" value="<?= htmlspecialchars($keyword, ENT_QUOTES, 'UTF-8') ?>" placeholder="강좌명 또는 강사명">
                 </label>
                 <div class="lifelong-course-search__actions">
-                    <?php if ($hasFilters): ?><a href="<?= BASE_URL ?>/lifelong-education-apply.php">초기화</a><?php endif; ?>
-                    <button type="submit">강좌 검색</button>
+                    <?php if ($hasFilters): ?><a class="control" href="<?= BASE_URL ?>/lifelong-education-apply.php">초기화</a><?php endif; ?>
+                    <button class="control control--search" type="submit">강좌 검색</button>
                 </div>
             </form>
         </section>
 
-        <section class="lifelong-course-results" aria-labelledby="lifelong-results-title">
-            <div class="lifelong-course-results__heading">
-                <h2 id="lifelong-results-title">접수 가능한 강좌</h2>
-                <p>총 <strong><?= count($classes) ?></strong>개</p>
-            </div>
+        <section class="lifelong-course-results" aria-label="평생교육 강좌 목록">
+            <p class="lifelong-course-results__count type-body">총 <strong><?= count($classes) ?></strong>개</p>
 
             <?php if ($classes === []): ?>
-                <p class="lifelong-course-results__empty">조건에 맞는 접수 가능 강좌가 없습니다.</p>
+                <p class="lifelong-course-results__empty type-body">조건에 맞는 강좌가 없습니다.</p>
             <?php else: ?>
                 <div class="lifelong-course-table-wrap">
                     <table class="lifelong-course-table">
-                        <caption class="visually-hidden">평생교육 접수 가능 강좌 목록</caption>
+                        <caption class="visually-hidden">평생교육 강좌 목록</caption>
                         <thead>
                             <tr>
-                                <th scope="col">강좌명</th><th scope="col">장소</th><th scope="col">종목</th><th scope="col">강사</th><th scope="col">요일·시간</th><th scope="col">대상</th><th scope="col">수강료</th><th scope="col">정원</th><th scope="col">상태</th><th scope="col">신청</th>
+                                <th scope="col">강좌명</th><th scope="col">장소</th><th scope="col">종목</th><th scope="col">강사</th><th scope="col">요일·시간</th><th scope="col">대상</th><th scope="col">수강료</th><th scope="col">정원</th><th scope="col">신청</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <?php foreach ($classes as $class): ?>
-                                <?php $occupancy = getLifelongEducationOccupancy($class); ?>
+                        <?php foreach ($classes as $class): ?>
+                            <?php
+                            $occupancy = getLifelongEducationOccupancy($class);
+                            $isOpen = isLifelongEducationClassOpen($class);
+                            ?>
+                            <tbody class="lifelong-course-card<?= $isOpen ? '' : ' is-closed' ?>">
                                 <tr>
                                     <th scope="row" data-label="강좌명">
-                                        <strong><?= htmlspecialchars($class['title'], ENT_QUOTES, 'UTF-8') ?></strong>
-                                        <span><?= htmlspecialchars($class['class_name'], ENT_QUOTES, 'UTF-8') ?></span>
+                                        <span class="lifelong-course-title">
+                                            <strong><?= htmlspecialchars($class['title'], ENT_QUOTES, 'UTF-8') ?></strong>
+                                            <span class="lifelong-course-status<?= $isOpen ? '' : ' is-closed' ?>"><?= $isOpen ? '접수가능' : '접수마감' ?></span>
+                                        </span>
                                     </th>
                                     <td data-label="장소"><?= htmlspecialchars($class['place'], ENT_QUOTES, 'UTF-8') ?></td>
                                     <td data-label="종목"><?= htmlspecialchars($class['category'], ENT_QUOTES, 'UTF-8') ?></td>
@@ -116,17 +116,22 @@ $hasFilters = $groupFilter !== '' || $categoryFilter !== '' || $keyword !== '';
                                     <td data-label="대상"><?= htmlspecialchars($class['target'], ENT_QUOTES, 'UTF-8') ?></td>
                                     <td data-label="수강료"><?= number_format((int) $class['fee']) ?>원</td>
                                     <td data-label="정원"><?= (int) $class['applied_count'] ?>/<?= (int) $class['capacity'] ?>명</td>
-                                    <td data-label="상태"><span class="lifelong-course-status">접수가능</span></td>
-                                    <td data-label="신청"><a class="lifelong-course-apply" href="<?= BASE_URL ?>/lifelong-education-apply-form.php?id=<?= (int) $class['id'] ?>">신청</a></td>
+                                    <td data-label="신청">
+                                        <?php if ($isOpen): ?>
+                                            <a class="lifelong-course-apply control control--compact control--primary" href="<?= BASE_URL ?>/lifelong-education-apply-form.php?id=<?= (int) $class['id'] ?>">신청</a>
+                                        <?php else: ?>
+                                            <button class="lifelong-course-apply is-closed control control--compact" type="button" disabled>접수마감</button>
+                                        <?php endif; ?>
+                                    </td>
                                 </tr>
                                 <tr class="lifelong-course-progress-row" aria-label="<?= htmlspecialchars($class['title'], ENT_QUOTES, 'UTF-8') ?> 접수율 <?= $occupancy ?>%">
-                                    <td colspan="10">
+                                    <td colspan="9">
                                         <div class="lifelong-course-progress"><span style="width: <?= $occupancy ?>%"></span></div>
                                         <small>접수현황 <?= (int) $class['applied_count'] ?>/<?= (int) $class['capacity'] ?>명 · <?= $occupancy ?>%</small>
                                     </td>
                                 </tr>
-                            <?php endforeach; ?>
-                        </tbody>
+                            </tbody>
+                        <?php endforeach; ?>
                     </table>
                 </div>
             <?php endif; ?>

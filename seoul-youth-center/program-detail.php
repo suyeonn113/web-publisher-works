@@ -26,6 +26,12 @@ $ageLabel = $program ? getProgramAgeLabel($program) : '';
 $fieldLabel = $program ? getProgramFieldLabel($program) : '';
 $recruitmentPeriod = ($programMeta['recruitment_period'] ?? '') !== '' ? $programMeta['recruitment_period'] : '상시 모집';
 $activityPeriod = ($programMeta['activity_period'] ?? '') !== '' ? $programMeta['activity_period'] : '상시 운영';
+$capacity = (int) ($programDetail['capacity'] ?? 0);
+$appliedCount = (int) ($programDetail['applied_count'] ?? 0);
+$remainingCapacity = max(0, $capacity - $appliedCount);
+$recruitmentStatus = $isClosed
+    ? '신청 마감'
+    : ($remainingCapacity > 0 ? '신청 가능' : '모집 완료');
 ?>
 
 <!DOCTYPE html>
@@ -39,14 +45,14 @@ $activityPeriod = ($programMeta['activity_period'] ?? '') !== '' ? $programMeta[
 <main id="main" class="program-detail-page">
     <?php if (!$program): ?>
         <section class="program-detail-empty inner">
-            <h1>프로그램을 찾을 수 없습니다.</h1>
+            <h1 class="type-page-title">프로그램을 찾을 수 없습니다.</h1>
             <a href="<?= BASE_URL ?>/programs.php">목록으로 돌아가기</a>
         </section>
     <?php else: ?>
         <section class="program-detail-hero inner" aria-labelledby="program-detail-title">
-            <p><?= htmlspecialchars($fieldLabel, ENT_QUOTES, 'UTF-8') ?></p>
-            <h1 id="program-detail-title"><?= htmlspecialchars($title, ENT_QUOTES, 'UTF-8') ?></h1>
-            <ul>
+            <p class="type-label"><?= htmlspecialchars($fieldLabel, ENT_QUOTES, 'UTF-8') ?></p>
+            <h1 class="type-page-title" id="program-detail-title"><?= htmlspecialchars($title, ENT_QUOTES, 'UTF-8') ?></h1>
+            <ul class="type-label">
                 <li><?= htmlspecialchars($programMeta['status_label'] ?? '', ENT_QUOTES, 'UTF-8') ?></li>
                 <li><?= htmlspecialchars($ageLabel, ENT_QUOTES, 'UTF-8') ?></li>
                 <li><?= htmlspecialchars($programMeta['price_label'] ?? '', ENT_QUOTES, 'UTF-8') ?></li>
@@ -55,7 +61,7 @@ $activityPeriod = ($programMeta['activity_period'] ?? '') !== '' ? $programMeta[
 
         <section class="program-detail-layout inner">
             <aside class="program-detail-summary" aria-label="프로그램 신청 요약">
-                <dl>
+                <dl class="type-body">
                     <div>
                         <dt>신청기간</dt>
                         <dd><?= htmlspecialchars($recruitmentPeriod, ENT_QUOTES, 'UTF-8') ?></dd>
@@ -77,22 +83,18 @@ $activityPeriod = ($programMeta['activity_period'] ?? '') !== '' ? $programMeta[
                         <dd><?= (int) ($program['price'] ?? 0) > 0 ? number_format((int) $program['price']) . '원' : '무료' ?></dd>
                     </div>
                     <div>
-                        <dt>정원/신청/대기</dt>
-                        <dd>
-                            <?= (int) $programDetail['capacity'] ?> /
-                            <?= (int) $programDetail['applied_count'] ?> /
-                            <?= (int) $programDetail['waiting_count'] ?>
-                        </dd>
+                        <dt>모집 현황</dt>
+                        <dd><?= htmlspecialchars($recruitmentStatus, ENT_QUOTES, 'UTF-8') ?></dd>
                     </div>
                 </dl>
                 <div class="program-detail-summary__actions">
                     <?php if ($isClosed): ?>
-                        <button class="program-detail-button is-disabled" type="button" disabled>마감</button>
+                        <button class="program-detail-button is-disabled control" type="button" disabled>마감</button>
                     <?php else: ?>
-                        <a class="program-detail-button is-apply" href="<?= BASE_URL ?>/program-apply.php?id=<?= (int) $programId ?>">신청하기</a>
+                        <a class="program-detail-button is-apply control control--primary" href="<?= BASE_URL ?>/program-apply.php?id=<?= (int) $programId ?>">신청하기</a>
                     <?php endif; ?>
                     <button
-                        class="program-detail-button is-confirm"
+                        class="program-detail-button is-confirm control control--muted"
                         type="button"
                         data-program-confirm-open
                         data-program-id="<?= (int) $programId ?>"
@@ -104,7 +106,7 @@ $activityPeriod = ($programMeta['activity_period'] ?? '') !== '' ? $programMeta[
             </aside>
 
             <article class="program-detail-content">
-                <div class="program-detail-attachment">
+                <div class="program-detail-attachment type-label">
                     <span>첨부파일</span>
                     <strong><?= htmlspecialchars($programDetail['attachment'], ENT_QUOTES, 'UTF-8') ?></strong>
                 </div>
@@ -112,13 +114,13 @@ $activityPeriod = ($programMeta['activity_period'] ?? '') !== '' ? $programMeta[
                 <img src="<?= htmlspecialchars($imageSrc, ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($imageAlt, ENT_QUOTES, 'UTF-8') ?>">
 
                 <section>
-                    <h2>프로그램 안내</h2>
-                    <p><?= htmlspecialchars($programDetail['description'], ENT_QUOTES, 'UTF-8') ?></p>
+                    <h2 class="type-subtitle">프로그램 안내</h2>
+                    <p class="type-body"><?= htmlspecialchars($programDetail['description'], ENT_QUOTES, 'UTF-8') ?></p>
                 </section>
 
                 <section>
-                    <h2>활동 일정</h2>
-                    <ul class="program-detail-list">
+                    <h2 class="type-subtitle">활동 일정</h2>
+                    <ul class="program-detail-list type-body">
                         <?php foreach ($programDetail['schedule'] as $item): ?>
                             <li><?= htmlspecialchars($item, ENT_QUOTES, 'UTF-8') ?></li>
                         <?php endforeach; ?>
@@ -126,8 +128,8 @@ $activityPeriod = ($programMeta['activity_period'] ?? '') !== '' ? $programMeta[
                 </section>
 
                 <section>
-                    <h2>참여 혜택</h2>
-                    <ul class="program-detail-list">
+                    <h2 class="type-subtitle">참여 혜택</h2>
+                    <ul class="program-detail-list type-body">
                         <?php foreach ($programDetail['benefits'] as $item): ?>
                             <li><?= htmlspecialchars($item, ENT_QUOTES, 'UTF-8') ?></li>
                         <?php endforeach; ?>
@@ -135,13 +137,13 @@ $activityPeriod = ($programMeta['activity_period'] ?? '') !== '' ? $programMeta[
                 </section>
 
                 <section class="program-detail-notice">
-                    <h2>유의사항</h2>
-                    <ul class="program-detail-list">
+                    <h2 class="type-subtitle">유의사항</h2>
+                    <ul class="program-detail-list type-body">
                         <?php foreach ($programDetail['notes'] as $item): ?>
                             <li><?= htmlspecialchars($item, ENT_QUOTES, 'UTF-8') ?></li>
                         <?php endforeach; ?>
                     </ul>
-                    <p class="program-detail-contact">문의: <?= htmlspecialchars($programDetail['contact'], ENT_QUOTES, 'UTF-8') ?></p>
+                    <p class="program-detail-contact type-label">문의: <?= htmlspecialchars($programDetail['contact'], ENT_QUOTES, 'UTF-8') ?></p>
                 </section>
             </article>
         </section>

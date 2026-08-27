@@ -78,8 +78,65 @@ function syc_mask_phone($phone)
     return substr($digits, 0, 3) . '-****-' . substr($digits, -4);
 }
 
+function syc_get_local_demo_applications()
+{
+    if (!defined('ENV') || ENV !== 'local') {
+        return [];
+    }
+
+    return [
+        [
+            'id' => -101,
+            'program_type' => 'youth',
+            'program_id' => 4,
+            'program_title' => '2026년 청소년 성장역량 부트캠프 「스스로 업 프로젝트」 참가자 모집',
+            'applicant_name' => '마스터',
+            'birthdate' => '20080115',
+            'gender' => 'female',
+            'phone' => '01000000000',
+            'email' => 'local-youth@example.test',
+            'address' => '서울특별시 중구',
+            'school' => '서울청소년학교',
+            'attachment_name' => '',
+            'created_at' => '2026-07-08 10:30:00',
+            'is_demo' => true,
+        ],
+        [
+            'id' => -102,
+            'program_type' => 'lifelong',
+            'program_id' => 101,
+            'program_title' => '런치요가교실 A반',
+            'applicant_name' => '마스터',
+            'birthdate' => '19920520',
+            'gender' => 'female',
+            'phone' => '01000000000',
+            'email' => 'local-lifelong@example.test',
+            'address' => '서울특별시 중구',
+            'school' => '',
+            'attachment_name' => '',
+            'created_at' => '2026-07-09 13:20:00',
+            'is_demo' => true,
+        ],
+    ];
+}
+
+function syc_find_local_demo_application($applicationId)
+{
+    foreach (syc_get_local_demo_applications() as $application) {
+        if ((int) $application['id'] === (int) $applicationId) {
+            return $application;
+        }
+    }
+
+    return null;
+}
+
 function syc_require_verified_application($applicationId)
 {
+    if (syc_find_local_demo_application($applicationId) !== null) {
+        return;
+    }
+
     $verifiedId = (int) ($_SESSION['verified_application_id'] ?? 0);
     $verifiedIds = array_map('intval', (array) ($_SESSION['verified_application_ids'] ?? []));
 

@@ -1,0 +1,269 @@
+@charset "utf-8";
+
+/* ========================================
+   Shared Controls
+   높이는 행간 + 패딩 + 1px 테두리로 계산한다.
+   height와 min-height는 사용하지 않는다.
+======================================== */
+
+.control {
+    --control-font-size: var(--type-body-size);
+    --control-line-height: 1.5rem;
+    --control-padding-block: 0.6875rem;
+    --control-padding-inline: 1.25rem;
+
+    padding-block: var(--control-padding-block);
+    padding-inline: var(--control-padding-inline);
+    color: var(--color-text);
+    font-size: var(--control-font-size);
+    font-weight: var(--weight-emphasis-strong);
+    line-height: var(--control-line-height);
+    letter-spacing: var(--type-label-tracking);
+    white-space: nowrap;
+    background: var(--color-background);
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+}
+
+:where(button.control, .button.control, a.control) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--control-gap);
+}
+
+/* ========================================
+   Shared More Action
+   텍스트와 Plus 아이콘 전체를 하나의 인터랙션으로 취급한다.
+======================================== */
+
+.button--more {
+    gap: 0.625em;
+    color: var(--color-text);
+    font-size: var(--type-label-size);
+    font-weight: var(--weight-emphasis-regular);
+    white-space: nowrap;
+}
+
+.button--more:is(:hover, :focus-visible) .button--more__icon {
+    transform: rotate(180deg);
+}
+
+.button--more:focus-visible {
+    color: var(--color-primary-text);
+}
+
+:where(input.control, select.control, textarea.control) {
+    display: block;
+    width: 100%;
+    border-color: var(--color-line);
+}
+
+textarea.control {
+    white-space: normal;
+}
+
+/* ========================================
+   Shared Select Control
+   네이티브 select는 값 전송과 유효성 검사용으로 유지하고,
+   보이는 옵션 목록은 현재 필드 안에서 직접 배치한다.
+======================================== */
+
+.select-control {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+}
+
+.select-control.is-open {
+    z-index: var(--layer-dropdown);
+}
+
+.select-control__native {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.select-control__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gap-s);
+    width: 100%;
+    color: var(--color-text);
+    text-align: start;
+    background: var(--color-background);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-sm);
+}
+
+.select-control__trigger[aria-invalid="true"] {
+    outline: 2px solid var(--color-primary);
+    outline-offset: -2px;
+}
+
+.select-control__icon {
+    flex: 0 0 auto;
+    transition: transform 180ms ease;
+}
+
+.select-control.is-open .select-control__icon {
+    transform: rotate(180deg);
+}
+
+.select-control__options {
+    position: absolute;
+    top: calc(100% + var(--gap-s));
+    right: 0;
+    left: 0;
+    max-height: min(18rem, 50vh);
+    padding-block: var(--gap-s);
+    overflow-y: auto;
+    color: var(--color-text);
+    background: var(--color-background);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-sm);
+}
+
+.select-control__options.is-above {
+    top: auto;
+    bottom: calc(100% + var(--gap-s));
+}
+
+.select-control__option {
+    padding: var(--gap-s) var(--gap-m);
+    cursor: pointer;
+}
+
+.select-control__option:is(:hover, :focus-visible),
+.select-control__option[aria-selected="true"] {
+    background: var(--color-primary-soft);
+}
+
+.select-control__option:focus-visible {
+    outline: var(--focus-width) solid var(--color-focus);
+    outline-offset: calc(-1 * var(--focus-width));
+}
+
+.select-control__option[aria-selected="true"] {
+    font-weight: var(--weight-emphasis-strong);
+}
+
+.select-control__option[aria-disabled="true"] {
+    color: var(--color-text-disabled);
+    cursor: default;
+}
+
+/* ========================================
+   Semantic Color Variants
+   형태와 크기는 .control이 담당하고 색만 구분한다.
+======================================== */
+
+.control--primary {
+    color: var(--color-text);
+    border-color: var(--color-control-primary);
+    background: var(--color-control-primary);
+}
+
+.control--muted,
+.control--search {
+    color: var(--color-text);
+    border-color: var(--color-line);
+    background: var(--color-background);
+}
+
+.control--search.is-active {
+    color: var(--color-text);
+    border-color: var(--color-control-primary);
+    background: var(--color-control-primary);
+}
+
+.control:disabled,
+.control[aria-disabled="true"] {
+    color: var(--color-text-disabled);
+    cursor: default;
+}
+
+/* ========================================
+   Compact: 0~767px
+======================================== */
+
+:root {
+    --control-gap: 0.5rem;
+}
+
+.control--compact {
+    --control-font-size: var(--type-label-size);
+    --control-line-height: 1.25rem;
+    --control-padding-block: 0.6875rem;
+    --control-padding-inline: 1rem;
+}
+
+.control--large {
+    --control-font-size: var(--type-body-lg-size);
+    --control-line-height: 1.75rem;
+    --control-padding-block: 0.8125rem;
+    --control-padding-inline: 1.5rem;
+}
+
+/* ========================================
+   Standard: 768~1535px
+======================================== */
+
+@media (min-width: 48rem) {
+    :root {
+        --control-gap: 0.625rem;
+    }
+
+    .control--compact {
+        --control-line-height: 1.375rem;
+        --control-padding-block: 0.75rem;
+        --control-padding-inline: 1.125rem;
+    }
+
+    .control {
+        --control-line-height: 1.625rem;
+        --control-padding-block: 0.75rem;
+        --control-padding-inline: 1.375rem;
+    }
+
+    .control--large {
+        --control-line-height: 1.875rem;
+        --control-padding-block: 0.875rem;
+        --control-padding-inline: 1.75rem;
+    }
+}
+
+/* ========================================
+   Wide: 1536px 이상
+======================================== */
+
+@media (min-width: 96rem) {
+    :root {
+        --control-gap: 0.75rem;
+    }
+
+    .control--compact {
+        --control-line-height: 1.5rem;
+        --control-padding-block: 0.8125rem;
+        --control-padding-inline: 1.25rem;
+    }
+
+    .control {
+        --control-line-height: 1.75rem;
+        --control-padding-block: 0.8125rem;
+        --control-padding-inline: 1.5rem;
+    }
+
+    .control--large {
+        --control-line-height: 2rem;
+        --control-padding-block: 0.9375rem;
+        --control-padding-inline: 2rem;
+    }
+}

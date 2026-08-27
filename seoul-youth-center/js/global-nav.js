@@ -5,29 +5,29 @@
 
     2. Shared Utilities (공통 유틸 함수)
 
-    3. Mobile / Tablet Menu (모바일 / 태블릿 메뉴)
+    3. Compact Header Menu (컴팩트 헤더 메뉴)
         3-1. State Helpers (상태 처리)
         3-2. Open / Close / Toggle (열기 / 닫기 / 토글)
         3-3. Interaction Binding (이벤트 바인딩)
         3-4. Viewport Sync (뷰포트 대응)
 
-    4. Desktop Drawer Menu (데스크톱 드로어 메뉴)
+    4. Default Header Menu (기본 헤더 메뉴)
         4-1. Open / Close / Sync (열기 / 닫기 / 동기화)
         4-2. Interaction Binding (이벤트 바인딩)
 
-    5. Desktop Column Layout (데스크톱 컬럼 레이아웃)
+    5. Default Header Column Layout (기본 헤더 컬럼 레이아웃)
         5-1. Build Columns (컬럼 생성)
         5-2. Restore Columns (원래 구조 복구)
         5-3. Update by Viewport / Mode (뷰포트 / 모드 대응)
 
-    6. Desktop Mega Menu (데스크톱 메가 메뉴)
+    6. Default Header Mega Menu (기본 헤더 전체 메뉴)
         6-1. Entry Focus Flow (진입 포커스 흐름)
         6-2. Internal Focus Flow (내부 포커스 이동)
         6-3. Focus Style / Current State (포커스 스타일 / 현재 상태)
         6-4. Action Blocking (동작 차단)
         6-5. Dismiss (닫기 처리)
 
-    7. Desktop Mode Switching (모드 전환)
+    7. Default Header Mode Switching (기본 헤더 모드 전환)
 
     8. Toggle Button Binding (토글 버튼 연결)
 
@@ -40,8 +40,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* ===== 1. Base Setup (기본 설정) ===== */
 
-    const mobileMq = window.matchMedia('(max-width: 767px)');
-    const desktopMq = window.matchMedia('(min-width: 1248px)');
+    // CSS global-nav.css의 헤더 구조 전환점과 항상 같이 변경한다.
+    const compactMq = window.matchMedia('(max-width: 47.9375rem)');
+    const defaultHeaderMq = window.matchMedia('(min-width: 48rem)');
     const menuPanel = document.getElementById('menu-panel');
 
     document.querySelectorAll('.skip-links__link').forEach((link) => {
@@ -59,13 +60,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    document.addEventListener('click', (event) => {
+        const disabledAction = event.target.closest(
+            'a[aria-disabled="true"], button[aria-disabled="true"]'
+        );
+
+        if (!disabledAction) return;
+        event.preventDefault();
+    });
+
     if (!menuPanel) return;
 
-    let cleanupDrawerMenu = null;
-    let cleanupMegaMenu = null;
+    let cleanupDefaultMenu = null;
     let cleanupMenuColumns = null;
-    let cleanupMobileTabletMenu = null;
-    let cleanupDesktopHeaderScroll = null;
+    let cleanupCompactHeaderMenu = null;
+    let cleanupDefaultHeaderScroll = null;
 
     /* ===== 2. Shared Utilities (공통 유틸 함수) ===== */
     // addListenerWithCleanup
@@ -88,14 +97,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function cleanupCurrentMode() {
-        if (cleanupDrawerMenu) {
-            cleanupDrawerMenu();
-            cleanupDrawerMenu = null;
-        }
-
-        if (cleanupMegaMenu) {
-            cleanupMegaMenu();
-            cleanupMegaMenu = null;
+        if (cleanupDefaultMenu) {
+            cleanupDefaultMenu();
+            cleanupDefaultMenu = null;
         }
 
         if (cleanupMenuColumns) {
@@ -110,8 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return document.getElementById(panelId);
         }
 
-    function initDesktopHeaderScroll() {
-        const topBar = document.querySelector('.top-bar');
+    function initDefaultHeaderScroll() {
         const siteHeader = document.querySelector('body > header');
         const mainMenu = menuPanel.querySelector('.main-menu');
 
@@ -123,27 +126,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const SCROLL_THRESHOLD = 8;
 
         function syncLayoutVars() {
-            if (!desktopMq.matches) return;
+            if (!defaultHeaderMq.matches) return;
 
-            const topBarHeight = topBar ? topBar.getBoundingClientRect().height : 0;
             const headerHeight = siteHeader.getBoundingClientRect().height;
             const menuHeight = mainMenu.getBoundingClientRect().height;
 
-            document.documentElement.style.setProperty('--global-top-bar-height', `${topBarHeight}px`);
             document.documentElement.style.setProperty('--global-header-height', `${headerHeight}px`);
             document.documentElement.style.setProperty('--global-menu-height', `${menuHeight}px`);
         }
 
-        function resetDesktopHeaderState() {
-            document.body.classList.remove('is-header-hidden', 'is-desktop-menu-stuck');
-            document.documentElement.style.removeProperty('--global-top-bar-height');
+        function resetDefaultLayoutState() {
+            document.body.classList.remove('is-default-menu-stuck');
             document.documentElement.style.removeProperty('--global-header-height');
             document.documentElement.style.removeProperty('--global-menu-height');
         }
 
+        function resetDefaultHeaderState() {
+            document.body.classList.remove('is-header-hidden');
+            resetDefaultLayoutState();
+        }
+
         function updateScrollState() {
-            if (!desktopMq.matches) {
-                resetDesktopHeaderState();
+            if (!defaultHeaderMq.matches) {
+                resetDefaultLayoutState();
                 ticking = false;
                 return;
             }
@@ -154,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const delta = currentY - lastScrollY;
             const isNearTop = currentY <= 4;
 
-            document.body.classList.toggle('is-desktop-menu-stuck', currentY > 4);
+            document.body.classList.toggle('is-default-menu-stuck', currentY > 4);
 
             if (isNearTop) {
                 document.body.classList.remove('is-header-hidden');
@@ -177,51 +182,69 @@ document.addEventListener('DOMContentLoaded', () => {
 
         cleanups.push(addListenerWithCleanup(window, 'scroll', requestScrollStateUpdate, { passive: true }));
         cleanups.push(addListenerWithCleanup(window, 'resize', requestScrollStateUpdate));
-        cleanups.push(addMqChangeListener(desktopMq, requestScrollStateUpdate));
+        cleanups.push(addMqChangeListener(defaultHeaderMq, requestScrollStateUpdate));
 
         return () => {
-            resetDesktopHeaderState();
+            resetDefaultHeaderState();
             cleanups.forEach((cleanup) => cleanup());
         };
     }
 
-    /* ===== 3. Mobile / Tablet Menu (모바일 / 태블릿 메뉴) ===== */
+    /* ===== 3. Compact Header Menu (컴팩트 헤더 메뉴) ===== */
 
-    function initMobileTabletMenu() {
-        const mobileMenuButton = document.querySelector('.quick-menu__button--menu');
-        const quickMenu = document.querySelector('.quick-menu');
+    function initCompactHeaderMenu() {
+        const compactMenuButton = document.querySelector('.header-menu-toggle');
+        const siteHeader = document.querySelector('body > .site-header');
         const closeButton = menuPanel.querySelector('.button--close');
         const mainButtons = menuPanel.querySelectorAll('.main-menu__button[aria-controls]');
         const subPanel = menuPanel.querySelector('.sub-panel');
 
-        if (!mobileMenuButton || !quickMenu || !closeButton || !subPanel || !mainButtons.length) return () => {};
+        if (!compactMenuButton || !siteHeader || !closeButton || !subPanel || !mainButtons.length) return () => {};
 
         const cleanups = [];
         let lastFocusedElement = null;
+        const compactBackgroundState = new Map();
 
-        function syncQuickMenuHeight() {
-            if (desktopMq.matches) {
-                document.documentElement.style.removeProperty('--global-quick-menu-height');
+        function getCompactFocusableElements() {
+            const selector = [
+                'a[href]',
+                'button:not([disabled])',
+                'input:not([disabled])',
+                'select:not([disabled])',
+                'textarea:not([disabled])',
+                '[tabindex]:not([tabindex="-1"])'
+            ].join(',');
+
+            return Array.from(menuPanel.querySelectorAll(selector)).filter((element) => {
+                return !element.hidden && element.getClientRects().length > 0;
+            });
+        }
+
+        function setCompactBackgroundInert(isInert) {
+            if (isInert) {
+                Array.from(document.body.children).forEach((element) => {
+                    if (element === menuPanel || element.tagName === 'SCRIPT') return;
+
+                    compactBackgroundState.set(element, {
+                        inert: element.inert,
+                        ariaHidden: element.getAttribute('aria-hidden')
+                    });
+                    element.inert = true;
+                    element.setAttribute('aria-hidden', 'true');
+                });
                 return;
             }
 
-            const quickMenuHeight = quickMenu.getBoundingClientRect().height;
-            if (quickMenuHeight > 0) {
-                document.documentElement.style.setProperty(
-                    '--global-quick-menu-height',
-                    `${quickMenuHeight}px`
-                );
-            }
+            compactBackgroundState.forEach((state, element) => {
+                element.inert = state.inert;
+                if (state.ariaHidden === null) {
+                    element.removeAttribute('aria-hidden');
+                } else {
+                    element.setAttribute('aria-hidden', state.ariaHidden);
+                }
+            });
+            compactBackgroundState.clear();
         }
-
-        const quickMenuResizeObserver = typeof ResizeObserver === 'function'
-            ? new ResizeObserver(syncQuickMenuHeight)
-            : null;
-
-        syncQuickMenuHeight();
-        requestAnimationFrame(syncQuickMenuHeight);
-        quickMenuResizeObserver?.observe(quickMenu);
-        cleanups.push(addListenerWithCleanup(window, 'resize', syncQuickMenuHeight));
 
         /* --- scroll 상태 --- */
         let lastScrollY = window.scrollY;
@@ -232,9 +255,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // setCurrentMainButtonByPanel
         // scrollToPanel
         // focusFirstSubLink
-        // setQuickMenuScrollState
-        // isMobileTabletMenuOpen
-        // handleQuickMenuScroll
+        // isCompactMenuOpen
+        // handleHeaderScroll
         function setCurrentMainButton(currentButton) {
             const mainButtons = menuPanel.querySelectorAll('.main-menu__button[aria-controls]');
 
@@ -280,77 +302,66 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        function setQuickMenuScrollState(state) {
-            // data-scroll-state="visible | hidden"
-            quickMenu.dataset.scrollState = state;
-        }
-
-        function isMobileTabletMenuOpen() {
+        function isCompactMenuOpen() {
             return (
-                menuPanel.dataset.mobileMenuState === 'open' &&
-                mobileMenuButton.getAttribute('aria-expanded') === 'true'
+                menuPanel.dataset.compactMenuState === 'open' &&
+                compactMenuButton.getAttribute('aria-expanded') === 'true'
             );
         }
 
-        function handleQuickMenuScroll() {
-            if (desktopMq.matches) return;
+        function setHeaderScrollState(state) {
+            document.body.classList.toggle('is-header-hidden', state === 'hidden');
+        }
+
+        function handleHeaderScroll() {
+            if (defaultHeaderMq.matches) return;
 
             const currentY = window.scrollY;
             const delta = currentY - lastScrollY;
+            const isHeaderInteractionOpen =
+                isCompactMenuOpen() || siteHeader.classList.contains('is-search-open');
 
-            // 메뉴 열려 있으면 항상 보이게
-            if (isMobileTabletMenuOpen()) {
-                setQuickMenuScrollState('visible');
+            if (isHeaderInteractionOpen || currentY < 40) {
+                setHeaderScrollState('visible');
                 lastScrollY = currentY;
                 return;
             }
 
-            // 상단 근처에서는 항상 보이게
-            if (currentY < 40) {
-                setQuickMenuScrollState('visible');
-                lastScrollY = currentY;
-                return;
-            }
-
-            // 미세한 스크롤은 무시
             if (Math.abs(delta) < SCROLL_THRESHOLD) return;
 
-            if (delta > 0) {
-                // ↓ 아래로 스크롤 → 숨김
-                setQuickMenuScrollState('hidden');
-            } else {
-                // ↑ 위로 스크롤 → 표시
-                setQuickMenuScrollState('visible');
-            }
-
+            setHeaderScrollState(delta > 0 ? 'hidden' : 'visible');
             lastScrollY = currentY;
         }
 
         /* --- 3-2. Open / Close / Toggle (열기/닫기/토글) --- */
-        // openMobileTabletMenu
-        // closeMobileTabletMenu
-        // toggleMobileTabletMenu
-        function openMobileTabletMenu() {
+        // openCompactMenu
+        // closeCompactMenu
+        // toggleCompactMenu
+        function openCompactMenu() {
             lastFocusedElement = document.activeElement;
 
-            menuPanel.dataset.mobileMenuState = 'open';
+            menuPanel.dataset.compactMenuState = 'open';
 
-            mobileMenuButton.setAttribute('aria-expanded', 'true');
+            compactMenuButton.setAttribute('aria-expanded', 'true');
+            compactMenuButton.setAttribute('aria-label', '전체 메뉴 닫기');
 
-            if (mobileMq.matches) {
+            if (compactMq.matches) {
                 document.body.classList.add('no-scroll');
             }
 
-            setQuickMenuScrollState('visible');
+            setHeaderScrollState('visible');
+            setCompactBackgroundInert(true);
             closeButton.focus();
         }
 
-        function closeMobileTabletMenu({ restoreFocus = true } = {}) {
-            menuPanel.dataset.mobileMenuState = 'closed';
+        function closeCompactMenu({ restoreFocus = true } = {}) {
+            menuPanel.dataset.compactMenuState = 'closed';
 
-            mobileMenuButton.setAttribute('aria-expanded', 'false');
+            compactMenuButton.setAttribute('aria-expanded', 'false');
+            compactMenuButton.setAttribute('aria-label', '전체 메뉴 열기');
 
             document.body.classList.remove('no-scroll');
+            setCompactBackgroundInert(false);
 
             if (
                 restoreFocus &&
@@ -360,100 +371,122 @@ document.addEventListener('DOMContentLoaded', () => {
                 lastFocusedElement.focus();
             }
 
-            setQuickMenuScrollState('visible');
+            setHeaderScrollState('visible');
         }
 
-        function toggleMobileTabletMenu() {
+        function toggleCompactMenu() {
             const isOpen =
-                menuPanel.dataset.mobileMenuState === 'open' &&
-                mobileMenuButton.getAttribute('aria-expanded') === 'true';
+                menuPanel.dataset.compactMenuState === 'open' &&
+                compactMenuButton.getAttribute('aria-expanded') === 'true';
 
             if (isOpen) {
-                closeMobileTabletMenu();
+                closeCompactMenu();
                 return;
             }
 
-            openMobileTabletMenu();
+            openCompactMenu();
         }
 
-        if (!menuPanel.dataset.mobileMenuState) {
-            menuPanel.dataset.mobileMenuState = 'closed';
+        if (!menuPanel.dataset.compactMenuState) {
+            menuPanel.dataset.compactMenuState = 'closed';
         }
 
         // 초기 상태
-        setQuickMenuScrollState('visible');
+        setHeaderScrollState('visible');
 
         /* --- 3-3. Interaction Binding (이벤트 연결) --- */
         // click / keydown / outside click / scroll 등
         cleanups.push(
-            addListenerWithCleanup(mobileMenuButton, 'click', (event) => {
-                if (desktopMq.matches) return;
+            addListenerWithCleanup(compactMenuButton, 'click', (event) => {
+                if (defaultHeaderMq.matches) return;
                 event.preventDefault();
                 event.stopPropagation();
-                toggleMobileTabletMenu();
+                toggleCompactMenu();
             })
         );
 
         cleanups.push(
-            addListenerWithCleanup(mobileMenuButton, 'keydown', (event) => {
-                if (desktopMq.matches) return;
+            addListenerWithCleanup(compactMenuButton, 'keydown', (event) => {
+                if (defaultHeaderMq.matches) return;
                 if (event.key !== 'Enter' && event.key !== ' ' && event.key !== 'Spacebar') return;
                 event.preventDefault();
                 event.stopPropagation();
-                toggleMobileTabletMenu();
+                toggleCompactMenu();
             })
         );
 
         cleanups.push(
             addListenerWithCleanup(closeButton, 'click', (event) => {
-                if (desktopMq.matches) return;
+                if (defaultHeaderMq.matches) return;
                 event.preventDefault();
                 event.stopPropagation();
-                closeMobileTabletMenu();
+                closeCompactMenu();
             })
         );
 
         cleanups.push(
             addListenerWithCleanup(closeButton, 'keydown', (event) => {
-                if (desktopMq.matches) return;
+                if (defaultHeaderMq.matches) return;
                 if (event.key !== 'Enter' && event.key !== ' ' && event.key !== 'Spacebar') return;
                 event.preventDefault();
                 event.stopPropagation();
-                closeMobileTabletMenu();
+                closeCompactMenu();
             })
         );
 
         cleanups.push(
             addListenerWithCleanup(document, 'keydown', (event) => {
-                if (desktopMq.matches) return;
-                if (menuPanel.dataset.mobileMenuState !== 'open') return;
-                if (event.key !== 'Escape') return;
+                if (defaultHeaderMq.matches) return;
+                if (menuPanel.dataset.compactMenuState !== 'open') return;
 
-                event.preventDefault();
-                closeMobileTabletMenu();
+                if (event.key === 'Escape') {
+                    event.preventDefault();
+                    closeCompactMenu();
+                    return;
+                }
+
+                if (event.key !== 'Tab') return;
+
+                const focusableElements = getCompactFocusableElements();
+                if (!focusableElements.length) {
+                    event.preventDefault();
+                    closeButton.focus();
+                    return;
+                }
+
+                const firstElement = focusableElements[0];
+                const lastElement = focusableElements[focusableElements.length - 1];
+
+                if (event.shiftKey && document.activeElement === firstElement) {
+                    event.preventDefault();
+                    lastElement.focus();
+                } else if (!event.shiftKey && document.activeElement === lastElement) {
+                    event.preventDefault();
+                    firstElement.focus();
+                }
             })
         );
 
         cleanups.push(
             addListenerWithCleanup(document, 'click', (event) => {
-                if (desktopMq.matches) return;
-                if (menuPanel.dataset.mobileMenuState !== 'open') return;
+                if (defaultHeaderMq.matches) return;
+                if (menuPanel.dataset.compactMenuState !== 'open') return;
                 if (menuPanel.contains(event.target)) return;
-                if (mobileMenuButton.contains(event.target)) return;
+                if (compactMenuButton.contains(event.target)) return;
 
-                closeMobileTabletMenu();
+                closeCompactMenu();
             })
         );
 
         cleanups.push(
             addListenerWithCleanup(menuPanel, 'click', (event) => {
-                if (desktopMq.matches) return;
+                if (defaultHeaderMq.matches) return;
 
                 const mainButton = event.target.closest('.main-menu__button[aria-controls]');
                 const subLink = event.target.closest('.sub-menu__link');
 
                 if (mainButton) {
-                    if (!isMobileTabletMenuOpen()) return;
+                    if (!isCompactMenuOpen()) return;
 
                     const targetPanel = getTargetPanel(mainButton);
                     if (!targetPanel) return;
@@ -465,7 +498,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 if (subLink) {
-                    if (!isMobileTabletMenuOpen()) return;
+                    if (!isCompactMenuOpen()) return;
 
                     const panelItem = subLink.closest('.sub-panel__item');
                     setCurrentMainButtonByPanel(panelItem);
@@ -475,11 +508,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         cleanups.push(
             addListenerWithCleanup(menuPanel, 'keydown', (event) => {
-                if (desktopMq.matches) return;
+                if (defaultHeaderMq.matches) return;
 
                 const mainButton = event.target.closest('.main-menu__button[aria-controls]');
                 if (!mainButton) return;
-                if (!isMobileTabletMenuOpen()) return;
+                if (!isCompactMenuOpen()) return;
 
                 const isOpenKey =
                     event.key === 'Enter' ||
@@ -502,11 +535,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         cleanups.push(
             addListenerWithCleanup(menuPanel, 'focusin', (event) => {
-                if (desktopMq.matches) return;
+                if (defaultHeaderMq.matches) return;
 
                 const subLink = event.target.closest('.sub-menu__link');
                 if (!subLink) return;
-                if (!isMobileTabletMenuOpen()) return;
+                if (!isCompactMenuOpen()) return;
 
                 const panelItem = subLink.closest('.sub-panel__item');
                 setCurrentMainButtonByPanel(panelItem);
@@ -515,7 +548,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         cleanups.push(
             addListenerWithCleanup(menuPanel, 'keydown', (event) => {
-                if (desktopMq.matches || !isMobileTabletMenuOpen()) return;
+                if (defaultHeaderMq.matches || !isCompactMenuOpen()) return;
 
                 const subLink = event.target.closest('.sub-menu__link');
                 if (!subLink) return;
@@ -544,19 +577,18 @@ document.addEventListener('DOMContentLoaded', () => {
         );
 
         cleanups.push(
-            addListenerWithCleanup(window, 'scroll', handleQuickMenuScroll, { passive: true })
+            addListenerWithCleanup(window, 'scroll', handleHeaderScroll, { passive: true })
         );
 
         /* --- 3-4. Viewport Sync (뷰포트 대응) --- */
         // matchMedia 변경 대응
         cleanups.push(
-            addMqChangeListener(desktopMq, () => {
-                closeMobileTabletMenu({ restoreFocus: false });
-                setQuickMenuScrollState('visible');
-                syncQuickMenuHeight();
+            addMqChangeListener(defaultHeaderMq, () => {
+                closeCompactMenu({ restoreFocus: false });
+                setHeaderScrollState('visible');
 
-                if (desktopMq.matches) {
-                    switchMenuMode('drawer');
+                if (defaultHeaderMq.matches) {
+                    activateDefaultMenu();
                     return;
                 }
 
@@ -582,27 +614,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     subPanel.style.top = '';
                 }
 
-                menuPanel.dataset.pcMenuState = 'closed';
+                menuPanel.dataset.defaultMenuState = 'closed';
             })
         );
 
         return () => {
-            document.body.classList.remove('no-scroll');
-            quickMenuResizeObserver?.disconnect();
-            document.documentElement.style.removeProperty('--global-quick-menu-height');
+            document.body.classList.remove('no-scroll', 'is-header-hidden');
+            setCompactBackgroundInert(false);
             cleanups.forEach((cleanup) => cleanup());
         };
     }
 
 
-    /* ===== 4. Desktop Drawer Menu (데스크톱 드로어 메뉴) ===== */
+    /* ===== 4. Default Header Menu (기본 헤더 메뉴) ===== */
 
-    function initDrawerMenu() {
-        if (menuPanel.dataset.menuMode !== 'drawer') return () => {};
+    function initDefaultMenu() {
+        if (menuPanel.dataset.menuMode !== 'default') return () => {};
 
         const mainButtons = menuPanel.querySelectorAll('.main-menu__button');
         const mainLinks = menuPanel.querySelectorAll('.main-menu__link');
-        const megaButton = menuPanel.querySelector('.button--mega-menu');
         const panelItems = menuPanel.querySelectorAll('.sub-panel__item');
         const subPanel = menuPanel.querySelector('.sub-panel');
 
@@ -615,6 +645,21 @@ document.addEventListener('DOMContentLoaded', () => {
         // openPanel
         // closePanel
         // syncMenuByViewport
+        function positionPanel(button) {
+            if (!button || subPanel.hidden) return;
+
+            const targetPanel = getTargetPanel(button);
+            if (!targetPanel) return;
+
+            const buttonRect = button.getBoundingClientRect();
+            const menuPanelRect = menuPanel.getBoundingClientRect();
+            const top = buttonRect.bottom - menuPanelRect.top;
+
+            subPanel.style.position = 'absolute';
+            subPanel.style.left = '50%';
+            subPanel.style.top = `${top}px`;
+        }
+
         function openPanel(button) {
             const targetPanel = getTargetPanel(button);
             if (!targetPanel) return;
@@ -629,23 +674,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 panel.hidden = panel !== targetPanel;
             });
 
-            // 위치 계산
-            const buttonRect = button.getBoundingClientRect();
-            const menuPanelRect = menuPanel.getBoundingClientRect();
-
-            const left = buttonRect.left - menuPanelRect.left;
-            const top = buttonRect.bottom - menuPanelRect.top + 8;
-
-            subPanel.style.position = 'absolute';
-            subPanel.style.left = `${left}px`;
-            subPanel.style.top = `${top}px`;
-
             subPanel.hidden = false;
-            menuPanel.dataset.pcMenuState = 'open';
+            menuPanel.dataset.defaultMenuState = 'open';
+            positionPanel(button);
         }
 
         function closePanel({ restoreFocus = false } = {}) {
-            if (!desktopMq.matches || menuPanel.dataset.menuMode !== 'drawer') return;
+            if (!defaultHeaderMq.matches || menuPanel.dataset.menuMode !== 'default') return;
 
             const buttonToRestore = activeButton;
 
@@ -661,7 +696,7 @@ document.addEventListener('DOMContentLoaded', () => {
             subPanel.style.position = '';
             subPanel.style.left = '';
             subPanel.style.top = '';
-            menuPanel.dataset.pcMenuState = 'closed';
+            menuPanel.dataset.defaultMenuState = 'closed';
             activeButton = null;
 
             if (restoreFocus && buttonToRestore) {
@@ -670,9 +705,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function syncMenuByViewport() {
-            const isDrawerDesktop = desktopMq.matches && menuPanel.dataset.menuMode === 'drawer';
+            const isDefaultHeaderMenu = defaultHeaderMq.matches && menuPanel.dataset.menuMode === 'default';
 
-            if (isDrawerDesktop) {
+            if (isDefaultHeaderMenu) {
                 closePanel();
                 return;
             }
@@ -689,7 +724,7 @@ document.addEventListener('DOMContentLoaded', () => {
             subPanel.style.position = '';
             subPanel.style.left = '';
             subPanel.style.top = '';
-            menuPanel.dataset.pcMenuState = 'closed';
+            menuPanel.dataset.defaultMenuState = 'closed';
         }
 
         /* --- 4-2. Interaction Binding (이벤트 연결) --- */
@@ -697,8 +732,21 @@ document.addEventListener('DOMContentLoaded', () => {
         function initPcMenu() {
             mainButtons.forEach((button) => {
                 cleanups.push(
-                    addListenerWithCleanup(button, 'mouseenter', () => {
-                        if (!desktopMq.matches) return;
+                    addListenerWithCleanup(button, 'click', (event) => {
+                        if (!defaultHeaderMq.matches) return;
+                        if (menuPanel.dataset.menuMode !== 'default') return;
+
+                        event.preventDefault();
+
+                        const isCurrentPanelOpen =
+                            menuPanel.dataset.defaultMenuState === 'open' &&
+                            activeButton === button;
+
+                        if (isCurrentPanelOpen) {
+                            closePanel();
+                            return;
+                        }
+
                         openPanel(button);
                     })
                 );
@@ -706,7 +754,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // 서브 메뉴 포커스
                 cleanups.push(
                     addListenerWithCleanup(button, 'keydown', (e) => {
-                        if (!desktopMq.matches) return;
+                        if (!defaultHeaderMq.matches) return;
 
                         const isOpenKey =
                             e.key === 'Enter' ||
@@ -740,7 +788,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 subLinks.forEach((subLink, index) => {
                     cleanups.push(
                         addListenerWithCleanup(subLink, 'keydown', (e) => {
-                            if (!desktopMq.matches || menuPanel.dataset.menuMode !== 'drawer') return;
+                            if (!defaultHeaderMq.matches || menuPanel.dataset.menuMode !== 'default') return;
 
                             if (e.key === 'Escape') {
                                 e.preventDefault();
@@ -761,7 +809,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (firstSubLink) {
                     cleanups.push(
                         addListenerWithCleanup(firstSubLink, 'keydown', (e) => {
-                            if (!desktopMq.matches || e.key !== 'Tab' || !e.shiftKey) return;
+                            if (!defaultHeaderMq.matches || e.key !== 'Tab' || !e.shiftKey) return;
                             e.preventDefault();
                             closePanel();
                             button.focus();
@@ -772,7 +820,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (lastSubLink) {
                     cleanups.push(
                         addListenerWithCleanup(lastSubLink, 'keydown', (e) => {
-                            if (!desktopMq.matches) return;
+                            if (!defaultHeaderMq.matches) return;
                             if (e.key !== 'Tab' || e.shiftKey) return;
 
                             const mainMenuItems = Array.from(
@@ -797,50 +845,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
             mainLinks.forEach((link) => {
                 cleanups.push(
-                    addListenerWithCleanup(link, 'mouseenter', () => {
-                        if (!desktopMq.matches) return;
-                        if (menuPanel.dataset.menuMode !== 'drawer') return;
+                    addListenerWithCleanup(link, 'focus', () => {
+                        if (!defaultHeaderMq.matches) return;
+                        if (menuPanel.dataset.menuMode !== 'default') return;
                         closePanel();
                     })
                 );
 
                 cleanups.push(
-                    addListenerWithCleanup(link, 'focus', () => {
-                        if (!desktopMq.matches) return;
-                        if (menuPanel.dataset.menuMode !== 'drawer') return;
+                    addListenerWithCleanup(link, 'click', () => {
+                        if (!defaultHeaderMq.matches) return;
+                        if (menuPanel.dataset.menuMode !== 'default') return;
                         closePanel();
                     })
                 );
             });
 
-            if (megaButton) {
-                cleanups.push(
-                    addListenerWithCleanup(megaButton, 'mouseenter', () => {
-                        if (!desktopMq.matches) return;
-                        if (menuPanel.dataset.menuMode !== 'drawer') return;
-                        closePanel();
-                    })
-                );
-
-                cleanups.push(
-                    addListenerWithCleanup(megaButton, 'focus', () => {
-                        if (!desktopMq.matches) return;
-                        if (menuPanel.dataset.menuMode !== 'drawer') return;
-                        closePanel();
-                    })
-                );
-            }
-
-            cleanups.push(
-                addListenerWithCleanup(menuPanel, 'mouseleave', () => {
-                    if (!desktopMq.matches) return;
-                    closePanel();
-                })
-            );
-
             cleanups.push(
                 addListenerWithCleanup(menuPanel, 'focusout', (e) => {
-                    if (!desktopMq.matches) return;
+                    if (!defaultHeaderMq.matches) return;
 
                     const nextFocus = e.relatedTarget;
 
@@ -852,13 +875,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
             cleanups.push(
                 addListenerWithCleanup(document, 'keydown', (event) => {
-                    if (!desktopMq.matches) return;
-                    if (menuPanel.dataset.menuMode !== 'drawer') return;
-                    if (menuPanel.dataset.pcMenuState !== 'open') return;
+                    if (!defaultHeaderMq.matches) return;
+                    if (menuPanel.dataset.menuMode !== 'default') return;
+                    if (menuPanel.dataset.defaultMenuState !== 'open') return;
                     if (event.key !== 'Escape') return;
 
                     event.preventDefault();
                     closePanel({ restoreFocus: true });
+                })
+            );
+
+            cleanups.push(
+                addListenerWithCleanup(document, 'pointerdown', (event) => {
+                    if (!defaultHeaderMq.matches) return;
+                    if (menuPanel.dataset.menuMode !== 'default') return;
+                    if (menuPanel.dataset.defaultMenuState !== 'open') return;
+                    if (menuPanel.contains(event.target)) return;
+
+                    closePanel();
+                })
+            );
+
+            cleanups.push(
+                addListenerWithCleanup(window, 'resize', () => {
+                    if (!defaultHeaderMq.matches) return;
+                    if (menuPanel.dataset.menuMode !== 'default') return;
+                    if (menuPanel.dataset.defaultMenuState !== 'open') return;
+
+                    positionPanel(activeButton);
                 })
             );
         }
@@ -866,7 +910,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initPcMenu();
         syncMenuByViewport();
 
-        cleanups.push(addMqChangeListener(desktopMq, syncMenuByViewport));
+        cleanups.push(addMqChangeListener(defaultHeaderMq, syncMenuByViewport));
 
         return () => {
             cleanups.forEach((cleanup) => cleanup());
@@ -874,7 +918,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    /* ===== 5. Desktop Column Layout (컬럼 레이아웃) ===== */
+    /* ===== 5. Default Header Column Layout (기본 헤더 컬럼 레이아웃) ===== */
 
     function initMenuColumns() {
         const panelItems = document.querySelectorAll('#menu-panel .sub-panel__item');
@@ -896,18 +940,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const columnsWrap = document.createElement('div');
             columnsWrap.className = 'sub-menu__columns';
 
-            for (let i = 0; i < items.length; i += 4) {
-                const column = document.createElement('ul');
-                column.className = 'sub-menu sub-menu__column';
+            const menuGrid = document.createElement('ul');
+            menuGrid.className = 'sub-menu sub-menu__column';
 
-                items.slice(i, i + 4).forEach((item) => {
-                    column.appendChild(item);
-                });
+            items.forEach((item) => {
+                menuGrid.appendChild(item);
+            });
 
-                columnsWrap.appendChild(column);
-            }
+            columnsWrap.appendChild(menuGrid);
 
-            menu.style.display = 'none';
+            menu.style.display = '';
             panelItem.appendChild(columnsWrap);
             panelItem.dataset.columnsBuilt = 'true';
         }
@@ -935,10 +977,10 @@ document.addEventListener('DOMContentLoaded', () => {
         /* --- 5-3. Update by Viewport / Mode (상태에 따른 업데이트) --- */
         // updateMenuColumns
         function updateMenuColumns() {
-            const isDrawerMode = menuPanel?.dataset.menuMode === 'drawer';
+            const isDefaultMode = menuPanel?.dataset.menuMode === 'default';
 
             panelItems.forEach((panelItem) => {
-                if (desktopMq.matches && isDrawerMode) {
+                if (defaultHeaderMq.matches && isDefaultMode) {
                     buildMenuColumns(panelItem);
                 } else {
                     restoreMenuColumns(panelItem);
@@ -947,7 +989,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         updateMenuColumns();
-        cleanups.push(addMqChangeListener(desktopMq, updateMenuColumns));
+        cleanups.push(addMqChangeListener(defaultHeaderMq, updateMenuColumns));
 
         return () => {
             panelItems.forEach((panelItem) => {
@@ -959,326 +1001,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    /* ===== 6. Desktop Mega Menu (메가 메뉴) ===== */
-    
-    function initMegaMenu() {
-        if (menuPanel.dataset.menuMode !== 'mega') return () => {};
-
-        const cleanups = [];
-        const subPanel = menuPanel.querySelector('.sub-panel');
-        const panelItems = menuPanel.querySelectorAll('.sub-panel__item');
-
-        if (subPanel) subPanel.hidden = false;
-        panelItems.forEach((panel) => {
-            panel.hidden = false;
-        });
-
-        /* --- 6-1. Entry Focus Flow (진입 포커스 흐름) --- */
-        // setupMegaMenuEntryFlow
-        function setupMegaMenuEntryFlow() {
-            const closeButton = menuPanel.querySelector('.button--close');
-            const firstSubLink = menuPanel.querySelector('.sub-panel__item .sub-menu__item a');
-
-            if (!closeButton || !firstSubLink) return;
-
-            cleanups.push(
-                addListenerWithCleanup(closeButton, 'keydown', (event) => {
-                    if (event.key === 'Tab' && !event.shiftKey) {
-                        event.preventDefault();
-                        firstSubLink.focus();
-                    }
-                })
-            );
-
-            cleanups.push(
-                addListenerWithCleanup(firstSubLink, 'keydown', (event) => {
-                    if (event.key === 'Tab' && event.shiftKey) {
-                        event.preventDefault();
-                        closeButton.focus();
-                    }
-                })
-            );
-        }
-
-        /* --- 6-2. Internal Focus Flow (내부 포커스 이동) --- */
-        // setupMegaMenuFocusFlow
-        function setupMegaMenuFocusFlow() {
-            const panel3Last = menuPanel.querySelector('#panel-3 .sub-menu__item:last-child a');
-            const mainMenuLink = menuPanel.querySelector('.main-menu__link');
-            const panel4First = menuPanel.querySelector('#panel-4 .sub-menu__item a');
-
-            if (!panel3Last || !mainMenuLink || !panel4First) return;
-
-            cleanups.push(
-                addListenerWithCleanup(panel3Last, 'keydown', (event) => {
-                    if (event.key === 'Tab' && !event.shiftKey) {
-                        event.preventDefault();
-                        mainMenuLink.focus();
-                    }
-                })
-            );
-
-            cleanups.push(
-                addListenerWithCleanup(mainMenuLink, 'keydown', (event) => {
-                    if (event.key === 'Tab' && !event.shiftKey) {
-                        event.preventDefault();
-                        panel4First.focus();
-                    }
-
-                    if (event.key === 'Tab' && event.shiftKey) {
-                        event.preventDefault();
-                        panel3Last.focus();
-                    }
-                })
-            );
-
-            cleanups.push(
-                addListenerWithCleanup(panel4First, 'keydown', (event) => {
-                    if (event.key === 'Tab' && event.shiftKey) {
-                        event.preventDefault();
-                        mainMenuLink.focus();
-                    }
-                })
-            );
-        }
-
-        /* --- 6-3. Current Label / Focus Style (현재 상태 표시) --- */
-        // setCurrentMainLabel
-        // clearCurrentMainLabel
-        function setupMegaMenuFocusStyle() {
-            function clearCurrentMainLabel() {
-                const mainButtons = menuPanel.querySelectorAll('.main-menu__button[aria-controls]');
-
-                mainButtons.forEach((button) => {
-                    button.removeAttribute('data-current');
-                });
-            }
-            
-            function setCurrentMainLabel(panelId) {
-                const targetButton = menuPanel.querySelector(
-                    `.main-menu__button[aria-controls="${panelId}"]`
-                );
-
-                clearCurrentMainLabel();
-
-                if (targetButton) {
-                    targetButton.setAttribute('data-current', 'true');
-                }
-            }
-            
-            /* --- 6-4. Action Blocking (동작 차단) --- */
-            // 클릭 / 키 이벤트 제한
-            cleanups.push(
-                addListenerWithCleanup(menuPanel, 'focusin', (event) => {
-                    const subLink = event.target.closest('.sub-menu__link');
-                    if (!subLink) return;
-
-                    const panelItem = subLink.closest('.sub-panel__item');
-                    if (!panelItem) return;
-
-                    setCurrentMainLabel(panelItem.id);
-                })
-            );
-
-            cleanups.push(
-                addListenerWithCleanup(menuPanel, 'focusout', (event) => {
-                    const nextFocus = event.relatedTarget;
-
-                    if (nextFocus && menuPanel.contains(nextFocus)) return;
-
-                    clearCurrentMainLabel();
-                })
-            );
-
-            cleanups.push(
-                addListenerWithCleanup(menuPanel, 'mouseover', (event) => {
-                    const subLink = event.target.closest('.sub-menu__link');
-                    if (!subLink) return;
-
-                    const panelItem = subLink.closest('.sub-panel__item');
-                    if (!panelItem) return;
-
-                    setCurrentMainLabel(panelItem.id);
-                })
-            );
-
-            cleanups.push(
-                addListenerWithCleanup(menuPanel, 'mouseout', (event) => {
-                    const nextHover = event.relatedTarget;
-
-                    if (nextHover && menuPanel.contains(nextHover)) return;
-
-                    clearCurrentMainLabel();
-                })
-            );
-        }
-
-        cleanups.push(
-            addListenerWithCleanup(menuPanel, 'click', (event) => {
-                const mainButton = event.target.closest('.main-menu__button[aria-controls]');
-                if (!mainButton) return;
-                if (menuPanel.dataset.menuMode !== 'mega') return;
-
-                event.preventDefault();
-                event.stopPropagation();
-            })
-        );
-
-        cleanups.push(
-            addListenerWithCleanup(menuPanel, 'keydown', (event) => {
-                const mainButton = event.target.closest('.main-menu__button[aria-controls]');
-                if (!mainButton) return;
-                if (menuPanel.dataset.menuMode !== 'mega') return;
-
-                const blockedKey =
-                    event.key === 'Enter' ||
-                    event.key === ' ' ||
-                    event.key === 'Spacebar' ||
-                    event.key === 'ArrowDown';
-
-                if (!blockedKey) return;
-
-                event.preventDefault();
-                event.stopPropagation();
-            })
-        );
-
-        /* --- 6-5. Dismiss (닫기 처리) --- */
-        // ESC / 외부 클릭 / X 버튼
-        function setupMegaMenuDismiss() {
-            const closeButton = menuPanel.querySelector('.button--close');
-            const megaButton = menuPanel.querySelector('.button--mega-menu');
-
-            if (closeButton) {
-                cleanups.push(
-                    addListenerWithCleanup(closeButton, 'click', () => {
-                        switchMenuMode('drawer');
-                        requestAnimationFrame(() => megaButton?.focus());
-                    })
-                );
-            }
-
-            cleanups.push(
-                addListenerWithCleanup(document, 'keydown', (event) => {
-                    if (menuPanel.dataset.menuMode !== 'mega') return;
-                    if (event.key !== 'Escape') return;
-
-                    event.preventDefault();
-                    switchMenuMode('drawer');
-                    requestAnimationFrame(() => megaButton?.focus());
-                })
-            );
-
-            cleanups.push(
-                addListenerWithCleanup(document, 'click', (event) => {
-                    if (menuPanel.dataset.menuMode !== 'mega') return;
-                    if (menuPanel.contains(event.target)) return;
-
-                    switchMenuMode('drawer');
-                })
-            );
-        }
-
-        setupMegaMenuEntryFlow();
-        setupMegaMenuFocusFlow();
-        setupMegaMenuFocusStyle();
-        setupMegaMenuDismiss();
-
-        return () => {
-            cleanups.forEach((cleanup) => cleanup());
-        };
-    }
-
-
-    /* ===== 7. Desktop Mode Switching (모드 전환) ===== */
-    // resetDrawerStateForMega
-    // switchMenuMode
-    function resetDrawerStateForMega() {
-        const mainButtons = menuPanel.querySelectorAll('.main-menu__button[aria-controls]');
-        const panelItems = menuPanel.querySelectorAll('.sub-panel__item');
-        const subPanel = menuPanel.querySelector('.sub-panel');
-
-        mainButtons.forEach((btn) => {
-            btn.setAttribute('aria-expanded', 'false');
-            btn.removeAttribute('data-current');
-        });
-
-        panelItems.forEach((panel) => {
-            panel.hidden = true;
-        });
-
-        if (subPanel) {
-            subPanel.hidden = true;
-            subPanel.style.position = '';
-            subPanel.style.left = '';
-            subPanel.style.top = '';
-        }
-
-        menuPanel.dataset.pcMenuState = 'closed';
-    }
-
-    function switchMenuMode(nextMode) {
+    /* ===== 6. Default Header Activation (기본 헤더 활성화) ===== */
+    function activateDefaultMenu() {
         cleanupCurrentMode();
-
-        document.body.classList.toggle('is-mega-menu-open', nextMode === 'mega');
-
-        if (nextMode === 'drawer') {
-            menuPanel.querySelector('.button--mega-menu')?.setAttribute('aria-expanded', 'false');
-            resetDrawerStateForMega();
-        }
-
-        menuPanel.dataset.menuMode = nextMode;
-
+        menuPanel.dataset.menuMode = 'default';
         cleanupMenuColumns = initMenuColumns();
-
-        if (nextMode === 'drawer') {
-            cleanupDrawerMenu = initDrawerMenu();
-        }
-
-        if (nextMode === 'mega') {
-            cleanupMegaMenu = initMegaMenu();
-        }
+        cleanupDefaultMenu = initDefaultMenu();
     }
 
-
-    /* ===== 8. Desktop Toggle Button Binding (토글 버튼 연결) ===== */
-    // bindModeToggleButtons
-    function bindModeToggleButtons() {
-        menuPanel.addEventListener('click', (event) => {
-            const closeButton = event.target.closest('.button--close');
-            const megaButton = event.target.closest('.button--mega-menu');
-
-            if (closeButton) {
-                if (!desktopMq.matches) return;
-
-                const opener = menuPanel.querySelector('.button--mega-menu');
-                switchMenuMode('drawer');
-                requestAnimationFrame(() => opener?.focus());
-                return;
-            }
-
-            if (megaButton) {
-                if (!desktopMq.matches) return;
-
-                event.preventDefault();
-                megaButton.setAttribute('aria-expanded', 'true');
-                switchMenuMode('mega');
-
-                requestAnimationFrame(() => {
-                    const firstSubLink = menuPanel.querySelector('#panel-1 .sub-menu__link');
-                    if (firstSubLink) {
-                        firstSubLink.focus();
-                    }
-                });
-            }
-        });
-    }
-
-    /* ===== 9. Initial Boot (초기 실행) ===== */
-    // init 함수 실행들
-    bindModeToggleButtons();
-    cleanupDesktopHeaderScroll = initDesktopHeaderScroll();
-    cleanupMobileTabletMenu = initMobileTabletMenu();
-    switchMenuMode(menuPanel.dataset.menuMode || 'drawer');
+    /* ===== 7. Initial Boot (초기 실행) ===== */
+    cleanupDefaultHeaderScroll = initDefaultHeaderScroll();
+    cleanupCompactHeaderMenu = initCompactHeaderMenu();
+    activateDefaultMenu();
 
 });

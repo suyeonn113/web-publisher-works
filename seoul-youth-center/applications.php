@@ -6,14 +6,15 @@ require_once __DIR__ . '/includes/functions/program.service.php';
 require_once __DIR__ . '/includes/data/lifelong-education-classes.php';
 require_once __DIR__ . '/includes/functions/lifelong-education.service.php';
 
-$pageTitle = '신청내역 확인 | 시립서울청소년센터';
+$pageTitle = '나의 신청현황 | 시립서울청소년센터';
 $pageCss = ['info-pages.css', 'applications.css'];
 $programContextPage = 'applications';
 
 $applicantName = trim((string) ($_POST['applicant_name'] ?? ''));
 $phone = preg_replace('/\D+/', '', (string) ($_POST['phone'] ?? ''));
 $password = (string) ($_POST['password'] ?? '');
-$lookupAttempted = ($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST';
+$isLookupRequest = ($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST';
+$lookupAttempted = $isLookupRequest;
 $lookupError = '';
 $applications = [];
 $openYouthIds = array_fill_keys(array_map(static fn(array $program): int => (int) ($program['id'] ?? 0), getOpenProgramsForDisplay($youthPrograms)), true);
@@ -23,8 +24,9 @@ $localMaster = [
     'phone' => '01000000000',
     'password_hash' => '$2y$10$IotcE8Z96NoMVDewczOlVOCrjo1sdD7qsce9tErBYyZhvzMyOUW62',
 ];
+$localDemoApplications = syc_get_local_demo_applications();
 
-if ($lookupAttempted) {
+if ($isLookupRequest) {
     unset($_SESSION['verified_application_ids']);
 
     if ($applicantName === '' || $phone === '' || $password === '') {
@@ -33,21 +35,7 @@ if ($lookupAttempted) {
         $lookupError = '휴대전화 번호를 숫자만 입력해주세요.';
     } elseif (ENV === 'local' && $applicantName === $localMaster['applicant_name'] && $phone === $localMaster['phone']) {
         if (password_verify($password, $localMaster['password_hash'])) {
-            $demoApplications = [
-                ['program_type' => 'youth', 'program_id' => 4, 'program_title' => '2026년 청소년 성장역량 부트캠프 「스스로 업 프로젝트」 참가자 모집', 'created_at' => '2026-07-08 10:30:00'],
-                ['program_type' => 'youth', 'program_id' => 2, 'program_title' => '우리동네 참여 프로젝트 「청소년 체인지업 메이킹」', 'created_at' => '2026-06-24 14:10:00'],
-                ['program_type' => 'lifelong', 'program_id' => 101, 'program_title' => '런치요가교실 A반', 'created_at' => '2026-07-09 13:20:00'],
-                ['program_type' => 'lifelong', 'program_id' => 109, 'program_title' => '어반스케치교실', 'created_at' => '2026-07-03 18:05:00'],
-            ];
-
-            foreach ($demoApplications as $index => $demo) {
-                $applications[] = array_merge($demo, [
-                    'id' => -($index + 1),
-                    'applicant_name' => $localMaster['applicant_name'],
-                    'phone' => $localMaster['phone'],
-                    'is_demo' => true,
-                ]);
-            }
+            $applications = $localDemoApplications;
         } else {
             $lookupError = '입력한 정보와 일치하는 신청내역이 없습니다.';
         }
@@ -97,6 +85,13 @@ if ($lookupAttempted) {
     }
 }
 
+if (ENV === 'local' && !$isLookupRequest) {
+    $applicantName = $localMaster['applicant_name'];
+    $phone = $localMaster['phone'];
+    $applications = $localDemoApplications;
+    $lookupAttempted = true;
+}
+
 $youthApplications = array_values(array_filter($applications, static fn(array $application): bool => ($application['program_type'] ?? 'youth') === 'youth'));
 $lifelongApplications = array_values(array_filter($applications, static fn(array $application): bool => ($application['program_type'] ?? 'youth') === 'lifelong'));
 
@@ -122,8 +117,8 @@ function renderApplicationRows(array $items, string $type, array $openYouthIds, 
             <td data-label="접수상태"><span class="application-status-badge">접수완료</span></td>
             <td data-label="바로가기">
                 <div class="application-row-actions">
-                    <?php if ($isOpen): ?><a class="application-detail-link is-program" href="<?= htmlspecialchars($programUrl, ENT_QUOTES, 'UTF-8') ?>">프로그램 보기</a><?php else: ?><span class="application-detail-link is-disabled">접수 종료</span><?php endif; ?>
-                    <?php if (empty($application['is_demo'])): ?><a class="application-detail-link" href="<?= BASE_URL ?>/application-detail.php?id=<?= (int) $application['id'] ?>">신청정보 확인</a><?php endif; ?>
+                    <?php if ($isOpen): ?><a class="application-detail-link is-program control control--compact" href="<?= htmlspecialchars($programUrl, ENT_QUOTES, 'UTF-8') ?>">프로그램 보기</a><?php else: ?><span class="application-detail-link is-disabled control control--compact">접수 종료</span><?php endif; ?>
+                    <a class="application-detail-link control control--compact" href="<?= BASE_URL ?>/application-detail.php?id=<?= (int) $application['id'] ?>">신청정보 확인</a>
                 </div>
             </td>
         </tr>
@@ -140,34 +135,34 @@ function renderApplicationRows(array $items, string $type, array $openYouthIds, 
 <main id="main" class="info-page applications-page">
     <section class="info-hero" aria-labelledby="applications-title">
         <div class="info-hero__inner inner">
-            <nav class="info-breadcrumb" aria-label="현재 위치"><ol><li><a href="<?= BASE_URL ?>/index.php">홈</a></li><li>프로그램 신청</li><li aria-current="page">신청내역 확인</li></ol></nav>
-            <div class="info-hero__copy"><p class="info-eyebrow">APPLICATION HISTORY</p><h1 id="applications-title">신청내역 확인</h1><p>청소년 프로그램과 평생교육 프로그램 신청내역을 한 번에 확인할 수 있습니다.</p></div>
+            <nav class="info-breadcrumb type-caption" aria-label="현재 위치"><ol><li><a href="<?= BASE_URL ?>/index.php">홈</a></li><li>통합신청</li><li aria-current="page">나의 신청현황</li></ol></nav>
+            <div class="info-hero__copy"><p class="info-eyebrow type-label">APPLICATION HISTORY</p><h1 class="type-page-title" id="applications-title">나의 신청현황</h1><p class="type-body-lg">청소년 프로그램과 평생교육 프로그램 신청내역을 한 번에 확인할 수 있습니다.</p></div>
         </div>
     </section>
     <?php include __DIR__ . '/includes/components/program-context-nav.php'; ?>
 
-    <section class="applications-header inner" aria-label="신청내역 조회 정보 입력">
+    <section class="program-context-content applications-header inner" aria-label="나의 신청현황 정보 입력">
         <form class="application-lookup" action="<?= BASE_URL ?>/applications.php" method="post" autocomplete="off">
-            <div class="application-lookup__fields">
+            <div class="application-lookup__fields type-label">
                 <label><span>신청자명</span><input name="applicant_name" type="text" value="<?= htmlspecialchars($applicantName, ENT_QUOTES, 'UTF-8') ?>" autocomplete="name" required></label>
                 <label><span>휴대전화</span><input name="phone" type="tel" value="<?= htmlspecialchars($phone, ENT_QUOTES, 'UTF-8') ?>" placeholder="숫자만 입력" inputmode="numeric" autocomplete="tel" required></label>
                 <label><span>신청 비밀번호</span><input name="password" type="password" autocomplete="current-password" required></label>
             </div>
-            <button type="submit">신청내역 조회</button>
+            <button class="control control--search" type="submit">나의 신청현황</button>
         </form>
-        <?php if (ENV === 'local'): ?><aside class="application-master" aria-label="로컬 테스트용 마스터 조회 정보"><strong>로컬 테스트용 마스터</strong><dl><div><dt>신청자명</dt><dd>마스터</dd></div><div><dt>휴대전화</dt><dd>01000000000</dd></div><div><dt>비밀번호</dt><dd>1234</dd></div></dl></aside><?php endif; ?>
-        <?php if ($lookupError !== ''): ?><p class="application-lookup__error" role="alert"><?= htmlspecialchars($lookupError, ENT_QUOTES, 'UTF-8') ?></p><?php endif; ?>
-        <details class="application-lookup-guide"><summary><span aria-hidden="true">i</span>신청내역 조회 안내</summary><ul><li>신청할 때 입력한 신청자명, 휴대전화, 비밀번호가 모두 일치해야 합니다.</li><li>청소년 프로그램과 평생교육 프로그램 신청내역이 구분되어 표시됩니다.</li><li>진행 상태에 따라 신청 정보 수정과 취소가 제한될 수 있습니다.</li></ul></details>
+        <?php if (ENV === 'local'): ?><aside class="application-master type-label" aria-label="로컬 테스트용 마스터 조회 정보"><strong>로컬 테스트용 마스터</strong><dl><div><dt>신청자명</dt><dd>마스터</dd></div><div><dt>휴대전화</dt><dd>01000000000</dd></div><div><dt>비밀번호</dt><dd>1234</dd></div></dl></aside><?php endif; ?>
+        <?php if ($lookupError !== ''): ?><p class="application-lookup__error type-body" role="alert"><?= htmlspecialchars($lookupError, ENT_QUOTES, 'UTF-8') ?></p><?php endif; ?>
+        <aside class="application-lookup-guide type-body" aria-labelledby="application-lookup-guide-title"><h2 id="application-lookup-guide-title"><span aria-hidden="true">i</span>신청내역 조회 전 꼭 확인해 주세요</h2><ul><li>신청할 때 입력한 신청자명, 휴대전화, 비밀번호가 모두 일치해야 합니다.</li><li>청소년 프로그램과 평생교육 프로그램 신청내역이 구분되어 표시됩니다.</li><li>진행 상태에 따라 신청 정보 수정과 취소가 제한될 수 있습니다.</li></ul></aside>
     </section>
 
     <?php if ($lookupAttempted && $lookupError === ''): ?>
         <div class="applications-results inner">
             <section class="applications-board" aria-labelledby="youth-applications-title">
-                <div class="applications-board__heading"><h2 id="youth-applications-title">청소년 프로그램</h2><p>총 <strong><?= count($youthApplications) ?></strong>건</p></div>
+                <div class="applications-board__heading"><h2 class="type-card-title" id="youth-applications-title">청소년 프로그램</h2><p class="type-body">총 <strong><?= count($youthApplications) ?></strong>건</p></div>
                 <table><thead><tr><th scope="col">프로그램명</th><th scope="col">신청자</th><th scope="col">연락처</th><th scope="col">신청일</th><th scope="col">접수상태</th><th scope="col">바로가기</th></tr></thead><tbody><?php renderApplicationRows($youthApplications, 'youth', $openYouthIds, $openLifelongIds); ?></tbody></table>
             </section>
             <section class="applications-board" aria-labelledby="lifelong-applications-title">
-                <div class="applications-board__heading"><h2 id="lifelong-applications-title">평생교육 프로그램</h2><p>총 <strong><?= count($lifelongApplications) ?></strong>건</p></div>
+                <div class="applications-board__heading"><h2 class="type-card-title" id="lifelong-applications-title">평생교육 프로그램</h2><p class="type-body">총 <strong><?= count($lifelongApplications) ?></strong>건</p></div>
                 <table><thead><tr><th scope="col">강좌명</th><th scope="col">신청자</th><th scope="col">연락처</th><th scope="col">신청일</th><th scope="col">접수상태</th><th scope="col">바로가기</th></tr></thead><tbody><?php renderApplicationRows($lifelongApplications, 'lifelong', $openYouthIds, $openLifelongIds); ?></tbody></table>
             </section>
         </div>

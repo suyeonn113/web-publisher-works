@@ -1,0 +1,243 @@
+@charset "utf-8";
+
+@font-face {
+    font-family: "S-Core Dream";
+    src: url("../../assets/fonts/s-core-dream/SCDream4.woff") format("woff");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "S-Core Dream";
+    src: url("../../assets/fonts/s-core-dream/SCDream5.woff") format("woff");
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "S-Core Dream";
+    src: url("../../assets/fonts/s-core-dream/SCDream6.woff") format("woff");
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "S-Core Dream";
+    src: url("../../assets/fonts/s-core-dream/SCDream7.woff") format("woff");
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "S-Core Dream";
+    src: url("../../assets/fonts/s-core-dream/SCDream8.woff") format("woff");
+    font-style: normal;
+    font-weight: 800;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Pretendard";
+    src: url("../../assets/fonts/pretendard/PretendardVariable.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 45 920;
+    font-display: swap;
+}
+
+/* ========================================
+   Compact: 0~767px
+======================================== */
+
+:root {
+    /* ========================================
+       Font Family
+    ======================================== */
+
+    --font-family-base:
+        "S-Core Dream",
+        "Pretendard",
+        "Malgun Gothic",
+        sans-serif;
+
+    --font-family-navigation:
+        "Pretendard",
+        "S-Core Dream",
+        "Malgun Gothic",
+        sans-serif;
+
+    /* ========================================
+       Font Weight
+    ======================================== */
+
+    --weight-default-regular: 400;
+    --weight-default-strong: 500;
+    --weight-emphasis-regular: 500;
+    --weight-emphasis-strong: 600;
+
+    /* ========================================
+       Typography Size
+    ======================================== */
+
+    --type-caption-size: 0.75rem;
+    --type-label-size: 0.875rem;
+    --type-body-size: 1rem;
+    --type-body-lg-size: 1.125rem;
+    --type-card-title-size: 1.25rem;
+    --type-subtitle-size: 1.5rem;
+    --type-section-title-size: 1.75rem;
+    --type-page-title-size: 2rem;
+
+    /* ========================================
+       Korean Line Height
+    ======================================== */
+
+    --type-caption-line: 1.5;
+    --type-label-line: 1.4;
+    --type-body-line: 1.7;
+    --type-body-lg-line: 1.65;
+    --type-card-title-line: 1.45;
+    --type-subtitle-line: 1.4;
+    --type-section-title-line: 1.35;
+    --type-page-title-line: 1.25;
+
+    /* ========================================
+       Korean Letter Spacing
+    ======================================== */
+
+    --type-caption-tracking: 0;
+    --type-label-tracking: -0.01em;
+    --type-body-tracking: -0.012em;
+    --type-body-lg-tracking: -0.015em;
+    --type-card-title-tracking: -0.02em;
+    --type-subtitle-tracking: -0.02em;
+    --type-section-title-tracking: -0.025em;
+    --type-page-title-tracking: -0.03em;
+
+    /* ========================================
+       Spacing
+    ======================================== */
+
+    --gap-s: 0.5rem;
+    --gap-m: 1rem;
+    --gap-l: 1.5rem;
+    --card-gap: 0.5rem;
+    --section-space: 3rem;
+    --page-gutter: 1rem;
+
+    /* ========================================
+       Radius
+    ======================================== */
+
+    --radius-sm: 0.5rem;
+    --radius-md: 0.75rem;
+    --radius-full: 9999px;
+
+    /* ========================================
+       Content Width
+    ======================================== */
+
+    --content-max-width: 120rem;
+
+    /* ========================================
+       Focus
+    ======================================== */
+
+    --focus-width: 2px;
+    --focus-offset: 2px;
+
+    /* ========================================
+       Layer
+    ======================================== */
+
+    --layer-header: 20;
+    --layer-dropdown: 40;
+    --layer-floating: 60;
+    --layer-overlay: 80;
+    --layer-modal: 100;
+    --layer-skip: 120;
+
+}
+
+/* ========================================
+   Standard: 768~1535px
+======================================== */
+
+@media (min-width: 48rem) {
+    :root {
+        /* Typography Size */
+        --type-caption-size: 0.8125rem;
+        --type-label-size: 0.9375rem;
+        --type-body-size: 1.0625rem;
+        --type-body-lg-size: 1.1875rem;
+        --type-card-title-size: 1.375rem;
+        --type-subtitle-size: 1.625rem;
+        --type-section-title-size: 2rem;
+        --type-page-title-size: 2.5rem;
+
+        /* Spacing */
+        --gap-s: 0.75rem;
+        --gap-m: 1.5rem;
+        --gap-l: 2.25rem;
+        --card-gap: 0.625rem;
+        --section-space: 4.5rem;
+        --page-gutter: 2rem;
+
+        /* Radius */
+        --radius-sm: 0.625rem;
+        --radius-md: 0.875rem;
+    }
+}
+
+/* ========================================
+   Wide: 1536px 이상
+======================================== */
+
+@media (min-width: 96rem) {
+    :root {
+        /* Typography Size */
+        --type-caption-size: 0.875rem;
+        --type-label-size: 1rem;
+        --type-body-size: 1.125rem;
+        --type-body-lg-size: 1.25rem;
+        --type-card-title-size: 1.5rem;
+        --type-subtitle-size: 1.75rem;
+        --type-section-title-size: 2.25rem;
+        --type-page-title-size: 3rem;
+
+        /* Spacing */
+        --gap-s: 1rem;
+        --gap-m: 2rem;
+        --gap-l: 3rem;
+        --card-gap: 0.75rem;
+        --section-space: 6rem;
+        --page-gutter: 4rem;
+
+        /* Radius */
+        --radius-sm: 0.75rem;
+        --radius-md: 1rem;
+    }
+}
+
+/* ========================================
+   English Typography
+======================================== */
+
+:lang(en) {
+    --type-caption-line: 1.45;
+    --type-caption-tracking: 0.01em;
+    --type-label-line: 1.35;
+    --type-label-tracking: 0;
+    --type-body-line: 1.6;
+    --type-body-tracking: 0;
+    --type-body-lg-line: 1.55;
+    --type-body-lg-tracking: 0;
+    --type-card-title-line: 1.35;
+    --type-card-title-tracking: -0.01em;
+    --type-subtitle-line: 1.2;
+    --type-section-title-line: 1.2;
+    --type-page-title-line: 1.12;
+}

@@ -2,64 +2,147 @@
 
 html,
 body {
-  overflow-x: clip;
+    overflow-x: clip;
+    background: var(--color-background);
 }
 
-html { 
-  font-size: 16px; 
+html {
+    font-size: 16px;
 }
 
 body {
-  margin: 0;
+    color: var(--color-text);
+    font-family: var(--font-family-base);
+    font-size: var(--type-body-size);
+    font-weight: var(--weight-default-regular);
+    line-height: var(--type-body-line);
+    letter-spacing: var(--type-body-tracking);
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+/* 본문 콘텐츠는 400/500 두 단계만 사용한다.
+   헤더·푸터·전역 메뉴의 별도 위계는 이 범위에 포함하지 않는다. */
+main {
+    --weight-emphasis-strong: var(--weight-default-strong);
 }
 
-button,
-input,
-select,
-textarea {
-  font-family: inherit;
-  font-size: inherit;
+main :where(h1, h2, h3, h4, h5, h6, strong, b) {
+    font-weight: var(--weight-default-strong);
 }
 
-
-/* ========== Input ========== */
-
-input::placeholder {
-    color: #CCCCCC;
+input::placeholder,
+textarea::placeholder {
+    color: var(--color-text-disabled);
 }
-
-
-/* ========== Keyboard-Focus ========== */
 
 :focus-visible {
-  outline: 2px solid #17324D;
-  outline-offset: 2px;
+    outline: var(--focus-width) solid var(--color-focus);
+    outline-offset: var(--focus-offset);
 }
 
+a[aria-disabled="true"] {
+    cursor: default;
+}
 
-/* ========== Scroll ========== */
+/* ========================================
+   Shared Text Action
+======================================== */
+
+:where(
+    .text-action,
+    .text-action-group :is(a, button, [role="link"])
+) {
+    text-decoration-line: none;
+    text-decoration-thickness: from-font;
+    text-underline-offset: 0.2em;
+}
+
+@media (hover: hover) {
+    :where(
+        .text-action,
+        .text-action-group :is(a, button, [role="link"])
+    ):hover {
+        text-decoration-line: underline;
+    }
+}
+
+:where(
+    .text-action,
+    .text-action-group :is(a, button, [role="link"])
+):focus-visible {
+    text-decoration-line: underline;
+}
 
 ::-webkit-scrollbar {
-  width: .45rem;
-  height: .45rem; /* 가로 스크롤용 */
+    width: 0.45rem;
+    height: 0.45rem;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: var(--radius-full);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #999;
+    background: var(--color-stroke);
+    border-radius: var(--radius-full);
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+    background: transparent;
 }
 
+/* ========================================
+   Optional Type Utilities
+   반복 마크업에만 제한적으로 사용한다.
+======================================== */
+
+.type-caption {
+    font-size: var(--type-caption-size);
+    font-weight: var(--weight-default-regular);
+    line-height: var(--type-caption-line);
+    letter-spacing: var(--type-caption-tracking);
+}
+
+.type-label {
+    font-size: var(--type-label-size);
+    font-weight: var(--weight-emphasis-regular);
+    line-height: var(--type-label-line);
+    letter-spacing: var(--type-label-tracking);
+}
+
+.type-body {
+    font-size: var(--type-body-size);
+    font-weight: var(--weight-default-regular);
+    line-height: var(--type-body-line);
+    letter-spacing: var(--type-body-tracking);
+}
+
+.type-body-lg {
+    font-size: var(--type-body-lg-size);
+    font-weight: var(--weight-default-regular);
+    line-height: var(--type-body-lg-line);
+    letter-spacing: var(--type-body-lg-tracking);
+}
+
+.type-card-title {
+    font-size: var(--type-card-title-size);
+    font-weight: var(--weight-emphasis-strong);
+    line-height: var(--type-card-title-line);
+    letter-spacing: var(--type-card-title-tracking);
+}
+
+.type-subtitle {
+    font-size: var(--type-subtitle-size);
+    font-weight: var(--weight-emphasis-strong);
+    line-height: var(--type-subtitle-line);
+    letter-spacing: var(--type-subtitle-tracking);
+}
+
+.type-section-title {
+    font-size: var(--type-section-title-size);
+    font-weight: var(--weight-emphasis-strong);
+    line-height: var(--type-section-title-line);
+    letter-spacing: var(--type-section-title-tracking);
+}
+
+.type-page-title {
+    font-size: var(--type-page-title-size);
+    font-weight: var(--weight-emphasis-strong);
+    line-height: var(--type-page-title-line);
+    letter-spacing: var(--type-page-title-tracking);
+}

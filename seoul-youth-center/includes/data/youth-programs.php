@@ -245,6 +245,87 @@ $youthPrograms = [
         'is_active' => true,
         'sort_order' => 8,
     ],
+    [
+        'id' => 17, // 접수중
+        'title' => '2026년 청소년 미디어 창작 워크숍 「숏폼 스토리 랩」 참가자 모집',
+        'image' => [
+            'src' => '/assets/images/youth-programs/program-17-shortform-story-lab-v1.webp',
+            'alt' => '청소년 미디어 창작 숏폼 스토리 랩 참가자 모집 안내 이미지',
+        ],
+        'url' => '#',
+
+        'recruitment_start_date' => '2026-03-15',
+        'recruitment_end_date' => '2026-04-18',
+        'is_ongoing' => false,
+
+        'activity_start_date' => '2026-04-25',
+        'activity_end_date' => '2026-06-13',
+
+        'price' => 0,
+
+        'hashtags' => ['문화예술', '미디어창작', '중기청소년'],
+        'search_keywords' => ['숏폼', '영상 제작', '미디어 창작', '중기청소년', '후기청소년'],
+
+        'field_code' => 'culture-art',
+        'age_group_codes' => ['mid-youth', 'late-youth'],
+
+        'is_active' => true,
+        'sort_order' => 9,
+    ],
+    [
+        'id' => 18, // 접수중
+        'title' => '2026년 청소년 도시환경 실천 프로젝트 「그린 액션 크루」 참가자 모집',
+        'image' => [
+            'src' => '/assets/images/youth-programs/program-18-green-action-crew-v1.webp',
+            'alt' => '청소년 도시환경 실천 프로젝트 그린 액션 크루 참가자 모집 안내 이미지',
+        ],
+        'url' => '#',
+
+        'recruitment_start_date' => '2026-03-17',
+        'recruitment_end_date' => '2026-04-20',
+        'is_ongoing' => false,
+
+        'activity_start_date' => '2026-04-26',
+        'activity_end_date' => '2026-06-21',
+
+        'price' => 0,
+
+        'hashtags' => ['시민참여', '환경실천', '초등고학년'],
+        'search_keywords' => ['환경 프로젝트', '도시환경', '그린 액션', '초등 고학년', '초기청소년'],
+
+        'field_code' => 'citizen',
+        'age_group_codes' => ['elementary-high', 'early-youth'],
+
+        'is_active' => true,
+        'sort_order' => 10,
+    ],
+    [
+        'id' => 19, // 접수중
+        'title' => '2026년 미래직업 탐색 프로그램 「크리에이터 직업 랩」 참가자 모집',
+        'image' => [
+            'src' => '/assets/images/youth-programs/program-19-creator-career-lab-v1.webp',
+            'alt' => '미래직업 탐색 크리에이터 직업 랩 참가자 모집 안내 이미지',
+        ],
+        'url' => '#',
+
+        'recruitment_start_date' => '2026-03-19',
+        'recruitment_end_date' => '2026-04-22',
+        'is_ongoing' => false,
+
+        'activity_start_date' => '2026-05-02',
+        'activity_end_date' => '2026-06-20',
+
+        'price' => 10000,
+
+        'hashtags' => ['진로직업', '디지털창작', '중기청소년'],
+        'search_keywords' => ['미래직업', '크리에이터', '콘텐츠 기획', '중기청소년', '후기청소년'],
+
+        'field_code' => 'career',
+        'age_group_codes' => ['mid-youth', 'late-youth'],
+
+        'is_active' => true,
+        'sort_order' => 11,
+    ],
 
     // ========================
     // 마감

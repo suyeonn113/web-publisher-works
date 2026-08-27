@@ -2,8 +2,9 @@
  * =========================================
  * Gallery Section
  * - 활동사진 데이터 렌더링
- * - < 480 : 2x2 grid / 버튼 숨김 / 스와이프 제거
- * - >= 480 : 가로 슬라이더 / 버튼 1칸 이동 / 스와이프 가능
+ * - 모든 화면: 동일 크기 카드 2행 grid
+ * - < 480 : 2열 / 버튼 숨김 / 스와이프 제거
+ * - >= 480 : 반응형 열 수 / 가로 슬라이더 / 스와이프 가능
  * - 나중에 DB/API 응답으로 그대로 치환 가능
  * =========================================
  */
@@ -23,12 +24,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const BREAKPOINT_TABLET = 768;
     const DRAG_THRESHOLD = 50;
     const AUTO_PLAY_DELAY = 4500;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
     let resizeTimer = null;
     let autoPlayTimer = null;
     let currentIndex = 0;
+    let physicalIndex = 0;
+    let realPanelCount = 0;
+    let isAnimating = false;
     let positions = [];
-    let maxTranslate = 0;
 
     let startX = 0;
     let isDragging = false;
@@ -87,10 +91,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function getItemsPerPanel() {
-        return window.innerWidth >= BREAKPOINT_MOBILE
-            && window.innerWidth < BREAKPOINT_TABLET
-            ? 3
-            : 4;
+        if (window.innerWidth < BREAKPOINT_MOBILE) return 4;
+        if (window.innerWidth < BREAKPOINT_TABLET) return 6;
+        return 8;
     }
 
     function clamp(value, min, max) {
@@ -98,7 +101,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function getGalleryItems() {
-        return Array.from(galleryTrack.querySelectorAll('.gallery__panel')).filter((item) => !item.hidden);
+        return Array.from(
+            galleryTrack.querySelectorAll(
+                '.gallery__panel:not([data-gallery-clone="true"])'
+            )
+        ).filter((item) => !item.hidden);
+    }
+
+    function getTrackPanels() {
+        return Array.from(galleryTrack.querySelectorAll('.gallery__panel'))
+            .filter((item) => !item.hidden);
     }
 
     function setButtonState(button, isAvailable) {
@@ -118,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function getLastIndex() {
-        return Math.max(positions.length - 1, 0);
+        return Math.max(realPanelCount - 1, 0);
     }
 
     /**
@@ -136,9 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <img src="${buildAssetUrl(photo.imageSrc)}" alt="${photo.imageAlt}" referrerpolicy="no-referrer" loading="lazy" decoding="async">
                 </div>
                 <div class="gallery__content">
-                    <p class="gallery__title">${photo.title}
-                        <span class="gallery__label">${photo.label}</span>
-                    </p>
+                    <p class="gallery__title">${photo.title}</p>
                 </div>
             </div>
         `;
@@ -182,6 +192,31 @@ document.addEventListener('DOMContentLoaded', () => {
         galleryTrack.appendChild(fragment);
     }
 
+    function prepareInfiniteLoop() {
+        galleryTrack.querySelectorAll('[data-gallery-clone="true"]')
+            .forEach((clone) => clone.remove());
+
+        const panels = getGalleryItems();
+        realPanelCount = panels.length;
+
+        if (isMobileGridMode() || realPanelCount <= 1) return;
+
+        const firstClone = panels[0].cloneNode(true);
+        const lastClone = panels[realPanelCount - 1].cloneNode(true);
+
+        [firstClone, lastClone].forEach((clone) => {
+            clone.dataset.galleryClone = 'true';
+            clone.setAttribute('aria-hidden', 'true');
+            clone.querySelectorAll('a, button, input, select, textarea')
+                .forEach((element) => {
+                    element.tabIndex = -1;
+                });
+        });
+
+        galleryTrack.prepend(lastClone);
+        galleryTrack.append(firstClone);
+    }
+
     /**
      * -----------------------------------------
      * 5) 슬라이더 위치값 생성
@@ -189,34 +224,10 @@ document.addEventListener('DOMContentLoaded', () => {
      * -----------------------------------------
      */
     function buildPositions() {
-        const items = getGalleryItems();
-
-        maxTranslate = Math.max(0, galleryTrack.scrollWidth - gallerySlider.clientWidth);
-
-        if (items.length === 0 || maxTranslate <= 1) {
-            positions = [0];
-            return;
-        }
-
-        const result = [];
-
-        items.forEach((item) => {
-            const clamped = clamp(item.offsetLeft, 0, maxTranslate);
-
-            if (!result.some((savedPos) => Math.abs(savedPos - clamped) < 1)) {
-                result.push(clamped);
-            }
-        });
-
-        if (result.length === 0) {
-            result.push(0);
-        }
-
-        if (Math.abs(result[result.length - 1] - maxTranslate) > 1) {
-            result.push(maxTranslate);
-        }
-
-        positions = result;
+        const panels = getTrackPanels();
+        positions = panels.length
+            ? panels.map((panel) => panel.offsetLeft)
+            : [0];
     }
 
     function updateButtons() {
@@ -230,28 +241,53 @@ document.addEventListener('DOMContentLoaded', () => {
         prevButton.hidden = false;
         nextButton.hidden = false;
 
-        const hasMultiplePanels = positions.length > 1;
+        const hasMultiplePanels = realPanelCount > 1;
 
         setButtonState(prevButton, hasMultiplePanels);
         setButtonState(nextButton, hasMultiplePanels);
     }
 
-    function goTo(index) {
-        currentIndex = clamp(index, 0, getLastIndex());
-        applyTranslate(positions[currentIndex] ?? 0);
-        updateButtons();
+    function setPosition(index, animate = true) {
+        physicalIndex = clamp(index, 0, positions.length - 1);
+        galleryTrack.style.transition = animate ? '' : 'none';
+        applyTranslate(positions[physicalIndex] ?? 0);
+
+        if (!animate) {
+            galleryTrack.getBoundingClientRect();
+            galleryTrack.style.transition = '';
+        }
     }
 
     function goNext() {
         if (isMobileGridMode()) return;
-        if (positions.length <= 1) return;
-        goTo(currentIndex >= getLastIndex() ? 0 : currentIndex + 1);
+        if (realPanelCount <= 1 || isAnimating) return;
+
+        currentIndex = (currentIndex + 1) % realPanelCount;
+
+        if (reduceMotion.matches) {
+            physicalIndex = currentIndex + 1;
+            setPosition(physicalIndex, false);
+            return;
+        }
+
+        isAnimating = true;
+        setPosition(physicalIndex + 1);
     }
 
     function goPrev() {
         if (isMobileGridMode()) return;
-        if (positions.length <= 1) return;
-        goTo(currentIndex <= 0 ? getLastIndex() : currentIndex - 1);
+        if (realPanelCount <= 1 || isAnimating) return;
+
+        currentIndex = (currentIndex - 1 + realPanelCount) % realPanelCount;
+
+        if (reduceMotion.matches) {
+            physicalIndex = currentIndex + 1;
+            setPosition(physicalIndex, false);
+            return;
+        }
+
+        isAnimating = true;
+        setPosition(physicalIndex - 1);
     }
 
     function stopAutoPlay() {
@@ -264,8 +300,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (
             isMobileGridMode() ||
-            positions.length <= 1 ||
-            window.matchMedia('(prefers-reduced-motion: reduce)').matches
+            realPanelCount <= 1 ||
+            reduceMotion.matches
         ) {
             return;
         }
@@ -281,6 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function handlePointerDown(event) {
         if (isMobileGridMode()) return;
+        if (isAnimating) return;
         if (event.pointerType === 'mouse' && event.button !== 0) return;
 
         stopAutoPlay();
@@ -325,17 +362,26 @@ document.addEventListener('DOMContentLoaded', () => {
         if (renderedItemsPerPanel !== getItemsPerPanel()) {
             renderGallery(activityPhotos);
             currentIndex = 0;
+            isAnimating = false;
         }
 
         if (isMobileGridMode()) {
+            prepareInfiniteLoop();
             currentIndex = 0;
-            applyTranslate(0);
+            physicalIndex = 0;
+            buildPositions();
+            setPosition(0, false);
             updateButtons();
             return;
         }
 
+        prepareInfiniteLoop();
+        currentIndex = clamp(currentIndex, 0, getLastIndex());
+        physicalIndex = currentIndex + 1;
         buildPositions();
-        goTo(Math.min(currentIndex, getLastIndex()));
+        setPosition(physicalIndex, false);
+        isAnimating = false;
+        updateButtons();
     }
 
     function handleResize() {
@@ -370,15 +416,26 @@ document.addEventListener('DOMContentLoaded', () => {
         startAutoPlay();
     });
 
+    galleryTrack.addEventListener('transitionend', (event) => {
+        if (event.target !== galleryTrack || event.propertyName !== 'transform') return;
+
+        if (physicalIndex === realPanelCount + 1) {
+            setPosition(1, false);
+        } else if (physicalIndex === 0) {
+            setPosition(realPanelCount, false);
+        }
+
+        isAnimating = false;
+    });
+
     gallerySlider.addEventListener('pointerdown', handlePointerDown);
     gallerySlider.addEventListener('pointerup', handlePointerUp);
     gallerySlider.addEventListener('pointercancel', handlePointerCancel);
     gallerySlider.addEventListener('pointerleave', handlePointerCancel);
-    gallerySection.addEventListener('mouseenter', stopAutoPlay);
-    gallerySection.addEventListener('mouseleave', startAutoPlay);
-    gallerySection.addEventListener('focusin', stopAutoPlay);
-    gallerySection.addEventListener('focusout', (event) => {
-        if (!gallerySection.contains(event.relatedTarget)) {
+    gallerySlider.addEventListener('pointerenter', stopAutoPlay);
+    gallerySlider.addEventListener('focusin', stopAutoPlay);
+    gallerySlider.addEventListener('focusout', (event) => {
+        if (!gallerySlider.contains(event.relatedTarget)) {
             startAutoPlay();
         }
     });

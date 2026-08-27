@@ -2,7 +2,7 @@
 include __DIR__ . '/includes/config.php';
 include __DIR__ . '/includes/data/youth-programs.php';
 include __DIR__ . '/includes/functions/program.service.php';
-require_once __DIR__ . '/includes/functions/youth-program-catalog.php';
+
 
 $pageTitle = '청소년 활동 신청';
 $pageCss = ['info-pages.css', 'programs.css', 'program-confirm-modal.css'];
@@ -136,32 +136,32 @@ $pagedPrograms = array_slice($programs, $pageOffset, $programsPerPage);
 <main id="main" class="info-page program-page">
     <section class="info-hero" aria-labelledby="program-page-title">
         <div class="info-hero__inner inner">
-            <nav class="info-breadcrumb" aria-label="현재 위치">
+            <nav class="info-breadcrumb type-caption" aria-label="현재 위치">
                 <ol>
                     <li><a href="<?= BASE_URL ?>/index.php">홈</a></li>
-                    <li>프로그램 신청</li>
+                    <li>통합신청</li>
                     <li aria-current="page">청소년 프로그램 신청</li>
                 </ol>
             </nav>
             <div class="info-hero__copy">
-                <p class="info-eyebrow">PROGRAM APPLICATION</p>
-                <h1 id="program-page-title">청소년 프로그램 신청</h1>
-                <p>현재 접수 중인 프로그램을 확인하고 관심 있는 활동에 바로 신청할 수 있습니다.</p>
+                <p class="info-eyebrow type-label">PROGRAM APPLICATION</p>
+                <h1 class="type-page-title" id="program-page-title">청소년 프로그램 신청</h1>
+                <p class="type-body-lg">현재 접수 중인 프로그램을 확인하고 관심 있는 활동에 바로 신청할 수 있습니다.</p>
             </div>
         </div>
     </section>
 
     <?php include __DIR__ . '/includes/components/program-context-nav.php'; ?>
 
-    <div class="program-page__content inner">
+    <div class="program-context-content program-page__content inner">
     <section class="program-page__header" aria-labelledby="program-page-title">
-        <p>
+        <p class="type-body-lg">
             총 <strong><?= $totalPrograms ?></strong>개의 프로그램이 등록되어 있습니다.
         </p>
 
-        <form class="program-search" action="<?= BASE_URL ?>/programs.php" method="get" role="search" aria-label="프로그램 필터 검색">
+        <form class="program-filter program-search" action="<?= BASE_URL ?>/programs.php" method="get" role="search" aria-label="프로그램 필터 검색">
             <div class="program-search__field">
-                <label for="program-status">모집 상태</label>
+                <label class="type-label" for="program-status">모집 상태</label>
                 <select id="program-status" name="status">
                     <option value=""<?= $statusFilter === '' ? ' selected' : '' ?>>전체</option>
                     <option value="<?= ProgramStatus::ONGOING ?>"<?= $statusFilter === ProgramStatus::ONGOING ? ' selected' : '' ?>>접수중</option>
@@ -170,7 +170,7 @@ $pagedPrograms = array_slice($programs, $pageOffset, $programsPerPage);
             </div>
 
             <div class="program-search__field">
-                <label for="program-age">연령</label>
+                <label class="type-label" for="program-age">연령</label>
                 <select id="program-age" name="age">
                     <option value="">전체 연령</option>
                     <?php foreach ($ageOptions as $value => $label): ?>
@@ -180,7 +180,7 @@ $pagedPrograms = array_slice($programs, $pageOffset, $programsPerPage);
             </div>
 
             <div class="program-search__field">
-                <label for="program-field">분야</label>
+                <label class="type-label" for="program-field">분야</label>
                 <select id="program-field" name="field">
                     <option value="">전체 분야</option>
                     <?php foreach ($fieldOptions as $value => $label): ?>
@@ -190,7 +190,7 @@ $pagedPrograms = array_slice($programs, $pageOffset, $programsPerPage);
             </div>
 
             <div class="program-search__field program-search__field--keyword">
-                <label for="program-keyword">검색어</label>
+                <label class="type-label" for="program-keyword">검색어</label>
                 <input
                     id="program-keyword"
                     name="keyword"
@@ -201,9 +201,9 @@ $pagedPrograms = array_slice($programs, $pageOffset, $programsPerPage);
             </div>
 
             <div class="program-search__actions">
-                <button class="program-search__submit button" type="submit">검색</button>
+                <button class="program-search__submit button control control--search" type="submit">검색</button>
                 <?php if ($hasActiveFilters): ?>
-                    <a class="program-search__reset" href="<?= BASE_URL ?>/programs.php">초기화</a>
+                    <a class="program-search__reset control" href="<?= BASE_URL ?>/programs.php">초기화</a>
                 <?php endif; ?>
             </div>
         </form>
@@ -211,7 +211,7 @@ $pagedPrograms = array_slice($programs, $pageOffset, $programsPerPage);
 
     <section class="program-list" aria-label="청소년 활동 신청 프로그램 목록">
         <?php if (empty($pagedPrograms)): ?>
-            <p class="program-list__empty">조건에 맞는 프로그램이 없습니다.</p>
+            <p class="program-list__empty type-body">조건에 맞는 프로그램이 없습니다.</p>
         <?php else: ?>
             <?php foreach ($pagedPrograms as $program): ?>
                 <?php
@@ -235,8 +235,8 @@ $pagedPrograms = array_slice($programs, $pageOffset, $programsPerPage);
                             alt="<?= htmlspecialchars($imageAlt, ENT_QUOTES, 'UTF-8') ?>"
                         >
                         <div class="program-apply-card__overlay" aria-hidden="true">
-                            <strong><?= htmlspecialchars($title, ENT_QUOTES, 'UTF-8') ?></strong>
-                            <dl>
+                            <strong class="type-body-lg"><?= htmlspecialchars($title, ENT_QUOTES, 'UTF-8') ?></strong>
+                            <dl class="type-caption">
                                 <div>
                                     <dt>신청기간</dt>
                                     <dd><?= htmlspecialchars($recruitmentPeriod, ENT_QUOTES, 'UTF-8') ?></dd>
@@ -250,19 +250,18 @@ $pagedPrograms = array_slice($programs, $pageOffset, $programsPerPage);
                                     <dd><?= htmlspecialchars($activityPeriod, ENT_QUOTES, 'UTF-8') ?></dd>
                                 </div>
                             </dl>
-                            <span class="program-apply-card__plus">+</span>
                         </div>
                     </a>
 
                     <div class="program-apply-card__actions">
                         <a
-                            class="program-apply-card__cta is-apply"
+                            class="program-apply-card__cta is-apply control control--primary"
                             href="<?= BASE_URL ?>/program-apply.php?id=<?= (int) ($program['id'] ?? 0) ?>"
                         >
                             신청하기
                         </a>
                         <button
-                            class="program-apply-card__cta is-confirm"
+                            class="program-apply-card__cta is-confirm control"
                             type="button"
                             data-program-id="<?= (int) ($program['id'] ?? 0) ?>"
                             data-program-title="<?= htmlspecialchars($title, ENT_QUOTES, 'UTF-8') ?>"

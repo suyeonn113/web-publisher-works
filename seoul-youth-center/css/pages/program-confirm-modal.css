@@ -7,10 +7,10 @@
 .program-confirm-modal {
     position: fixed;
     inset: 0;
-    z-index: 2000;
+    z-index: var(--layer-modal);
     display: grid;
     place-items: center;
-    padding: var(--space-2);
+    padding: var(--gap-m);
 }
 
 .program-confirm-modal__backdrop {
@@ -24,52 +24,48 @@
     z-index: 1;
     width: min(100%, 34rem);
     overflow: hidden;
-    background: var(--color-white);
+    background: var(--color-background);
     border-radius: var(--radius-md);
     box-shadow: 0 1rem 2.5rem rgb(31 41 55 / 22%);
 }
 
 .program-confirm-modal__close {
     position: absolute;
-    top: var(--space-2);
-    right: var(--space-2);
+    top: var(--gap-m);
+    right: var(--gap-m);
     z-index: 2;
     width: 2.5rem;
     aspect-ratio: 1 / 1;
-    color: var(--color-text-on);
-    font-size: var(--fs-28);
+    color: var(--color-text);
+    font-size: var(--type-section-title-size);
     line-height: 1;
 }
 
 .program-confirm-modal__header {
     display: grid;
-    gap: var(--space-1);
-    padding: var(--space-6) var(--space-3);
-    color: var(--color-text-on);
+    gap: var(--gap-s);
+    padding: var(--section-space) var(--gap-l);
+    color: var(--color-text);
     text-align: center;
-    background: var(--color-purple);
+    background: var(--color-accent);
 }
 
 .program-confirm-modal__header p {
-    font-size: var(--fs-18);
-    font-weight: 700;
+    font-weight: var(--weight-default-strong);
 }
 
 .program-confirm-modal__header h2 {
-    font-size: var(--fs-28);
-    font-weight: 600;
-    line-height: 1.25;
+    font-weight: var(--weight-default-strong);
 }
 
 .program-confirm-modal__header span {
-    color: rgb(255 255 255 / 76%);
-    font-size: var(--fs-14);
+    color: var(--color-text);
 }
 
 .program-confirm-modal__form {
     display: grid;
     gap: 0;
-    padding: var(--space-4) var(--space-3);
+    padding: calc(var(--gap-l) + var(--gap-s)) var(--gap-l);
 }
 
 .program-confirm-modal__form label {
@@ -86,49 +82,43 @@
 }
 
 .program-confirm-modal__form span {
-    padding-inline: var(--space-2);
-    font-weight: 600;
+    padding-inline: var(--gap-m);
+    font-weight: var(--weight-default-strong);
 }
 
 .program-confirm-modal__form strong {
-    color: var(--color-orange);
+    color: var(--color-primary-text);
 }
 
 .program-confirm-modal__form input {
     width: 100%;
     min-height: 3.5rem;
-    padding-inline: var(--space-2);
-    color: var(--color-text-default);
+    padding-inline: var(--gap-m);
+    color: var(--color-text);
 }
 
 .program-confirm-modal__help {
-    padding-block: var(--space-2);
-    color: var(--color-text-default-soft);
-    font-size: var(--fs-14);
+    padding-block: var(--gap-m);
+    color: var(--color-text-muted);
 }
 
 .program-confirm-modal__actions {
     display: flex;
     justify-content: center;
-    gap: var(--space-1);
-    padding-top: var(--space-2);
+    gap: var(--gap-s);
+    padding-top: var(--gap-m);
 }
 
 .program-confirm-modal__submit,
 .program-confirm-modal__cancel {
     min-width: 8rem;
     min-height: 3rem;
-    padding-inline: var(--space-3);
-    font-size: var(--button-text-size);
-    font-weight: var(--button-text-weight);
-}
-
-.program-confirm-modal__submit {
-    color: var(--color-text-on);
-    background: var(--color-purple);
+    padding-inline: var(--gap-l);
+    font-size: var(--type-body-size);
+    font-weight: var(--weight-default-strong);
 }
 
 .program-confirm-modal__cancel {
-    color: var(--color-text-default);
+    color: var(--color-text);
     border: 1px solid var(--color-line);
 }

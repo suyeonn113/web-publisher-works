@@ -25,7 +25,7 @@ $isEducationProgram = ($program['type'] ?? '') === 'education';
 
 if ($url === '#' && $programId > 0) {
     $url = $isEducationProgram
-        ? '/lifelong-education-classes.php'
+        ? '/lifelong-education-apply.php'
         : '/program-detail.php?id=' . $programId;
 }
 $title = $program['title'] ?? '';
@@ -50,14 +50,15 @@ $dataAttributes = $programMeta['data_attributes'] ?? [];
 $isHomeProgram = $cardVariant === 'home-program';
 $isHomeRecommend = in_array($cardVariant, ['home-recommend', 'home-explorer'], true);
 $isProgramList = $cardVariant === 'program-list';
+$showStatusBadge = $cardVariant !== 'home-explorer';
 
 /**
  * 카드 클래스
- * - card--home-program
- * - card--home-recommend
- * - card--program-list
+ * - program-card--home-program
+ * - program-card--home-recommend
+ * - program-card--program-list
  */
-$cardClasses = ['card', 'card--' . $cardVariant];
+$cardClasses = ['program-card', 'program-card--' . $cardVariant];
 
 $cardAttributes = '';
 foreach ($dataAttributes as $name => $value) {
@@ -69,12 +70,12 @@ foreach ($dataAttributes as $name => $value) {
 ?>
 
 <article class="<?= implode(' ', $cardClasses) ?>"<?= $cardAttributes ?>>
-    <a class="card__link" 
+    <a class="program-card__link"
        href="<?= htmlspecialchars(BASE_URL . $url, ENT_QUOTES, 'UTF-8') ?>"
        aria-labelledby="program-card-title-<?= (int) ($program['id'] ?? 0) ?>">
 
         <!-- 이미지 영역 (공통) -->
-        <div class="card__image">
+        <div class="program-card__image">
             <?php if ($imageSrc !== ''): ?>
                 <img
                     src="<?= htmlspecialchars(BASE_URL . $imageSrc, ENT_QUOTES, 'UTF-8') ?>"
@@ -83,15 +84,15 @@ foreach ($dataAttributes as $name => $value) {
                     decoding="async"
                 >
             <?php else: ?>
-                <span class="card__image-placeholder" aria-hidden="true">
-                    <img src="<?= BASE_URL ?>/assets/icons/education-program.svg" alt="">
+                <span class="program-card__image-placeholder" aria-hidden="true">
+                    <img class="program-card__placeholder-icon icon-image" src="<?= BASE_URL ?>/assets/icons/education-program.svg" alt="">
                     <strong>평생교육</strong>
                 </span>
             <?php endif; ?>
 
             <!-- 모집 상태 배지: 이미지 카드 -->
-            <?php if ($statusLabel): ?>
-                <span class="card__badge">
+            <?php if ($showStatusBadge && $statusLabel): ?>
+                <span class="program-card__badge type-caption">
                     <span class="visually-hidden">모집 상태:</span>
                     <?= htmlspecialchars($statusLabel, ENT_QUOTES, 'UTF-8') ?>
                 </span>
@@ -99,15 +100,15 @@ foreach ($dataAttributes as $name => $value) {
 
         </div>
 
-        <div class="card__body">
+        <div class="program-card__body">
 
             <!-- 제목 (공통) -->
-            <h3 class="card__title">
+            <h3 class="program-card__title type-card-title">
                 <?= htmlspecialchars($title, ENT_QUOTES, 'UTF-8') ?>
             </h3>
 
             <!-- 모집기간 (공통) -->
-            <p class="card__date">
+            <p class="program-card__date type-caption">
                 <?= $recruitmentPeriod !== ''
                     ? htmlspecialchars($recruitmentPeriod, ENT_QUOTES, 'UTF-8')
                     : '&nbsp;' ?>
@@ -118,22 +119,22 @@ foreach ($dataAttributes as $name => $value) {
 
                 <!-- 설명 -->
                 <?php if ($summary): ?>
-                    <p class="card__summary">
+                    <p class="program-card__summary type-body">
                         <?= htmlspecialchars($summary, ENT_QUOTES, 'UTF-8') ?>
                     </p>
                 <?php endif; ?>
 
                 <!-- 메타 정보 -->
                 <?php if ($priceLabel || $durationLabel): ?>
-                    <div class="card__meta">
+                    <div class="program-card__meta type-caption">
                         <?php if ($priceLabel): ?>
-                            <span class="card__meta-item">
+                            <span class="program-card__meta-item">
                                 <?= htmlspecialchars($priceLabel, ENT_QUOTES, 'UTF-8') ?>
                             </span>
                         <?php endif; ?>
 
                         <?php if ($durationLabel): ?>
-                            <span class="card__meta-item">
+                            <span class="program-card__meta-item">
                                 <?= htmlspecialchars($durationLabel, ENT_QUOTES, 'UTF-8') ?>
                             </span>
                         <?php endif; ?>
@@ -142,7 +143,7 @@ foreach ($dataAttributes as $name => $value) {
 
                 <!-- 활동기간 -->
                 <?php if ($activityPeriod): ?>
-                    <p class="card__activity">
+                    <p class="program-card__activity type-caption">
                         활동기간: <?= htmlspecialchars($activityPeriod, ENT_QUOTES, 'UTF-8') ?>
                         <?php if ($activityDays): ?>
                             (<?= (int) $activityDays ?>일)
@@ -154,9 +155,9 @@ foreach ($dataAttributes as $name => $value) {
 
             <!-- 태그: 홈 추천 섹션에서는 숨김 -->
             <?php if (!$isHomeRecommend && !empty($hashtags)): ?>
-                <ul class="card__tags">
+                <ul class="program-card__tags type-caption">
                     <?php foreach ($hashtags as $tag): ?>
-                        <li class="card__tag">
+                        <li class="program-card__tag">
                             <?= htmlspecialchars($tag, ENT_QUOTES, 'UTF-8') ?>
                         </li>
                     <?php endforeach; ?>

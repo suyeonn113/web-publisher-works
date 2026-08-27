@@ -26,6 +26,17 @@ function getOpenLifelongEducationClasses(array $classes): array
     return array_values(array_filter($classes, 'isLifelongEducationClassOpen'));
 }
 
+function sortLifelongEducationClassesByAvailability(array $classes): array
+{
+    usort(
+        $classes,
+        static fn(array $left, array $right): int =>
+            (int) isLifelongEducationClassOpen($right) <=> (int) isLifelongEducationClassOpen($left)
+    );
+
+    return $classes;
+}
+
 function getLifelongEducationOccupancy(array $class): int
 {
     $capacity = max(1, (int) ($class['capacity'] ?? 0));
