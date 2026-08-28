@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BookingStepNav from '../components/flight/search/BookingStepNav';
 import FlightServiceSection from '../components/flight/flight-service/FlightServiceSection';
@@ -13,6 +14,15 @@ const defaultSearchParams = createFixedRoundTripSearchParams({
 
 function Booking() {
   const navigate = useNavigate();
+  const pageTitleRef = useRef(null);
+
+  useEffect(() => {
+    const frameId = window.requestAnimationFrame(() => {
+      pageTitleRef.current?.focus({ preventScroll: true });
+    });
+
+    return () => window.cancelAnimationFrame(frameId);
+  }, []);
 
   const handleSearch = (params) => {
     const query = new URLSearchParams(params).toString();
@@ -22,7 +32,12 @@ function Booking() {
   return (
     <main className="booking-page" aria-labelledby="booking-page-title">
       <div className="booking-page__inner">
-        <h1 className="booking-page__title" id="booking-page-title">
+        <h1
+          className="booking-page__title"
+          id="booking-page-title"
+          ref={pageTitleRef}
+          tabIndex={-1}
+        >
           항공권 예매
         </h1>
         <BookingStepNav activeStep={1} />

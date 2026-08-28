@@ -85,9 +85,9 @@
 .flight-date-picker__nav {
   position: absolute;
 
-  width: max(8%, 44px);
+  width: 44px;
   height: 44px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
 
   &--next {
     position: absolute;

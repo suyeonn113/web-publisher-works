@@ -66,6 +66,7 @@ function BookingCompleteDialog({ isOpen, onClose }) {
 
 function FlightSearchResults() {
   const navigate = useNavigate();
+  const pageTitleRef = useRef(null);
   const [urlSearchParams] = useSearchParams();
   const searchParams = getFlightSearchParams(urlSearchParams);
   const [selectedOutboundDate, setSelectedOutboundDate] = useState(searchParams.departureDate);
@@ -73,6 +74,14 @@ function FlightSearchResults() {
   const [selectedOutboundFlight, setSelectedOutboundFlight] = useState(null);
   const [selectedInboundFlight, setSelectedInboundFlight] = useState(null);
   const [isCompleteDialogOpen, setIsCompleteDialogOpen] = useState(false);
+
+  useEffect(() => {
+    const frameId = window.requestAnimationFrame(() => {
+      pageTitleRef.current?.focus({ preventScroll: true });
+    });
+
+    return () => window.cancelAnimationFrame(frameId);
+  }, []);
 
   useEffect(() => {
     setSelectedOutboundDate(searchParams.departureDate);
@@ -146,7 +155,12 @@ function FlightSearchResults() {
   return (
     <main className="flight-search-results" aria-labelledby="flight-search-results-title">
       <div className="flight-search-results__inner">
-        <h1 className="flight-search-results__title" id="flight-search-results-title">
+        <h1
+          className="flight-search-results__title"
+          id="flight-search-results-title"
+          ref={pageTitleRef}
+          tabIndex={-1}
+        >
           항공권 예매
         </h1>
 

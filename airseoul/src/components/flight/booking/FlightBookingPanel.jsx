@@ -107,6 +107,7 @@ function FlightBookingPanel({ defaultValues, onSearch, variant = 'home', isColla
   const [birthDay, setBirthDay] = useState('');
   const [hasPendingRoundTripDate, setHasPendingRoundTripDate] = useState(false);
   const popupRef = useRef(null);
+  const popupInitialFocusRef = useRef(null);
   const popupTitleId = `flight-booking-popup-${useId().replace(/:/g, '')}`;
   const {
     containerRef: searchRef,
@@ -175,7 +176,8 @@ function FlightBookingPanel({ defaultValues, onSearch, variant = 'home', isColla
 
   useDialogAccessibility({
     dialogRef: popupRef,
-    isModal: isFullScreenDatePicker,
+    initialFocusRef: popupInitialFocusRef,
+    isModal: true,
     isOpen: Boolean(activePanel),
     onClose: closePanelWithValidation,
     triggerRef,
@@ -248,8 +250,6 @@ function FlightBookingPanel({ defaultValues, onSearch, variant = 'home', isColla
     if (nextTripType === TRIP_TYPES.ONE_WAY) {
       setSecondDate('');
     }
-
-    openPanel(PANEL_TYPES.DATE, { currentTarget: document.activeElement });
   };
 
   const handleDateChange = (nextFirstDate, nextSecondDate) => {
@@ -455,6 +455,14 @@ function FlightBookingPanel({ defaultValues, onSearch, variant = 'home', isColla
           </section>
         ))}
       </div>
+
+      <button
+        className="flight-passenger-picker__apply"
+        type="button"
+        onClick={closePanel}
+      >
+        탑승객 적용
+      </button>
     </div>
   );
 
@@ -471,6 +479,7 @@ function FlightBookingPanel({ defaultValues, onSearch, variant = 'home', isColla
       return (
         <AirportSelectionPanel
           disabledCode={activePanel === PANEL_TYPES.FROM ? to : from}
+          initialFocusRef={popupInitialFocusRef}
           selectedCode={activePanel === PANEL_TYPES.FROM ? from : to}
           onSelect={(code) => handleAirportSelect(activePanel, code)}
         />
@@ -481,7 +490,9 @@ function FlightBookingPanel({ defaultValues, onSearch, variant = 'home', isColla
       return (
         <FlightDatePicker
           firstDate={firstDate}
+          initialFocusRef={popupInitialFocusRef}
           secondDate={secondDate}
+          showTripTypeOptions={false}
           tripType={tripType}
           isFullScreen={isFullScreenDatePicker}
           onClose={closePanel}
@@ -514,11 +525,17 @@ function FlightBookingPanel({ defaultValues, onSearch, variant = 'home', isColla
         ref={popupRef}
         role="dialog"
         aria-labelledby={popupTitleId}
-        aria-modal={isFullScreenDatePicker}
+        aria-modal="true"
         tabIndex="-1"
       >
         <header className="flight-service-popup__header">
-          <strong id={popupTitleId}>{getPanelTitle()}</strong>
+          <h2
+            id={popupTitleId}
+            ref={activePanel === PANEL_TYPES.PASSENGERS ? popupInitialFocusRef : undefined}
+            tabIndex={activePanel === PANEL_TYPES.PASSENGERS ? -1 : undefined}
+          >
+            {getPanelTitle()}
+          </h2>
           <button
             type="button"
             aria-label="선택 창 닫기"

@@ -364,6 +364,19 @@
   }
 }
 
+.flight-passenger-picker__apply {
+  @include button-hover-primary;
+
+  justify-self: end;
+  min-width: rem(144px);
+  min-height: rem(48px);
+  padding: 0 24px;
+  color: var(--color-text-inverse);
+  font-weight: 500;
+  background: var(--color-mint-accessible);
+  border-radius: var(--radius-full);
+}
+
 @include respond-down(laptop) {
   .flight-booking-panel__content {
     padding: 32px;
@@ -480,5 +493,10 @@
     width: 100%;
     max-width: none;
     margin-left: 0;
+  }
+
+  .flight-passenger-picker__apply {
+    justify-self: stretch;
+    width: 100%;
   }
 }

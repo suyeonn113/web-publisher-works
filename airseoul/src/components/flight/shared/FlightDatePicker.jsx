@@ -32,6 +32,7 @@ const getMonthTitle = (date) => `${date.getFullYear()}년 ${date.getMonth() + 1}
 function FlightDatePicker({
   tripType,
   firstDate,
+  initialFocusRef,
   maxDate,
   minDate,
   secondDate,
@@ -221,6 +222,11 @@ function FlightDatePicker({
                 key={dateText}
                 onClick={() => handleSelectDate(date)}
                 onKeyDown={(event) => handleDayKeyDown(event, date)}
+                ref={(element) => {
+                  if (!isDisabled && dateText === focusedDate && initialFocusRef) {
+                    initialFocusRef.current = element;
+                  }
+                }}
                 tabIndex={!isDisabled && dateText === focusedDate ? 0 : -1}
                 type="button"
               >
