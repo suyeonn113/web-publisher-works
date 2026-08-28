@@ -47,21 +47,26 @@
         .replace(/\s*\(/g, ' (')
         .trim();
 
-    const normalizeItem = (item) => ({
-        id: item.id,
-        name: normalizeProductName(item.name),
-        price: Number(item.price || 0),
-        originalPrice: Number(item.originalPrice || item.price || 0),
-        discount: Number(item.discount || 0),
-        image: item.image || '',
-        sizes: Array.isArray(item.sizes) && item.sizes.length > 0
+    const normalizeItem = (item) => {
+        const sizes = Array.isArray(item.sizes) && item.sizes.length > 0
             ? item.sizes.map((size) => String(size))
-            : [String(item.size || 'S')],
-        size: item.size || 'S',
-        option: item.option || '',
-        quantity: Math.max(1, Number(item.quantity || 1)),
-        selected: item.selected !== false,
-    });
+            : [String(item.size || 'S')];
+        const requestedSize = String(item.size || sizes[0]);
+
+        return {
+            id: item.id,
+            name: normalizeProductName(item.name),
+            price: Number(item.price || 0),
+            originalPrice: Number(item.originalPrice || item.price || 0),
+            discount: Number(item.discount || 0),
+            image: item.image || '',
+            sizes,
+            size: sizes.includes(requestedSize) ? requestedSize : sizes[0],
+            option: item.option || '',
+            quantity: Math.max(1, Number(item.quantity || 1)),
+            selected: item.selected !== false,
+        };
+    };
 
     window.FragfarmShop = {
         CART_KEY,

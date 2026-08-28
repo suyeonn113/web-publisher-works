@@ -195,6 +195,12 @@ const openCartOptions = (item, trigger) => {
     cartOptionLayer.querySelector('input[name="cart_option_size"]')?.focus();
 };
 
+const getSelectedSize = (selectedProduct) => {
+    if (!selectedProduct || selectedProduct.hidden) return '';
+
+    return document.querySelector('.product-detail__order input[name="size"]:checked')?.value || '';
+};
+
 const itemFromButton = (button) => {
     const raw = button.dataset.shopItem;
 
@@ -203,7 +209,7 @@ const itemFromButton = (button) => {
     }
 
     const selected = document.querySelector('[data-selected-product]');
-    const size = selected?.hidden ? '' : selected?.querySelector('[data-selected-name]')?.textContent.match(/\((.*?)\)$/)?.[1];
+    const size = getSelectedSize(selected);
     const quantity = selected?.hidden ? 1 : Number(selected?.querySelector('[data-selected-qty]')?.textContent || 1);
 
     return {
@@ -236,7 +242,7 @@ const initProductActions = () => {
                 return;
             }
             const item = itemFromButton(button);
-            item.size = selected.querySelector('[data-selected-name]')?.textContent.match(/\((.*?)\)$/)?.[1] || item.size;
+            item.size = getSelectedSize(selected) || item.size;
             item.quantity = Number(selected.querySelector('[data-selected-qty]')?.textContent || 1);
             lastCartTrigger = button;
             requestCartAdd(item);
@@ -261,7 +267,7 @@ const initProductActions = () => {
         }
 
         const item = itemFromButton(event.currentTarget);
-        item.size = selected.querySelector('[data-selected-name]')?.textContent.match(/\((.*?)\)$/)?.[1] || item.size;
+        item.size = getSelectedSize(selected) || item.size;
         item.quantity = Number(selected.querySelector('[data-selected-qty]')?.textContent || 1);
         window.localStorage.setItem(CHECKOUT_KEY, JSON.stringify({ source: 'product', items: [normalizeItem(item)] }));
         window.location.href = `${window.FRAGFARM_BASE_URL || ''}/pages/checkout.php`;
