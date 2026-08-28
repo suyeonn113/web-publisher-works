@@ -59,7 +59,6 @@ $formOld = $formFeedback['old'];
         <form class="program-apply-form inner" action="<?= BASE_URL ?>/actions/application_create.php" method="post" autocomplete="off" novalidate>
             <input type="hidden" name="program_id" value="<?= (int) $programId ?>">
             <input type="hidden" name="program_title" value="<?= htmlspecialchars($title, ENT_QUOTES, 'UTF-8') ?>">
-            <?php syc_render_form_error_summary($formErrors, $formFeedback['summary']); ?>
             <section class="program-apply-program" aria-labelledby="program-summary-title">
                 <h2 class="type-section-title" id="program-summary-title"><?= htmlspecialchars($title, ENT_QUOTES, 'UTF-8') ?></h2>
                 <p class="type-caption">활동기간: <?= htmlspecialchars($activityPeriod, ENT_QUOTES, 'UTF-8') ?></p>

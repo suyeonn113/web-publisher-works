@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const requiredAgreements = form.querySelectorAll(
         'input[name="agree_privacy"], input[name="agree_third_party"]'
     );
-    const errorSummary = form.querySelector('[data-form-error-summary]');
     let isDirty = false;
     let isSubmitting = false;
 
@@ -30,16 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
             behavior: reduceMotion ? 'auto' : 'smooth',
             block: 'center'
         });
-    }
-
-    function findFieldFromHash(hash) {
-        if (!hash || hash === '#') return null;
-
-        try {
-            return form.querySelector(hash);
-        } catch {
-            return null;
-        }
     }
 
     function clearFieldError(field) {
@@ -101,17 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!agreeAll) return;
             agreeAll.checked = Array.from(requiredAgreements).every((item) => item.checked);
         });
-    });
-
-    errorSummary?.addEventListener('click', (event) => {
-        const link = event.target.closest('a[href^="#field-"]');
-        if (!link) return;
-
-        const field = findFieldFromHash(link.hash);
-        if (!field) return;
-
-        event.preventDefault();
-        focusField(field);
     });
 
     const firstInvalidField = form.querySelector('[aria-invalid="true"]');

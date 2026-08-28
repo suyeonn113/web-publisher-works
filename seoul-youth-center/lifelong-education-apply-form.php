@@ -30,7 +30,6 @@ $formOld = $formFeedback['old'];
     <?php else: ?>
         <form class="program-apply-form inner" action="<?= BASE_URL ?>/actions/lifelong_application_create.php" method="post" autocomplete="off" novalidate>
             <input type="hidden" name="program_id" value="<?= (int) $class['id'] ?>">
-            <?php syc_render_form_error_summary($formErrors, $formFeedback['summary']); ?>
             <section class="program-apply-program" aria-labelledby="lifelong-course-summary-title">
                 <h2 class="type-section-title" id="lifelong-course-summary-title"><?= htmlspecialchars($class['title'], ENT_QUOTES, 'UTF-8') ?></h2>
                 <p class="type-caption"><?= htmlspecialchars($class['days_label'] . ' ' . $class['time'] . ' · ' . $class['place'], ENT_QUOTES, 'UTF-8') ?></p>

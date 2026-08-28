@@ -64,7 +64,6 @@ $pageCss = ['info-pages.css', 'program-apply.css', 'applications.css'];
 
     <form class="program-apply-form inner" action="<?= BASE_URL ?>/actions/application_update.php" method="post" autocomplete="off" novalidate<?= $isLocalDemo ? ' onsubmit="alert(\'로컬 예시 데이터는 저장되지 않습니다.\'); return false;"' : '' ?>>
         <input type="hidden" name="id" value="<?= (int) $application['id'] ?>">
-        <?php syc_render_form_error_summary($formErrors, $formFeedback['summary']); ?>
 
         <section class="program-apply-program" aria-labelledby="application-edit-program-title">
             <h2 class="type-section-title" id="application-edit-program-title"><?= htmlspecialchars($application['program_title'], ENT_QUOTES, 'UTF-8') ?></h2>

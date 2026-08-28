@@ -77,27 +77,6 @@ function syc_render_form_error(array $errors, $name)
         . '</span>';
 }
 
-function syc_render_form_error_summary(array $errors, $summary = '입력 내용을 확인해주세요.')
-{
-    if ($errors === []) {
-        return;
-    }
-
-    echo '<div class="program-apply-error-summary" role="alert" tabindex="-1" data-form-error-summary>';
-    echo '<strong class="type-body">' . htmlspecialchars($summary, ENT_QUOTES, 'UTF-8') . '</strong>';
-    echo '<ul class="type-caption">';
-
-    foreach ($errors as $name => $message) {
-        echo '<li><a href="#field-'
-            . htmlspecialchars((string) $name, ENT_QUOTES, 'UTF-8')
-            . '">'
-            . htmlspecialchars((string) $message, ENT_QUOTES, 'UTF-8')
-            . '</a></li>';
-    }
-
-    echo '</ul></div>';
-}
-
 function syc_is_valid_birthdate($birthdate)
 {
     if (!preg_match('/^\d{8}$/', (string) $birthdate)) {
