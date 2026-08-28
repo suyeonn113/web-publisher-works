@@ -3,90 +3,82 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!form) return;
 
     const agreeAll = form.querySelector('input[name="agree_all"]');
-    const requiredAgreements = form.querySelectorAll('input[name="agree_privacy"], input[name="agree_third_party"]');
-    const submitButtons = form.querySelectorAll('button[type="submit"]');
+    const requiredAgreements = form.querySelectorAll(
+        'input[name="agree_privacy"], input[name="agree_third_party"]'
+    );
+    const errorSummary = form.querySelector('[data-form-error-summary]');
     let isDirty = false;
     let isSubmitting = false;
-    let didShowAgreementAlert = false;
 
-    function showAgreementAlert() {
-        if (didShowAgreementAlert) return;
+    function getVisibleField(field) {
+        if (!field) return null;
 
-        didShowAgreementAlert = true;
-        alert('개인정보 수집 및 이용 동의에 체크해야 신청할 수 있습니다.');
+        if (field.matches('select.select-control__native')) {
+            return field.closest('.select-control')?.querySelector('.select-control__trigger') || field;
+        }
 
-        window.requestAnimationFrame(() => {
-            agreeAll?.focus();
-            agreeAll?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        });
-
-        window.setTimeout(() => {
-            didShowAgreementAlert = false;
-        }, 300);
+        return field;
     }
 
-    function hasUncheckedAgreement() {
-        return Array.from(requiredAgreements).some((checkbox) => !checkbox.checked);
-    }
+    function focusField(field) {
+        const target = getVisibleField(field);
+        if (!target) return;
 
-    function getFirstInvalidField() {
-        return Array.from(form.querySelectorAll('input, select, textarea')).find((field) => {
-            if (Array.from(requiredAgreements).includes(field)) return false;
-            return typeof field.checkValidity === 'function' && !field.checkValidity();
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        target.focus({ preventScroll: true });
+        target.scrollIntoView({
+            behavior: reduceMotion ? 'auto' : 'smooth',
+            block: 'center'
         });
     }
 
-    function showFieldValidation(field) {
-        if (!field) return false;
+    function findFieldFromHash(hash) {
+        if (!hash || hash === '#') return null;
 
-        field.focus();
-        field.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-        window.requestAnimationFrame(() => {
-            field.reportValidity();
-        });
-
-        return true;
+        try {
+            return form.querySelector(hash);
+        } catch {
+            return null;
+        }
     }
 
-    form.addEventListener('input', () => {
-        isDirty = true;
-    });
+    function clearFieldError(field) {
+        const describedBy = field.getAttribute('aria-describedby');
+        field.removeAttribute('aria-invalid');
 
-    form.addEventListener('change', () => {
-        isDirty = true;
-    });
+        if (field.matches('select.select-control__native')) {
+            field.closest('.select-control')
+                ?.querySelector('.select-control__trigger')
+                ?.removeAttribute('aria-invalid');
+        }
 
-    submitButtons.forEach((button) => {
-        button.addEventListener('click', (event) => {
-            const invalidField = getFirstInvalidField();
-            if (invalidField) {
-                event.preventDefault();
-                showFieldValidation(invalidField);
-                return;
+        if (!describedBy) return;
+
+        describedBy.split(/\s+/).forEach((id) => {
+            const description = document.getElementById(id);
+            if (description?.classList.contains('program-apply-field-error')) {
+                description.hidden = true;
             }
-
-            if (!hasUncheckedAgreement()) return;
-
-            event.preventDefault();
-            showAgreementAlert();
         });
+    }
+
+    form.addEventListener('input', (event) => {
+        isDirty = true;
+
+        if (event.target instanceof HTMLElement) {
+            clearFieldError(event.target);
+        }
     });
 
-    form.addEventListener('submit', (event) => {
-        const invalidField = getFirstInvalidField();
-        if (invalidField) {
-            event.preventDefault();
-            showFieldValidation(invalidField);
-            return;
-        }
+    form.addEventListener('change', (event) => {
+        isDirty = true;
 
-        if (hasUncheckedAgreement()) {
-            event.preventDefault();
-            showAgreementAlert();
-            return;
+        if (event.target instanceof HTMLElement) {
+            clearFieldError(event.target);
         }
+    });
 
+    form.addEventListener('submit', () => {
         isSubmitting = true;
     });
 
@@ -100,18 +92,30 @@ document.addEventListener('DOMContentLoaded', () => {
     agreeAll?.addEventListener('change', () => {
         requiredAgreements.forEach((checkbox) => {
             checkbox.checked = agreeAll.checked;
+            checkbox.dispatchEvent(new Event('change', { bubbles: true }));
         });
     });
 
     requiredAgreements.forEach((checkbox) => {
-        checkbox.addEventListener('invalid', (event) => {
-            event.preventDefault();
-            showAgreementAlert();
-        });
-
         checkbox.addEventListener('change', () => {
             if (!agreeAll) return;
             agreeAll.checked = Array.from(requiredAgreements).every((item) => item.checked);
         });
     });
+
+    errorSummary?.addEventListener('click', (event) => {
+        const link = event.target.closest('a[href^="#field-"]');
+        if (!link) return;
+
+        const field = findFieldFromHash(link.hash);
+        if (!field) return;
+
+        event.preventDefault();
+        focusField(field);
+    });
+
+    const firstInvalidField = form.querySelector('[aria-invalid="true"]');
+    if (firstInvalidField) {
+        window.requestAnimationFrame(() => focusField(firstInvalidField));
+    }
 });

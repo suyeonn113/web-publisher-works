@@ -15,37 +15,50 @@ $birthdate = trim((string) ($_POST['birthdate'] ?? ''));
 $gender = (string) ($_POST['gender'] ?? '');
 $password = (string) ($_POST['password'] ?? '');
 $passwordConfirm = (string) ($_POST['password_confirm'] ?? '');
-$phone = preg_replace('/\D+/', '', (string) ($_POST['phone'] ?? ''));
+$phoneInput = trim((string) ($_POST['phone'] ?? ''));
+$phone = preg_replace('/\D+/', '', $phoneInput);
 $email = trim((string) ($_POST['email'] ?? ''));
 $address = trim((string) ($_POST['address'] ?? ''));
 $school = trim((string) ($_POST['school'] ?? ''));
+$agreePrivacy = isset($_POST['agree_privacy']);
+$agreeThirdParty = isset($_POST['agree_third_party']);
 
 if (!$targetClass) {
     syc_move_with_alert('현재 접수 가능한 강좌가 아닙니다.', BASE_URL . '/lifelong-education-apply.php');
 }
 
-if ($applicantName === '' || $birthdate === '' || $gender === '' || $password === '' || $passwordConfirm === '' || $phone === '') {
-    syc_move_with_alert('필수 입력 항목을 모두 입력해주세요.');
-}
+$formErrors = syc_validate_application_form([
+    'applicant_name' => $applicantName,
+    'birthdate' => $birthdate,
+    'gender' => $gender,
+    'password' => $password,
+    'password_confirm' => $passwordConfirm,
+    'phone' => $phone,
+    'email' => $email,
+    'agree_privacy' => $agreePrivacy,
+    'agree_third_party' => $agreeThirdParty,
+], [
+    'require_password' => true,
+    'require_agreements' => true,
+]);
 
-if (!isset($_POST['agree_privacy'], $_POST['agree_third_party'])) {
-    syc_move_with_alert('필수 동의 항목을 확인해주세요.');
-}
-
-if (!preg_match('/^\d{8}$/', $birthdate) || !in_array($gender, ['male', 'female'], true)) {
-    syc_move_with_alert('생년월일과 성별을 다시 확인해주세요.');
-}
-
-if (strlen($password) < 4 || $password !== $passwordConfirm) {
-    syc_move_with_alert('비밀번호는 4자 이상이며 확인 값과 일치해야 합니다.');
-}
-
-if (!preg_match('/^01[0-9]{8,9}$/', $phone)) {
-    syc_move_with_alert('휴대전화 번호를 숫자만 입력해주세요.');
-}
-
-if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    syc_move_with_alert('이메일 형식이 올바르지 않습니다.');
+if ($formErrors !== []) {
+    syc_redirect_with_form_feedback(
+        BASE_URL . '/lifelong-education-apply-form.php?id=' . $programId,
+        'lifelong_application_create',
+        $formErrors,
+        [
+            'applicant_name' => $applicantName,
+            'birthdate' => $birthdate,
+            'gender' => $gender,
+            'phone' => $phoneInput,
+            'email' => $email,
+            'address' => $address,
+            'school' => $school,
+            'agree_privacy' => $agreePrivacy ? '1' : '',
+            'agree_third_party' => $agreeThirdParty ? '1' : '',
+        ]
+    );
 }
 
 $programTitle = (string) $targetClass['title'];

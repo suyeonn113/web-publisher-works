@@ -61,6 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
         trigger.setAttribute('aria-controls', optionsId);
         trigger.setAttribute('aria-labelledby', `${labelId} ${triggerTextId}`);
         if (select.required) trigger.setAttribute('aria-required', 'true');
+        if (select.hasAttribute('aria-invalid')) trigger.setAttribute('aria-invalid', select.getAttribute('aria-invalid'));
+        if (select.hasAttribute('aria-describedby')) trigger.setAttribute('aria-describedby', select.getAttribute('aria-describedby'));
 
         triggerText.className = 'select-control__value';
         triggerText.id = triggerTextId;
@@ -103,12 +105,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const optionItems = [...options.querySelectorAll('.select-control__option')];
 
-        const syncSelection = () => {
+        const syncSelection = ({ clearInvalid = false } = {}) => {
             const selectedIndex = Math.max(select.selectedIndex, 0);
 
             triggerText.textContent = select.options[selectedIndex]?.textContent || '';
             trigger.disabled = select.disabled;
-            trigger.removeAttribute('aria-invalid');
+            if (clearInvalid) trigger.removeAttribute('aria-invalid');
             optionItems.forEach((option, optionIndex) => {
                 option.setAttribute('aria-selected', String(optionIndex === selectedIndex));
             });
@@ -146,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             select.value = option.dataset.value;
             select.dispatchEvent(new Event('change', { bubbles: true }));
-            syncSelection();
+            syncSelection({ clearInvalid: true });
             closeSelect(item, true);
         };
 
@@ -199,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        select.addEventListener('change', syncSelection);
+        select.addEventListener('change', () => syncSelection({ clearInvalid: true }));
         select.addEventListener('invalid', (event) => {
             event.preventDefault();
             trigger.setAttribute('aria-invalid', 'true');

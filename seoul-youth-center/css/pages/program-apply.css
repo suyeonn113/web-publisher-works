@@ -6,10 +6,40 @@
 }
 
 .program-apply-form {
+    --program-apply-focus-offset: calc(
+        var(--global-header-height, 5rem) +
+        var(--global-menu-height, 0rem) +
+        var(--gap-m)
+    );
+
     display: grid;
     gap: calc(var(--gap-l) + var(--gap-s));
     max-width: 48rem;
     margin-inline: auto;
+}
+
+.program-apply-error-summary {
+    display: grid;
+    gap: var(--gap-s);
+    padding: var(--gap-m);
+    color: var(--color-error);
+    border: 1px solid var(--color-error);
+    border-radius: var(--radius-sm);
+    background: var(--color-error-soft);
+    scroll-margin-block-start: var(--program-apply-focus-offset);
+}
+
+.program-apply-error-summary ul {
+    display: grid;
+    gap: .375rem;
+    padding-inline-start: 1.25rem;
+    list-style: disc;
+}
+
+.program-apply-error-summary a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: .2em;
 }
 
 .info-page.program-apply-page .program-apply-form {
@@ -67,6 +97,7 @@
     display: grid;
     gap: var(--gap-s);
     width: 100%;
+    scroll-margin-block-start: var(--program-apply-focus-offset);
 }
 
 .program-apply-field > span {
@@ -85,6 +116,26 @@
     color: var(--color-text);
     background: var(--color-background);
     border-color: var(--color-stroke);
+}
+
+.program-apply-field :is(.control, .select-control__trigger)[aria-invalid="true"] {
+    border-color: var(--color-error);
+    outline: var(--focus-width) solid var(--color-error);
+    outline-offset: 0;
+}
+
+.program-apply-field-error {
+    color: var(--color-error);
+    font-weight: var(--weight-emphasis-strong);
+}
+
+.program-apply-agree__item > .program-apply-field-error {
+    padding-inline-start: calc(1.25rem + var(--gap-s));
+}
+
+.program-apply-agree input[aria-invalid="true"] {
+    outline: var(--focus-width) solid var(--color-error);
+    outline-offset: var(--focus-offset);
 }
 
 .program-apply-section-title {

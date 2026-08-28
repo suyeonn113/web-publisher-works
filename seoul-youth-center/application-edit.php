@@ -28,6 +28,9 @@ if (!$application) {
     syc_move_with_alert('신청 내역을 찾을 수 없습니다.', BASE_URL . '/programs.php');
 }
 
+$formFeedback = syc_take_form_feedback('application_update_' . $applicationId);
+$formErrors = $formFeedback['errors'];
+$formOld = $formFeedback['old'];
 $pageTitle = '신청 수정 | ' . $application['program_title'];
 $pageCss = ['info-pages.css', 'program-apply.css', 'applications.css'];
 ?>
@@ -59,8 +62,9 @@ $pageCss = ['info-pages.css', 'program-apply.css', 'applications.css'];
         </div>
     </section>
 
-    <form class="program-apply-form inner" action="<?= BASE_URL ?>/actions/application_update.php" method="post" autocomplete="off"<?= $isLocalDemo ? ' onsubmit="alert(\'로컬 예시 데이터는 저장되지 않습니다.\'); return false;"' : '' ?>>
+    <form class="program-apply-form inner" action="<?= BASE_URL ?>/actions/application_update.php" method="post" autocomplete="off" novalidate<?= $isLocalDemo ? ' onsubmit="alert(\'로컬 예시 데이터는 저장되지 않습니다.\'); return false;"' : '' ?>>
         <input type="hidden" name="id" value="<?= (int) $application['id'] ?>">
+        <?php syc_render_form_error_summary($formErrors, $formFeedback['summary']); ?>
 
         <section class="program-apply-program" aria-labelledby="application-edit-program-title">
             <h2 class="type-section-title" id="application-edit-program-title"><?= htmlspecialchars($application['program_title'], ENT_QUOTES, 'UTF-8') ?></h2>
@@ -75,35 +79,41 @@ $pageCss = ['info-pages.css', 'program-apply.css', 'applications.css'];
             <div class="program-apply-fields type-label">
                 <label class="program-apply-field">
                     <span>신청자명 <strong>*</strong></span>
-                    <input class="control" type="text" name="applicant_name" value="<?= htmlspecialchars($application['applicant_name'], ENT_QUOTES, 'UTF-8') ?>" autocomplete="name" placeholder="신청자명을 입력하세요" required>
+                    <input class="control" id="field-applicant_name" type="text" name="applicant_name" value="<?= syc_form_value($formOld, 'applicant_name', $application['applicant_name']) ?>" autocomplete="name" placeholder="신청자명을 입력하세요" required<?= syc_form_error_attributes($formErrors, 'applicant_name') ?>>
+                    <?php syc_render_form_error($formErrors, 'applicant_name'); ?>
                 </label>
                 <label class="program-apply-field">
                     <span>생년월일 <strong>*</strong></span>
-                    <input class="control" type="text" name="birthdate" value="<?= htmlspecialchars($application['birthdate'], ENT_QUOTES, 'UTF-8') ?>" inputmode="numeric" autocomplete="bday" placeholder="생년월일 8자리를 입력하세요" required>
+                    <input class="control" id="field-birthdate" type="text" name="birthdate" value="<?= syc_form_value($formOld, 'birthdate', $application['birthdate']) ?>" inputmode="numeric" maxlength="8" autocomplete="bday" placeholder="생년월일 8자리를 입력하세요" required<?= syc_form_error_attributes($formErrors, 'birthdate') ?>>
+                    <?php syc_render_form_error($formErrors, 'birthdate'); ?>
                 </label>
                 <label class="program-apply-field">
                     <span>성별 <strong>*</strong></span>
-                    <select name="gender" required>
+                    <?php $selectedGender = (string) ($formOld['gender'] ?? $application['gender']); ?>
+                    <select id="field-gender" name="gender" required<?= syc_form_error_attributes($formErrors, 'gender') ?>>
                         <option value="">선택</option>
-                        <option value="male"<?= $application['gender'] === 'male' ? ' selected' : '' ?>>남</option>
-                        <option value="female"<?= $application['gender'] === 'female' ? ' selected' : '' ?>>여</option>
+                        <option value="male"<?= $selectedGender === 'male' ? ' selected' : '' ?>>남</option>
+                        <option value="female"<?= $selectedGender === 'female' ? ' selected' : '' ?>>여</option>
                     </select>
+                    <?php syc_render_form_error($formErrors, 'gender'); ?>
                 </label>
                 <label class="program-apply-field">
                     <span>휴대전화 <strong>*</strong></span>
-                    <input class="control" type="tel" name="phone" value="<?= htmlspecialchars($application['phone'], ENT_QUOTES, 'UTF-8') ?>" inputmode="numeric" autocomplete="tel" placeholder="숫자만 입력하세요" required>
+                    <input class="control" id="field-phone" type="tel" name="phone" value="<?= syc_form_value($formOld, 'phone', $application['phone']) ?>" inputmode="numeric" maxlength="13" autocomplete="tel" placeholder="숫자만 입력하세요" required<?= syc_form_error_attributes($formErrors, 'phone') ?>>
+                    <?php syc_render_form_error($formErrors, 'phone'); ?>
                 </label>
                 <label class="program-apply-field">
                     <span>이메일</span>
-                    <input class="control" type="email" name="email" value="<?= htmlspecialchars($application['email'], ENT_QUOTES, 'UTF-8') ?>" autocomplete="email" placeholder="이메일을 입력하세요">
+                    <input class="control" id="field-email" type="email" name="email" value="<?= syc_form_value($formOld, 'email', $application['email']) ?>" autocomplete="email" placeholder="이메일을 입력하세요"<?= syc_form_error_attributes($formErrors, 'email') ?>>
+                    <?php syc_render_form_error($formErrors, 'email'); ?>
                 </label>
                 <label class="program-apply-field">
                     <span>주소</span>
-                    <input class="control" type="text" name="address" value="<?= htmlspecialchars($application['address'], ENT_QUOTES, 'UTF-8') ?>" autocomplete="street-address" placeholder="주소를 입력하세요">
+                    <input class="control" id="field-address" type="text" name="address" value="<?= syc_form_value($formOld, 'address', $application['address']) ?>" autocomplete="street-address" placeholder="주소를 입력하세요">
                 </label>
                 <label class="program-apply-field">
                     <span>학교·소속</span>
-                    <input class="control" type="text" name="school" value="<?= htmlspecialchars($application['school'], ENT_QUOTES, 'UTF-8') ?>" placeholder="학교 또는 소속명을 입력하세요">
+                    <input class="control" id="field-school" type="text" name="school" value="<?= syc_form_value($formOld, 'school', $application['school']) ?>" placeholder="학교 또는 소속명을 입력하세요">
                 </label>
             </div>
         </section>
@@ -119,6 +129,7 @@ $pageCss = ['info-pages.css', 'program-apply.css', 'applications.css'];
 
 <script src="<?= BASE_URL ?>/js/global-nav.js"></script>
 <script src="<?= BASE_URL ?>/js/header-search.js"></script>
+<script src="<?= BASE_URL ?>/js/program-apply.js"></script>
 <script src="<?= BASE_URL ?>/js/application-edit.js"></script>
 </body>
 </html>

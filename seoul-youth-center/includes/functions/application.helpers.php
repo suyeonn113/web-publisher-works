@@ -14,6 +14,164 @@ function syc_move_with_alert($message, $url = null)
     exit;
 }
 
+function syc_store_form_feedback($key, array $errors, array $oldInput, $summary = '입력 내용을 확인해주세요.')
+{
+    $_SESSION['syc_form_feedback'][$key] = [
+        'errors' => $errors,
+        'old' => $oldInput,
+        'summary' => $summary,
+    ];
+}
+
+function syc_take_form_feedback($key)
+{
+    $feedback = $_SESSION['syc_form_feedback'][$key] ?? null;
+    unset($_SESSION['syc_form_feedback'][$key]);
+
+    if (!is_array($feedback)) {
+        return [
+            'errors' => [],
+            'old' => [],
+            'summary' => '',
+        ];
+    }
+
+    return [
+        'errors' => is_array($feedback['errors'] ?? null) ? $feedback['errors'] : [],
+        'old' => is_array($feedback['old'] ?? null) ? $feedback['old'] : [],
+        'summary' => (string) ($feedback['summary'] ?? ''),
+    ];
+}
+
+function syc_redirect_with_form_feedback($url, $key, array $errors, array $oldInput)
+{
+    syc_store_form_feedback($key, $errors, $oldInput);
+    header('Location: ' . $url, true, 303);
+    exit;
+}
+
+function syc_form_value(array $oldInput, $name, $fallback = '')
+{
+    return htmlspecialchars((string) ($oldInput[$name] ?? $fallback), ENT_QUOTES, 'UTF-8');
+}
+
+function syc_form_error_attributes(array $errors, $name)
+{
+    if (!isset($errors[$name])) {
+        return '';
+    }
+
+    return ' aria-invalid="true" aria-describedby="' . htmlspecialchars($name, ENT_QUOTES, 'UTF-8') . '-error"';
+}
+
+function syc_render_form_error(array $errors, $name)
+{
+    if (!isset($errors[$name])) {
+        return;
+    }
+
+    echo '<span class="program-apply-field-error type-caption" id="'
+        . htmlspecialchars($name, ENT_QUOTES, 'UTF-8')
+        . '-error">'
+        . htmlspecialchars((string) $errors[$name], ENT_QUOTES, 'UTF-8')
+        . '</span>';
+}
+
+function syc_render_form_error_summary(array $errors, $summary = '입력 내용을 확인해주세요.')
+{
+    if ($errors === []) {
+        return;
+    }
+
+    echo '<div class="program-apply-error-summary" role="alert" tabindex="-1" data-form-error-summary>';
+    echo '<strong class="type-body">' . htmlspecialchars($summary, ENT_QUOTES, 'UTF-8') . '</strong>';
+    echo '<ul class="type-caption">';
+
+    foreach ($errors as $name => $message) {
+        echo '<li><a href="#field-'
+            . htmlspecialchars((string) $name, ENT_QUOTES, 'UTF-8')
+            . '">'
+            . htmlspecialchars((string) $message, ENT_QUOTES, 'UTF-8')
+            . '</a></li>';
+    }
+
+    echo '</ul></div>';
+}
+
+function syc_is_valid_birthdate($birthdate)
+{
+    if (!preg_match('/^\d{8}$/', (string) $birthdate)) {
+        return false;
+    }
+
+    $date = DateTime::createFromFormat('!Ymd', (string) $birthdate);
+
+    return $date instanceof DateTime && $date->format('Ymd') === (string) $birthdate;
+}
+
+function syc_validate_application_form(array $data, array $options = [])
+{
+    $errors = [];
+    $requirePassword = (bool) ($options['require_password'] ?? false);
+    $requireAgreements = (bool) ($options['require_agreements'] ?? false);
+
+    if (($data['applicant_name'] ?? '') === '') {
+        $errors['applicant_name'] = '신청자명을 입력해주세요.';
+    }
+
+    $birthdate = (string) ($data['birthdate'] ?? '');
+    if ($birthdate === '') {
+        $errors['birthdate'] = '생년월일을 입력해주세요.';
+    } elseif (!syc_is_valid_birthdate($birthdate)) {
+        $errors['birthdate'] = '생년월일을 숫자 8자리로 정확히 입력해주세요. 예: 20080115';
+    }
+
+    if (!in_array((string) ($data['gender'] ?? ''), ['male', 'female'], true)) {
+        $errors['gender'] = '성별을 선택해주세요.';
+    }
+
+    $phone = (string) ($data['phone'] ?? '');
+    if ($phone === '') {
+        $errors['phone'] = '휴대전화 번호를 입력해주세요.';
+    } elseif (!preg_match('/^01[0-9]{8,9}$/', $phone)) {
+        $errors['phone'] = '휴대전화 번호를 확인해주세요. 숫자만 입력할 수 있습니다.';
+    }
+
+    $email = (string) ($data['email'] ?? '');
+    if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors['email'] = '이메일 형식을 확인해주세요.';
+    }
+
+    if ($requirePassword) {
+        $password = (string) ($data['password'] ?? '');
+        $passwordConfirm = (string) ($data['password_confirm'] ?? '');
+
+        if ($password === '') {
+            $errors['password'] = '신청 비밀번호를 입력해주세요.';
+        } elseif (strlen($password) < 4) {
+            $errors['password'] = '비밀번호를 4자 이상 입력해주세요.';
+        }
+
+        if ($passwordConfirm === '') {
+            $errors['password_confirm'] = '비밀번호를 한 번 더 입력해주세요.';
+        } elseif ($password !== $passwordConfirm) {
+            $errors['password_confirm'] = '비밀번호가 일치하지 않습니다.';
+        }
+    }
+
+    if ($requireAgreements) {
+        if (empty($data['agree_privacy'])) {
+            $errors['agree_privacy'] = '개인정보 수집 및 이용에 동의해주세요.';
+        }
+
+        if (empty($data['agree_third_party'])) {
+            $errors['agree_third_party'] = '개인정보 제3자 제공에 동의해주세요.';
+        }
+    }
+
+    return $errors;
+}
+
 function syc_ensure_program_type_column($mysqli)
 {
     $checkColumn = static function () use ($mysqli) {

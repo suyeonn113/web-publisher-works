@@ -15,7 +15,8 @@ $birthdate = trim($_POST['birthdate'] ?? '');
 $gender = $_POST['gender'] ?? '';
 $password = $_POST['password'] ?? '';
 $passwordConfirm = $_POST['password_confirm'] ?? '';
-$phone = preg_replace('/\D+/', '', $_POST['phone'] ?? '');
+$phoneInput = trim((string) ($_POST['phone'] ?? ''));
+$phone = preg_replace('/\D+/', '', $phoneInput);
 $email = trim($_POST['email'] ?? '');
 $address = trim($_POST['address'] ?? '');
 $school = trim($_POST['school'] ?? '');
@@ -31,45 +32,39 @@ if (!$targetProgram) {
 
 $programTitle = (string) ($targetProgram['title'] ?? '');
 
-if (
-    $programId <= 0 ||
-    $programTitle === '' ||
-    $applicantName === '' ||
-    $birthdate === '' ||
-    $gender === '' ||
-    $password === '' ||
-    $passwordConfirm === '' ||
-    $phone === ''
-) {
-    syc_move_with_alert('필수 입력 항목을 모두 입력해주세요.');
-}
+$formData = [
+    'applicant_name' => $applicantName,
+    'birthdate' => $birthdate,
+    'gender' => $gender,
+    'password' => $password,
+    'password_confirm' => $passwordConfirm,
+    'phone' => $phone,
+    'email' => $email,
+    'agree_privacy' => $agreePrivacy,
+    'agree_third_party' => $agreeThirdParty,
+];
+$formErrors = syc_validate_application_form($formData, [
+    'require_password' => true,
+    'require_agreements' => true,
+]);
 
-if (!$agreePrivacy || !$agreeThirdParty) {
-    syc_move_with_alert('필수 동의 항목을 확인해주세요.');
-}
-
-if (!preg_match('/^\d{8}$/', $birthdate)) {
-    syc_move_with_alert('생년월일은 숫자 8자리로 입력해주세요.');
-}
-
-if (!in_array($gender, ['male', 'female'], true)) {
-    syc_move_with_alert('성별을 다시 선택해주세요.');
-}
-
-if (strlen($password) < 4) {
-    syc_move_with_alert('비밀번호는 4자 이상 입력해주세요.');
-}
-
-if ($password !== $passwordConfirm) {
-    syc_move_with_alert('비밀번호가 일치하지 않습니다.');
-}
-
-if (!preg_match('/^01[0-9]{8,9}$/', $phone)) {
-    syc_move_with_alert('휴대전화 번호를 숫자만 입력해주세요.');
-}
-
-if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    syc_move_with_alert('이메일 형식이 올바르지 않습니다.');
+if ($formErrors !== []) {
+    syc_redirect_with_form_feedback(
+        BASE_URL . '/program-apply.php?id=' . $programId,
+        'youth_application_create',
+        $formErrors,
+        [
+            'applicant_name' => $applicantName,
+            'birthdate' => $birthdate,
+            'gender' => $gender,
+            'phone' => $phoneInput,
+            'email' => $email,
+            'address' => $address,
+            'school' => $school,
+            'agree_privacy' => $agreePrivacy ? '1' : '',
+            'agree_third_party' => $agreeThirdParty ? '1' : '',
+        ]
+    );
 }
 
 $passwordHash = password_hash($password, PASSWORD_DEFAULT);
