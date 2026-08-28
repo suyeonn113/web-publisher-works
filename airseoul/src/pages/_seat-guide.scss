@@ -152,7 +152,7 @@
   ul { display: grid; gap: 8px; }
 }
 
-.seat-guide-panel__intro {
+.seat-guide-panel > .seat-guide-panel__intro {
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: start;
   gap: 32px;
@@ -288,27 +288,23 @@
 }
 
 @include respond-down(laptop) {
+  .seat-guide-page { padding-top: calc(48px + 32px); }
+
   .seat-guide-page__layout {
-    grid-template-columns: rem(208px) minmax(0, 1fr);
-    gap: 40px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
   }
 
-  .seat-zone-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-
-}
-
-@include respond-down(tablet) {
-  .seat-guide-page { padding-top: calc(48px + 32px); }
-  .seat-guide-page__layout { grid-template-columns: minmax(0, 1fr); gap: 32px; }
   .seat-guide-subnav { display: none; }
   .seat-guide-page__content { padding-block: 0 24px; }
-  .seat-guide-panel__intro { grid-template-columns: 1fr; gap: 16px; }
+  .seat-guide-panel > .seat-guide-panel__intro { grid-template-columns: 1fr; gap: 24px; }
   .seat-guide-login-button {
     justify-self: start;
     min-height: rem(40px);
     padding-inline: 20px;
     font-size: 14px;
   }
+  .seat-zone-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
 }
 

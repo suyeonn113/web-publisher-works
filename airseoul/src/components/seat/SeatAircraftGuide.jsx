@@ -36,6 +36,10 @@ export default function SeatAircraftGuide() {
       </header>
 
       <div className="seat-aircraft-content">
+        <p className="seat-aircraft-tabs__hint">
+          <span aria-hidden="true">↔</span>
+          좌우로 밀어 다른 기종 보기
+        </p>
         <div className="seat-aircraft-tabs" role="tablist" aria-label="항공기 기종 선택">
           {SEAT_AIRCRAFTS.map((aircraft, index) => (
             <button
