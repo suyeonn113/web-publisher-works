@@ -29,3 +29,6 @@ fragfarm-mobile/includes/db.local.php
 server*.txt
 *.log
 .DS_Store
+
+# Local project backups
+.local-backup/
