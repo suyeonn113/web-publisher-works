@@ -2,11 +2,11 @@ import { lazy, Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { ROUTES } from './constants/routes';
 import MainLayout from './layouts/MainLayout';
+import Home from './pages/home';
 import { createRoundTripSearchParams } from './utils/searchParams';
 
 const Booking = lazy(() => import('./pages/Booking'));
 const FlightSearchResults = lazy(() => import('./pages/FlightSearchResults'));
-const Home = lazy(() => import('./pages/home'));
 const SeatGuide = lazy(() => import('./pages/SeatGuide'));
 
 function LazyPage({ children }) {
@@ -30,7 +30,7 @@ function App() {
       <Route element={<MainLayout />}>
         <Route
           path={ROUTES.home}
-          element={<LazyPage><Home defaultSearchParams={defaultSearchParams} /></LazyPage>}
+          element={<Home defaultSearchParams={defaultSearchParams} />}
         />
         <Route path={ROUTES.booking.root} element={<LazyPage><Booking /></LazyPage>} />
         <Route
