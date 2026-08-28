@@ -1,0 +1,205 @@
+@use '../../../styles/foundation/mixins' as *;
+
+.home-booking {
+  --home-booking-tab-rail-width: clamp(64px, 14vw, 112px);
+  --home-booking-flow-offset: 0px;
+  --home-booking-tab-inactive-color: color-mix(
+    in srgb,
+    var(--color-text-primary) 64%,
+    transparent
+  );
+  --home-booking-tab-inactive-background: color-mix(
+    in srgb,
+    var(--color-bg-main) 12%,
+    transparent
+  );
+}
+
+
+.home-booking {
+  position: relative;
+  z-index: 100;
+  width: 100%;
+}
+
+.home-booking {
+  padding-block: var(--section-padding-base);
+  background: transparent;
+}
+
+
+.home-booking__inner {
+  width: 100%;
+}
+
+.home-booking__panel {
+  position: relative;
+  z-index: 100;
+  min-width: 0;
+  width: min(
+    var(--home-container-width),
+    calc(100vw - var(--home-hero-condensed-inline-inset))
+  );
+  margin-inline: auto;
+  color: var(--color-text-primary);
+  background: linear-gradient(
+    to bottom,
+    transparent calc(var(--home-booking-tabs-height) - var(--line-thin)),
+    var(--color-bg-main) calc(var(--home-booking-tabs-height) - var(--line-thin))
+  );
+  border: 0;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+
+.home-booking .flight-service-section--home {
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.home-booking .flight-service-section__inner {
+  max-width: none;
+  padding: 0;
+}
+
+.home-booking .flight-service-shell {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.home-booking .flight-service-shell__tabs {
+  background: transparent;
+  border-bottom: 0;
+}
+
+.home-booking .flight-service-shell__tabs button {
+  color: var(--home-booking-tab-inactive-color);
+  background: var(--home-booking-tab-inactive-background);
+
+  &:hover {
+    color: var(--home-booking-tab-inactive-color);
+    background: var(--home-booking-tab-inactive-background);
+  }
+
+  &:focus-visible {
+    color: var(--home-booking-tab-inactive-color);
+  }
+
+  &.is-active {
+    color: var(--color-mint-accessible);
+    background: var(--color-bg-main);
+    box-shadow: none;
+  }
+
+  &.is-active:focus-visible {
+    box-shadow: inset 0 0 0 var(--focus-ring-width) var(--color-focus-ring);
+  }
+}
+
+@include respond-up(laptop) {
+  .home-booking {
+    --home-booking-tab-inactive-color: var(--color-text-inverse);
+  }
+
+  .home-booking .flight-service-shell__tabs button.is-active {
+    position: relative;
+    isolation: isolate;
+    background: var(--color-bg-main);
+    border-radius: 0;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    &::before {
+      z-index: -2;
+      background: var(--home-booking-tab-inactive-background);
+    }
+
+    &::after {
+      z-index: -1;
+      background: var(--color-bg-main);
+      border-radius: 0;
+    }
+
+    &:first-child,
+    &:first-child::before,
+    &:first-child::after {
+      border-top-left-radius: var(--radius-md);
+    }
+
+    &:last-child,
+    &:last-child::before,
+    &:last-child::after {
+      border-top-right-radius: var(--radius-md);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-scroll-stage + .home-booking {
+    margin-top: var(--home-booking-flow-offset);
+    padding-top: 0;
+    padding-bottom: 48px;
+  }
+
+  .hero-scroll-stage + .home-booking .home-booking__panel {
+    top: calc(var(--home-booking-hero-overlap) * -1);
+    margin-bottom: calc(var(--home-booking-hero-overlap) * -1);
+  }
+}
+
+@include respond-down(laptop) {
+  .home-booking {
+    padding-block: var(--section-padding-sm);
+  }
+
+
+  .home-booking__panel {
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .home-booking .flight-service-section--home
+    .flight-service-shell__body {
+    background: var(--color-bg-main);
+    border-radius: var(--radius-md) 0 0 var(--radius-md);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .home-booking .flight-service-section--home
+    .flight-service-shell__tabs button.is-active {
+    background: var(--color-bg-main);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    box-shadow: none;
+
+    &:focus-visible {
+      box-shadow: inset 0 0 0 var(--focus-ring-width) var(--color-focus-ring);
+    }
+  }
+}
+
+@include respond-down(tablet) {
+  .home-booking:has(.flight-service-popup) {
+    z-index: 1000;
+  }
+
+}
+
+@include respond-down(mobile) {
+  .home-booking__panel {
+    background: var(--color-bg-main);
+  }
+
+  .home-booking .flight-service-section--home
+    .flight-service-shell__body {
+    border-radius: var(--radius-md);
+  }
+}

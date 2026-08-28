@@ -30,19 +30,27 @@ function FlightSelectSection({
 
       <div className="flight-select-section__table">
         {flights.length > 0 ? (
-          flights.map((flight) => (
-            <FlightOptionRow
-              flight={flight}
-              fareGroupName={`fare-${selectionName}`}
-              key={flight.id}
-              onSelectFare={(fareKey) => onSelectFlight?.({ fareKey, flight })}
-              selectedFareKey={selectedFlight?.flight.id === flight.id ? selectedFlight.fareKey : ''}
-            />
-          ))
+          <>
+            <div className="flight-select-section__results-heading">
+              <strong>{flights.length}개의 항공편</strong>
+              <span>원하는 시간과 운임을 선택해 주세요.</span>
+            </div>
+
+            {flights.map((flight) => (
+              <FlightOptionRow
+                flight={flight}
+                fareGroupName={`fare-${selectionName}`}
+                key={flight.id}
+                onSelectFare={(fareKey) => onSelectFlight?.({ fareKey, flight })}
+                selectedFareKey={selectedFlight?.flight.id === flight.id ? selectedFlight.fareKey : ''}
+              />
+            ))}
+          </>
         ) : (
-          <p className="flight-select-section__empty">
-            조건에 맞는 항공편이 없습니다.
-          </p>
+          <div className="flight-select-section__empty">
+            <strong>선택한 날짜에는 운항편이 없습니다.</strong>
+            <span>위 날짜 목록에서 다른 날짜의 운임을 확인해 주세요.</span>
+          </div>
         )}
       </div>
     </section>

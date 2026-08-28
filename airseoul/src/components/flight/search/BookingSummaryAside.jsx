@@ -1,3 +1,4 @@
+import { useId, useState } from 'react';
 import ChevronRightIcon from '../../icons/ChevronRightIcon';
 import UsersGroupIcon from '../../icons/UsersGroupIcon';
 import PlaneLandingIcon from '../../icons/PlaneLandingIcon';
@@ -54,63 +55,94 @@ function SelectedFlightSummary({ Icon, selection, title }) {
 function BookingSummaryAside({
   inboundSelection,
   isRoundTrip,
+  onComplete,
   outboundSelection,
   passengers,
 }) {
+  const detailsId = useId();
+  const [isDetailsExpanded, setIsDetailsExpanded] = useState(false);
   const selectedFares = [outboundSelection, inboundSelection]
     .filter(Boolean)
     .map((selection) => selection.flight?.fares?.[selection.fareKey])
     .filter(Boolean);
   const isSelectionComplete = Boolean(outboundSelection) && (!isRoundTrip || Boolean(inboundSelection));
   const fareTotal = selectedFares.reduce((total, fare) => total + fare.price, 0);
+  const requiredSelectionCount = isRoundTrip ? 2 : 1;
 
   return (
-    <div className="booking-summary-aside">
-      <h2>여정 및 운임</h2>
-
-      <SelectedFlightSummary Icon={PlaneTakeoffIcon} selection={outboundSelection} title="가는편" />
-
-      {isRoundTrip && (
-        <SelectedFlightSummary Icon={PlaneLandingIcon} selection={inboundSelection} title="오는편" />
-      )}
-
-      <dl className="booking-summary-aside__passengers">
-        <h3>
-          <UsersGroupIcon size={18} />
-          탑승객
-        </h3>
-        {PASSENGER_LABELS.map((passenger) => (
-          <div key={passenger.key}>
-            <dt>{passenger.label}</dt>
-            <dd>{passengers[passenger.key]}명</dd>
-          </div>
-        ))}
-      </dl>
-
-      <dl className="booking-summary-aside__fare">
-        <div>
-          <dt>항공운임</dt>
-          <dd>{isSelectionComplete ? formatKRW(fareTotal) : '-'}</dd>
-        </div>
-        <div>
-          <dt>세금/제반요금</dt>
-          <dd className="is-placeholder">추후 표시</dd>
-        </div>
-      </dl>
-
-      <div className="booking-summary-aside__total">
-        <span>총 금액</span>
-        <strong>{isSelectionComplete ? formatKRW(fareTotal) : '-'}</strong>
-      </div>
+    <div className={`booking-summary-aside${isDetailsExpanded ? ' is-expanded' : ''}`}>
+      <h2>선택 내역</h2>
 
       <button
-        className="booking-summary-aside__next"
+        aria-label={`선택 내역 ${isDetailsExpanded ? '접기' : '펼치기'}`}
+        aria-controls={detailsId}
+        aria-expanded={isDetailsExpanded}
+        className="booking-summary-aside__toggle"
         type="button"
-        disabled={!isSelectionComplete}
+        onClick={() => setIsDetailsExpanded((isExpanded) => !isExpanded)}
       >
-        다음 단계
+        <span>
+          <strong>선택 내역</strong>
+          <small>
+            {selectedFares.length}/{requiredSelectionCount}편 선택
+          </small>
+        </span>
         <ChevronRightIcon size={18} />
       </button>
+
+      <div className="booking-summary-aside__details" id={detailsId}>
+        <SelectedFlightSummary Icon={PlaneTakeoffIcon} selection={outboundSelection} title="가는편" />
+
+        {isRoundTrip && (
+          <SelectedFlightSummary Icon={PlaneLandingIcon} selection={inboundSelection} title="오는편" />
+        )}
+
+        <section className="booking-summary-aside__passengers">
+          <h3>
+            <UsersGroupIcon size={18} />
+            탑승객
+          </h3>
+          <dl>
+            {PASSENGER_LABELS.map((passenger) => (
+              <div key={passenger.key}>
+                <dt>{passenger.label}</dt>
+                <dd className={passengers[passenger.key] === 0 ? 'is-empty' : undefined}>
+                  {passengers[passenger.key]}명
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+
+        <dl className="booking-summary-aside__fare">
+          <div>
+            <dt>항공운임</dt>
+            <dd>{isSelectionComplete ? formatKRW(fareTotal) : '-'}</dd>
+          </div>
+          <div>
+            <dt>세금/제반요금</dt>
+            <dd className="is-placeholder">추후 표시</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div className="booking-summary-aside__actions">
+        <div className="booking-summary-aside__total">
+          <span>총 금액</span>
+          <strong>{isSelectionComplete ? formatKRW(fareTotal) : '-'}</strong>
+        </div>
+
+        <button
+          className="booking-summary-aside__next"
+          type="button"
+          disabled={!isSelectionComplete}
+          onClick={onComplete}
+        >
+          <span className="booking-summary-aside__next-label-full">선택 완료</span>
+          <span className="booking-summary-aside__next-label-short">완료</span>
+          <ChevronRightIcon size={18} />
+        </button>
+      </div>
     </div>
   );
 }

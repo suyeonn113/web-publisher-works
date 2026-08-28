@@ -4,7 +4,7 @@ import CalendarIcon from '../../icons/CalendarIcon';
 import ChevronDownIcon from '../../icons/ChevronDownIcon';
 import FlightLookupField from '../shared/FlightLookupField';
 import FlightSelectMenu from '../shared/FlightSelectMenu';
-import { passengerLookupFields } from '../../../data/lookupFields';
+import { passengerLookupFields } from '../../../data/flight-service/lookupFields';
 
 const CHECK_IN_DATE_OFFSETS = [-1, 0, 1, 2];
 
@@ -30,7 +30,7 @@ function FlightCheckInPanel() {
           }
 
           return (
-            <label className="flight-lookup-field" key={field.key}>
+            <div className="flight-lookup-field" key={field.key}>
               <span>{field.label}</span>
               <span className="flight-lookup-field__control">
                 <CalendarIcon size={18} />
@@ -43,7 +43,7 @@ function FlightCheckInPanel() {
                 />
                 <ChevronDownIcon size={16} />
               </span>
-            </label>
+            </div>
           );
         })}
         <button className="flight-service-submit" type="button">

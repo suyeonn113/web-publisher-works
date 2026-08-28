@@ -9,7 +9,7 @@ import UsersGroupIcon from '../components/icons/UsersGroupIcon';
 export const homeNotices = [
   {
     id: 'battery-rule',
-    title: '[공지] 보조배터리 규정 변경 안내',
+    title: '보조배터리 규정 변경 안내',
     date: '2026.04.15',
     to: ROUTES.contact.notice,
   },

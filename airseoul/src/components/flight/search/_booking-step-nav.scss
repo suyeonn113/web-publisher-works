@@ -2,40 +2,55 @@
 @use '../../../styles/foundation/mixins' as *;
 
 .booking-step-nav {
-  margin-bottom: get-space(md);
+  width: min(100%, rem(760px));
+  margin: 0 auto 32px;
+  padding: 0;
   background: transparent;
   border: 0;
   border-radius: 0;
 }
 
 .booking-step-nav__list {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, max-content);
   justify-content: center;
   align-items: center;
-  gap: get-space(xl);
-  min-height: rem(56px);
+  column-gap: 32px;
+  min-height: rem(48px);
 }
 
 .booking-step-nav__item {
   position: relative;
   display: flex;
   align-items: center;
-  gap: get-space(sm);
+  justify-content: center;
+  gap: 8px;
+  min-width: 0;
   padding: 0;
   color: var(--color-text-secondary);
-  font-weight: 700;
+  font-weight: 500;
 
   &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: calc(100% + 8px);
+    width: rem(16px);
+    height: 1px;
+    background: var(--color-border-secondary);
+  }
+
+  &:last-child::after {
     display: none;
   }
 }
 
 .booking-step-nav__link {
-  @include transition(color, fast, standard);
+  transition: color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 
   display: inline-flex;
   align-items: center;
-  gap: get-space(sm);
+  gap: 8px;
   width: auto;
   min-height: auto;
 
@@ -48,18 +63,22 @@
 .booking-step-nav__item.is-active {
   color: var(--color-point-primary);
   background: transparent;
+
+  .booking-step-nav__label {
+    font-weight: 600;
+  }
 }
 
 .booking-step-nav__number {
   @include flex-center;
-  @include text-size(caption);
+  font-size: 14px;
 
   width: rem(28px);
   height: rem(28px);
   color: var(--color-text-secondary);
-  background: var(--color-bg-sub);
+  background: var(--color-bg-neutral-soft);
   border-radius: 50%;
-  font-weight: 800;
+  font-weight: 500;
 }
 
 .booking-step-nav__item.is-complete .booking-step-nav__number,
@@ -69,18 +88,23 @@
 }
 
 .booking-step-nav__label {
-  @include text-size(body);
+  font-size: 16px;
 
   min-width: 0;
   color: currentColor;
   white-space: nowrap;
 }
 
-@include respond-down(mobile) {
+@include respond-down(tablet) {
+  .booking-step-nav {
+    margin-bottom: 24px;
+    padding: 0;
+  }
+
   .booking-step-nav__list {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: get-space(xs);
+    gap: 8px;
     width: 100%;
   }
 
@@ -88,13 +112,23 @@
   .booking-step-nav__link {
     flex-direction: column;
     justify-content: flex-start;
-    gap: get-space(xs);
+    gap: 4px;
     min-width: 0;
     width: 100%;
   }
 
+  .booking-step-nav__item {
+    padding-inline: 2px;
+
+    &::after {
+      top: rem(14px);
+      left: calc(100% + 1px);
+      width: rem(6px);
+    }
+  }
+
   .booking-step-nav__label {
-    @include text-size(caption);
+    font-size: 14px;
 
     width: 100%;
     text-align: center;

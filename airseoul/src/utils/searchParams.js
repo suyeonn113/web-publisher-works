@@ -1,4 +1,4 @@
-import { TRIP_TYPES } from '../constants/tripType';
+import { TRIP_TYPES } from '../data/flight-service/tripType';
 import { addDays, formatDate, toDate } from './date';
 
 export const sortSelectedDates = (dates) =>

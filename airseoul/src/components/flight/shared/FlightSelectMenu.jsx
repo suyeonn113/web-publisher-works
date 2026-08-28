@@ -8,6 +8,7 @@ function FlightSelectMenu({ ariaLabel, className = '', onSelect, options, value 
   const optionRefs = useRef([]);
   const menuId = `flight-select-${useId().replace(/:/g, '')}`;
   const selectedOption = options.find((option) => option.value === value) ?? options[0];
+  const isPlaceholder = selectedOption?.value === '' || selectedOption?.value == null;
   const selectedIndex = Math.max(
     options.findIndex((option) => option.value === selectedOption?.value),
     0,
@@ -102,7 +103,7 @@ function FlightSelectMenu({ ariaLabel, className = '', onSelect, options, value 
         aria-expanded={isOpen}
         aria-haspopup="listbox"
         aria-label={ariaLabel}
-        className="flight-select-menu__button"
+        className={`flight-select-menu__button${isPlaceholder ? ' is-placeholder' : ''}`}
         onClick={() => setIsOpen((open) => !open)}
         onKeyDown={handleButtonKeyDown}
         ref={buttonRef}

@@ -1,16 +1,16 @@
 .panel-motion--fade[data-state='open'],
 [data-state='open'] .panel-motion--fade {
-  animation: panel-fade-enter var(--duration-panel) var(--ease-panel) both;
+  animation: panel-fade-enter 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .panel-motion--slide-right[data-state='open'],
 [data-state='open'] .panel-motion--slide-right {
-  animation: panel-slide-right-enter var(--duration-panel) var(--ease-panel) both;
+  animation: panel-slide-right-enter 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .panel-motion--slide-down[data-state='open'],
 [data-state='open'] .panel-motion--slide-down {
-  animation: panel-slide-down-enter var(--duration-panel) var(--ease-panel) both;
+  animation: panel-slide-down-enter 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .panel-motion--slide-right,

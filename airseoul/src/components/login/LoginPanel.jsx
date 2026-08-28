@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { ROUTES } from '../../constants/routes';
+import useDialogAccessibility from '../../hooks/useDialogAccessibility';
 import { usePanelTransition } from '../../hooks/usePanelTransition';
 import { iconSize } from '../../tokens/size';
 import { getRovingTabNextIndex } from '../../utils/rovingTab';
@@ -16,11 +17,19 @@ const loginTabs = [
   { id: 'guest', label: '비회원 로그인' },
 ];
 
-export default function LoginPanel({ isOpen, onClose }) {
+export default function LoginPanel({ isOpen, onClose, triggerRef }) {
   const [activeTabId, setActiveTabId] = useState(loginTabs[0].id);
-  const closeButtonRef = useRef(null);
+  const dialogRef = useRef(null);
   const tabRefs = useRef([]);
   const { shouldRender, transitionState } = usePanelTransition(isOpen);
+
+  useDialogAccessibility({
+    dialogRef,
+    isModal: true,
+    isOpen: isOpen && shouldRender,
+    onClose,
+    triggerRef,
+  });
 
   const handleTabKeyDown = (event, currentIndex) => {
     const nextIndex = getRovingTabNextIndex(event, currentIndex, loginTabs.length);
@@ -30,25 +39,6 @@ export default function LoginPanel({ isOpen, onClose }) {
     setActiveTabId(loginTabs[nextIndex].id);
     tabRefs.current[nextIndex]?.focus();
   };
-
-  useEffect(() => {
-    if (!isOpen || !shouldRender) return undefined;
-
-    const frameId = requestAnimationFrame(() => {
-      closeButtonRef.current?.focus();
-    });
-
-    const handleEscape = (event) => {
-      if (event.key === 'Escape') onClose();
-    };
-
-    document.addEventListener('keydown', handleEscape);
-
-    return () => {
-      cancelAnimationFrame(frameId);
-      document.removeEventListener('keydown', handleEscape);
-    };
-  }, [isOpen, onClose, shouldRender]);
 
   if (!shouldRender) return null;
 
@@ -69,9 +59,11 @@ export default function LoginPanel({ isOpen, onClose }) {
 
       <aside
         className="login-panel__dialog panel-motion--slide-right"
+        ref={dialogRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby="login-panel-title"
+        tabIndex={-1}
       >
         <div className="login-panel__header">
           <h2 className="login-panel__title" id="login-panel-title">
@@ -79,7 +71,6 @@ export default function LoginPanel({ isOpen, onClose }) {
           </h2>
 
           <button
-            ref={closeButtonRef}
             className="login-panel__close"
             type="button"
             aria-label="로그인 창 닫기"
@@ -123,6 +114,7 @@ export default function LoginPanel({ isOpen, onClose }) {
           {isMemberLogin ? (
             <>
               <input
+                aria-label="아이디"
                 className="login-panel__input"
                 type="text"
                 placeholder="아이디"
@@ -130,6 +122,7 @@ export default function LoginPanel({ isOpen, onClose }) {
               />
 
               <input
+                aria-label="비밀번호"
                 className="login-panel__input"
                 type="password"
                 placeholder="비밀번호"
@@ -144,6 +137,7 @@ export default function LoginPanel({ isOpen, onClose }) {
             <>
               <div className="login-panel__email-row">
                 <input
+                  aria-label="이메일 아이디"
                   className="login-panel__input"
                   type="text"
                   placeholder="이메일 아이디"
@@ -153,6 +147,7 @@ export default function LoginPanel({ isOpen, onClose }) {
                 <span className="login-panel__email-at">@</span>
 
                 <input
+                  aria-label="이메일 도메인"
                   className="login-panel__input"
                   type="text"
                   placeholder="도메인"
@@ -160,6 +155,7 @@ export default function LoginPanel({ isOpen, onClose }) {
               </div>
 
               <input
+                aria-label="예약번호"
                 className="login-panel__input"
                 type="text"
                 placeholder="예약번호"

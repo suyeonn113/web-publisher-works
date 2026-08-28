@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { FLIGHT_SERVICE_TABS } from './flightServiceTabsData';
+import { FLIGHT_SERVICE_TABS } from '../../../data/flight-service/flightServiceTabsData';
 
 function FlightServiceTabs({ activeTab, idPrefix, onTabChange }) {
   const tabRefs = useRef([]);

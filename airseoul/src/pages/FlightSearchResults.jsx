@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 import FlightBookingPanel from '../components/flight/booking/FlightBookingPanel';
 import BookingContentLayout from '../components/flight/search/BookingContentLayout';
@@ -10,7 +10,7 @@ import FlightSelectSection from '../components/flight/search/FlightSelectSection
 import PlaneLandingIcon from '../components/icons/PlaneLandingIcon';
 import PlaneTakeoffIcon from '../components/icons/PlaneTakeoffIcon';
 import { ROUTES } from '../constants/routes';
-import { TRIP_TYPES } from '../constants/tripType';
+import { TRIP_TYPES } from '../data/flight-service/tripType';
 import { getDateFareBarItems } from '../services/dateFareBar';
 import { searchFlights } from '../services/flightSearch';
 
@@ -31,6 +31,39 @@ const isValidDateParam = (dateText) =>
   /^\d{4}-\d{2}-\d{2}$/.test(dateText) &&
   !Number.isNaN(new Date(`${dateText}T00:00:00`).getTime());
 
+function BookingCompleteDialog({ isOpen, onClose }) {
+  const dialogRef = useRef(null);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+
+    if (isOpen && !dialog?.open) {
+      dialog.showModal();
+    } else if (!isOpen && dialog?.open) {
+      dialog.close();
+    }
+  }, [isOpen]);
+
+  return (
+    <dialog
+      className="booking-complete-dialog"
+      ref={dialogRef}
+      aria-labelledby="booking-complete-title"
+      onCancel={onClose}
+      onClose={onClose}
+    >
+      <div className="booking-complete-dialog__content">
+        <span className="booking-complete-dialog__eyebrow">AIR SEOUL</span>
+        <h2 id="booking-complete-title">운임 선택이 완료되었습니다.</h2>
+        <p>선택한 여정과 운임이 오른쪽 요약에 반영되었습니다.</p>
+        <button type="button" onClick={() => dialogRef.current?.close()}>
+          확인
+        </button>
+      </div>
+    </dialog>
+  );
+}
+
 function FlightSearchResults() {
   const navigate = useNavigate();
   const [urlSearchParams] = useSearchParams();
@@ -39,6 +72,7 @@ function FlightSearchResults() {
   const [selectedInboundDate, setSelectedInboundDate] = useState(searchParams.returnDate);
   const [selectedOutboundFlight, setSelectedOutboundFlight] = useState(null);
   const [selectedInboundFlight, setSelectedInboundFlight] = useState(null);
+  const [isCompleteDialogOpen, setIsCompleteDialogOpen] = useState(false);
 
   useEffect(() => {
     setSelectedOutboundDate(searchParams.departureDate);
@@ -129,15 +163,13 @@ function FlightSearchResults() {
 
         <BookingContentLayout
           aside={
-            <>
-              <BookingSummaryAside
-                inboundSelection={selectedInboundFlight}
-                isRoundTrip={isRoundTrip}
-                outboundSelection={selectedOutboundFlight}
-                passengers={passengers}
-              />
-              <BookingKeyNotice />
-            </>
+            <BookingSummaryAside
+              inboundSelection={selectedInboundFlight}
+              isRoundTrip={isRoundTrip}
+              onComplete={() => setIsCompleteDialogOpen(true)}
+              outboundSelection={selectedOutboundFlight}
+              passengers={passengers}
+            />
           }
         >
             <FlightSelectSection
@@ -169,9 +201,15 @@ function FlightSearchResults() {
             )}
 
             <div className="flight-search-results__notice">
+              <BookingKeyNotice />
               <FareNoticeSection />
             </div>
         </BookingContentLayout>
+
+        <BookingCompleteDialog
+          isOpen={isCompleteDialogOpen}
+          onClose={() => setIsCompleteDialogOpen(false)}
+        />
       </div>
     </main>
   );

@@ -1,4 +1,4 @@
-import { airports } from '../data/airports';
+import { airports } from '../data/flight-service/airports';
 
 export const getAirport = (code) => airports.find((airport) => airport.code === code);
 

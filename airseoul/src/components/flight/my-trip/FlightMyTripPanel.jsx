@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
-import { TRIP_TYPES } from '../../../constants/tripType';
+import { TRIP_TYPES } from '../../../data/flight-service/tripType';
 import { formatKoreanMonthDay, getAppDateText } from '../../../utils/date';
 import XIcon from '../../icons/XIcon';
 import FlightDatePicker from '../shared/FlightDatePicker';
 import FlightLookupField from '../shared/FlightLookupField';
-import { passengerLookupFields } from '../../../data/lookupFields';
+import FlightServicePopupPortal from '../shared/FlightServicePopupPortal';
+import { passengerLookupFields } from '../../../data/flight-service/lookupFields';
 import useBodyScrollLock from '../../../hooks/useBodyScrollLock';
 import useDialogAccessibility from '../../../hooks/useDialogAccessibility';
 import useFlightServicePopupPosition from '../shared/useFlightServicePopupPosition';
@@ -83,6 +84,7 @@ function FlightMyTripPanel() {
         </button>
 
         {isDatePickerOpen && (
+          <FlightServicePopupPortal isFullScreen={isFullScreenDatePicker}>
           <div
             className="flight-service-popup flight-service-popup--date"
             style={{
@@ -110,6 +112,7 @@ function FlightMyTripPanel() {
               onDateChange={handleDateChange}
             />
           </div>
+          </FlightServicePopupPortal>
         )}
       </div>
     </div>

@@ -1,4 +1,4 @@
-﻿import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import AdultIcon from '../../icons/AdultIcon';
 import ChildIcon from '../../icons/ChildIcon';
 import ChevronDownIcon from '../../icons/ChevronDownIcon';
@@ -8,7 +8,7 @@ import InfantIcon from '../../icons/InfantIcon';
 import MinusIcon from '../../icons/MinusIcon';
 import PlusIcon from '../../icons/PlusIcon';
 import XIcon from '../../icons/XIcon';
-import { TRIP_TYPES } from '../../../constants/tripType';
+import { TRIP_TYPES } from '../../../data/flight-service/tripType';
 import { formatKoreanMonthDay, getAppNow } from '../../../utils/date';
 import {
   createSearchParamsFromCalendar,
@@ -21,6 +21,8 @@ import FlightDateField from '../shared/FlightDateField';
 import FlightDatePicker from '../shared/FlightDatePicker';
 import FlightRouteSelector from '../shared/FlightRouteSelector';
 import FlightSelectMenu from '../shared/FlightSelectMenu';
+import FlightServicePopupPortal from '../shared/FlightServicePopupPortal';
+import TripTypeSelector from '../shared/TripTypeSelector';
 import useFlightServicePopupPosition from '../shared/useFlightServicePopupPosition';
 import { getAirport } from '../../../utils/airports';
 import {
@@ -31,7 +33,7 @@ import {
   PASSENGER_NOTICE_GROUPS,
   PASSENGER_TYPES,
   POPUP_WIDTHS,
-} from './bookingPanelData';
+} from '../../../data/flight-service/bookingPanelData';
 
 const getAgeCalculatorDateParts = () => {
   const appNow = getAppNow();
@@ -502,6 +504,7 @@ function FlightBookingPanel({ defaultValues, onSearch, variant = 'home', isColla
     }
 
     return (
+      <FlightServicePopupPortal isFullScreen={isFullScreenDatePicker}>
       <div
         className={`flight-service-popup flight-service-popup--${activePanel}`}
         style={{
@@ -526,6 +529,7 @@ function FlightBookingPanel({ defaultValues, onSearch, variant = 'home', isColla
         </header>
         {renderActivePanel()}
       </div>
+      </FlightServicePopupPortal>
     );
   };
 
@@ -535,24 +539,7 @@ function FlightBookingPanel({ defaultValues, onSearch, variant = 'home', isColla
       onSubmit={handleSubmit}
     >
       <div className="flight-booking-panel__options">
-        <div className="flight-service-chips" role="group" aria-label="여정 유형">
-          <button
-            aria-pressed={tripType === TRIP_TYPES.ROUND_TRIP}
-            className={tripType === TRIP_TYPES.ROUND_TRIP ? 'is-active' : ''}
-            type="button"
-            onClick={() => handleTripTypeClick(TRIP_TYPES.ROUND_TRIP)}
-          >
-            왕복
-          </button>
-          <button
-            aria-pressed={tripType === TRIP_TYPES.ONE_WAY}
-            className={tripType === TRIP_TYPES.ONE_WAY ? 'is-active' : ''}
-            type="button"
-            onClick={() => handleTripTypeClick(TRIP_TYPES.ONE_WAY)}
-          >
-            편도
-          </button>
-        </div>
+        <TripTypeSelector tripType={tripType} onChange={handleTripTypeClick} />
 
         {!isResultsVariant && (
           <label className="flight-booking-panel__promo">
@@ -613,6 +600,7 @@ function FlightBookingPanel({ defaultValues, onSearch, variant = 'home', isColla
             >
               <FlightDateField
                 departureDateLabel={departureDateLabel}
+                isRoundTrip={tripType === TRIP_TYPES.ROUND_TRIP}
                 returnDateLabel={returnDateLabel}
                 onClick={(event) => openPanel(PANEL_TYPES.DATE, event)}
               />
@@ -660,6 +648,7 @@ function FlightBookingPanel({ defaultValues, onSearch, variant = 'home', isColla
             />
             <FlightDateField
               departureDateLabel={departureDateLabel}
+              isRoundTrip={tripType === TRIP_TYPES.ROUND_TRIP}
               returnDateLabel={returnDateLabel}
               onClick={(event) => openPanel(PANEL_TYPES.DATE, event)}
             />

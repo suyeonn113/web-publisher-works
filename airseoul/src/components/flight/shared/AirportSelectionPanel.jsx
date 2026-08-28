@@ -1,4 +1,4 @@
-import { airportGroups } from '../../../data/airports';
+import { airportGroups } from '../../../data/flight-service/airports';
 import { formatAirportDisplayName } from '../../../utils/airports';
 
 function AirportSelectionPanel({

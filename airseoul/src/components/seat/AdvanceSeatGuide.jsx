@@ -1,16 +1,12 @@
-import SeatMapGallery from './SeatMapGallery';
-import SeatGradeGuide from './SeatGradeGuide';
-import SeatPriceGuide from './SeatPriceGuide';
+import SeatAircraftGuide from './SeatAircraftGuide';
 import SeatRulesGuide from './SeatRulesGuide';
 import SeatZoneGuide from './SeatZoneGuide';
 
-export default function AdvanceSeatGuide() {
+export default function AdvanceSeatGuide({ onLogin }) {
   return (
     <div className="advance-seat-guide">
-      <SeatZoneGuide />
-      <SeatGradeGuide />
-      <SeatMapGallery />
-      <SeatPriceGuide />
+      <SeatZoneGuide onLogin={onLogin} />
+      <SeatAircraftGuide />
       <SeatRulesGuide />
     </div>
   );

@@ -1,11 +1,6 @@
 import { formatKRW } from '../../../utils/price';
 import FlightPathArrowIcon from '../../icons/FlightPathArrowIcon';
-
-const FARE_OPTIONS = [
-  { key: 'special', label: '이코노미 특가운임' },
-  { key: 'discount', label: '할인운임' },
-  { key: 'normal', label: '스마트운임' },
-];
+import { FARE_OPTIONS } from './fareOptions';
 
 const formatDuration = (minutes) => {
   const hours = Math.floor(minutes / 60);
@@ -54,12 +49,13 @@ function FlightOptionRow({ fareGroupName, flight, onSelectFare, selectedFareKey 
 
           return (
             <label
-              className={`flight-option-row__fare${isFareSoldOut ? ' is-sold-out' : ''}`}
+              className={`flight-option-row__fare flight-option-row__fare--${option.key}${isFareSoldOut ? ' is-sold-out' : ''}`}
               key={option.key}
             >
               <input
                 type="radio"
                 name={fareGroupName}
+                aria-label={`${flight.flightNo} ${option.label} ${isFareSoldOut ? '매진' : `${formatKRW(fare.price)} ${fare.seatsLeft}석`}`}
                 checked={!isFareSoldOut && selectedFareKey === option.key}
                 disabled={isFareSoldOut}
                 onChange={() => {
@@ -69,9 +65,9 @@ function FlightOptionRow({ fareGroupName, flight, onSelectFare, selectedFareKey 
                 }}
               />
               <span>
-                <strong>{option.label}</strong>
+                <strong className="flight-option-row__fare-label">{option.label}</strong>
                 <em>{isFareSoldOut ? '매진' : formatKRW(fare.price)}</em>
-                <small>{fare.seatsLeft}석</small>
+                <small>{isFareSoldOut ? '선택 불가' : `잔여 ${fare.seatsLeft}석`}</small>
               </span>
             </label>
           );

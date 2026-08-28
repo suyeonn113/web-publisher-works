@@ -12,10 +12,11 @@ export const SEAT_ZONES = [
   { name: 'B구역', detail: '후방 일반 좌석', description: '합리적인 가격으로 선택할 수 있는 일반 좌석' },
 ];
 
-export const SEAT_GRADE_GROUPS = [
+export const SEAT_AIRCRAFTS = [
   {
     id: '195',
-    aircraft: '195석',
+    label: 'A321-200 · 195석',
+    src: `${SEAT_IMAGE_PATH}/a321-200-195.png`,
     zones: [
       { grade: 'MINT ZONE', detail: '1열 및 비상구', seats: '1열, 10열, 22열, 23F' },
       { grade: 'MINT ZONE', detail: '2~3열', seats: '2~3열' },
@@ -25,7 +26,8 @@ export const SEAT_GRADE_GROUPS = [
   },
   {
     id: '220a',
-    aircraft: '220석(A)',
+    label: 'A321-200 · 220석 A형',
+    src: `${SEAT_IMAGE_PATH}/a321-200-220a.png`,
     zones: [
       { grade: 'MINT ZONE', detail: '1열 및 비상구', seats: '1열, 11열, 12AF, 27열' },
       { grade: 'MINT ZONE', detail: '2~3열', seats: '2~3열' },
@@ -35,7 +37,8 @@ export const SEAT_GRADE_GROUPS = [
   },
   {
     id: '220b',
-    aircraft: '220석(B)',
+    label: 'A321-200 · 220석 B형',
+    src: `${SEAT_IMAGE_PATH}/a321-200-220b.png`,
     zones: [
       {
         grade: 'MINT ZONE',
@@ -50,24 +53,6 @@ export const SEAT_GRADE_GROUPS = [
         seats: '12ABCDE, 14~25열, 26DE, 27BC, 28ABCDE, 29~39열',
       },
     ],
-  },
-];
-
-export const SEAT_MAPS = [
-  {
-    id: '195',
-    label: 'A321-200 · 195석',
-    src: `${SEAT_IMAGE_PATH}/a321-200-195.png`,
-  },
-  {
-    id: '220a',
-    label: 'A321-200 · 220석 A형',
-    src: `${SEAT_IMAGE_PATH}/a321-200-220a.png`,
-  },
-  {
-    id: '220b',
-    label: 'A321-200 · 220석 B형',
-    src: `${SEAT_IMAGE_PATH}/a321-200-220b.png`,
   },
 ];
 

@@ -1,14 +1,16 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import Logo from '../../common/Logo';
 import LoginPanel from '../../login/LoginPanel';
 import HeaderActions from './HeaderActions';
-import HeaderMobileMenu from './HeaderMobileMenu';
-import HeaderNav from './HeaderNav';
+import HeaderMobileMenu from './mobile/HeaderMobileMenu';
+import HeaderNav from './desktop/HeaderNav';
 import { UI_EVENTS } from '../../../constants/uiEvents';
 
 export default function Header({ hasHero = true }) {
   const headerRef = useRef(null);
+  const loginTriggerRef = useRef(null);
+  const mobileMenuButtonRef = useRef(null);
   const [isPastHeroIntro, setIsPastHeroIntro] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoginPanelOpen, setIsLoginPanelOpen] = useState(false);
@@ -17,23 +19,25 @@ export default function Header({ hasHero = true }) {
     setIsMobileMenuOpen((isOpen) => !isOpen);
   };
 
-  const openLoginPanel = () => {
+  const openLoginPanel = useCallback(() => {
+    loginTriggerRef.current = document.activeElement instanceof HTMLElement
+      ? document.activeElement
+      : null;
     setIsLoginPanelOpen(true);
     setIsMobileMenuOpen(false);
-  };
+  }, []);
+
+  const closeLoginPanel = useCallback(() => {
+    setIsLoginPanelOpen(false);
+  }, []);
 
   useEffect(() => {
-    const handleLoginPanelOpen = () => {
-      setIsLoginPanelOpen(true);
-      setIsMobileMenuOpen(false);
-    };
-
-    window.addEventListener(UI_EVENTS.OPEN_LOGIN_PANEL, handleLoginPanelOpen);
+    window.addEventListener(UI_EVENTS.OPEN_LOGIN_PANEL, openLoginPanel);
 
     return () => {
-      window.removeEventListener(UI_EVENTS.OPEN_LOGIN_PANEL, handleLoginPanelOpen);
+      window.removeEventListener(UI_EVENTS.OPEN_LOGIN_PANEL, openLoginPanel);
     };
-  }, []);
+  }, [openLoginPanel]);
 
   useEffect(() => {
     const heroSection = document.querySelector('.hero-section');
@@ -84,6 +88,7 @@ export default function Header({ hasHero = true }) {
     const closeMobileMenu = (event) => {
       if (event.key === 'Escape') {
         setIsMobileMenuOpen(false);
+        window.requestAnimationFrame(() => mobileMenuButtonRef.current?.focus());
       }
     };
 
@@ -106,6 +111,7 @@ export default function Header({ hasHero = true }) {
 
         <HeaderActions
           isMobileMenuOpen={isMobileMenuOpen}
+          mobileMenuButtonRef={mobileMenuButtonRef}
           onLoginOpen={openLoginPanel}
           onMobileMenuToggle={toggleMobileMenu}
         />
@@ -117,7 +123,8 @@ export default function Header({ hasHero = true }) {
       />
       <LoginPanel
         isOpen={isLoginPanelOpen}
-        onClose={() => setIsLoginPanelOpen(false)}
+        onClose={closeLoginPanel}
+        triggerRef={loginTriggerRef}
       />
     </header>
   );

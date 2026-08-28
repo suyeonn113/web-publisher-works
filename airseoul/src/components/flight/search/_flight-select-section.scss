@@ -2,12 +2,14 @@
 @use '../../../styles/foundation/mixins' as *;
 
 .flight-select-section {
-  padding: get-space(sm) 0;
+  padding: 0;
   background: var(--color-white);
+  border: 0;
+  border-radius: 0;
 
   & + .flight-select-section {
-    margin-top: get-space(lg);
-    padding-top: get-space(lg);
+    margin-top: 48px;
+    padding-top: 48px;
     border-top: var(--line-thin) solid var(--color-border-primary);
   }
 }
@@ -15,27 +17,27 @@
 .flight-select-section__header {
   @include flex-between;
 
-  gap: get-space(lg);
-  margin-bottom: get-space(lg);
+  gap: 24px;
+  margin-bottom: 24px;
 }
 
 .flight-select-section__heading {
   display: flex;
   align-items: center;
-  gap: get-space(md);
+  gap: 16px;
 
   h2 {
-    @include text-size(title);
+    font-size: 28px;
 
     color: var(--color-text-primary);
-    font-weight: 700;
+    font-weight: 500;
   }
 
   p {
-    @include text-size(body);
+    font-size: 16px;
 
     color: var(--color-text-primary);
-    font-weight: 600;
+    font-weight: 500;
   }
 
   svg {
@@ -46,7 +48,7 @@
 
 .flight-select-section__header {
   > span {
-    @include text-size(caption);
+    font-size: 14px;
 
     flex-shrink: 0;
     color: var(--color-text-secondary);
@@ -54,22 +56,25 @@
 }
 
 .date-fare-bar {
+  padding: 0;
+  border-block: var(--line-thin) solid var(--color-border-primary);
+  border-inline: 0;
   display: grid;
   grid-template-columns: rem(40px) minmax(0, 1fr) rem(40px);
   align-items: stretch;
   overflow: hidden;
-  border: var(--line-thin) solid var(--color-border-primary);
-  border-radius: var(--radius-sm);
+  background: var(--color-white);
+  border-radius: 0;
 }
 
 .date-fare-bar__arrow {
   display: grid;
   place-items: center;
   color: var(--color-text-primary);
-  background: var(--color-white);
+  background: transparent;
   transition:
-    background-color var(--duration-fast) var(--ease-standard),
-    color var(--duration-fast) var(--ease-standard);
+    background-color 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 
   &:hover:not(:disabled),
   &:focus-visible:not(:disabled) {
@@ -80,7 +85,7 @@
   }
 
   &:disabled {
-    color: var(--color-text-muted);
+    color: var(--color-text-muted-accessible);
     cursor: default;
   }
 
@@ -89,24 +94,30 @@
 .date-fare-bar__items {
   display: grid;
   grid-template-columns: repeat(var(--date-fare-count), minmax(0, 1fr));
+  gap: 4px;
   min-width: 0;
 }
 
 .date-fare-bar__item {
   display: grid;
-  gap: get-space(xs);
-  min-height: rem(66px);
+  gap: 4px;
+  min-height: rem(72px);
   min-width: rem(100px);
-  padding: get-space(sm);
+  padding: 8px;
   color: var(--color-text-primary);
-  @include transition(all, fast, standard);
+  transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
   @include button-hover-none;
+  border-radius: var(--radius-sm);
 
   &.is-selected {
-    @include button-hover-subtle;
-    color: var(--color-point-primary);
-    background: var(--color-bg-interactive-hover);
-    box-shadow: var(--shadow-sm);
+    color: var(--color-text-primary);
+    background: var(--color-bg-mint-soft);
+    box-shadow: none;
+
+    span,
+    strong {
+      color: inherit;
+    }
   }
 
   &:focus-visible {
@@ -115,56 +126,88 @@
   }
 
   &.is-selected:focus-visible {
-    box-shadow:
-      inset 0 0 0 var(--focus-ring-width) var(--color-focus-ring),
-      var(--shadow-sm);
+    box-shadow: inset 0 0 0 var(--focus-ring-width) var(--color-focus-ring);
   }
 
   span {
-    @include text-size(caption);
+    font-size: 14px;
     color: var(--color-text-secondary);
   }
 
   strong {
-    @include text-size(caption);
+    font-size: 14px;
 
-    font-weight: 700;
+    font-weight: 500;
     white-space: nowrap;
+  }
+
+  &:not(.is-selected) strong {
+    color: var(--color-text-secondary);
+  }
+
+  &.is-selected strong {
+    font-weight: 600;
   }
 }
 
 .flight-select-section__table {
   display: grid;
-  margin-top: get-space(sm);
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.flight-select-section__results-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 4px;
+
+  strong,
+  span {
+    font-size: 14px;
+  }
+
+  strong {
+    color: var(--color-text-primary);
+    font-weight: 600;
+  }
+
+  span {
+    color: var(--color-text-secondary);
+  }
 }
 
 .flight-option-row {
   display: grid;
-  grid-template-columns: minmax(rem(280px), 1.1fr) minmax(rem(360px), 2fr);
+  grid-template-columns: minmax(rem(280px), 0.95fr) minmax(rem(480px), 2fr);
   align-items: center;
-}
+  gap: 16px;
+  padding: 16px;
+  background: var(--color-white);
+  border: var(--line-thin) solid var(--color-border-primary);
+  border-radius: var(--radius-md);
+  transition:
+    border-color 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 
-.flight-option-row {
-  gap: get-space(md);
-  padding: get-space(sm) 0;
 }
 
 .flight-option-row__info,
 .flight-option-row__time,
 .flight-option-row__duration {
   display: grid;
-  gap: get-space(xs);
+  gap: 4px;
 }
 
 .flight-option-row__summary {
   display: grid;
   grid-template-columns: minmax(rem(64px), 0.75fr) minmax(rem(96px), 1fr) minmax(rem(64px), 0.75fr);
   align-items: center;
-  gap: get-space(sm);
+  gap: 8px;
   height: 100%;
-  padding: get-space(lg);
-  background: var(--color-bg-sub);
-  border-radius: var(--radius-sm);
+  padding: 20px 16px;
+  background: transparent;
+  border-radius: 0;
 }
 
 .flight-option-row__info {
@@ -174,17 +217,17 @@
   justify-content: center;
   display: flex;
   align-items: center;
-  gap: get-space(xs);
+  gap: 4px;
 
   strong {
-    @include text-size(caption);
+    font-size: 14px;
 
     color: var(--color-text-primary);
-    font-weight: 600;
+    font-weight: 500;
   }
 
   span {
-    @include text-size(caption);
+    font-size: 14px;
 
     color: var(--color-text-tertiary);
     font-weight: 500;
@@ -195,15 +238,15 @@
   text-align: center;
 
   strong {
-    @include text-size(title);
+    font-size: 28px;
 
     color: var(--color-text-primary);
     line-height: 1;
-    font-weight: 600;
+    font-weight: 500;
   }
 
   span {
-    @include text-size(caption);
+    font-size: 14px;
 
     color: var(--color-text-secondary);
   }
@@ -221,7 +264,7 @@
   }
 
   em {
-    @include text-size(caption);
+    font-size: 14px;
 
     font-style: normal;
     white-space: nowrap;
@@ -244,110 +287,186 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   align-self: stretch;
-  gap: get-space(xs);
+  gap: 10px;
 }
 
 .flight-option-row__fare {
+  position: relative;
   display: grid;
   align-items: center;
+  overflow: hidden;
   min-width: 0;
-  min-height: rem(94px);
-  padding: get-space(md) get-space(sm);
-  text-align: center;
-  border: var(--line-thin) solid var(--color-border-primary);
+  min-height: rem(112px);
+  padding: 16px;
+  text-align: left;
+  background: color-mix(in srgb, var(--color-bg-sub) 56%, var(--color-white));
+  border: 0;
   border-radius: var(--radius-sm);
+  container-type: inline-size;
+  cursor: pointer;
   transition:
-    border-color var(--duration-fast) var(--ease-standard),
-    background-color var(--duration-fast) var(--ease-standard),
-    color var(--duration-fast) var(--ease-standard);
+    background-color 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 16px;
+    height: 16px;
+    background: var(--color-white);
+    border: 1px solid var(--color-border-gray);
+    border-radius: 50%;
+  }
+
+  &:not(.is-sold-out):hover {
+    color: var(--color-point-primary);
+    background: var(--color-bg-mint-soft);
+    box-shadow: none;
+    transform: none;
+  }
 
   &:has(input:checked) {
-    border-color: var(--color-point-primary);
-    box-shadow: inset 0 0 0 var(--line-thin) var(--color-point-primary);
+    background: var(--color-bg-mint-soft);
+    box-shadow: inset 0 0 0 2px var(--color-point-primary);
+
+    &::before {
+      background: var(--color-point-primary);
+      border: 4px solid var(--color-white);
+      box-shadow: 0 0 0 1px var(--color-point-primary);
+    }
 
     strong,
     em {
-      color: var(--color-point-primary);
+      color: var(--color-text-primary);
     }
   }
 
   &:focus-within {
-    border-color: var(--color-focus-ring);
-    box-shadow: inset 0 0 0 var(--focus-ring-width) var(--color-focus-ring);
+    outline: var(--focus-ring-width) solid var(--color-focus-ring);
+    outline-offset: 2px;
   }
 
   &:has(input:checked):focus-within {
-    box-shadow:
-      inset 0 0 0 var(--focus-ring-width) var(--color-focus-ring),
-      inset 0 0 0 calc(var(--focus-ring-width) + var(--line-thin)) var(--color-point-primary);
+    box-shadow: inset 0 0 0 2px var(--color-point-primary);
   }
 
   &.is-sold-out {
-    color: var(--color-text-muted);
-    background: var(--color-bg-sub);
+    color: var(--color-text-muted-accessible);
+    background: transparent;
     cursor: not-allowed;
 
     strong,
     em,
     small {
-      color: var(--color-text-muted);
+      color: var(--color-text-muted-accessible);
     }
   }
 
   input {
     position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    width: 1px;
+    height: 1px;
+    white-space: nowrap;
     opacity: 0;
-    pointer-events: none;
   }
 
   > span {
     display: grid;
-    gap: get-space(xs);
-    justify-items: center;
+    gap: 6px;
+    justify-items: start;
     min-width: 0;
   }
 
   strong {
-    @include text-size(caption);
+    font-size: 14px;
 
     color: var(--color-text-secondary);
     word-break: keep-all;
   }
 
-  em {
-    @include text-size(body);
+  .flight-option-row__fare-label {
+    display: block;
+    max-width: calc(100% - 28px);
+    color: var(--color-text-secondary);
+    font-size: 13px;
+    font-weight: 500;
+  }
 
+  em {
+    font-size: clamp(15px, 16cqi, 17px);
+
+    max-width: 100%;
     color: var(--color-text-primary);
     font-style: normal;
     font-weight: 600;
+    letter-spacing: -0.02em;
     white-space: nowrap;
   }
 
   small {
-    @include text-size(caption);
+    font-size: 13px;
 
     color: var(--color-text-secondary);
   }
 }
 
-.flight-select-section__empty {
-  margin-top: get-space(md);
-  padding: get-space(xl);
-  color: var(--color-text-secondary);
-  text-align: center;
-  background: var(--color-bg-sub);
-  border: var(--line-thin) dashed var(--color-border-primary);
-  border-radius: var(--radius-sm);
+.flight-select-section:not(:has(.flight-option-row__fare input:checked))
+  .flight-option-row__fare:not(.is-sold-out) {
+  strong,
+  em {
+    color: var(--color-text-primary);
+  }
 }
 
-@include respond-down(tablet) {
+.flight-select-section:has(.flight-option-row__fare input:checked)
+  .flight-option-row__fare:not(:has(input:checked)):not(.is-sold-out) {
+  strong,
+  em {
+    color: var(--color-text-secondary);
+  }
+}
+
+.flight-select-section__empty {
+  margin-top: 16px;
+  display: grid;
+  gap: 6px;
+  padding: 48px 32px;
+  color: var(--color-text-secondary);
+  text-align: center;
+  background: transparent;
+  border: var(--line-thin) dashed var(--color-border-secondary);
+  border-radius: var(--radius-md);
+
+  strong {
+    font-size: 18px;
+    color: var(--color-text-primary);
+    font-weight: 600;
+  }
+
+  span {
+    font-size: 14px;
+  }
+}
+
+.flight-option-row__fare--special .flight-option-row__fare-label {
+  width: fit-content;
+  padding: 0;
+  color: var(--color-point-primary);
+  background: transparent;
+  border-radius: 0;
+}
+
+@include respond-down(laptop) {
   .flight-select-section__table {
     border: 0;
     border-radius: 0;
-  }
-
-  .flight-option-row {
-    gap: get-space(md);
   }
 
   .flight-option-row__fares {
@@ -356,7 +475,7 @@
   }
 }
 
-@include respond-down(mobile) {
+@media (max-width: 900px) {
   .flight-select-section__header {
     display: grid;
   }
@@ -368,26 +487,27 @@
 
   .flight-option-row {
     grid-template-columns: minmax(rem(128px), 0.82fr) minmax(0, 1.18fr);
-    gap: get-space(sm);
+    gap: 8px;
   }
 
   .flight-option-row__summary {
     grid-template-columns: 1fr;
     justify-items: center;
-    gap: get-space(xs);
-    padding: get-space(sm);
+    gap: 4px;
+    padding: 8px;
   }
 
   .flight-option-row__time {
     grid-template-columns: rem(32px) rem(72px);
     align-items: center;
     justify-content: center;
-    column-gap: get-space(sm);
+    column-gap: 8px;
     width: fit-content;
 
     strong {
       grid-column: 2;
       grid-row: 1;
+      font-size: 24px;
       text-align: left;
     }
 
@@ -407,7 +527,7 @@
     justify-content: center;
     justify-items: start;
     align-items: center;
-    column-gap: get-space(sm);
+    column-gap: 8px;
     width: fit-content;
 
     em {
@@ -432,15 +552,26 @@
   }
 
   .flight-option-row__fare {
-    min-height: rem(86px);
+    min-height: rem(104px);
+  }
+}
+
+@media (min-width: 560px) and (max-width: 700px) {
+  .flight-option-row__fare {
+    padding: 44px 12px 16px;
+
+    &::before {
+      top: 12px;
+      right: 12px;
+    }
+
+    .flight-option-row__fare-label {
+      max-width: 100%;
+    }
   }
 }
 
 @media (max-width: 559px) {
-  .flight-select-section {
-    padding: get-space(sm) 0;
-  }
-
   .date-fare-bar {
     grid-template-columns: rem(36px) minmax(0, 1fr) rem(36px);
   }
@@ -449,15 +580,21 @@
     grid-template-columns: 1fr;
   }
 
+  .flight-option-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 12px;
+  }
+
   .flight-option-row__fare {
     min-height: 0;
-    padding: get-space(sm) get-space(md);
+    padding: 14px 16px;
 
     > span {
       grid-template-columns: minmax(0, 1fr) auto;
       align-items: center;
-      column-gap: get-space(sm);
-      row-gap: get-space(xs);
+      column-gap: 8px;
+      row-gap: 4px;
       width: 100%;
     }
 
@@ -474,5 +611,59 @@
     small {
       justify-self: end;
     }
+  }
+}
+
+@media (min-width: 360px) and (max-width: 559px) {
+  .flight-option-row__summary {
+    grid-template-columns: minmax(rem(64px), 0.75fr) minmax(rem(96px), 1fr) minmax(rem(64px), 0.75fr);
+    align-items: center;
+    justify-items: stretch;
+    gap: 8px;
+    padding: 16px 8px;
+  }
+
+  .flight-option-row__time {
+    grid-template-columns: 1fr;
+    justify-content: stretch;
+    width: auto;
+    text-align: center;
+
+    strong,
+    span {
+      grid-column: auto;
+      grid-row: auto;
+      text-align: center;
+    }
+  }
+
+  .flight-option-row__duration {
+    grid-template-columns: 1fr;
+    justify-content: stretch;
+    justify-items: center;
+    width: auto;
+
+    em,
+    span {
+      grid-column: auto;
+      grid-row: auto;
+    }
+
+    span {
+      width: 100%;
+    }
+
+    .flight-option-row__duration-arrow.is-horizontal {
+      display: block;
+    }
+
+    .flight-option-row__duration-arrow.is-vertical {
+      display: none;
+    }
+  }
+
+  .flight-option-row__info {
+    grid-column: 1 / -1;
+    grid-row: 2;
   }
 }

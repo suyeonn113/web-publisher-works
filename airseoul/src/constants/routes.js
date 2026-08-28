@@ -4,31 +4,30 @@ export const ROUTES = {
   home: '/',
 
   company: {
-    brandStory: '/company/brand-story',
+    brandStory: '#',
   },
 
   booking: {
     root: '/booking',
 
     flight: '/booking/flight',
-    bookingCheck: '/booking/check',
-    refund: '/booking/change-refund',
-    checkin: '/booking/check-in',
-    flightStatus: '/booking/flight-status',
+    bookingCheck: '#',
+    refund: '#',
+    checkin: '#',
+    flightStatus: '#',
   },
 
   travel: {
     root: '#',
 
     seat: '/travel/seat',
-    baggage: '/travel/baggage',
+    baggage: '#',
     meal: '#',
     insurance: '#',
 
     dutyFree: '#',
     cafeMint: '#',
-
-    airportService: '/travel/airport-service',
+    airportService: '#',
     travelSupport: '#',
   },
 
@@ -43,9 +42,7 @@ export const ROUTES = {
 
   benefit: {
     root: '#',
-
-    event: '/events',
-    eventDetail: (eventId) => `/events/${eventId}`,
+    event: '#',
     partnership: '#',
     membership: '#',
   },

@@ -5,24 +5,67 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: get-space(sm);
+  gap: var(--gap-sm) var(--gap-lg);
 }
 
-.flight-service-chips button,
-.flight-date-picker__trip button {
-  @include button-hover-gray;
+.flight-service-chips--trip {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  width: 180px;
+  max-width: 100%;
+}
+
+.flight-service-chips button {
+  @include selection-strip;
 
   min-height: 40px;
-  padding: 0 get-space(lg);
-  color: var(--color-text-primary);
-  background: var(--color-bg-sub);
-  border-radius: var(--radius-full);
+  padding: 0;
+  color: var(--color-text-secondary);
+  background: transparent;
+  border-radius: 0;
+  transition:
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover:not(:disabled) {
+    color: var(--color-text-primary);
+    text-decoration: underline;
+    text-decoration-thickness: var(--line-thin);
+    text-underline-offset: 4px;
+  }
+
+  &:focus-visible:not(:disabled) {
+    color: var(--color-text-primary);
+    outline: var(--focus-ring-width) solid var(--color-focus-ring);
+    outline-offset: 2px;
+  }
 
   &.is-active {
-    @include button-hover-primary;
+    --selection-strip-thickness: var(--line-bold);
+    --selection-strip-color: var(--color-point-primary);
 
-    color: var(--color-text-inverse);
-    background: var(--color-mint-accessible);
+    color: var(--color-text-primary);
+    font-weight: 500;
+    background: transparent;
+  }
+}
+
+.flight-service-chips--trip button {
+  --selection-strip-color: var(--color-border-primary);
+
+  width: 100%;
+  min-width: 0;
+}
+
+.flight-service-chips--trip button.is-active {
+  --selection-strip-thickness: var(--line-bold);
+  --selection-strip-color: var(--color-point-primary);
+}
+
+@include respond-down(mobile) {
+  .flight-service-chips--trip {
+    width: 100%;
   }
 }
 
@@ -30,7 +73,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) 40px minmax(0, 1fr);
   align-items: center;
-  gap: get-space(sm);
+  gap: 8px;
 
   
   > button:not(.flight-route-selector__swap) {
@@ -52,7 +95,7 @@
   }
 
   span {
-    @include text-size(caption);
+    font-size: 14px;
   }
 
   strong {
@@ -62,7 +105,7 @@
   }
 
   em {
-    @include text-size(caption);
+    font-size: 14px;
 
     font-style: normal;
   }
@@ -88,17 +131,17 @@
 .flight-service-field-button {
   position: relative;
   display: grid;
-  gap: get-space(sm);
+  gap: 8px;
   min-height: 64px;
   min-width: 0;
-  padding-left: get-space(lg);
+  padding-left: 24px;
   color: var(--color-text-primary);
   text-align: left;
   background: transparent;
   border-left: var(--line-thin) solid var(--color-border-secondary);
 
   strong {
-    @include text-size(body);
+    font-size: 16px;
   }
 }
 
@@ -106,9 +149,19 @@
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-  gap: get-space(sm);
+  gap: 8px;
   min-width: 0;
+  color: var(--color-text-tertiary);
+  font-weight: 400;
   white-space: nowrap;
+
+  &.is-selected {
+    color: var(--color-text-primary);
+  }
+
+  .is-placeholder {
+    color: var(--color-text-tertiary);
+  }
 
   svg {
     flex-shrink: 0;
@@ -121,9 +174,9 @@
 }
 
 .flight-service-popup {
-  width: min(520px, calc(100% - #{get-space(xxl) * 2}));
-  padding: get-space(lg);
-  margin: 0 0 get-space(xl);
+  width: min(520px, calc(100% - #{48px * 2}));
+  padding: 24px;
+  margin: 0 0 32px;
 
   background: var(--color-bg-main);
   border: var(--line-thin) solid var(--color-border-primary);
@@ -133,21 +186,21 @@
 }
 
 .flight-service-popup--date {
-  width: min(960px, calc(100% - #{get-space(xxl) * 2}));
+  width: min(960px, calc(100% - #{48px * 2}));
 }
 
 .flight-service-popup--passengers {
-  width: min(720px, calc(100% - #{get-space(xxl) * 2}));
+  width: min(720px, calc(100% - #{48px * 2}));
 }
 
 .flight-service-popup__header {
   @include flex-between;
 
-  margin-bottom: get-space(md);
+  margin-bottom: 16px;
   color: var(--color-text-primary);
 
   strong {
-    @include text-size(title);
+    font-size: 24px;
   }
 
   button {
@@ -169,19 +222,19 @@
 .flight-airport-picker {
   display: grid;
   grid-template-columns: 1fr;
-  gap: get-space(md);
+  gap: 16px;
   max-height: 320px;
   overflow-y: auto;
 
   h3 {
-    margin-bottom: get-space(xs);
+    margin-bottom: 4px;
     color: var(--color-text-secondary);
   }
 
   section > div {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: get-space(xs);
+    gap: 4px;
   }
 
   button {
@@ -190,7 +243,7 @@
     display: grid;
     gap: 2px;
     min-height: 48px;
-    padding: get-space(sm) get-space(md);
+    padding: 8px 16px;
     text-align: left;
     border: var(--line-thin) solid var(--color-border-primary);
     border-radius: var(--radius-sm);
@@ -205,15 +258,15 @@
     &:disabled {
       color: var(--color-text-tertiary);
       cursor: not-allowed;
-      background: var(--color-bg-sub);
+      background: var(--color-bg-neutral-soft);
     }
   }
 }
 
 .flight-service-panel {
   display: grid;
-  gap: get-space(lg);
-  padding: 0 get-space(xl) get-space(xl);
+  gap: 24px;
+  padding: 0 32px 32px;
 }
 
 .flight-service-shell__body {
@@ -229,7 +282,7 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr)) auto;
   align-items: end;
-  gap: get-space(md);
+  gap: 16px;
   min-height: 112px;
 }
 
@@ -240,9 +293,9 @@
 .flight-lookup-form > .flight-service-popup,
 .flight-schedule-search > .flight-service-popup {
   position: absolute;
-  top: calc(var(--popup-top, 0) + #{get-space(sm)});
+  top: calc(var(--popup-top, 0) + 8px);
   left: 0;
-  z-index: get-z(modal);
+  z-index: 500;
   margin: 0;
 }
 
@@ -252,7 +305,7 @@
 
 .flight-lookup-field {
   display: grid;
-  gap: get-space(sm);
+  gap: 8px;
   min-width: 0;
   color: var(--color-text-primary);
   font-weight: 500;
@@ -262,12 +315,19 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: get-space(sm);
+  gap: 8px;
   min-height: 48px;
-  padding: 0 get-space(md);
+  padding: 0 16px;
   color: var(--color-point-primary);
   border: var(--line-thin) solid var(--color-border-primary);
   border-radius: var(--radius-sm);
+
+  &:is(button) {
+    width: 100%;
+    font: inherit;
+    text-align: left;
+    background: transparent;
+  }
 
   input {
     min-width: 0;
@@ -309,6 +369,16 @@
   width: 100%;
   color: var(--color-text-primary);
   text-align: left;
+
+  &.is-placeholder {
+    color: var(--color-text-tertiary);
+  }
+}
+
+.flight-lookup-field__value {
+  flex: 1;
+  min-width: 0;
+  color: var(--color-text-primary);
 }
 
 .flight-select-menu__list {
@@ -316,24 +386,28 @@
   top: calc(100% + 8px);
   left: 0;
   right: 0;
-  z-index: get-z(dropdown);
+  z-index: 100;
   display: grid;
-  gap: get-space(xs);
+  gap: 4px;
   max-height: min(rem(260px), 40vh);
   overflow-y: auto;
-  padding: get-space(xs);
+  padding: 4px;
   background: var(--color-bg-main);
   border: var(--line-thin) solid var(--color-border-primary);
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow-md);
+
+  &[hidden] {
+    display: none;
+  }
 }
 
 .flight-select-menu__option {
   min-height: 36px;
-  padding: 0 get-space(sm);
+  padding: 0 8px;
   color: var(--color-text-primary);
   text-align: left;
-  border-radius: var(--radius-xs);
+  border-radius: 4px;
 
   &:hover,
   &:focus-visible,
@@ -348,14 +422,14 @@
 
   min-width: 112px;
   min-height: 48px;
-  padding: 0 get-space(lg);
+  padding: 0 24px;
   color: var(--color-text-inverse);
-  font-weight: 700;
+  font-weight: 500;
   background: var(--color-mint-accessible);
   border-radius: var(--radius-full);
 }
 
-@include respond-down(laptop) {
+@media (max-width: 1280px) {
   .flight-service-shell__body {
     --flight-service-search-columns:
       minmax(196px, 0.92fr)
@@ -382,13 +456,13 @@
   }
 }
 
-@include respond-down(tablet) {
+@include respond-down(laptop) {
   .flight-service-shell__body {
     --flight-service-search-columns: 1fr;
   }
 
   .flight-service-panel {
-    padding: get-space(xl);
+    padding: 32px;
   }
 
   .flight-lookup-form,
@@ -397,7 +471,7 @@
   }
 
   .flight-service-field-button {
-    padding-top: get-space(md);
+    padding-top: 16px;
     padding-left: 0;
     border-top: var(--line-thin) solid var(--color-border-secondary);
     border-left: 0;
@@ -405,7 +479,7 @@
 
   .flight-service-popup--date,
   .flight-service-popup--passengers {
-    width: min(100%, calc(100vw - #{get-space(xl) * 2}));
+    width: min(100%, calc(100vw - #{32px * 2}));
     transform: none;
   }
 
@@ -415,12 +489,11 @@
   }
 }
 
-@include respond-down(mobile) {
-  .flight-lookup-form > .flight-service-popup,
-  .flight-schedule-search > .flight-service-popup {
+@include respond-down(tablet) {
+  .flight-service-popup--fullscreen {
     position: fixed;
     inset: 0;
-    z-index: get-z(toast);
+    z-index: 1000;
   }
 
   .flight-service-popup {
@@ -431,7 +504,7 @@
     overflow-y: auto;
     overscroll-behavior: contain;
     margin: 0;
-    padding: get-space(lg);
+    padding: 24px;
 
     border: 0;
     border-radius: 0;
@@ -440,8 +513,8 @@
   }
 }
 
-@include respond-down(mobile-sm) {
+@include respond-down(mobile) {
   .flight-service-panel {
-    padding: get-space(lg);
+    padding: 24px;
   }
 }

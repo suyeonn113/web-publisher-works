@@ -3,7 +3,7 @@
 
 .flight-date-picker {
   display: grid;
-  gap: get-space(lg);
+  gap: 24px;
 }
 
 .flight-date-picker__options {
@@ -12,25 +12,23 @@
 }
 
 .flight-date-picker__trip {
-  display: flex;
-  flex-wrap: wrap;
-  gap: get-space(xs);
+  flex: 0 0 auto;
 }
 
 .flight-date-picker__calendar {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: start;
-  gap: get-space(lg);
+  gap: 24px;
 }
 
 .flight-date-picker__month {
   display: grid;
-  gap: get-space(md);
+  gap: 16px;
   min-width: 0;
 
   h3 {
-    @include text-size(title);
+    font-size: 24px;
     font-weight: 500;
     line-height: 1.8;
     justify-content: center;
@@ -42,12 +40,12 @@
 .flight-date-picker__days {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  row-gap: get-space(sm);
+  row-gap: 8px;
 }
 
 .flight-date-picker__weekdays {
   text-align: center;
-  gap: get-space(xs);
+  gap: 4px;
 }
 
 .flight-date-picker__day {
@@ -103,18 +101,18 @@
   }
 }
 
-@include respond-down(tablet) {
+@include respond-down(laptop) {
   .flight-date-picker {
     padding: 0;
   }
 
   .flight-date-picker__calendar {
-    gap: get-space(md);
+    gap: 16px;
   }
 }
 
 
-@include respond-down(mobile) {
+@include respond-down(tablet) {
   .flight-date-picker {
     padding: 0;
   }
@@ -124,13 +122,13 @@
   }
 }
 
-@include respond-down(mobile-sm) {
+@include respond-down(mobile) {
   .flight-date-picker {
-    padding: get-space(md);
+    padding: 16px;
   }
 
   .flight-date-picker__calendar {
-    gap: get-space(md);
+    gap: 16px;
     padding-inline: 0;
   }
 }

@@ -5,7 +5,6 @@
 @use 'sass:map';
 
 @use './maps' as *;
-@use './functions' as *;
 
 /* =========================
    RESPONSIVE
@@ -18,7 +17,7 @@
 }
 
 @mixin respond-up($device) {
-  @media (min-width: map.get($breakpoints, $device)) {
+  @media (min-width: #{map.get($breakpoints, $device) + 1px}) {
     @content;
   }
 }
@@ -27,22 +26,22 @@
    FLEX
 ========================= */
 
-@mixin container {
+@mixin container($max-width: 1440px) {
   width: 100%;
-  max-width: var(--container-width);
-  padding: 0 var(--container-padding);
+  max-width: $max-width;
+  padding: 0 24px;
   margin: 0 auto;
 
-  @include respond-down(mobile) {
-    padding: 0 get-space(md);
+  @include respond-down(tablet) {
+    padding: 0 16px;
   }
 }
 
 @mixin section-spacing {
-  padding-block: get-space(xxl);
+  padding-block: var(--section-padding-base);
 
-  @include respond-down(mobile) {
-    padding-block: get-space(xl);
+  @include respond-down(tablet) {
+    padding-block: var(--section-padding-sm);
   }
 }
 
@@ -62,20 +61,28 @@
    TYPOGRAPHY
 ========================= */
 
-@mixin text-size($key) {
-  $size: map.get($font-sizes, $key);
+@mixin content-type-size($role) {
+  $sizes: map.get($content-type-sizes, $role);
 
-  font-size: map.get($size, default);
+  font-size: map.get($sizes, mobile);
 
-  @include respond-down(tablet) {
-    font-size: map.get($size, tablet);
+  @include respond-up(mobile) {
+    font-size: map.get($sizes, tablet);
   }
 
-  @include respond-down(mobile) {
-    font-size: map.get($size, mobile);
+  @include respond-up(laptop) {
+    font-size: map.get($sizes, desktop);
   }
+
 }
 
+@mixin content-type-rhythm($role, $language: ko) {
+  $language-rhythm: map.get($content-type-rhythm, $language);
+  $rhythm: map.get($language-rhythm, $role);
+
+  line-height: map.get($rhythm, line-height);
+  letter-spacing: map.get($rhythm, letter-spacing);
+}
 /* =========================
    ELLIPSIS
 ========================= */
@@ -107,26 +114,11 @@
 }
 
 /* =========================
-   TRANSITION
-========================= */
-
-@mixin transition(
-  $property: all,
-  $duration: base,
-  $easing: standard
-) {
-  transition:
-    $property
-    var(--duration-#{$duration})
-    var(--ease-#{$easing});
-}
-
-/* =========================
    BUTTON STATE
 ========================= */
 
 @mixin button-hover-primary {
-  @include transition(all, fast, standard);
+  transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 
   &:hover:not(:disabled),
   &:focus-visible:not(:disabled) {
@@ -136,7 +128,7 @@
 }
 
 @mixin button-hover-white {
-  @include transition(all, fast, standard);
+  transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 
   &:hover:not(:disabled),
   &:focus-visible:not(:disabled) {
@@ -146,7 +138,7 @@
 }
 
 @mixin button-hover-gray {
-  @include transition(all, fast, standard);
+  transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 
   &:hover:not(:disabled),
   &:focus-visible:not(:disabled) {
@@ -156,7 +148,7 @@
 }
 
 @mixin button-hover-subtle {
-  @include transition(all, fast, standard);
+  transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 
   &:hover:not(:disabled),
   &:focus-visible:not(:disabled) {
@@ -166,7 +158,7 @@
 }
 
 @mixin button-hover-none {
-  @include transition(all, fast, standard);
+  transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 
   &:hover:not(:disabled),
   &:focus-visible:not(:disabled) {
@@ -179,5 +171,30 @@
   &:focus-visible {
     outline: 0;
     box-shadow: inset 0 0 0 var(--focus-ring-width) var(--color-focus-ring);
+  }
+}
+
+@mixin selection-strip(
+  $thickness: var(--line-thin),
+  $color: transparent
+) {
+  --selection-strip-thickness: #{$thickness};
+  --selection-strip-color: #{$color};
+
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: var(--selection-strip-thickness);
+    pointer-events: none;
+    background: var(--selection-strip-color);
+    border-radius: var(--radius-full);
+    transition:
+      height 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
   }
 }

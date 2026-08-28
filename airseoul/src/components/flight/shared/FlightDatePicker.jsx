@@ -1,14 +1,15 @@
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
-import { TRIP_TYPES } from '../../../constants/tripType';
+import { TRIP_TYPES } from '../../../data/flight-service/tripType';
 import { formatDate, getAppNow, toDate } from '../../../utils/date';
 import { sortSelectedDates } from '../../../utils/searchParams';
 import ChevronLeftIcon from '../../icons/ChevronLeftIcon';
 import ChevronRightIcon from '../../icons/ChevronRightIcon';
+import TripTypeSelector from './TripTypeSelector';
 
 const WEEKDAYS = ['일', '월', '화', '수', '목', '금', '토'];
 
 const createMonthDate = (dateText) => {
-  const date = toDate(dateText);
+  const date = dateText ? toDate(dateText) : getAppNow();
   return new Date(date.getFullYear(), date.getMonth(), 1);
 };
 
@@ -236,24 +237,11 @@ function FlightDatePicker({
     <div className="flight-date-picker" aria-label="출발일 선택" role="group">
       {showTripTypeOptions && (
       <div className="flight-date-picker__options">
-        <div className="flight-date-picker__trip" role="group" aria-label="여정 유형">
-          <button
-            aria-pressed={tripType === TRIP_TYPES.ROUND_TRIP}
-            className={tripType === TRIP_TYPES.ROUND_TRIP ? 'is-active' : ''}
-            type="button"
-            onClick={() => onTripTypeChange(TRIP_TYPES.ROUND_TRIP)}
-          >
-            왕복
-          </button>
-          <button
-            aria-pressed={tripType === TRIP_TYPES.ONE_WAY}
-            className={tripType === TRIP_TYPES.ONE_WAY ? 'is-active' : ''}
-            type="button"
-            onClick={() => onTripTypeChange(TRIP_TYPES.ONE_WAY)}
-          >
-            편도
-          </button>
-        </div>
+        <TripTypeSelector
+          className="flight-date-picker__trip"
+          tripType={tripType}
+          onChange={onTripTypeChange}
+        />
       </div>
       )}
 

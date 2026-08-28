@@ -23,7 +23,15 @@ export const mainNav = [
     href: ROUTES.travel.root,
 
     children: [
-      { id: 'seat', label: '좌석', href: ROUTES.travel.seat },
+      {
+        id: 'seat',
+        label: '좌석',
+        href: ROUTES.travel.seat,
+        children: [
+          { id: 'seat-guide', label: '사전 좌석 구매', href: ROUTES.travel.seat },
+          { id: 'seat-adjacent', label: '옆 좌석 구매', href: `${ROUTES.travel.seat}?tab=adjacent` },
+        ],
+      },
       { id: 'baggage', label: '수하물', href: ROUTES.travel.baggage },
       { id: 'meal', label: '기내식', href: ROUTES.travel.meal },
       { id: 'insurance', label: '여행 보험', href: ROUTES.travel.insurance },

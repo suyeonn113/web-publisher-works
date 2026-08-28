@@ -1,4 +1,3 @@
-@use './functions' as *;
 @use './mixins' as *;
 
 /* ================================
@@ -78,6 +77,11 @@ a {
   text-decoration: none;
 }
 
+.app-link--disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
 ul,
 ol {
   list-style: none;
@@ -98,10 +102,15 @@ i {
   font-style: normal;
 }
 
+b,
+strong {
+  font-weight: 500;
+}
+
 :focus-visible {
   outline: var(--focus-ring-width) solid var(--color-focus-ring);
   outline-offset: 2px;
-  border-radius: var(--radius-focus);
+  border-radius: var(--radius-sm);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -162,15 +171,15 @@ i {
 
 .accessibility-quick-menu {
   position: fixed;
-  top: get-space(sm);
-  left: get-space(sm);
-  z-index: get-z(toast);
+  top: 8px;
+  left: 8px;
+  z-index: 1000;
   display: flex;
-  gap: get-space(xs);
+  gap: 4px;
   pointer-events: none;
 
   a {
-    @include text-size(caption);
+    font-size: 14px;
 
     position: absolute;
     overflow: hidden;
@@ -181,7 +190,7 @@ i {
     border-radius: var(--radius-sm);
     color: var(--color-white);
     background: var(--color-text-primary);
-    font-weight: 800;
+    font-weight: 500;
     white-space: nowrap;
   }
 
@@ -192,7 +201,7 @@ i {
     clip: auto;
     width: auto;
     height: auto;
-    padding: get-space(sm) get-space(md);
+    padding: 8px 16px;
     outline: var(--focus-ring-width) solid var(--color-focus-ring);
     outline-offset: 2px;
     pointer-events: auto;

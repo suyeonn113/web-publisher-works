@@ -1,0 +1,33 @@
+/* ================================
+   HOME TOKENS
+================================ */
+
+/* Values shared only by home sections. Header and footer values stay local. */
+:root {
+  --home-container-width: 1920px;
+  --home-color-sky-soft: #dff4ff;
+  --home-radius-lg: 24px;
+  --home-icon-size-md: 24px;
+  --home-icon-size-lg: 32px;
+  --home-section-title-size: 36px;
+  --home-motion-fast: 0.2s;
+  --home-motion-panel: 0.42s;
+  --home-motion-slow: 0.8s;
+  --home-ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+  --home-ease-smooth: cubic-bezier(0.65, 0, 0.35, 1);
+  --home-ease-panel: cubic-bezier(0.16, 1, 0.3, 1);
+  --home-fade-up-duration: var(--home-motion-slow);
+  --home-fade-up-ease: var(--home-ease-panel);
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --home-section-title-size: 32px;
+  }
+}
+
+@media (max-width: 460px) {
+  :root {
+    --home-section-title-size: 28px;
+  }
+}

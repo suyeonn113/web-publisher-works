@@ -1,15 +1,14 @@
-@use '../styles/foundation/functions' as *;
 @use '../styles/foundation/mixins' as *;
 
 .booking-page {
   width: 100%;
   min-height: 100vh;
-  padding: calc(var(--header-main-height) + #{get-space(xxl)}) var(--container-padding)
-    get-space(xxl);
+  padding: calc(112px + 48px) 24px
+    48px;
 }
 
 .booking-page__inner {
-  width: min(100%, var(--container-width));
+  width: min(100%, 1440px);
   margin: 0 auto;
 }
 
@@ -25,8 +24,8 @@
   clip: rect(0 0 0 0);
 }
 
-@include respond-down(mobile) {
+@include respond-down(tablet) {
   .booking-page {
-    padding-top: calc(var(--header-main-height-mobile) + #{get-space(xl)});
+    padding-top: calc(48px + 32px);
   }
 }

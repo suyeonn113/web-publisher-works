@@ -1,22 +1,32 @@
+import { useLayoutEffect, useRef } from 'react';
+import { createServiceShortcutRevealAnimation } from '../../../animations/home/homeSectionRevealAnimations';
 import { serviceShortcuts } from '../../../data/serviceShortcuts';
 import ServiceShortcutItem from './ServiceShortcutItem';
 
 function ServiceShortcutSection() {
+  const sectionRef = useRef(null);
+
+  useLayoutEffect(() => {
+    return createServiceShortcutRevealAnimation(sectionRef.current);
+  }, []);
+
   return (
-    <section className="service-shortcut" aria-labelledby="service-shortcut-title">
+    <section
+      className="service-shortcut"
+      ref={sectionRef}
+      aria-labelledby="service-shortcut-title"
+    >
       <div className="service-shortcut__inner">
         <div className="service-shortcut__content">
           <span className="service-shortcut__eyebrow">ADDITIONAL SERVICE</span>
 
           <h2 className="service-shortcut__title" id="service-shortcut-title">
-            부가서비스
+            여행을 더 가볍게
           </h2>
 
           <p className="service-shortcut__text">
-            <span>에어서울만의 합리적이고 편리한</span>
-            <span>부가 서비스를 미리 만나보세요.</span>
+            에어서울만의 합리적이고 편리한 부가 서비스를 미리 만나보세요.
           </p>
-
         </div>
 
         <ul className="service-shortcut__list">

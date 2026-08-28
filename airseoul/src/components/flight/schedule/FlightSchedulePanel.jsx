@@ -1,5 +1,5 @@
-﻿import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
-import { TRIP_TYPES } from '../../../constants/tripType';
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
+import { TRIP_TYPES } from '../../../data/flight-service/tripType';
 import { 
   formatKoreanMonthDay,
   getAppDateText,
@@ -14,6 +14,8 @@ import AirportSelectionPanel from '../shared/AirportSelectionPanel';
 import FlightDateField from '../shared/FlightDateField';
 import FlightDatePicker from '../shared/FlightDatePicker';
 import FlightRouteSelector from '../shared/FlightRouteSelector';
+import FlightServicePopupPortal from '../shared/FlightServicePopupPortal';
+import TripTypeSelector from '../shared/TripTypeSelector';
 import useFlightServicePopupPosition from '../shared/useFlightServicePopupPosition';
 
 const PANEL_TYPES = {
@@ -184,6 +186,7 @@ function FlightSchedulePanel({
     }
 
     return (
+      <FlightServicePopupPortal isFullScreen={isFullScreenDatePicker}>
       <div
         className={`flight-service-popup flight-service-popup--${activePanel}`}
         style={{
@@ -223,6 +226,7 @@ function FlightSchedulePanel({
           />
         )}
       </div>
+      </FlightServicePopupPortal>
     );
   };
 
@@ -256,24 +260,7 @@ function FlightSchedulePanel({
         </div>
         )}
         {searchType === SEARCH_TYPES.WEEKLY && (
-          <div className="flight-service-chips" role="group" aria-label="여정 유형">
-            <button
-              aria-pressed={tripType === TRIP_TYPES.ROUND_TRIP}
-              className={tripType === TRIP_TYPES.ROUND_TRIP ? 'is-active' : ''}
-              type="button"
-              onClick={() => handleTripTypeChange(TRIP_TYPES.ROUND_TRIP)}
-            >
-              왕복
-            </button>
-            <button
-              aria-pressed={tripType === TRIP_TYPES.ONE_WAY}
-              className={tripType === TRIP_TYPES.ONE_WAY ? 'is-active' : ''}
-              type="button"
-              onClick={() => handleTripTypeChange(TRIP_TYPES.ONE_WAY)}
-            >
-              편도
-            </button>
-          </div>
+          <TripTypeSelector tripType={tripType} onChange={handleTripTypeChange} />
         )}
         {searchType === SEARCH_TYPES.STATUS && (
         <div className="flight-service-chips" role="group" aria-label="조회 기준">
@@ -360,6 +347,9 @@ function FlightSchedulePanel({
           )}
           <FlightDateField
             departureDateLabel={departureDateLabel}
+            isRoundTrip={
+              searchType === SEARCH_TYPES.WEEKLY && tripType === TRIP_TYPES.ROUND_TRIP
+            }
             returnDateLabel={returnDateLabel}
             onClick={(event) => openPanel(PANEL_TYPES.DATE, event)}
           />

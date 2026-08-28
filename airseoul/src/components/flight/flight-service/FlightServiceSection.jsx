@@ -4,7 +4,7 @@ import FlightCheckInPanel from '../check-in/FlightCheckInPanel';
 import FlightMyTripPanel from '../my-trip/FlightMyTripPanel';
 import FlightSchedulePanel from '../schedule/FlightSchedulePanel';
 import FlightServiceTabs from './FlightServiceTabs';
-import { FLIGHT_SERVICE_TAB_IDS, FLIGHT_SERVICE_TABS } from './flightServiceTabsData';
+import { FLIGHT_SERVICE_TAB_IDS, FLIGHT_SERVICE_TABS } from '../../../data/flight-service/flightServiceTabsData';
 
 const ACTIVE_TAB_STORAGE_KEY = 'flightServiceActiveTab';
 

@@ -1,240 +1,304 @@
-@use '../styles/foundation/functions' as *;
 @use '../styles/foundation/mixins' as *;
 
-.seat-grade-table {
-  overflow: hidden;
-  border: var(--line-thin) solid var(--color-border-primary);
-  border-radius: var(--radius-sm);
+.seat-aircraft-guide {
+  gap: 20px;
+}
 
-  table {
-    width: 100%;
-    table-layout: fixed;
-    border-collapse: collapse;
-  }
+.seat-aircraft-content {
+  display: grid;
+  gap: 0;
+}
 
-  caption {
-    @include text-size(caption);
+.seat-aircraft-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  min-height: 56px;
+  border-bottom: var(--line-thin) solid var(--color-border-primary);
 
-    padding: get-space(sm) get-space(md);
+  button {
+    @include selection-strip;
+
+    min-height: 56px;
+    padding: 10px 16px;
     color: var(--color-text-secondary);
-    text-align: left;
-    caption-side: top;
-  }
+    font-weight: 500;
+    transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 
-  th,
-  td {
-    @include text-size(caption);
+    &:hover {
+      --selection-strip-color: var(--color-point-primary);
 
-    padding: get-space(md) get-space(sm);
-    color: var(--color-text-primary);
-    text-align: center;
-    word-break: keep-all;
-    border-top: var(--line-thin) solid var(--color-border-primary);
-  }
+      color: var(--color-text-interactive-hover);
+      background: transparent;
+    }
 
-  th + th,
-  td + td {
-    border-left: var(--line-thin) solid var(--color-border-primary);
-  }
+    &:focus-visible {
+      outline: 0;
+      box-shadow: inset 0 0 0 var(--focus-ring-width) var(--color-focus-ring);
+    }
 
-  thead th {
-    font-weight: 700;
-    background: var(--color-bg-mint-soft);
-  }
+    &.is-active {
+      --selection-strip-thickness: var(--line-bold);
+      --selection-strip-color: var(--color-point-primary);
 
-  thead tr:first-child th {
-    @include text-size(body);
-  }
+      color: var(--color-point-primary);
+      background: transparent;
+    }
 
-  thead tr:nth-child(2) th {
-    vertical-align: top;
-  }
-
-  th strong,
-  th span {
-    display: block;
-  }
-
-  th span {
-    margin-top: get-space(xs);
-    font-weight: 400;
-  }
-
-  td {
-    vertical-align: middle;
-    white-space: normal;
+    &.is-active:focus-visible {
+      box-shadow: inset 0 0 0 var(--focus-ring-width) var(--color-focus-ring);
+    }
   }
 }
 
-.seat-grade-cards {
-  display: none;
+.seat-aircraft-panel {
+  display: grid;
+  gap: 28px;
+  padding-top: 28px;
 }
 
-.seat-grade-mobile {
-  display: none;
+.seat-aircraft-panel > .seat-route-selector,
+.seat-guide-panel > .seat-route-selector {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 40px;
+  padding-block: 4px;
+
+  h3 { font-size: 16px; }
 }
 
-@include respond-down(tablet) {
-  .seat-grade-table {
-    display: none;
+.seat-route-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 28px;
+
+  button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 36px;
+    padding: 4px 0;
+    color: var(--color-text-secondary);
+    transition: color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+
+    &::before {
+      width: 8px;
+      height: 8px;
+      flex-shrink: 0;
+      background: var(--color-bg-main);
+      border: var(--line-thin) solid var(--color-border-gray);
+      border-radius: var(--radius-full);
+      content: '';
+    }
+
+    &:hover {
+      color: var(--color-text-interactive-hover);
+      background: transparent;
+      text-decoration: underline;
+      text-decoration-thickness: var(--line-thin);
+      text-underline-offset: 4px;
+    }
+
+    &:focus-visible {
+      outline-offset: 4px;
+    }
+
+    &.is-active {
+      color: var(--color-point-primary);
+      font-weight: 500;
+      background: transparent;
+
+      &::before {
+        background: var(--color-point-primary);
+        border-color: var(--color-point-primary);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-point-primary) 12%, transparent);
+      }
+    }
   }
+}
 
-  .seat-grade-cards {
+.seat-aircraft-panel__section {
+  display: grid;
+  gap: 16px;
+}
+
+.seat-aircraft-zone-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+
+  > div {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: get-space(md);
+    grid-template-rows: auto 1fr;
+    gap: 16px;
+    min-width: 0;
 
-    article {
-      display: grid;
-      grid-template-rows: auto 1fr;
-      overflow: hidden;
-      border: var(--line-thin) solid var(--color-border-primary);
-      border-radius: var(--radius-sm);
-    }
-
-    h3 {
-      padding: get-space(md);
-      text-align: center;
-      background: var(--color-bg-mint-soft);
-    }
-
-    dl {
-      display: grid;
-      grid-template-rows: repeat(4, 1fr);
-    }
-
-    dl > div {
-      display: grid;
-      grid-template-columns: 44% 56%;
-
-      & + div {
-        border-top: var(--line-thin) solid var(--color-border-primary);
-      }
-    }
-
-    dt,
-    dd {
-      @include text-size(caption);
-
-      padding: get-space(md);
-      color: var(--color-text-primary);
-      word-break: keep-all;
-    }
-
-    dt {
-      font-weight: 700;
-      background: var(--color-bg-sub);
-
-      span {
-        display: block;
-        margin-top: get-space(xs);
-        font-weight: 400;
-      }
-    }
-
-    dd {
+    & + div {
+      padding-left: 16px;
       border-left: var(--line-thin) solid var(--color-border-primary);
     }
   }
+
+  dt,
+  dd {
+    color: var(--color-text-primary);
+  }
+
+  dt {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+
+    strong {
+      color: var(--color-text-primary);
+      font-weight: 500;
+    }
+
+    span {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+    }
+  }
+
+  dd {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    gap: 16px;
+    font-size: 15px;
+  }
+
+  .seat-aircraft-zone-list__label {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+  }
+
+  .seat-aircraft-zone-list__seat,
+  .seat-aircraft-zone-list__fare {
+    display: grid;
+    align-content: start;
+    gap: 6px;
+  }
+
+  .seat-aircraft-zone-list__seat-value {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.6;
+  }
+
+  .seat-aircraft-zone-list__fare {
+    padding: 12px 14px;
+    background: var(--color-bg-neutral-soft);
+    border-radius: var(--radius-sm);
+  }
+
+  .seat-aircraft-zone-list__price {
+    color: var(--color-point-primary);
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.2;
+  }
 }
 
-@include respond-down(mobile) {
-  .seat-grade-cards {
-    display: none;
+.seat-aircraft-panel__price-note {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.seat-aircraft-map {
+  display: grid;
+  gap: 16px;
+  overflow-x: auto;
+
+  figcaption {
+    font-size: 18px;
+    color: var(--color-text-primary);
+    font-weight: 500;
   }
+}
 
-  .seat-grade-mobile {
-    display: grid;
-    gap: get-space(sm);
-  }
+@include respond-down(laptop) {
+  .seat-aircraft-zone-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 
-  .seat-grade-mobile__tabs {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    overflow: hidden;
-    border: var(--line-thin) solid var(--color-border-primary);
-    border-radius: var(--radius-sm);
+    > div {
+      padding-left: 0;
+      border-left: 0;
 
-    button {
-      @include text-size(body);
-      @include transition(all, fast, standard);
-      @include clipped-focus-ring;
-
-      min-height: 48px;
-      padding: get-space(sm);
-      color: var(--color-text-primary);
-      font-weight: 700;
-      word-break: keep-all;
-
-      & + button {
+      &:nth-child(even) {
+        padding-left: 16px;
         border-left: var(--line-thin) solid var(--color-border-primary);
       }
 
-      &:hover,
-      &:focus-visible {
-        color: var(--color-text-interactive-hover);
-        background: var(--color-bg-interactive-hover);
-      }
-
-      &.is-active {
-        color: var(--color-text-inverse);
-        background: var(--color-point-primary);
-      }
-    }
-  }
-
-  .seat-grade-mobile__panel {
-    overflow: hidden;
-    border: var(--line-thin) solid var(--color-border-primary);
-    border-radius: var(--radius-sm);
-
-    dl {
-      display: grid;
-    }
-
-    dl > div {
-      display: grid;
-      grid-template-columns: 44% 56%;
-
-      & + div {
+      &:nth-child(n + 3) {
+        padding-top: 16px;
         border-top: var(--line-thin) solid var(--color-border-primary);
       }
-    }
-
-    dt,
-    dd {
-      @include text-size(body);
-
-      padding: get-space(md);
-      color: var(--color-text-primary);
-      word-break: keep-all;
-    }
-
-    dt {
-      font-weight: 700;
-      background: var(--color-bg-sub);
-
-      span {
-        display: block;
-        margin-top: get-space(xs);
-        font-weight: 400;
-      }
-    }
-
-    dd {
-      border-left: var(--line-thin) solid var(--color-border-primary);
     }
   }
 }
 
-@include respond-down(mobile-sm) {
-  .seat-grade-mobile__panel {
-    dl > div {
-      grid-template-columns: 1fr;
+@include respond-down(tablet) {
+  .seat-aircraft-panel {
+    gap: 24px;
+    padding-top: 24px;
+  }
+
+}
+
+@include respond-down(mobile) {
+  .seat-aircraft-tabs {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
     }
 
-    dd {
+    button {
+      flex: 0 0 164px;
+      scroll-snap-align: start;
+    }
+  }
+
+  .seat-aircraft-panel {
+    padding-top: 20px;
+  }
+
+  .seat-aircraft-panel > .seat-route-selector,
+  .seat-guide-panel > .seat-route-selector {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .seat-route-tabs {
+    gap: 4px 16px;
+
+    button {
+      flex: 0 0 calc(50% - 8px);
+    }
+  }
+
+  .seat-aircraft-zone-list {
+    grid-template-columns: 1fr;
+
+    > div,
+    > div:nth-child(even) {
+      padding-left: 0;
       border-left: 0;
     }
+
+    > div + div {
+      padding-top: 16px;
+      border-top: var(--line-thin) solid var(--color-border-primary);
+    }
+  }
+
+  .seat-aircraft-zone-list dt,
+  .seat-aircraft-zone-list dd {
+    min-height: 0;
   }
 }
