@@ -321,7 +321,7 @@
 }
 
 .home-info-about__inner {
-  @include container(1440px);
+  @include container(1680px);
 
   display: grid;
   grid-template-columns: minmax(300px, 0.72fr) minmax(0, 1.5fr);
