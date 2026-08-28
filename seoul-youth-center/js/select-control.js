@@ -60,7 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
         trigger.setAttribute('aria-expanded', 'false');
         trigger.setAttribute('aria-controls', optionsId);
         trigger.setAttribute('aria-labelledby', `${labelId} ${triggerTextId}`);
-        if (select.required) trigger.setAttribute('aria-required', 'true');
         if (select.hasAttribute('aria-invalid')) trigger.setAttribute('aria-invalid', select.getAttribute('aria-invalid'));
         if (select.hasAttribute('aria-describedby')) trigger.setAttribute('aria-describedby', select.getAttribute('aria-describedby'));
 
